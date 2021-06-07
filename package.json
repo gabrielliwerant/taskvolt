@@ -1,0 +1,42 @@
+{
+  "name": "taskvolt",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint */**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.2.6",
+    "eslint": "^7.16.0",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-vue": "^7.3.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielliwerant/taskvolt.git"
+  },
+  "author": "Gabriel Liwerant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielliwerant/taskvolt/issues"
+  },
+  "homepage": "https://github.com/gabrielliwerant/taskvolt#readme"
+}
