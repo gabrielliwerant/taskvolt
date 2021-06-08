@@ -18,6 +18,7 @@ const todosSlice = createSlice({
     },
     edit: (state, action) => { state[action.payload.id].isEditActive = true; },
     save: (state, action) => { state[action.payload.id].isEditActive = false; },
+    remove: (state, action) => { delete state[action.payload.id]; },
     change: (state, action) => {
       state[action.payload.id].text = action.payload.text;
     }
