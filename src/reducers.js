@@ -5,7 +5,8 @@ const initialState = { todos: {} };
 const makeNewTodo = (id, text) => ({
   id,
   text,
-  isEditActive: false
+  isEditActive: false,
+  isComplete: false
 });
 
 const todosSlice = createSlice({
@@ -19,6 +20,9 @@ const todosSlice = createSlice({
     edit: (state, action) => { state[action.payload.id].isEditActive = true; },
     save: (state, action) => { state[action.payload.id].isEditActive = false; },
     remove: (state, action) => { delete state[action.payload.id]; },
+    complete: (state, action) => {
+      state[action.payload.id].isComplete = action.payload.checked;
+    },
     change: (state, action) => {
       state[action.payload.id].text = action.payload.text;
     }

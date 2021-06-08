@@ -4,12 +4,23 @@ import { connect } from 'react-redux';
 
 import { todosSlice } from '../reducers';
 
-const Todo = ({ todo, onChange, edit, save, remove }) => {
+const Todo = ({ todo, edit, save, remove, change, complete }) => {
+  const onComplete = id => e => complete({ id, checked: e.target.checked });
+  const onChange = id => e => change({ id, text: e.target.value });
+
   return (
     <li key={todo.id} id={todo.id}>
+      <input
+        onChange={onComplete(todo.id)}
+        type='checkbox'
+        checked={todo.isComplete}
+      />
       <span
         onClick={edit({ id: todo.id })}
-        style={{ display: todo.isEditActive ? 'none' : 'inline' }}
+        style={{
+          display: todo.isEditActive ? 'none' : 'inline',
+          textDecoration: todo.isComplete ? 'line-through' : 'none'
+        }}
       >
         {todo.text}
       </span>
@@ -31,13 +42,17 @@ Todo.propTypes = {
   onChange: PropTypes.func,
   edit: PropTypes.func,
   save: PropTypes.func,
-  remove: PropTypes.func
+  remove: PropTypes.func,
+  change: PropTypes.func,
+  complete: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => ({
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
   save: id => () => dispatch(todosSlice.actions.save(id)),
-  remove: id => () => dispatch(todosSlice.actions.remove(id))
+  remove: id => () => dispatch(todosSlice.actions.remove(id)),
+  change: id => dispatch(todosSlice.actions.change(id)),
+  complete: id => dispatch(todosSlice.actions.complete(id))
 });
 
 export default connect(null, mapDispatchToProps)(Todo);

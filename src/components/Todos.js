@@ -7,14 +7,14 @@ import { todosSlice } from '../reducers';
 
 import Todo from './Todo';
 
-const Todos = ({ todos, add, change }) => {
-  const onChange = id => e => change({ id, text: e.target.value });
-
+const Todos = ({ todos, add }) => {
   return (
     <>
       <div>Todo List</div>
       <ul>
-        {Object.values(todos).map(todo => <Todo todo={todo} onChange={onChange} />)}
+        {Object.values(todos).map(todo => (
+          <Todo todo={todo} key={todo.id} />
+        ))}
       </ul>
       <button onClick={add}>Add Todo</button>
     </>
@@ -23,8 +23,7 @@ const Todos = ({ todos, add, change }) => {
 
 Todos.propTypes = {
   todos: PropTypes.object,
-  add: PropTypes.func,
-  change: PropTypes.func
+  add: PropTypes.func
 };
 
 const mapStateToProps = () => ({
@@ -32,8 +31,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: () => dispatch(todosSlice.actions.add()),
-  change: (id, text) => dispatch(todosSlice.actions.change(id, text))
+  add: () => dispatch(todosSlice.actions.add())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
