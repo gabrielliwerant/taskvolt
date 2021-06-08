@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getTodos } from './selectors';
@@ -33,6 +34,14 @@ const Todos = ({ todos, add, edit, save, change }) => {
       <button onClick={add}>Add Todo</button>
     </>
   );
+};
+
+Todos.propTypes = {
+  todos: PropTypes.object,
+  add: PropTypes.func,
+  edit: PropTypes.func,
+  save: PropTypes.func,
+  change: PropTypes.func
 };
 
 const mapStateToProps = () => ({
