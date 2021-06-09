@@ -9,13 +9,13 @@ const Todo = ({ todo, edit, save, remove, change, complete }) => {
   const onChange = id => e => change({ id, text: e.target.value });
 
   return (
-    <li key={todo.id} id={todo.id}>
+    <>
       <input
         onChange={onComplete(todo.id)}
         type='checkbox'
         checked={todo.isComplete}
       />
-      <span
+      <button
         onClick={edit({ id: todo.id })}
         style={{
           display: todo.isEditActive ? 'none' : 'inline',
@@ -23,7 +23,7 @@ const Todo = ({ todo, edit, save, remove, change, complete }) => {
         }}
       >
         {todo.text}
-      </span>
+      </button>
       <div style={{ display: todo.isEditActive ? 'block' : 'none' }}>
         <input
           onChange={onChange(todo.id)}
@@ -33,7 +33,7 @@ const Todo = ({ todo, edit, save, remove, change, complete }) => {
         <button onClick={save({ id: todo.id })}>Save</button>
       </div>
       <button onClick={remove({ id: todo.id })}>Remove</button>
-    </li>
+    </>
   );
 };
 
