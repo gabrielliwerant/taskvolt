@@ -1,10 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
+const classNames = require('classnames');
 
 import { todosSlice } from '../reducers';
 
+const useStyles = createUseStyles({
+  active: {
+    display: 'inline'
+  },
+  inactive: {
+    display: 'none'
+  },
+  complete: {
+    textDecoration: 'line-through'
+  },
+  incomplete: {
+    textDecoration: 'none'
+  }
+});
+
 const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
+  const classes = useStyles();
   const onComplete = id => e => complete({ id, checked: e.target.checked });
   const onChange = id => e => change({ id, draft: e.target.value });
 
@@ -17,14 +35,21 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
       />
       <button
         onClick={edit({ id: todo.id })}
-        style={{
-          display: todo.isEditActive ? 'none' : 'inline',
-          textDecoration: todo.isComplete ? 'line-through' : 'none'
-        }}
+        className={classNames({
+          [classes.active]: !todo.isEditActive,
+          [classes.inactive]: todo.isEditActive,
+          [classes.complete]: todo.isComplete,
+          [classes.incomplete]: !todo.isComplete
+        })}
       >
         {todo.text.final}
       </button>
-      <div style={{ display: todo.isEditActive ? 'block' : 'none' }}>
+      <div
+        className={classNames({
+          [classes.active]: todo.isEditActive,
+          [classes.inactive]: !todo.isEditActive
+        })}
+      >
         <input
           onChange={onChange(todo.id)}
           type='text'
