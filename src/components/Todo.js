@@ -66,14 +66,13 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
 };
 
 Todo.propTypes = {
-  todo: PropTypes.object,
-  onChange: PropTypes.func,
-  edit: PropTypes.func,
-  save: PropTypes.func,
-  cancel: PropTypes.func,
-  remove: PropTypes.func,
-  change: PropTypes.func,
-  complete: PropTypes.func
+  todo: PropTypes.object.isRequired,
+  edit: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired,
+  cancel: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
+  complete: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({

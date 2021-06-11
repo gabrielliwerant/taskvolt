@@ -28,9 +28,9 @@ const Todos = ({ todos, add, reorder }) => {
 };
 
 Todos.propTypes = {
-  todos: PropTypes.array,
-  add: PropTypes.func,
-  reorder: PropTypes.func
+  todos: PropTypes.array.isRequired,
+  add: PropTypes.func.isRequired,
+  reorder: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
