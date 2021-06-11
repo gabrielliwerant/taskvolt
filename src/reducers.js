@@ -2,9 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { todos: { items: {}, sort: [] } };
 
-const makeNewTodo = (id, text) => ({
+const makeNewTodo = (id, final) => ({
   id,
-  text,
+  text: {
+    draft: final,
+    final
+  },
   isEditActive: false,
   isComplete: false
 });
@@ -18,14 +21,24 @@ const todosSlice = createSlice({
       state.items[id] = makeNewTodo(id, 'New todo');
       state.sort.push(id);
     },
-    edit: (state, action) => { state.items[action.payload.id].isEditActive = true; },
-    save: (state, action) => { state.items[action.payload.id].isEditActive = false; },
+    edit: (state, action) => {
+      state.items[action.payload.id].isEditActive = true;
+    },
+    save: (state, action) => {
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.final = action.payload.draft;
+    },
+    cancel: (state, action) => {
+      const final = state.items[action.payload.id].text.final;
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.draft = final;
+    },
     remove: (state, action) => { delete state.items[action.payload.id]; },
     complete: (state, action) => {
       state.items[action.payload.id].isComplete = action.payload.checked;
     },
     change: (state, action) => {
-      state.items[action.payload.id].text = action.payload.text;
+      state.items[action.payload.id].text.draft = action.payload.draft;
     },
     reorder: (state, action) => {
       const orderedId = state.sort[action.payload.oldIndex];
