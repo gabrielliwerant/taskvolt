@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 const classNames = require('classnames');
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
+import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
 import { todosSlice } from '../reducers';
+import Button from './Button';
 
 const useStyles = createUseStyles({
   active: {
@@ -33,9 +37,9 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
         type='checkbox'
         checked={todo.isComplete}
       />
-      <button
+      <Button
         onClick={edit({ id: todo.id })}
-        className={classNames({
+        myClassNames={classNames({
           [classes.active]: !todo.isEditActive,
           [classes.inactive]: todo.isEditActive,
           [classes.complete]: todo.isComplete,
@@ -43,7 +47,7 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
         })}
       >
         {todo.text.final}
-      </button>
+      </Button>
       <div
         className={classNames({
           [classes.active]: todo.isEditActive,
@@ -55,12 +59,14 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
           type='text'
           value={todo.text.draft}
         />
-        <button onClick={save({ id: todo.id, draft: todo.text.draft })}>
-          Save
-        </button>
-        <button onClick={cancel({ id: todo.id })}>Cancel</button>
+        <Button onClick={save({ id: todo.id, draft: todo.text.draft })} isIcon>
+          <CheckTwoToneIcon />
+        </Button>
+        <Button onClick={cancel({ id: todo.id })} isIcon>
+          <CloseTwoToneIcon />
+        </Button>
       </div>
-      <button onClick={remove({ id: todo.id })}>Remove</button>
+      <Button onClick={remove({ id: todo.id })} isIcon><DeleteTwoToneIcon /></Button>
     </>
   );
 };

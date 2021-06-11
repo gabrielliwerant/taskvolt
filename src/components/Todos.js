@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'react-movable';
 import { connect } from 'react-redux';
+import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { getItemsSort } from '../selectors';
 import { todosSlice } from '../reducers';
+import Button from './Button';
 
 import Todo from './Todo';
 
@@ -22,7 +24,7 @@ const Todos = ({ todos, add, reorder }) => {
           </li>
         )}
       />
-      <button onClick={add}>Add Todo</button>
+      <Button onClick={add} isIcon><AddTwoToneIcon /></Button>
     </>
   );
 };
