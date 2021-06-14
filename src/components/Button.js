@@ -52,7 +52,7 @@ const Button = ({ onClick, myClassNames, isIcon, children }) => {
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   myClassNames: PropTypes.string,
-  isIcon: PropTypes.boolean,
+  isIcon: PropTypes.bool,
   children: PropTypes.node.isRequired
 };
 
