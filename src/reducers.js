@@ -33,7 +33,9 @@ const todosSlice = createSlice({
       state.items[action.payload.id].isEditActive = false;
       state.items[action.payload.id].text.draft = final;
     },
-    remove: (state, action) => { delete state.items[action.payload.id]; },
+    remove: (state, action) => {
+      state.sort = state.sort.filter(id => id !== action.payload.id);
+    },
     complete: (state, action) => {
       state.items[action.payload.id].isComplete = action.payload.checked;
     },
