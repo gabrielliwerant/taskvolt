@@ -4,7 +4,6 @@ import { createUseStyles } from 'react-jss';
 const classNames = require('classnames');
 
 const buttonStyles = {
-  minHeight: '37px',
   backgroundColor: '#1976d2',
   border: '1px solid #1976d2',
   color: '#ffffff',
@@ -13,10 +12,10 @@ const buttonStyles = {
   cursor: 'pointer',
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: 500,
-  fontSize: '0.75rem',
+  fontSize: '0.5rem',
   transition: 'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
   textTransform: 'uppercase',
-  "&:hover": {
+  '&:hover': {
     backgroundColor: 'rgb(17, 82, 147)'
   }
 };
@@ -28,7 +27,7 @@ const useStyles = createUseStyles({
   },
   iconButton: {
     ...buttonStyles,
-    padding: '4px'
+    padding: '1px'
   }
 });
 
