@@ -17,6 +17,10 @@ const buttonStyles = {
   textTransform: 'uppercase',
   '&:hover': {
     backgroundColor: 'rgb(17, 82, 147)'
+  },
+  '&:focus': {
+    outline: 'none',
+    boxShadow: '0 0 3px 2px #1982D2'
   }
 };
 
