@@ -19,6 +19,9 @@
       "version": "detect"
     }
   },
+  "globals": {
+    "require": true
+  },
   "rules": {
     "indent": [
       "error",
