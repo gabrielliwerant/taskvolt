@@ -9,7 +9,8 @@ const makeNewTodo = (id, final) => ({
     final
   },
   isEditActive: false,
-  isComplete: false
+  isComplete: false,
+  isRemoved: false,
 });
 
 const todosSlice = createSlice({
@@ -35,6 +36,7 @@ const todosSlice = createSlice({
     },
     remove: (state, action) => {
       state.sort = state.sort.filter(id => id !== action.payload.id);
+      state.items[action.payload.id].isRemoved = true;
     },
     complete: (state, action) => {
       state.items[action.payload.id].isComplete = action.payload.checked;
