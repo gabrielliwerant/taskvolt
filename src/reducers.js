@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { todos: { items: {}, sort: [] } };
+const makeId = () => Math.floor(Math.random() * 1000000);
 
 const makeNewTodo = (id, final) => ({
   id,
@@ -10,15 +10,29 @@ const makeNewTodo = (id, final) => ({
   },
   isEditActive: false,
   isComplete: false,
-  isRemoved: false,
+  isRemoved: false
 });
+
+const makeNewList = (id, final) => ({
+  id,
+  text: {
+    draft: final,
+    final
+  },
+  isEditActive: false
+});
+
+const initialState = {
+  list: { items: { '0': { ...makeNewList(0, 'Todo List') } } },
+  todos: { items: {}, sort: [] }
+};
 
 const todosSlice = createSlice({
   name: 'todos',
   initialState: initialState.todos,
   reducers: {
     add: state => {
-      const id = Math.floor(Math.random() * 1000000);
+      const id = makeId();
       state.items[id] = makeNewTodo(id, 'New todo');
       state.sort.push(id);
     },
@@ -52,4 +66,26 @@ const todosSlice = createSlice({
   }
 });
 
-export { todosSlice };
+const listSlice = createSlice({
+  name: 'list',
+  initialState: initialState.list,
+  reducers: {
+    edit: (state, action) => {
+      state.items[action.payload.id].isEditActive = true;
+    },
+    save: (state, action) => {
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.final = action.payload.draft;
+    },
+    cancel: (state, action) => {
+      const final = state.items[action.payload.id].text.final;
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.draft = final;
+    },
+    change: (state, action) => {
+      state.items[action.payload.id].text.draft = action.payload.draft;
+    }
+  }
+});
+
+export { todosSlice, listSlice };

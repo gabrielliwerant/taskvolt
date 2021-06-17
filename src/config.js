@@ -6,11 +6,12 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { todosSlice } from './reducers';
+import { todosSlice, listSlice } from './reducers';
 
 const store = configureStore({
   reducer: combineReducers({
-    todos: todosSlice.reducer
+    todos: todosSlice.reducer,
+    list: listSlice.reducer
   }),
   middleware: []
 });

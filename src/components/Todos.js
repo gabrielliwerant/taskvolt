@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
-import { getItemsSort } from '../selectors';
-import { todosSlice } from '../reducers';
+import { getItemsSort, getListItems } from '../selectors';
+import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
-
+import NameInputEdit from './NameInputEdit';
 import Todo from './Todo';
 
 const useStyles = createUseStyles({
@@ -19,9 +19,7 @@ const useStyles = createUseStyles({
   list: {
     paddingInlineStart: 0
   },
-  listTitle: {
-    fontFamily: '"Roboto", arial, sans-serif',
-    fontSize: '20px',
+  listTitleContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -37,16 +35,40 @@ const useStyles = createUseStyles({
     '&:focus': {
       outline: 'none'
     }
+  },
+  text: {
+    fontFamily: '"Roboto", arial, sans-serif',
+    fontSize: '20px'
   }
 });
 
-const Todos = ({ todos, add, reorder }) => {
+const Todos = ({
+  todos,
+  list,
+  add,
+  reorder,
+  edit,
+  change,
+  save,
+  cancel
+}) => {
   const classes = useStyles();
+  const onChange = id => e => change({ id, draft: e.target.value });
 
   return (
     <div className={classes.container}>
-      <div className={classes.listTitle}>
-        <span>Todo List</span>
+      <div className={classes.listTitleContainer}>
+        <NameInputEdit
+          onClickEdit={edit({ id: list.id })}
+          onChangeEdit={onChange(list.id)}
+          onClickSave={save({ id: list.id, draft: list.text.draft })}
+          onClickCancel={cancel({ id: list.id })}
+          textFinal={list.text.final}
+          textDraft={list.text.draft}
+          isEditActive={list.isEditActive}
+          isComplete={false}
+          myClassNames={{ text: classes.text }}
+        />
         <Button onClick={add} isIcon><AddTwoToneIcon /></Button>
       </div>
       <List
@@ -67,17 +89,27 @@ const Todos = ({ todos, add, reorder }) => {
 
 Todos.propTypes = {
   todos: PropTypes.array.isRequired,
+  list: PropTypes.object.isRequired,
   add: PropTypes.func.isRequired,
-  reorder: PropTypes.func.isRequired
+  reorder: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired,
+  cancel: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
-  todos: getItemsSort()
+  todos: getItemsSort(),
+  list: getListItems()
 });
 
 const mapDispatchToProps = dispatch => ({
   add: () => dispatch(todosSlice.actions.add()),
-  reorder: (oldIndex, newIndex) => dispatch(todosSlice.actions.reorder(oldIndex, newIndex))
+  reorder: (oldIndex, newIndex) => dispatch(todosSlice.actions.reorder(oldIndex, newIndex)),
+  edit: id => () => dispatch(listSlice.actions.edit(id)),
+  save: (id, draft) => () => dispatch(listSlice.actions.save(id, draft)),
+  cancel: id => () => dispatch(listSlice.actions.cancel(id)),
+  change: id => dispatch(listSlice.actions.change(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);

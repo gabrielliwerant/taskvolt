@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
+import { isEmpty } from 'lodash';
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
@@ -22,11 +23,13 @@ const useStyles = createUseStyles({
     cursor: 'text',
     border: 'none',
     height: '16px',
-    fontFamily: '"Roboto", arial, sans-serif',
-    fontSize: '14px',
     '&:focus': {
       outline: 'none'
     }
+  },
+  text: {
+    fontFamily: '"Roboto", arial, sans-serif',
+    fontSize: '14px'
   }
 });
 
@@ -39,6 +42,7 @@ const NameInput = ({
   myClassNames
 }) => {
   const classes = useStyles();
+  const myClasses = Object.values(myClassNames).join(' ');
 
   return (
     <input
@@ -47,7 +51,8 @@ const NameInput = ({
       onChange={onChange}
       onClick={onClick}
       className={classNames({
-        [myClassNames]: myClassNames,
+        [myClasses]: !isEmpty(myClassNames),
+        [classes.text]: !myClassNames?.text,
         [classes.active]: !isEditActive,
         [classes.inactive]: isEditActive,
         [classes.complete]: isComplete,
@@ -64,7 +69,7 @@ NameInput.propTypes = {
   onClick: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  myClassNames: PropTypes.string
+  myClassNames: PropTypes.object
 };
 
 NameInput.defaultProps = {
@@ -73,7 +78,7 @@ NameInput.defaultProps = {
   onClick: () => {},
   onChange: () => {},
   value: '',
-  myClassNames: ''
+  myClassNames: {}
 };
 
 export default NameInput;

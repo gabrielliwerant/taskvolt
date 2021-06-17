@@ -2,23 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
-import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
-import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
 import { todosSlice } from '../reducers';
-import Button from './Button';
-import NameInput from './NameInput';
+import NameInputEdit from './NameInputEdit';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  active: {
-    display: 'inline-flex'
-  },
-  inactive: {
-    display: 'none'
-  },
   complete: {
     textDecoration: 'line-through',
     opacity: '0.5'
@@ -31,15 +21,6 @@ const useStyles = createUseStyles({
     background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
     display: 'flex',
     alignItems: 'center'
-  },
-  itemEditContainer: {
-    alignItems: 'center',
-  },
-  itemEditButtonsContainer: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '278px'
   }
 });
 
@@ -61,32 +42,18 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
           type='checkbox'
           checked={todo.isComplete}
         />
-        <div className={classes.itemEditButtonsContainer}>
-          <NameInput
-            onClick={edit({ id: todo.id })}
-            value={todo.text.final}
-            isEditActive={todo.isEditActive}
-            isComplete={todo.isComplete}
-          />
-          <div
-            className={classNames({
-              [classes.active]: todo.isEditActive,
-              [classes.inactive]: !todo.isEditActive,
-              [classes.itemEditContainer]: true
-            })}
-          >
-            <NameInput onChange={onChange(todo.id)} value={todo.text.draft} />
-            <Button onClick={save({ id: todo.id, draft: todo.text.draft })} isIcon>
-              <CheckTwoToneIcon />
-            </Button>
-            <Button onClick={cancel({ id: todo.id })} isIcon>
-              <CloseTwoToneIcon />
-            </Button>
-          </div>
-          <Button onClick={remove({ id: todo.id })} isIcon>
-            <DeleteTwoToneIcon />
-          </Button>
-        </div>
+        <NameInputEdit
+          onClickEdit={edit({ id: todo.id })}
+          onChangeEdit={onChange(todo.id)}
+          onClickSave={save({ id: todo.id, draft: todo.text.draft })}
+          onClickCancel={cancel({ id: todo.id })}
+          onClickRemove={remove({ id: todo.id })}
+          hasRemove
+          textFinal={todo.text.final}
+          textDraft={todo.text.draft}
+          isEditActive={todo.isEditActive}
+          isComplete={todo.isComplete}
+        />
       </div>
     </>
   );
