@@ -8,6 +8,7 @@ import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
 import { todosSlice } from '../reducers';
 import Button from './Button';
+import NameInput from './NameInput';
 
 const classNames = require('classnames');
 
@@ -21,9 +22,6 @@ const useStyles = createUseStyles({
   complete: {
     textDecoration: 'line-through',
     opacity: '0.5'
-  },
-  incomplete: {
-    textDecoration: 'none'
   },
   itemContainer: {
     padding: '4px',
@@ -42,17 +40,6 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '278px'
-  },
-  item: {
-    background: 'transparent',
-    cursor: 'text',
-    border: 'none',
-    height: '16px',
-    fontFamily: '"Roboto", arial, sans-serif',
-    fontSize: '14px',
-    '&:focus': {
-      outline: 'none'
-    }
   }
 });
 
@@ -75,18 +62,11 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
           checked={todo.isComplete}
         />
         <div className={classes.itemEditButtonsContainer}>
-          <input
-            onChange={() => {}}
+          <NameInput
             onClick={edit({ id: todo.id })}
-            type='text'
             value={todo.text.final}
-            className={classNames({
-              [classes.active]: !todo.isEditActive,
-              [classes.inactive]: todo.isEditActive,
-              [classes.complete]: todo.isComplete,
-              [classes.incomplete]: !todo.isComplete,
-              [classes.item]: true
-            })}
+            isEditActive={todo.isEditActive}
+            isComplete={todo.isComplete}
           />
           <div
             className={classNames({
@@ -95,12 +75,7 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
               [classes.itemEditContainer]: true
             })}
           >
-            <input
-              onChange={onChange(todo.id)}
-              type='text'
-              value={todo.text.draft}
-              className={classes.item}
-            />
+            <NameInput onChange={onChange(todo.id)} value={todo.text.draft} />
             <Button onClick={save({ id: todo.id, draft: todo.text.draft })} isIcon>
               <CheckTwoToneIcon />
             </Button>
