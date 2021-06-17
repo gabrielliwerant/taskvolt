@@ -12,8 +12,19 @@ import Button from './Button';
 import Todo from './Todo';
 
 const useStyles = createUseStyles({
+  container: {
+    width: '310px',
+    margin: 'auto'
+  },
   list: {
     paddingInlineStart: 0
+  },
+  listTitle: {
+    fontFamily: '"Roboto", arial, sans-serif',
+    fontSize: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   item: {
     cursor: 'grab',
@@ -33,8 +44,11 @@ const Todos = ({ todos, add, reorder }) => {
   const classes = useStyles();
 
   return (
-    <>
-      <div>Todo List</div>
+    <div className={classes.container}>
+      <div className={classes.listTitle}>
+        <span>Todo List</span>
+        <Button onClick={add} isIcon><AddTwoToneIcon /></Button>
+      </div>
       <List
         onChange={({ oldIndex, newIndex }) => reorder({ oldIndex, newIndex })}
         values={todos}
@@ -47,8 +61,7 @@ const Todos = ({ todos, add, reorder }) => {
           </li>
         )}
       />
-      <Button onClick={add} isIcon><AddTwoToneIcon /></Button>
-    </>
+    </div>
   );
 };
 
