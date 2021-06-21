@@ -9,15 +9,21 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { todosSlice, listSlice } from './reducers';
 import { LOCAL_STORAGE_KEY } from './constants';
 
+/**
+ * Store todo data in local storage after latest state reduce.
+ *
+ * @param {object} action
+ * @returns {object} action
+ */
 const storeLocal = store => next => action => {
-  const reduced = next(action);
-  
+  const nextAction = next(action);
+
   window.localStorage.setItem(
     LOCAL_STORAGE_KEY,
     JSON.stringify(store.getState())
   );
 
-  return reduced;
+  return nextAction;
 };
 
 const store = configureStore({

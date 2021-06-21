@@ -2,8 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { LOCAL_STORAGE_KEY } from './constants';
 
+/**
+ * Create ids for new lists/items
+ *
+ * @returns {number}
+ */
 const makeId = () => Math.floor(Math.random() * 1000000);
 
+/**
+ * Create new todo item
+ *
+ * @param {number} id
+ * @param {string} final
+ * @returns {object}
+ */
 const makeNewTodo = (id, final) => ({
   id,
   text: {
@@ -15,6 +27,13 @@ const makeNewTodo = (id, final) => ({
   isRemoved: false
 });
 
+/**
+ * Create new todo list
+ *
+ * @param {number} id
+ * @param {string} final
+ * @returns {object}
+ */
 const makeNewList = (id, final) => ({
   id,
   text: {
@@ -24,6 +43,11 @@ const makeNewList = (id, final) => ({
   isEditActive: false
 });
 
+/**
+ * Retrieve data from local storage or initial data structure.
+ *
+ * @returns {object}
+ */
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
