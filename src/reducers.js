@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { LOCAL_STORAGE_KEY } from './constants';
+
 const makeId = () => Math.floor(Math.random() * 1000000);
 
 const makeNewTodo = (id, final) => ({
@@ -22,10 +24,18 @@ const makeNewList = (id, final) => ({
   isEditActive: false
 });
 
-const initialState = {
-  list: { items: { '0': { ...makeNewList(0, 'Todo List') } } },
-  todos: { items: {}, sort: [] }
+const getInitialState = () => {
+  const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+  const initial = {
+    list: { items: { '0': { ...makeNewList(0, 'Todo List') } } },
+    todos: { items: {}, sort: [] }
+  };
+
+  if (local) return JSON.parse(local);
+  return initial;
 };
+
+const initialState = getInitialState();
 
 const todosSlice = createSlice({
   name: 'todos',
