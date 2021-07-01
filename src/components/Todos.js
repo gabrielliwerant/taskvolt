@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
     margin: 'auto'
   },
   list: {
-    paddingInlineStart: 0
+    marginTop: '7px'
   },
   listTitleContainer: {
     display: 'flex',
@@ -26,7 +26,6 @@ const useStyles = createUseStyles({
   },
   item: {
     cursor: 'grab',
-    listStyle: 'none',
     width: '334px',
     marginBottom: '4px',
     '&:last-child': {
