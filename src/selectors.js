@@ -1,11 +1,11 @@
 import { getState } from './config';
 
 const getTodos = () => getState('todos');
-const getItems = () => getTodos().items;
-const getSort = () => getTodos().sort;
-const getItemsSort = () => getSort().map(id => getItems()[id]);
+const getTodosItems = () => getTodos().items;
+const getTodosItemsSort = () => getTodos().sort;
 
-const getList = () => getState('list');
-const getListItems = () => getList().items['0'];
+const getLists = () => getState('list');
+const getListsItems = () => getLists().items;
+const getListsSort = () => getLists().sort;
 
-export { getItemsSort, getListItems };
+export { getTodosItems, getTodosItemsSort, getListsItems, getListsSort };

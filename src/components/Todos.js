@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
-import { getItemsSort, getListItems } from '../selectors';
+import {
+  getTodosItems,
+  getTodosItemsSort,
+  getListsItems,
+  getListsSort
+} from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
@@ -42,8 +47,10 @@ const useStyles = createUseStyles({
 });
 
 const Todos = ({
-  todos,
-  list,
+  todosItems,
+  todosSort,
+  listsItems,
+  listsSort,
   add,
   reorder,
   edit,
@@ -56,39 +63,51 @@ const Todos = ({
 
   return (
     <div className={classes.container}>
-      <div className={classes.listTitleContainer}>
-        <NameInputEdit
-          onClickEdit={edit({ id: list.id })}
-          onChangeEdit={onChange(list.id)}
-          onClickSave={save({ id: list.id, draft: list.text.draft })}
-          onClickCancel={cancel({ id: list.id })}
-          textFinal={list.text.final}
-          textDraft={list.text.draft}
-          isEditActive={list.isEditActive}
-          isComplete={false}
-          myClassNames={{ text: classes.text }}
-        />
-        <Button onClick={add} isIcon><AddTwoToneIcon /></Button>
-      </div>
-      <List
-        onChange={({ oldIndex, newIndex }) => reorder({ oldIndex, newIndex })}
-        values={todos}
-        renderList={({ children, props }) => (
-          <ul {...props} className={classes.list}>{children}</ul>
-        )}
-        renderItem={({ value, props }) => (
-          <li {...props} key={value.id} id={value.id} className={classes.item}>
-            <Todo todo={value} />
+      <ul>
+        {listsSort.map(id => (
+          <li key={id}>
+            <div className={classes.listTitleContainer}>
+              <NameInputEdit
+                onClickEdit={edit({ id })}
+                onChangeEdit={onChange(id)}
+                onClickSave={save({ id, draft: listsItems[id].text.draft })}
+                onClickCancel={cancel({ id })}
+                textFinal={listsItems[id].text.final}
+                textDraft={listsItems[id].text.draft}
+                isEditActive={listsItems[id].isEditActive}
+                isComplete={false}
+                myClassNames={{ text: classes.text }}
+              />
+              <Button onClick={add({ listId: id })} isIcon>
+                <AddTwoToneIcon />
+              </Button>
+            </div>
+            <List
+              onChange={({ oldIndex, newIndex }) => reorder(
+                { listId: id, oldIndex, newIndex }
+              )}
+              values={todosSort[id]}
+              renderList={({ children, props }) => (
+                <ul {...props} className={classes.list}>{children}</ul>
+              )}
+              renderItem={({ value, props }) => (
+                <li {...props} key={value} id={value} className={classes.item}>
+                  <Todo todo={todosItems[value]} />
+                </li>
+              )}
+            />
           </li>
-        )}
-      />
+        ))}
+      </ul>
     </div>
   );
 };
 
 Todos.propTypes = {
-  todos: PropTypes.array.isRequired,
-  list: PropTypes.object.isRequired,
+  todosItems: PropTypes.object.isRequired,
+  todosSort: PropTypes.object.isRequired,
+  listsItems: PropTypes.object.isRequired,
+  listsSort: PropTypes.array.isRequired,
   add: PropTypes.func.isRequired,
   reorder: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
@@ -98,13 +117,17 @@ Todos.propTypes = {
 };
 
 const mapStateToProps = () => ({
-  todos: getItemsSort(),
-  list: getListItems()
+  todosItems: getTodosItems(),
+  todosSort: getTodosItemsSort(),
+  listsItems: getListsItems(),
+  listsSort: getListsSort()
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: () => dispatch(todosSlice.actions.add()),
-  reorder: (oldIndex, newIndex) => dispatch(todosSlice.actions.reorder(oldIndex, newIndex)),
+  add: listId => () => dispatch(todosSlice.actions.add(listId)),
+  reorder: (listId, oldIndex, newIndex) => dispatch(
+    todosSlice.actions.reorder(listId, oldIndex, newIndex)
+  ),
   edit: id => () => dispatch(listSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(listSlice.actions.save(id, draft)),
   cancel: id => () => dispatch(listSlice.actions.cancel(id)),

@@ -16,12 +16,13 @@ const makeId = () => Math.floor(Math.random() * 1000000);
  * @param {string} final
  * @returns {object}
  */
-const makeNewTodo = (id, final) => ({
+const makeNewTodo = (id, listId, final) => ({
   id,
   text: {
     draft: final,
     final
   },
+  listId,
   isEditActive: false,
   isComplete: false,
   isRemoved: false
@@ -51,8 +52,8 @@ const makeNewList = (id, final) => ({
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
-    list: { items: { '0': { ...makeNewList(0, 'Todo List') } } },
-    todos: { items: {}, sort: [] }
+    list: { items: { 1: { ...makeNewList(1, 'Todo List') } }, sort: [1] },
+    todos: { items: {}, sort: { 1: [] } }
   };
 
   if (local) return JSON.parse(local);
@@ -65,10 +66,10 @@ const todosSlice = createSlice({
   name: 'todos',
   initialState: initialState.todos,
   reducers: {
-    add: state => {
+    add: (state, action) => {
       const id = makeId();
-      state.items[id] = makeNewTodo(id, 'New todo');
-      state.sort.push(id);
+      state.items[id] = makeNewTodo(id, action.payload.listId, 'New todo');
+      state.sort[action.payload.listId].push(id);
     },
     edit: (state, action) => {
       state.items[action.payload.id].isEditActive = true;
@@ -83,7 +84,10 @@ const todosSlice = createSlice({
       state.items[action.payload.id].text.draft = final;
     },
     remove: (state, action) => {
-      state.sort = state.sort.filter(id => id !== action.payload.id);
+      const listId = state.items[action.payload.id].listId;
+      state.sort[listId] = state
+        .sort[listId]
+        .filter(id => id !== action.payload.id);
       state.items[action.payload.id].isRemoved = true;
     },
     complete: (state, action) => {
@@ -93,9 +97,10 @@ const todosSlice = createSlice({
       state.items[action.payload.id].text.draft = action.payload.draft;
     },
     reorder: (state, action) => {
-      const orderedId = state.sort[action.payload.oldIndex];
-      state.sort.splice(action.payload.oldIndex, 1);
-      state.sort.splice(action.payload.newIndex, 0, orderedId);
+      const list = state.sort[action.payload.listId];
+      const orderedId = list[action.payload.oldIndex];
+      list.splice(action.payload.oldIndex, 1);
+      list.splice(action.payload.newIndex, 0, orderedId);
     }
   }
 });
@@ -104,6 +109,11 @@ const listSlice = createSlice({
   name: 'list',
   initialState: initialState.list,
   reducers: {
+    add: state => {
+      const id = makeId();
+      state.items[id] = makeNewList(id, 'New List');
+      state.sort.push(id);
+    },
     edit: (state, action) => {
       state.items[action.payload.id].isEditActive = true;
     },
