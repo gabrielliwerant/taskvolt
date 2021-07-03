@@ -1,13 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { LOCAL_STORAGE_KEY } from './constants';
-
-/**
- * Create ids for new lists/items
- *
- * @returns {number}
- */
-const makeId = () => Math.floor(Math.random() * 1000000);
+import { makeId } from './utilities';
 
 /**
  * Create new todo item
@@ -101,7 +95,8 @@ const todosSlice = createSlice({
       const orderedId = list[action.payload.oldIndex];
       list.splice(action.payload.oldIndex, 1);
       list.splice(action.payload.newIndex, 0, orderedId);
-    }
+    },
+    addSort: (state, action) => { state.sort[action.payload.listId] = []; }
   }
 });
 
@@ -109,10 +104,10 @@ const listSlice = createSlice({
   name: 'list',
   initialState: initialState.list,
   reducers: {
-    add: state => {
-      const id = makeId();
-      state.items[id] = makeNewList(id, 'New List');
-      state.sort.push(id);
+    add: (state, action) => {
+      const listId = action.payload.listId;
+      state.items[listId] = makeNewList(listId, 'New List');
+      state.sort.push(listId);
     },
     edit: (state, action) => {
       state.items[action.payload.id].isEditActive = true;

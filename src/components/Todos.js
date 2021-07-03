@@ -18,8 +18,20 @@ import Todo from './Todo';
 
 const useStyles = createUseStyles({
   container: {
-    width: '310px',
     margin: 'auto'
+  },
+  lists: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '80px 30px 0 30px',
+    position: 'absolute'
+  },
+  listContainer: {
+    width: '310px',
+    marginRight: '30px',
+    '&:last-child': {
+      marginRight: 0
+    }
   },
   list: {
     marginTop: '7px'
@@ -42,7 +54,8 @@ const useStyles = createUseStyles({
   },
   text: {
     fontFamily: '"Roboto", arial, sans-serif',
-    fontSize: '20px'
+    fontSize: '20px',
+    height: '25px'
   }
 });
 
@@ -63,9 +76,9 @@ const Todos = ({
 
   return (
     <div className={classes.container}>
-      <ul>
+      <ul className={classes.lists}>
         {listsSort.map(id => (
-          <li key={id}>
+          <li className={classes.listContainer} key={id}>
             <div className={classes.listTitleContainer}>
               <NameInputEdit
                 onClickEdit={edit({ id })}
