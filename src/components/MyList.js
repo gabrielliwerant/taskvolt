@@ -1,31 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'react-movable';
-import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
+import { List as ReactMovableList } from 'react-movable';
+import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
-import {
-  getTodosItems,
-  getTodosItemsSort,
-  getListsItems,
-  getListsSort
-} from '../selectors';
+import { getTodosItems, getTodosItemsSort, getListsItems } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todo from './Todo';
 
 const useStyles = createUseStyles({
-  container: {
-    margin: 'auto'
-  },
-  lists: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '80px 30px 0 30px',
-    position: 'absolute'
-  },
   listContainer: {
     width: '310px',
     marginRight: '30px',
@@ -59,11 +45,11 @@ const useStyles = createUseStyles({
   }
 });
 
-const Todos = ({
+const MyList = ({
+  id,
   todosItems,
   todosSort,
   listsItems,
-  listsSort,
   add,
   reorder,
   edit,
@@ -75,52 +61,46 @@ const Todos = ({
   const onChange = id => e => change({ id, draft: e.target.value });
 
   return (
-    <div className={classes.container}>
-      <ul className={classes.lists}>
-        {listsSort.map(id => (
-          <li className={classes.listContainer} key={id}>
-            <div className={classes.listTitleContainer}>
-              <NameInputEdit
-                onClickEdit={edit({ id })}
-                onChangeEdit={onChange(id)}
-                onClickSave={save({ id, draft: listsItems[id].text.draft })}
-                onClickCancel={cancel({ id })}
-                textFinal={listsItems[id].text.final}
-                textDraft={listsItems[id].text.draft}
-                isEditActive={listsItems[id].isEditActive}
-                isComplete={false}
-                myClassNames={{ text: classes.text }}
-              />
-              <Button onClick={add({ listId: id })} isIcon>
-                <AddTwoToneIcon />
-              </Button>
-            </div>
-            <List
-              onChange={({ oldIndex, newIndex }) => reorder(
-                { listId: id, oldIndex, newIndex }
-              )}
-              values={todosSort[id]}
-              renderList={({ children, props }) => (
-                <ul {...props} className={classes.list}>{children}</ul>
-              )}
-              renderItem={({ value, props }) => (
-                <li {...props} key={value} id={value} className={classes.item}>
-                  <Todo todo={todosItems[value]} />
-                </li>
-              )}
-            />
+    <li className={classes.listContainer} key={id}>
+      <div className={classes.listTitleContainer}>
+        <NameInputEdit
+          onClickEdit={edit({ id })}
+          onChangeEdit={onChange(id)}
+          onClickSave={save({ id, draft: listsItems[id].text.draft })}
+          onClickCancel={cancel({ id })}
+          textFinal={listsItems[id].text.final}
+          textDraft={listsItems[id].text.draft}
+          isEditActive={listsItems[id].isEditActive}
+          isComplete={false}
+          myClassNames={{ text: classes.text }}
+        />
+        <Button onClick={add({ listId: id })} isIcon>
+          <AddTwoToneIcon />
+        </Button>
+      </div>
+      <ReactMovableList
+        onChange={({ oldIndex, newIndex }) => reorder(
+          { listId: id, oldIndex, newIndex }
+        )}
+        values={todosSort[id]}
+        renderList={({ children, props }) => (
+          <ul {...props} className={classes.list}>{children}</ul>
+        )}
+        renderItem={({ value, props }) => (
+          <li {...props} key={value} id={value} className={classes.item}>
+            <Todo todo={todosItems[value]} />
           </li>
-        ))}
-      </ul>
-    </div>
+        )}
+      />
+    </li>
   );
 };
 
-Todos.propTypes = {
+MyList.propTypes = {
+  id: PropTypes.number.isRequired,
   todosItems: PropTypes.object.isRequired,
   todosSort: PropTypes.object.isRequired,
   listsItems: PropTypes.object.isRequired,
-  listsSort: PropTypes.array.isRequired,
   add: PropTypes.func.isRequired,
   reorder: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
@@ -132,8 +112,7 @@ Todos.propTypes = {
 const mapStateToProps = () => ({
   todosItems: getTodosItems(),
   todosSort: getTodosItemsSort(),
-  listsItems: getListsItems(),
-  listsSort: getListsSort()
+  listsItems: getListsItems()
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -147,4 +126,4 @@ const mapDispatchToProps = dispatch => ({
   change: id => dispatch(listSlice.actions.change(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todos);
+export default connect(mapStateToProps, mapDispatchToProps)(MyList);
