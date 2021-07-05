@@ -32,7 +32,7 @@ const Lists = ({ listsSort }) => {
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          {listsSort.map((listId, index) => (
+          {listsSort['1'].map((listId, index) => (
             <Draggable
               key={listId}
               draggableId={`list-${listId}`}
@@ -49,7 +49,7 @@ const Lists = ({ listsSort }) => {
 };
 
 Lists.propTypes = {
-  listsSort: PropTypes.array.isRequired
+  listsSort: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => ({

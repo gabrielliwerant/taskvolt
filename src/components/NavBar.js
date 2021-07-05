@@ -28,9 +28,9 @@ const useStyles = createUseStyles({
 const NavBar = ({ addSort, add }) => {
   const classes = useStyles();
   const onClick = () => {
-    const listId = makeId();
-    addSort({ listId });
-    add({ listId });
+    const id = makeId();
+    addSort({ id });
+    add({ id });
   };
 
   return (

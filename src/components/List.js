@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import { getListsItems } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
@@ -43,7 +44,8 @@ const List = ({
   edit,
   change,
   save,
-  cancel
+  cancel,
+  remove
 }) => {
   const classes = useStyles();
   const onChange = id => e => change({ id, draft: e.target.value });
@@ -70,7 +72,10 @@ const List = ({
           isComplete={false}
           myClassNames={{ text: classes.text }}
         />
-        <Button onClick={add({ listId })} isIcon><AddTwoToneIcon /></Button>
+        <Button onClick={add({ id: listId })} isIcon><AddTwoToneIcon /></Button>
+        <Button onClick={remove({ id: listId })} isIcon>
+          <DeleteTwoToneIcon />
+        </Button>
       </div>
       <Todos listId={listId} />
     </li>
@@ -85,7 +90,8 @@ List.propTypes = {
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired
+  change: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -93,11 +99,12 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: listId => () => dispatch(todosSlice.actions.add(listId)),
+  add: id => () => dispatch(todosSlice.actions.add(id)),
   edit: id => () => dispatch(listSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(listSlice.actions.save(id, draft)),
   cancel: id => () => dispatch(listSlice.actions.cancel(id)),
-  change: id => dispatch(listSlice.actions.change(id))
+  change: id => dispatch(listSlice.actions.change(id)),
+  remove: id => () => dispatch(listSlice.actions.remove(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
