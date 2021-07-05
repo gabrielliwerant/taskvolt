@@ -7,9 +7,9 @@
 /**
  * Create ids for new lists/items
  *
- * @returns {number}
+ * @returns {string}
  */
-const makeId = () => Math.floor(Math.random() * 1000000);
+const makeId = () => `${Math.floor(Math.random() * 1000000)}`;
 
 /**
  * Get numerical id from draggable id string

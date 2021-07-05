@@ -46,8 +46,13 @@ const makeNewList = (id, final) => ({
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
-    list: { items: { 1: { ...makeNewList(1, 'Todo List') } }, sort: [1] },
-    todos: { items: {}, sort: { 1: [] } }
+    list: {
+      items: {
+        '1': { ...makeNewList('1', 'Todo List') }
+      },
+      sort: ['1']
+    },
+    todos: { items: {}, sort: { '1': [] } }
   };
 
   if (local) return JSON.parse(local);
