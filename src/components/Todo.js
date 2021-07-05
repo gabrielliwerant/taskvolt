@@ -21,16 +21,42 @@ const useStyles = createUseStyles({
     background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
     display: 'flex',
     alignItems: 'center'
+  },
+  item: {
+    cursor: 'grab',
+    width: '334px',
+    marginBottom: '4px',
+    '&:last-child': {
+      marginBottom: 0
+    },
+    '&:focus': {
+      outline: 'none'
+    }
   }
 });
 
-const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
+const Todo = ({
+  provided,
+  todo,
+  edit,
+  save,
+  cancel,
+  remove,
+  change,
+  complete
+}) => {
   const classes = useStyles();
   const onComplete = id => e => complete({ id, checked: e.target.checked });
   const onChange = id => e => change({ id, draft: e.target.value });
 
   return (
-    <>
+    <li
+      key={todo.id}
+      className={classes.item}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
       <div
         className={classNames({
           [classes.itemContainer]: true,
@@ -55,11 +81,12 @@ const Todo = ({ todo, edit, save, cancel, remove, change, complete }) => {
           isComplete={todo.isComplete}
         />
       </div>
-    </>
+    </li>
   );
 };
 
 Todo.propTypes = {
+  provided: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
