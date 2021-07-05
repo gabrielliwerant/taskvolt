@@ -37,7 +37,11 @@ const NavBar = ({ addSort, add }) => {
     <header className={classes.container}>
       <nav className={classes.inner}>
         <ul>
-          <li><Button onClick={onClick} isIcon><AddTwoToneIcon /></Button></li>
+          <li>
+            <Button onClick={onClick} isIcon trailing={<AddTwoToneIcon />}>
+              Add List
+            </Button>
+          </li>
         </ul>
       </nav>
     </header>

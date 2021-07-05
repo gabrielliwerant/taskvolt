@@ -31,12 +31,26 @@ const useStyles = createUseStyles({
   },
   iconButton: {
     ...buttonStyles,
-    padding: '1px'
+    padding: '2px 3px 1px 3px'
+  },
+  iconButtonTrailing: {
+    ...buttonStyles,
+    padding: '4px 13px 5px 13px',
+    display: 'flex',
+    alignItems: 'center',
+    '& $text': {
+      marginRight: '7px'
+    }
+  },
+  text: {
+    fontSize: '1rem',
+    fontWeight: 'bold'
   }
 });
 
-const Button = ({ onClick, myClassNames, isIcon, children }) => {
+const Button = ({ onClick, myClassNames, isIcon, trailing, children }) => {
   const classes = useStyles();
+  const hasText = (!isIcon && !trailing) || (isIcon && trailing);
 
   return (
     <button
@@ -44,10 +58,13 @@ const Button = ({ onClick, myClassNames, isIcon, children }) => {
       className={classNames({
         [myClassNames]: myClassNames,
         [classes.button]: !isIcon,
-        [classes.iconButton]: isIcon
+        [classes.iconButton]: isIcon && !trailing,
+        [classes.iconButtonTrailing]: isIcon && trailing
       })}
     >
-      {children}
+      {hasText && <span className={classes.text}>{children}</span>}
+      {isIcon && !trailing && children}
+      {trailing}
     </button>
   );
 };
@@ -56,12 +73,14 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   myClassNames: PropTypes.string,
   isIcon: PropTypes.bool,
+  trailing: PropTypes.element,
   children: PropTypes.node.isRequired
 };
 
 Button.defaultProps = {
   myClassNames: '',
-  isIcon: false
+  isIcon: false,
+  trailing: null
 };
 
 export default Button;
