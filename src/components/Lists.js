@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { getListsSort } from '../selectors';
+import { LIST_TYPE } from '../constants';
 import List from './List';
 
 const useStyles = createUseStyles({
@@ -23,7 +24,7 @@ const Lists = ({ listsSort }) => {
     <Droppable
       droppableId='droppable-lists'
       direction='horizontal'
-      type='LIST'
+      type={LIST_TYPE}
     >
       {(provided) => (
         <ul

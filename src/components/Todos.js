@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { getTodosItems, getTodosItemsSort } from '../selectors';
+import { ITEM_TYPE } from '../constants';
 import Todo from './Todo';
 
 const useStyles = createUseStyles({
@@ -17,7 +18,7 @@ const Todos = ({ listId, todosItems, todosSort }) => {
   const classes = useStyles();
 
   return (
-    <Droppable droppableId={`droppable-items-${listId}`} type='ITEM'>
+    <Droppable droppableId={`droppable-items-${listId}`} type={ITEM_TYPE}>
       {(provided) => (
         <ul
           className={classes.list}

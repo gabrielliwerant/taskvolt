@@ -6,6 +6,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { todosSlice, listSlice } from '../reducers';
 import { getDraggableId } from '../utilities';
+import { LIST_TYPE, ITEM_TYPE } from '../constants';
 import Lists from './Lists';
 
 const useStyles = createUseStyles({
@@ -19,7 +20,7 @@ const ListsContainer = ({ reorder, reorderList }) => {
   const onDragEnd = result => {
     if (!result.destination) return;
 
-    if (result.type === 'LIST') {
+    if (result.type === LIST_TYPE) {
       reorderList({
         listId: getDraggableId(result.draggableId),
         oldIndex: result.source.index,
@@ -27,7 +28,7 @@ const ListsContainer = ({ reorder, reorderList }) => {
       });
     }
 
-    if (result.type === 'ITEM') {
+    if (result.type === ITEM_TYPE) {
       reorder({
         listId: getDraggableId(result.source.droppableId),
         oldIndex: result.source.index,
