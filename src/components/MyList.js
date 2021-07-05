@@ -21,6 +21,11 @@ const useStyles = createUseStyles({
   listContainer: {
     width: '310px',
     marginRight: '30px',
+    marginBottom: '30px',
+    padding: '15px',
+    background: '#f2f2f2',
+    border: '1px solid #cccccc',
+    borderRadius: '4px',
     '&:last-child': {
       marginRight: 0
     }
@@ -28,11 +33,11 @@ const useStyles = createUseStyles({
   lists: {
     display: 'flex',
     justifyContent: 'center',
-    margin: '80px 30px 0 30px',
+    padding: '80px 30px 0 30px',
     position: 'absolute'
   },
   list: {
-    marginTop: '7px'
+    marginTop: '15px'
   },
   listTitleContainer: {
     display: 'flex',
