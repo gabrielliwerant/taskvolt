@@ -123,7 +123,12 @@ const listSlice = createSlice({
     },
     change: (state, action) => {
       state.items[action.payload.id].text.draft = action.payload.draft;
-    }
+    },
+    reorder: (state, action) => {
+      const orderedId = action.payload.listId;
+      state.sort.splice(action.payload.oldIndex, 1);
+      state.sort.splice(action.payload.newIndex, 0, orderedId);
+    },
   }
 });
 
