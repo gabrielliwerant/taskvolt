@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
+import { BORDER_OFFSET, TODO_WIDTH } from '../jss/constants';
 import { getListsItems } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
@@ -13,7 +14,8 @@ import Todos from './Todos';
 
 const useStyles = createUseStyles({
   listContainer: {
-    width: '310px',
+    width: `${TODO_WIDTH + BORDER_OFFSET}px`,
+    //height: '100%',
     marginRight: '30px',
     marginBottom: '30px',
     padding: '15px',
@@ -32,6 +34,7 @@ const useStyles = createUseStyles({
   text: {
     fontFamily: '"Roboto", arial, sans-serif',
     fontSize: '20px',
+    width: '164px',
     height: '25px'
   }
 });
@@ -96,6 +99,7 @@ List.propTypes = {
 
 const mapStateToProps = () => ({
   listsItems: getListsItems()
+
 });
 
 const mapDispatchToProps = dispatch => ({

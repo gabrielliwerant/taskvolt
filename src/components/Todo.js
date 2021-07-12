@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
+import {
+  BORDER_OFFSET,
+  TODO_WIDTH,
+  TODO_HEIGHT,
+  TODO_MARGIN
+} from '../jss/constants';
 import { todosSlice } from '../reducers';
+import { getTodoSelected } from '../selectors';
 import NameInputEdit from './NameInputEdit';
 
 const classNames = require('classnames');
@@ -24,8 +31,12 @@ const useStyles = createUseStyles({
   },
   item: {
     cursor: 'grab',
-    width: '334px',
-    marginBottom: '4px',
+    width: `${TODO_WIDTH + BORDER_OFFSET}`,
+    height: `${TODO_HEIGHT}px`,
+    border: '1px solid transparent',
+    marginBottom: `${TODO_MARGIN}px`,
+    position: 'relative',
+    zIndex: 1,
     '&:last-child': {
       marginBottom: 0
     },
@@ -38,6 +49,7 @@ const useStyles = createUseStyles({
 const Todo = ({
   provided,
   todo,
+  dragId,
   edit,
   save,
   cancel,
@@ -62,6 +74,7 @@ const Todo = ({
           [classes.itemContainer]: true,
           [classes.complete]: todo.isComplete
         })}
+        style={{ transform: dragId === todo.id ? 'rotate(2deg)' : '' }}
       >
         <input
           onChange={onComplete(todo.id)}
@@ -88,6 +101,7 @@ const Todo = ({
 Todo.propTypes = {
   provided: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
+  dragId: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -95,6 +109,10 @@ Todo.propTypes = {
   change: PropTypes.func.isRequired,
   complete: PropTypes.func.isRequired
 };
+
+const mapStateToProps = () => ({
+  dragId: getTodoSelected()
+});
 
 const mapDispatchToProps = dispatch => ({
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
@@ -105,4 +123,4 @@ const mapDispatchToProps = dispatch => ({
   complete: id => dispatch(todosSlice.actions.complete(id))
 });
 
-export default connect(null, mapDispatchToProps)(Todo);
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);

@@ -54,9 +54,10 @@ const getInitialState = () => {
       items: {
         '1': { ...makeNewList('1', '1', 'Todo List') }
       },
+      selected: '',
       sort: { '1': ['1'] }
     },
-    todos: { items: {}, sort: { '1': [] } }
+    todos: { items: {}, sort: { '1': [] }, selected: '' }
   };
 
   if (local) return JSON.parse(local);
@@ -105,7 +106,8 @@ const todosSlice = createSlice({
       list.splice(action.payload.oldIndex, 1);
       list.splice(action.payload.newIndex, 0, orderedId);
     },
-    addSort: (state, action) => { state.sort[action.payload.id] = []; }
+    addSort: (state, action) => { state.sort[action.payload.id] = []; },
+    select: (state, action) => { state.selected = action.payload.id; }
   }
 });
 

@@ -15,10 +15,15 @@ const useStyles = createUseStyles({
   }
 });
 
-const ListsContainer = ({ reorder, reorderList }) => {
+const ListsContainer = ({ reorder, select, reorderList }) => {
   const classes = useStyles();
   const onDragEnd = result => {
-    if (!result.destination) return;
+    if (!result.destination) {
+      if (result.type === ITEM_TYPE) {
+        select({ id: '' });
+        return;
+      }
+    }
 
     if (result.type === LIST_TYPE) {
       reorderList({
@@ -34,12 +39,18 @@ const ListsContainer = ({ reorder, reorderList }) => {
         oldIndex: result.source.index,
         newIndex: result.destination.index
       });
+      select({ id: '' });
+    }
+  };
+  const onDragStart = start => {
+    if (start.type === ITEM_TYPE) {
+      select({ id: getDraggableId(start.draggableId) });
     }
   };
 
   return (
     <div className={classes.container}>
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Lists />
       </DragDropContext>
     </div>
@@ -48,6 +59,7 @@ const ListsContainer = ({ reorder, reorderList }) => {
 
 ListsContainer.propTypes = {
   reorder: PropTypes.func.isRequired,
+  select: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired
 };
 
@@ -55,6 +67,7 @@ const mapDispatchToProps = dispatch => ({
   reorder: (listId, oldIndex, newIndex) => dispatch(
     todosSlice.actions.reorder(listId, oldIndex, newIndex)
   ),
+  select: id => dispatch(todosSlice.actions.select(id)),
   reorderList: (listId, oldIndex, newIndex) => dispatch(
     listSlice.actions.reorder(listId, oldIndex, newIndex)
   )
