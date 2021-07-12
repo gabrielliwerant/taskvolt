@@ -5,17 +5,21 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-import { BORDER_OFFSET, TODO_WIDTH } from '../jss/constants';
-import { getListsItems } from '../selectors';
+import {
+  BORDER_OFFSET,
+  TODO_WIDTH,
+  TODO_HEIGHT,
+  TODO_MARGIN
+} from '../jss/constants';
+import { getListsItems, getTodosItemsSort } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';
 
-const useStyles = createUseStyles({
+const styles = {
   listContainer: {
     width: `${TODO_WIDTH + BORDER_OFFSET}px`,
-    //height: '100%',
     marginRight: '30px',
     marginBottom: '30px',
     padding: '15px',
@@ -37,12 +41,13 @@ const useStyles = createUseStyles({
     width: '164px',
     height: '25px'
   }
-});
+};
 
 const List = ({
   provided,
   listId,
   listsItems,
+  todosSort,
   add,
   edit,
   change,
@@ -50,8 +55,13 @@ const List = ({
   cancel,
   remove
 }) => {
-  const classes = useStyles();
   const onChange = id => e => change({ id, draft: e.target.value });
+  const listHeight =
+    `${todosSort[listId].length * (TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) + TODO_HEIGHT + BORDER_OFFSET}px`;
+
+  styles.listContainer.height = listHeight;
+  const useStyles = createUseStyles({ ...styles });
+  const classes = useStyles();
 
   return (
     <li
@@ -89,6 +99,7 @@ List.propTypes = {
   provided: PropTypes.object.isRequired,
   listId: PropTypes.string.isRequired,
   listsItems: PropTypes.object.isRequired,
+  todosSort: PropTypes.object.isRequired,
   add: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
@@ -98,7 +109,8 @@ List.propTypes = {
 };
 
 const mapStateToProps = () => ({
-  listsItems: getListsItems()
+  listsItems: getListsItems(),
+  todosSort: getTodosItemsSort()
 
 });
 

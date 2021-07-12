@@ -51,31 +51,30 @@ const Lists = ({ listsSort, todosSort }) => {
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          {listsSort['1'].map((listId, listIndex) => (
-            <>
-              <Draggable
-                key={listId}
-                draggableId={`list-${listId}`}
-                index={listIndex}
-              >
-                {(provided) => <List listId={listId} provided={provided} />}
-              </Draggable>
-
-              {todosSort[listId].map((todoId, index) => {
-                const marginTop =
-                  `${TODO_POSITION + (TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * index}px`;
-                const marginLeft = `${listIndex * LIST_POSITION}px`;
-
-                return (
-                  <div
-                    key={todoId}
-                    style={{ marginTop, marginLeft }}
-                    className={classes.placeholder}
-                  />
-                );
-              })}
-            </>
+          {listsSort['1'].map((listId, index) => (
+            <Draggable
+              key={listId}
+              draggableId={`list-${listId}`}
+              index={index}
+            >
+              {(provided) => <List listId={listId} provided={provided} />}
+            </Draggable>
           ))}
+          {listsSort['1'].map((listId, listIndex) =>
+            todosSort[listId].map((todoId, index) => {
+              const marginTop =
+                `${TODO_POSITION + (TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * index}px`;
+              const marginLeft = `${listIndex * LIST_POSITION}px`;
+
+              return (
+                <div
+                  key={todoId}
+                  style={{ marginTop, marginLeft }}
+                  className={classes.placeholder}
+                />
+              );
+            })
+          )}
           {provided.placeholder}
         </ul>
       )}
