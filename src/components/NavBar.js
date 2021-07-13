@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     flexDirection: 'row-reverse',
     position: 'fixed',
-    zIndex: 1,
+    zIndex: 10,
     borderBottom: '1px solid #cccccc'
   },
   inner: {
