@@ -29,7 +29,10 @@ const useStyles = createUseStyles({
     padding: `${LIST_PADDING}px`,
     background: '#f7f7f7',
     border: '1px solid #cccccc',
-    borderRadius: '4px'
+    borderRadius: '4px',
+    '&:hover': {
+      background: '#f2f2f2'
+    }
   },
   listTitleContainer: {
     display: 'flex',

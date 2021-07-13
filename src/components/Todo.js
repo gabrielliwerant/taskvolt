@@ -22,10 +22,16 @@ const useStyles = createUseStyles({
     opacity: '0.5'
   },
   completeBackdrop: {
-    background: 'linear-gradient(0.5turn, #fefefe, #ededed, #fefefe)'
+    background: 'linear-gradient(0.5turn, #fefefe, #ededed, #fefefe)',
+    '&:hover': {
+      background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)'
+    }
   },
   defaultBackdrop: {
-    background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)'
+    background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
+    '&:hover': {
+      background: 'linear-gradient(0.5turn, #dddddd, #cccccc, #dddddd)'
+    }
   },
   itemContainer: {
     padding: '4px',
