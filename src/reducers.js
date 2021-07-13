@@ -55,6 +55,7 @@ const getInitialState = () => {
         '1': { ...makeNewList('1', '1', 'Todo List') }
       },
       selected: '',
+      dropping: null,
       sort: { '1': ['1'] }
     },
     todos: { items: {}, sort: { '1': [] }, selected: '' }
@@ -147,7 +148,8 @@ const listSlice = createSlice({
       state.sort['1'].splice(action.payload.oldIndex, 1);
       state.sort['1'].splice(action.payload.newIndex, 0, orderedId);
     },
-    select: (state, action) => { state.selected = action.payload.id; }
+    select: (state, action) => { state.selected = action.payload.id; },
+    drop: (state, action) => { state.dropping = action.payload.index; }
   }
 });
 

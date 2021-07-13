@@ -4,7 +4,8 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { getListsSort, getTodosItemsSort, getTodoSelected } from '../selectors';
+import { TOP_OFFSET } from '../jss/constants';
+import { getListsSort } from '../selectors';
 import { LIST_TYPE } from '../constants';
 import Placeholder from './Placeholder';
 import List from './List';
@@ -13,12 +14,12 @@ const useStyles = createUseStyles({
   lists: {
     display: 'flex',
     justifyContent: 'center',
-    padding: '90px 30px 0 30px',
+    padding: `${TOP_OFFSET}px 30px 0 30px`,
     position: 'absolute'
   }
 });
 
-const Lists = ({ listsSort, todosSort, dragId }) => {
+const Lists = ({ listsSort }) => {
   const classes = useStyles();
 
   return (
@@ -40,21 +41,19 @@ const Lists = ({ listsSort, todosSort, dragId }) => {
               index={index}
             >
               {(provided) => (
-                <List listId={listId} provided={provided} />
+                <List listId={listId} listIndex={index} provided={provided} />
               )}
             </Draggable>
           ))}
-          {listsSort['1'].map((listId, listIndex) =>
-            todosSort[listId].map((todoId, index) => (
-              <Placeholder
-                dragId={dragId}
-                key={todoId}
-                todoId={todoId}
-                listIndex={listIndex}
-                index={index}
-              />
-            ))
-          )}
+          {listsSort['1'].map((listId, listIndex) => (
+            <Placeholder
+              key={listId}
+              id={listId}
+              listIndex={listIndex}
+              index={listIndex}
+              variant='list'
+            />
+          ))}
           <div>{provided.placeholder}</div>
         </ul>
       )}
@@ -63,15 +62,11 @@ const Lists = ({ listsSort, todosSort, dragId }) => {
 };
 
 Lists.propTypes = {
-  listsSort: PropTypes.object.isRequired,
-  todosSort: PropTypes.object.isRequired,
-  dragId: PropTypes.string.isRequired
+  listsSort: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => ({
-  listsSort: getListsSort(),
-  todosSort: getTodosItemsSort(),
-  dragId: getTodoSelected()
+  listsSort: getListsSort()
 });
 
 export default connect(mapStateToProps, null)(Lists);

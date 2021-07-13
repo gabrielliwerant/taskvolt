@@ -15,13 +15,14 @@ const useStyles = createUseStyles({
   }
 });
 
-const ListsContainer = ({ reorder, select, reorderList, selectList }) => {
+const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
   const classes = useStyles();
 
   const onDragEnd = result => {
     if (!result.destination) {
       if (result.type === LIST_TYPE) {
         selectList({ id: '' });
+        drop({ index: null });
         return;
       }
 
@@ -53,6 +54,7 @@ const ListsContainer = ({ reorder, select, reorderList, selectList }) => {
   const onDragStart = start => {
     if (start.type === LIST_TYPE) {
       selectList({ id: getDraggableId(start.draggableId) });
+      drop({ index: start.source.index });
     }
 
     if (start.type === ITEM_TYPE) {
@@ -60,9 +62,19 @@ const ListsContainer = ({ reorder, select, reorderList, selectList }) => {
     }
   };
 
+  const onDragUpdate = update => {
+    if (update.type === LIST_TYPE) {
+      drop({ index: update.destination.index });
+    }
+  };
+
   return (
     <div className={classes.container}>
-      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+      <DragDropContext
+        onDragEnd={onDragEnd}
+        onDragStart={onDragStart}
+        onDragUpdate={onDragUpdate}
+      >
         <Lists />
       </DragDropContext>
     </div>
@@ -73,7 +85,8 @@ ListsContainer.propTypes = {
   reorder: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
-  selectList: PropTypes.func.isRequired
+  selectList: PropTypes.func.isRequired,
+  drop: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -84,7 +97,8 @@ const mapDispatchToProps = dispatch => ({
   reorderList: (listId, oldIndex, newIndex) => dispatch(
     listSlice.actions.reorder(listId, oldIndex, newIndex)
   ),
-  selectList: id => dispatch(listSlice.actions.select(id))
+  selectList: id => dispatch(listSlice.actions.select(id)),
+  drop: index => dispatch(listSlice.actions.drop(index))
 });
 
 export default connect(null, mapDispatchToProps)(ListsContainer);

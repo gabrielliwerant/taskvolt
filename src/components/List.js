@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-import { BORDER_OFFSET, TODO_WIDTH } from '../jss/constants';
+import { BORDER_OFFSET, TODO_WIDTH, LIST_PADDING } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import { getListsItems, getListSelected } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
@@ -18,14 +18,16 @@ const useStyles = createUseStyles({
     height: '100%',
     marginBottom: '30px',
     marginRight: '30px',
+    position: 'relative',
+    zIndex: 1,
     '&:last-child': {
       marginRight: 0
     }
   },
   listContainer: {
     width: `${TODO_WIDTH + BORDER_OFFSET}px`,
-    padding: '15px',
-    background: '#f2f2f2',
+    padding: `${LIST_PADDING}px`,
+    background: '#f7f7f7',
     border: '1px solid #cccccc',
     borderRadius: '4px'
   },

@@ -42,7 +42,7 @@ const useStyles = createUseStyles({
     border: '1px solid transparent',
     marginBottom: `${TODO_MARGIN}px`,
     position: 'relative',
-    zIndex: 2,
+    zIndex: 3,
     '&:last-child': {
       marginBottom: 0
     },

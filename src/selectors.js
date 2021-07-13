@@ -9,6 +9,7 @@ const getLists = () => getState('list');
 const getListsItems = () => getLists().items;
 const getListsSort = () => getLists().sort;
 const getListSelected = () => getLists().selected;
+const getListDropping = () => getLists().dropping;
 
 export {
   getTodosItems,
@@ -16,5 +17,6 @@ export {
   getTodoSelected,
   getListsItems,
   getListsSort,
-  getListSelected
+  getListSelected,
+  getListDropping
 };

@@ -4,18 +4,22 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { getTodosItems, getTodosItemsSort } from '../selectors';
+import { LIST_PADDING } from '../jss/constants';
+import { getListsSort, getTodosItems, getTodosItemsSort } from '../selectors';
 import { ITEM_TYPE } from '../constants';
+import Placeholder from './Placeholder';
 import Todo from './Todo';
 
 const useStyles = createUseStyles({
   list: {
-    marginTop: '15px'
+    marginTop: `${LIST_PADDING}px`
   }
 });
 
-const Todos = ({ listId, todosItems, todosSort }) => {
+const Todos = ({ listId, listSort, todosItems, todosSort }) => {
   const classes = useStyles();
+  const getIndexFromId = (id, sort) =>
+    Object.values(sort).findIndex(el => el === id);
 
   return (
     <Droppable droppableId={`droppable-items-${listId}`} type={ITEM_TYPE}>
@@ -36,6 +40,14 @@ const Todos = ({ listId, todosItems, todosSort }) => {
               )}
             </Draggable>
           ))}
+          {todosSort[listId].map((todoId, index) => (
+            <Placeholder
+              key={todoId}
+              id={todoId}
+              listIndex={getIndexFromId(listId, listSort)}
+              index={index}
+            />
+          ))}
           <div>{provided.placeholder}</div>
         </ul>
       )}
@@ -45,11 +57,13 @@ const Todos = ({ listId, todosItems, todosSort }) => {
 
 Todos.propTypes = {
   listId: PropTypes.string.isRequired,
+  listSort: PropTypes.object.isRequired,
   todosItems: PropTypes.object.isRequired,
   todosSort: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => ({
+  listSort: getListsSort(),
   todosItems: getTodosItems(),
   todosSort: getTodosItemsSort()
 });
