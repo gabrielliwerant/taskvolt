@@ -6,7 +6,7 @@ import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { ZINDEX } from '../jss/constants';
 import { todosSlice, listSlice } from '../reducers';
-import { makeId } from '../utilities';
+import { makeId } from '../utils';
 import Button from './Button';
 
 const useStyles = createUseStyles({

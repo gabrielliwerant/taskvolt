@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import { todosSlice, listSlice } from '../reducers';
-import { getDraggableId } from '../utilities';
+import { getDraggableId } from '../utils';
 import { LIST_TYPE, ITEM_TYPE } from '../constants';
 import Lists from './Lists';
 

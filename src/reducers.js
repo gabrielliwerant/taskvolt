@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { LOCAL_STORAGE_KEY } from './constants';
-import { makeId } from './utilities';
+import { makeId } from './utils';
 
 /**
  * Create new todo item

@@ -7,7 +7,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { LIST_PADDING } from '../jss/constants';
 import { getListsSort, getTodosItems, getTodosItemsSort } from '../selectors';
 import { ITEM_TYPE } from '../constants';
-import { getIndexFromId } from '../utilities';
+import { getIndexFromId } from '../utils';
 import Placeholder from './Placeholder';
 import Todo from './Todo';
 

@@ -1,5 +1,5 @@
 /**
- * utilities.js
+ * utils.js
  *
  * Separate exportable, reusable utilities.
  */
