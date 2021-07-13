@@ -64,7 +64,9 @@ const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
 
   const onDragUpdate = update => {
     if (update.type === LIST_TYPE) {
-      drop({ index: update.destination.index });
+      if (update.destination) {
+        drop({ index: update.destination.index });
+      }
     }
   };
 
