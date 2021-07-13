@@ -9,7 +9,7 @@ import {
   BORDER_OFFSET,
   TODO_WIDTH,
   LIST_PADDING,
-  ZINDEX
+  Z_INDEX
 } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import { getListsItems, getListSelected } from '../selectors';
@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
     marginBottom: '30px',
     marginRight: '30px',
     position: 'relative',
-    zIndex: ZINDEX.list,
+    zIndex: Z_INDEX.list,
     '&:last-child': {
       marginRight: 0
     }

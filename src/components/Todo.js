@@ -8,7 +8,7 @@ import {
   TODO_WIDTH,
   TODO_HEIGHT,
   TODO_MARGIN,
-  ZINDEX
+  Z_INDEX
 } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import { todosSlice } from '../reducers';
@@ -49,7 +49,7 @@ const useStyles = createUseStyles({
     border: '1px solid transparent',
     marginBottom: `${TODO_MARGIN}px`,
     position: 'relative',
-    zIndex: ZINDEX.item,
+    zIndex: Z_INDEX.item,
     '&:last-child': {
       marginBottom: 0
     },

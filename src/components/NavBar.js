@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
-import { ZINDEX } from '../jss/constants';
+import { Z_INDEX } from '../jss/constants';
 import { todosSlice, listSlice } from '../reducers';
 import { makeId } from '../utils';
 import Button from './Button';
@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     flexDirection: 'row-reverse',
     position: 'fixed',
-    zIndex: ZINDEX.navBar,
+    zIndex: Z_INDEX.navBar,
     borderBottom: '1px solid #cccccc'
   },
   inner: {

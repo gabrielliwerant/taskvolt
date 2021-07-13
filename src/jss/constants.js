@@ -14,7 +14,7 @@ const LIST_WIDTH_POSITION = 372;
 const LIST_WIDTH = 340;
 const LIST_PADDING = 15;
 
-const ZINDEX = {
+const Z_INDEX = {
   itemPlaceholder: 2,
   listPlaceholder: 0,
   item: 3,
@@ -32,5 +32,5 @@ export {
   LIST_WIDTH_POSITION,
   LIST_WIDTH,
   LIST_PADDING,
-  ZINDEX
+  Z_INDEX
 };
