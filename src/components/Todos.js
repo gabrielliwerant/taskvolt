@@ -7,6 +7,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { LIST_PADDING } from '../jss/constants';
 import { getListsSort, getTodosItems, getTodosItemsSort } from '../selectors';
 import { ITEM_TYPE } from '../constants';
+import { getIndexFromId } from '../utilities';
 import Placeholder from './Placeholder';
 import Todo from './Todo';
 
@@ -18,8 +19,6 @@ const useStyles = createUseStyles({
 
 const Todos = ({ listId, listSort, todosItems, todosSort }) => {
   const classes = useStyles();
-  const getIndexFromId = (id, sort) =>
-    Object.values(sort).findIndex(el => el === id);
 
   return (
     <Droppable droppableId={`droppable-items-${listId}`} type={ITEM_TYPE}>

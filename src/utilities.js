@@ -19,4 +19,14 @@ const makeId = () => `${Math.floor(Math.random() * 1000000)}`;
  */
 const getDraggableId = id => id.split('-').pop();
 
-export { makeId, getDraggableId };
+/**
+ * Get the index of a sorted list from an id.
+ *
+ * @param {string} id
+ * @param {object} sort
+ * @returns {string}
+ */
+const getIndexFromId = (id, sort) =>
+  Object.values(sort).findIndex(el => el === id);
+
+export { makeId, getDraggableId, getIndexFromId };
