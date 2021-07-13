@@ -5,30 +5,29 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-import {
-  BORDER_OFFSET,
-  TODO_WIDTH,
-  TODO_HEIGHT,
-  TODO_MARGIN
-} from '../jss/constants';
-import { getListsItems, getTodosItemsSort } from '../selectors';
+import { BORDER_OFFSET, TODO_WIDTH } from '../jss/constants';
+import { tilt } from '../jss/utils';
+import { getListsItems, getListSelected } from '../selectors';
 import { todosSlice, listSlice } from '../reducers';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';
 
-const styles = {
-  listContainer: {
-    width: `${TODO_WIDTH + BORDER_OFFSET}px`,
-    marginRight: '30px',
+const useStyles = createUseStyles({
+  container: {
+    height: '100%',
     marginBottom: '30px',
-    padding: '15px',
-    background: '#f2f2f2',
-    border: '1px solid #cccccc',
-    borderRadius: '4px',
+    marginRight: '30px',
     '&:last-child': {
       marginRight: 0
     }
+  },
+  listContainer: {
+    width: `${TODO_WIDTH + BORDER_OFFSET}px`,
+    padding: '15px',
+    background: '#f2f2f2',
+    border: '1px solid #cccccc',
+    borderRadius: '4px'
   },
   listTitleContainer: {
     display: 'flex',
@@ -41,13 +40,13 @@ const styles = {
     width: '164px',
     height: '25px'
   }
-};
+});
 
 const List = ({
   provided,
   listId,
   listsItems,
-  todosSort,
+  dragId,
   add,
   edit,
   change,
@@ -56,41 +55,41 @@ const List = ({
   remove
 }) => {
   const onChange = id => e => change({ id, draft: e.target.value });
-  const listHeight =
-    `${todosSort[listId].length * (TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) + TODO_HEIGHT + BORDER_OFFSET}px`;
-
-  styles.listContainer.height = listHeight;
-  const useStyles = createUseStyles({ ...styles });
   const classes = useStyles();
 
   return (
     <li
       key={listId}
-      className={classes.listContainer}
+      className={classes.container}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <div className={classes.listTitleContainer}>
-        <NameInputEdit
-          onClickEdit={edit({ id: listId })}
-          onChangeEdit={onChange(listId)}
-          onClickSave={save(
-            { id: listId, draft: listsItems[listId].text.draft }
-          )}
-          onClickCancel={cancel({ id: listId })}
-          textFinal={listsItems[listId].text.final}
-          textDraft={listsItems[listId].text.draft}
-          isEditActive={listsItems[listId].isEditActive}
-          isComplete={false}
-          myClassNames={{ text: classes.text }}
-        />
-        <Button onClick={add({ id: listId })} isIcon><AddTwoToneIcon /></Button>
-        <Button onClick={remove({ id: listId })} isIcon>
-          <DeleteTwoToneIcon />
-        </Button>
+      <div
+        className={classes.listContainer}
+        style={{ transform: dragId === listId ? tilt : '' }}
+      >
+        <div className={classes.listTitleContainer}>
+          <NameInputEdit
+            onClickEdit={edit({ id: listId })}
+            onChangeEdit={onChange(listId)}
+            onClickSave={save(
+              { id: listId, draft: listsItems[listId].text.draft }
+            )}
+            onClickCancel={cancel({ id: listId })}
+            textFinal={listsItems[listId].text.final}
+            textDraft={listsItems[listId].text.draft}
+            isEditActive={listsItems[listId].isEditActive}
+            isComplete={false}
+            myClassNames={{ text: classes.text }}
+          />
+          <Button onClick={add({ id: listId })} isIcon><AddTwoToneIcon /></Button>
+          <Button onClick={remove({ id: listId })} isIcon>
+            <DeleteTwoToneIcon />
+          </Button>
+        </div>
+        <Todos listId={listId} />
       </div>
-      <Todos listId={listId} />
     </li>
   );
 };
@@ -99,7 +98,7 @@ List.propTypes = {
   provided: PropTypes.object.isRequired,
   listId: PropTypes.string.isRequired,
   listsItems: PropTypes.object.isRequired,
-  todosSort: PropTypes.object.isRequired,
+  dragId: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
@@ -110,8 +109,7 @@ List.propTypes = {
 
 const mapStateToProps = () => ({
   listsItems: getListsItems(),
-  todosSort: getTodosItemsSort()
-
+  dragId: getListSelected()
 });
 
 const mapDispatchToProps = dispatch => ({

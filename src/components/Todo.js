@@ -9,6 +9,7 @@ import {
   TODO_HEIGHT,
   TODO_MARGIN
 } from '../jss/constants';
+import { tilt } from '../jss/utils';
 import { todosSlice } from '../reducers';
 import { getTodoSelected } from '../selectors';
 import NameInputEdit from './NameInputEdit';
@@ -20,12 +21,17 @@ const useStyles = createUseStyles({
     textDecoration: 'line-through',
     opacity: '0.5'
   },
+  completeBackdrop: {
+    background: 'linear-gradient(0.5turn, #fefefe, #ededed, #fefefe)'
+  },
+  defaultBackdrop: {
+    background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)'
+  },
   itemContainer: {
     padding: '4px',
     border: '1px solid #bbbbbb',
     borderRadius: '4px',
     width: '300px',
-    background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
     display: 'flex',
     alignItems: 'center'
   },
@@ -72,14 +78,18 @@ const Todo = ({
       <div
         className={classNames({
           [classes.itemContainer]: true,
-          [classes.complete]: todo.isComplete
+          [classes.defaultBackdrop]: !todo.isComplete,
+          [classes.completeBackdrop]: todo.isComplete
         })}
-        style={{ transform: dragId === todo.id ? 'rotate(2deg)' : '' }}
+        style={{ transform: dragId === todo.id ? tilt : '' }}
       >
         <input
           onChange={onComplete(todo.id)}
           type='checkbox'
           checked={todo.isComplete}
+          className={classNames({
+            [classes.complete]: todo.isComplete
+          })}
         />
         <NameInputEdit
           onClickEdit={edit({ id: todo.id })}
@@ -92,6 +102,11 @@ const Todo = ({
           textDraft={todo.text.draft}
           isEditActive={todo.isEditActive}
           isComplete={todo.isComplete}
+          myClassNames={{ container:
+            classNames({
+              [classes.complete]: todo.isComplete
+            })}
+          }
         />
       </div>
     </li>

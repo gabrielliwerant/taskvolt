@@ -8,11 +8,13 @@ const getTodoSelected = () => getTodos().selected;
 const getLists = () => getState('list');
 const getListsItems = () => getLists().items;
 const getListsSort = () => getLists().sort;
+const getListSelected = () => getLists().selected;
 
 export {
   getTodosItems,
   getTodosItemsSort,
   getTodoSelected,
   getListsItems,
-  getListsSort
+  getListsSort,
+  getListSelected
 };

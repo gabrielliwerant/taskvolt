@@ -17,6 +17,8 @@ import {
   LIST_POSITION
 } from '../jss/constants';
 
+const classNames = require('classnames');
+
 const useStyles = createUseStyles({
   placeholder: {
     position: 'absolute',
@@ -24,14 +26,17 @@ const useStyles = createUseStyles({
     height: `${TODO_HEIGHT}px`,
     marginTop: `${TODO_POSITION}px`,
     borderRadius: '4px',
-    zIndex: 0,
+    zIndex: 1,
     border: '1px dashed #aaaaaa',
     background: '#dddddd',
     left: '47px'
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
-const Placeholder = ({ todoId, listIndex, index }) => {
+const Placeholder = ({ todoId, listIndex, index, dragId }) => {
   const classes = useStyles();
   const marginTop =
     `${TODO_POSITION + (TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * index}px`;
@@ -41,7 +46,12 @@ const Placeholder = ({ todoId, listIndex, index }) => {
     <div
       key={todoId}
       style={{ marginTop, marginLeft }}
-      className={classes.placeholder}
+      className={
+        classNames({
+          [classes.placeholder]: true,
+          [classes.hidden]: !dragId
+        })
+      }
     />
   );
 };
@@ -49,7 +59,8 @@ const Placeholder = ({ todoId, listIndex, index }) => {
 Placeholder.propTypes = {
   todoId: PropTypes.string.isRequired,
   listIndex: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  dragId: PropTypes.string.isRequired,
 };
 
 export default Placeholder;

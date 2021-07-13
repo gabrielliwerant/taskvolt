@@ -36,7 +36,7 @@ const Todos = ({ listId, todosItems, todosSort }) => {
               )}
             </Draggable>
           ))}
-          {provided.placeholder}
+          <div>{provided.placeholder}</div>
         </ul>
       )}
     </Droppable>

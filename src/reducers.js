@@ -147,6 +147,7 @@ const listSlice = createSlice({
       state.sort['1'].splice(action.payload.oldIndex, 1);
       state.sort['1'].splice(action.payload.newIndex, 0, orderedId);
     },
+    select: (state, action) => { state.selected = action.payload.id; }
   }
 });
 

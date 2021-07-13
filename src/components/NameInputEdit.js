@@ -44,7 +44,12 @@ const NameInputEdit = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.itemEditButtonsContainer}>
+    <div
+      className={classNames({
+        [classes.itemEditButtonsContainer]: true,
+        [myClassNames.container]: !!myClassNames?.container
+      })}
+    >
       <NameInput
         onClick={onClickEdit}
         value={textFinal}
