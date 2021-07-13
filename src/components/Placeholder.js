@@ -35,10 +35,16 @@ const useStyles = createUseStyles({
   placeholder: {
     position: 'absolute',
     borderRadius: '4px',
-    border: '1px dashed #aaaaaa',
-    background: '#dddddd',
     left: 0,
     top: 0
+  },
+  item: {
+    border: '1px dashed #aaaaaa',
+    background: '#dddddd'
+  },
+  list: {
+    border: '1px dashed #dddddd',
+    background: '#efefef'
   },
   hidden: {
     display: 'none'
@@ -95,6 +101,7 @@ const Placeholder = ({
       className={
         classNames({
           [classes.placeholder]: true,
+          [classes[variant]]: true,
           [classes.hidden]: isItemPlaceholderHidden || isListPlaceholderHidden
         })
       }
