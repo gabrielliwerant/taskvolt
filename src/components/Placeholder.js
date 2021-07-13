@@ -18,7 +18,8 @@ import {
   TODO_HEIGHT_POSITION,
   LIST_WIDTH_POSITION,
   LIST_WIDTH,
-  LIST_PADDING
+  LIST_PADDING,
+  ZINDEX
 } from '../jss/constants';
 import {
   getTodosItemsSort,
@@ -71,14 +72,14 @@ const Placeholder = ({
         `${((1 + listIndex) * LIST_WIDTH_POSITION) + LIST_PADDING + BORDER_OFFSET}px`;
       height = `${TODO_HEIGHT}px`;
       width = `${TODO_WIDTH}px`;
-      zIndex = 2;
+      zIndex = ZINDEX.itemPlaceholder;
       break;
     case 'list':
       marginTop = `${TOP_OFFSET}px`;
       marginLeft = `${LIST_PADDING * 2 + (LIST_WIDTH_POSITION * listIndex)}px`;
       height = !!dragListId ? getListHeight(dragListId) : getListHeight(id);
       width = `${LIST_WIDTH}px`;
-      zIndex = 0;
+      zIndex = ZINDEX.listPlaceholder;
       break;
   }
 

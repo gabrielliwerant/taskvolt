@@ -14,6 +14,14 @@ const LIST_WIDTH_POSITION = 372;
 const LIST_WIDTH = 340;
 const LIST_PADDING = 15;
 
+const ZINDEX = {
+  itemPlaceholder: 2,
+  listPlaceholder: 0,
+  item: 3,
+  list: 1,
+  navBar: 10
+};
+
 export {
   TOP_OFFSET,
   BORDER_OFFSET,
@@ -23,5 +31,6 @@ export {
   TODO_HEIGHT_POSITION,
   LIST_WIDTH_POSITION,
   LIST_WIDTH,
-  LIST_PADDING
+  LIST_PADDING,
+  ZINDEX
 };
