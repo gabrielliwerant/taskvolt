@@ -5,7 +5,7 @@ const getTodosItems = () => getTodos().items;
 const getTodosItemsSort = () => getTodos().sort;
 const getTodoSelected = () => getTodos().selected;
 
-const getLists = () => getState('list');
+const getLists = () => getState('lists');
 const getListsItems = () => getLists().items;
 const getListsSort = () => getLists().sort;
 const getListSelected = () => getLists().selected;

@@ -50,7 +50,7 @@ const makeNewList = (id, projectId, final) => ({
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
-    list: {
+    lists: {
       items: {
         '1': { ...makeNewList('1', '1', 'Todo List') }
       },
@@ -112,9 +112,9 @@ const todosSlice = createSlice({
   }
 });
 
-const listSlice = createSlice({
-  name: 'list',
-  initialState: initialState.list,
+const listsSlice = createSlice({
+  name: 'lists',
+  initialState: initialState.lists,
   reducers: {
     add: (state, action) => {
       const listId = action.payload.id;
@@ -153,4 +153,4 @@ const listSlice = createSlice({
   }
 });
 
-export { todosSlice, listSlice };
+export { todosSlice, listsSlice };

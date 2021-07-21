@@ -13,7 +13,7 @@ import {
 } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import { getListsItems, getListSelected } from '../selectors';
-import { todosSlice, listSlice } from '../reducers';
+import { todosSlice, listsSlice } from '../reducers';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';
@@ -124,11 +124,11 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = dispatch => ({
   add: id => () => dispatch(todosSlice.actions.add(id)),
-  edit: id => () => dispatch(listSlice.actions.edit(id)),
-  save: (id, draft) => () => dispatch(listSlice.actions.save(id, draft)),
-  cancel: id => () => dispatch(listSlice.actions.cancel(id)),
-  change: id => dispatch(listSlice.actions.change(id)),
-  remove: id => () => dispatch(listSlice.actions.remove(id))
+  edit: id => () => dispatch(listsSlice.actions.edit(id)),
+  save: (id, draft) => () => dispatch(listsSlice.actions.save(id, draft)),
+  cancel: id => () => dispatch(listsSlice.actions.cancel(id)),
+  change: id => dispatch(listsSlice.actions.change(id)),
+  remove: id => () => dispatch(listsSlice.actions.remove(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

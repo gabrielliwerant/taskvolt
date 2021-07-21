@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import { todosSlice, listSlice } from '../reducers';
+import { todosSlice, listsSlice } from '../reducers';
 import { getDraggableId } from '../utils';
 import { LIST_TYPE, ITEM_TYPE } from '../constants';
 import Lists from './Lists';
@@ -97,10 +97,10 @@ const mapDispatchToProps = dispatch => ({
   ),
   select: id => dispatch(todosSlice.actions.select(id)),
   reorderList: (listId, oldIndex, newIndex) => dispatch(
-    listSlice.actions.reorder(listId, oldIndex, newIndex)
+    listsSlice.actions.reorder(listId, oldIndex, newIndex)
   ),
-  selectList: id => dispatch(listSlice.actions.select(id)),
-  drop: index => dispatch(listSlice.actions.drop(index))
+  selectList: id => dispatch(listsSlice.actions.select(id)),
+  drop: index => dispatch(listsSlice.actions.drop(index))
 });
 
 export default connect(null, mapDispatchToProps)(ListsContainer);

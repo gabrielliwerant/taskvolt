@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { Z_INDEX } from '../jss/constants';
-import { todosSlice, listSlice } from '../reducers';
+import { todosSlice, listsSlice } from '../reducers';
 import { makeId } from '../utils';
 import Button from './Button';
 
@@ -57,7 +57,7 @@ NavBar.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
   addSort: listId => dispatch(todosSlice.actions.addSort(listId)),
-  add: listId => dispatch(listSlice.actions.add(listId))
+  add: listId => dispatch(listsSlice.actions.add(listId))
 });
 
 export default connect(null, mapDispatchToProps)(NavBar);
