@@ -10,3 +10,19 @@ This is an ongoing experiment with the purpose of eventually creating an embedda
 1. `npm install`
 1. `npm start`
 1. Navigate to `http://localhost:8080`
+
+## Roadmap
+
+- Add project level to collect lists
+- Allow exporting data
+- Allow importing data
+- Allow viewing trashed items
+- Improve UX around editing text
+- Add note type feature
+- Add other status changes to allow visual distinction?
+- Allow marking as important
+- Add branding/white label ability
+- Add testing
+- Deploy to website
+- Allow custom color theming
+- Allow dragging items/notes between lists
