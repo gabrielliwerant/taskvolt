@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { LIST_PADDING } from '../jss/constants';
-import { getListsSort, getTodosItems, getTodosItemsSort } from '../selectors';
+import { getListsSort, getTodosItems, getTodosSort } from '../selectors';
 import { ITEM_TYPE } from '../constants';
 import { getIndexFromId } from '../utils';
 import Placeholder from './Placeholder';
@@ -64,7 +64,7 @@ Todos.propTypes = {
 const mapStateToProps = () => ({
   listSort: getListsSort(),
   todosItems: getTodosItems(),
-  todosSort: getTodosItemsSort()
+  todosSort: getTodosSort()
 });
 
 export default connect(mapStateToProps, null)(Todos);

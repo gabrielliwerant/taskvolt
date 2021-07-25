@@ -6,28 +6,28 @@ import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { Z_INDEX } from '../jss/constants';
 import { todosSlice, listsSlice } from '../reducers';
+import { getProjectsSort, getProjectsItems } from '../selectors';
 import { makeId } from '../utils';
 import Button from './Button';
 
 const useStyles = createUseStyles({
   container: {
     width: '100%',
-    height: '60px',
     background: '#dddddd',
     marginRight: '20px',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row-reverse',
     position: 'fixed',
     zIndex: Z_INDEX.navBar,
     borderBottom: '1px solid #cccccc'
   },
   inner: {
-    marginRight: '20px'
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '15px 20px'
   }
 });
 
-const NavBar = ({ addSort, add }) => {
+const NavBar = ({ addSort, add, projectsSort, projectsItems }) => {
   const classes = useStyles();
   const onClick = () => {
     const id = makeId();
@@ -38,6 +38,11 @@ const NavBar = ({ addSort, add }) => {
   return (
     <header className={classes.container}>
       <nav className={classes.inner}>
+        <ul>
+          {projectsSort['1'].map(projectId => (
+            <li key={projectId}>{projectsItems[projectId].text.final}</li>
+          ))}
+        </ul>
         <ul>
           <li>
             <Button onClick={onClick} isIcon trailing={<AddTwoToneIcon />}>
@@ -52,12 +57,19 @@ const NavBar = ({ addSort, add }) => {
 
 NavBar.propTypes = {
   addSort: PropTypes.func.isRequired,
-  add: PropTypes.func.isRequired
+  add: PropTypes.func.isRequired,
+  projectsSort: PropTypes.object.isRequired,
+  projectsItems: PropTypes.object.isRequired
 };
+
+const mapStateToProps = () => ({
+  projectsSort: getProjectsSort(),
+  projectsItems: getProjectsItems()
+});
 
 const mapDispatchToProps = dispatch => ({
   addSort: listId => dispatch(todosSlice.actions.addSort(listId)),
-  add: listId => dispatch(listsSlice.actions.add(listId))
+  add: (listId, projectId) => dispatch(listsSlice.actions.add(listId, projectId))
 });
 
-export default connect(null, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

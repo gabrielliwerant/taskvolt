@@ -43,6 +43,26 @@ const makeNewList = (id, projectId, final) => ({
 });
 
 /**
+ * Create new todo project
+ *
+ * @param {string} id
+ * @param {string} userId
+ * @param {string} final
+ * @returns {object}
+ */
+const makeNewProject = (id, userId, final) => ({
+  id,
+  text: {
+    draft: final,
+    final
+  },
+  userId,
+  isEditActive: false,
+  isRemoved: false,
+  isActive: false
+});
+
+/**
  * Retrieve data from local storage or initial data structure.
  *
  * @returns {object}
@@ -50,10 +70,12 @@ const makeNewList = (id, projectId, final) => ({
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
+    projects: {
+      items: { '1': { ...makeNewProject('1', '1', 'New Project') } },
+      sort: { '1': ['1'] }
+    },
     lists: {
-      items: {
-        '1': { ...makeNewList('1', '1', 'Todo List') }
-      },
+      items: { '1': { ...makeNewList('1', '1', 'Todo List') } },
       selected: '',
       dropping: null,
       sort: { '1': ['1'] }
@@ -153,4 +175,38 @@ const listsSlice = createSlice({
   }
 });
 
-export { todosSlice, listsSlice };
+const projectsSlice = createSlice({
+  name: 'projects',
+  initialState: initialState.projects,
+  reducers: {
+    add: (state, action) => {
+      const projectId = action.payload.id;
+      state.items[projectId] = makeNewList(projectId, '1', 'Project');
+      state.sort['1'].push(projectId);
+    },
+    edit: (state, action) => {
+      state.items[action.payload.id].isEditActive = true;
+    },
+    save: (state, action) => {
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.final = action.payload.draft;
+    },
+    cancel: (state, action) => {
+      const final = state.items[action.payload.id].text.final;
+      state.items[action.payload.id].isEditActive = false;
+      state.items[action.payload.id].text.draft = final;
+    },
+    remove: (state, action) => {
+      const userId = state.items[action.payload.id].userId;
+      state.sort[userId] = state
+        .sort[userId]
+        .filter(id => id !== action.payload.id);
+      state.items[action.payload.id].isRemoved = true;
+    },
+    change: (state, action) => {
+      state.items[action.payload.id].text.draft = action.payload.draft;
+    }
+  }
+});
+
+export { todosSlice, listsSlice, projectsSlice };

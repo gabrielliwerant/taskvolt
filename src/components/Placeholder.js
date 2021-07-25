@@ -22,7 +22,7 @@ import {
   Z_INDEX
 } from '../jss/constants';
 import {
-  getTodosItemsSort,
+  getTodosSort,
   getListSelected,
   getListDropping
 } from '../selectors';
@@ -43,7 +43,7 @@ const useStyles = createUseStyles({
     background: '#dddddd'
   },
   list: {
-    border: '1px dashed #dddddd',
+    border: '1px dashed #cccccc',
     background: '#efefef'
   },
   hidden: {
@@ -125,7 +125,7 @@ Placeholder.defaultProps = {
 };
 
 const mapStateToProps = () => ({
-  todosSort: getTodosItemsSort(),
+  todosSort: getTodosSort(),
   dragListId: getListSelected(),
   dropListIndex: getListDropping()
 });

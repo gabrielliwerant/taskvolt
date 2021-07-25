@@ -6,7 +6,7 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { todosSlice, listsSlice } from './reducers';
+import { todosSlice, listsSlice, projectsSlice } from './reducers';
 import { LOCAL_STORAGE_KEY } from './constants';
 
 /**
@@ -29,7 +29,8 @@ const storeLocal = store => next => action => {
 const store = configureStore({
   reducer: combineReducers({
     todos: todosSlice.reducer,
-    lists: listsSlice.reducer
+    lists: listsSlice.reducer,
+    projects: projectsSlice.reducer
   }),
   middleware: [storeLocal]
 });
