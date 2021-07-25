@@ -8,6 +8,7 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import {
   BORDER_OFFSET,
   TODO_WIDTH,
+  TODO_MARGIN,
   LIST_PADDING,
   Z_INDEX
 } from '../jss/constants';
@@ -31,7 +32,7 @@ const useStyles = createUseStyles({
   },
   listContainer: {
     width: `${TODO_WIDTH + BORDER_OFFSET}px`,
-    padding: `${LIST_PADDING}px`,
+    padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - TODO_MARGIN}px ${LIST_PADDING}px`,
     background: '#f7f7f7',
     border: '1px solid #cccccc',
     borderRadius: '4px',

@@ -50,9 +50,6 @@ const useStyles = createUseStyles({
     marginBottom: `${TODO_MARGIN}px`,
     position: 'relative',
     zIndex: Z_INDEX.item,
-    '&:last-child': {
-      marginBottom: 0
-    },
     '&:focus': {
       outline: 'none'
     }

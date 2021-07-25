@@ -62,7 +62,7 @@ const Placeholder = ({
 }) => {
   const classes = useStyles();
   const getListHeight = id =>
-    `${(TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * todosSort[id].length + TODO_HEIGHT_POSITION + LIST_PLACEHOLDER_HEIGHT_OFFSET}px`;
+    `${(TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * todosSort[id].length + TODO_HEIGHT_POSITION + LIST_PLACEHOLDER_HEIGHT_OFFSET - TODO_MARGIN}px`;
 
   let marginTop;
   let marginLeft;
