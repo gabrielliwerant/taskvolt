@@ -29,7 +29,6 @@ const useStyles = createUseStyles({
     }
   },
   text: {
-    fontFamily: '"Roboto", arial, sans-serif',
     fontSize: '14px'
   }
 });

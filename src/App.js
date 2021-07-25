@@ -9,7 +9,8 @@ import NavBar from './components/NavBar';
 const useStyles = createUseStyles({
   '@global': {
     body: {
-      margin: 0
+      margin: 0,
+      fontFamily: '"Roboto", arial, sans-serif'
     },
     ul: {
       margin: 0,

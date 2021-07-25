@@ -45,7 +45,6 @@ const useStyles = createUseStyles({
     justifyContent: 'space-between'
   },
   text: {
-    fontFamily: '"Roboto", arial, sans-serif',
     fontSize: '20px',
     width: '164px',
     height: '25px'

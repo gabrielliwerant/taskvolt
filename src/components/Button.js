@@ -10,7 +10,6 @@ const buttonStyles = {
   boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
   borderRadius: '4px',
   cursor: 'pointer',
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: 500,
   fontSize: '0.5rem',
   transition: 'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
