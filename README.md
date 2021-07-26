@@ -26,3 +26,4 @@ This is an ongoing experiment with the purpose of eventually creating an embedda
 - Deploy to website
 - Allow custom color theming
 - Allow dragging items/notes between lists
+- Handle truncation/overflow in todos/notes
