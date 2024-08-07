@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { projectsSlice } from '../reducers';
+import { projectsSlice } from '../redux/reducers/projects';
 import { getProjectsItems } from '../selectors';
+
 import NameInputEdit from './NameInputEdit';
 
 const useStyles = createUseStyles({
@@ -13,14 +14,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Project = ({
-  projectsItems,
-  id,
-  edit,
-  save,
-  cancel,
-  change
-}) => {
+const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
   const classes = useStyles();
   const onChange = id => e => change({ id, draft: e.target.value });
 
@@ -29,10 +23,7 @@ const Project = ({
       <NameInputEdit
         onClickEdit={edit({ id })}
         onChangeEdit={onChange(id)}
-        onClickSave={save({
-          id,
-          draft: projectsItems[id].text.draft
-        })}
+        onClickSave={save({ id, draft: projectsItems[id].text.draft })}
         onClickCancel={cancel({ id })}
         textFinal={projectsItems[id].text.final}
         textDraft={projectsItems[id].text.draft}

@@ -5,8 +5,10 @@ import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
 import { Z_INDEX } from '../jss/constants';
-import { todosSlice, listsSlice } from '../reducers';
+import { todosSlice } from '../redux/reducers/todos';
+import { listsSlice } from '../redux/reducers/lists';
 import { makeId } from '../utils';
+
 import Button from './Button';
 import Projects from './Projects';
 
@@ -29,6 +31,7 @@ const useStyles = createUseStyles({
 
 const NavBar = ({ addSort, add }) => {
   const classes = useStyles();
+  
   const onClick = () => {
     const id = makeId();
     addSort({ id });

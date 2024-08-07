@@ -1,12 +1,14 @@
 /**
- * config.js
+ * src/config.js
  *
  * Handle initial setup of redux store.
  */
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { todosSlice, listsSlice, projectsSlice } from './reducers';
+import { todosSlice } from './redux/reducers/todos';
+import { listsSlice } from './redux/reducers/lists';
+import { projectsSlice } from './redux/reducers/projects';
 import { LOCAL_STORAGE_KEY } from './constants';
 
 /**
@@ -37,4 +39,4 @@ const store = configureStore({
 
 const getState = name => store.getState()[name];
 
-export { LOCAL_STORAGE_KEY, store, getState };
+export { store, getState };

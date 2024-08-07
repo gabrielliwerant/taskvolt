@@ -5,16 +5,12 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-import {
-  BORDER_OFFSET,
-  TODO_WIDTH,
-  TODO_MARGIN,
-  LIST_PADDING,
-  Z_INDEX
-} from '../jss/constants';
+import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import { getListsItems, getListSelected } from '../selectors';
-import { todosSlice, listsSlice } from '../reducers';
+import { todosSlice } from '../redux/reducers/todos';
+import { listsSlice } from '../redux/reducers/lists';
+
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';

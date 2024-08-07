@@ -4,9 +4,11 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import { todosSlice, listsSlice } from '../reducers';
+import { todosSlice } from '../redux/reducers/todos';
+import { listsSlice } from '../redux/reducers/lists';
 import { getDraggableId } from '../utils';
 import { LIST_TYPE, ITEM_TYPE } from '../constants';
+
 import Lists from './Lists';
 
 const useStyles = createUseStyles({
@@ -57,16 +59,12 @@ const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
       drop({ index: start.source.index });
     }
 
-    if (start.type === ITEM_TYPE) {
-      select({ id: getDraggableId(start.draggableId) });
-    }
+    if (start.type === ITEM_TYPE) select({ id: getDraggableId(start.draggableId) });
   };
 
   const onDragUpdate = update => {
     if (update.type === LIST_TYPE) {
-      if (update.destination) {
-        drop({ index: update.destination.index });
-      }
+      if (update.destination) drop({ index: update.destination.index });
     }
   };
 
