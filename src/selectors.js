@@ -1,4 +1,4 @@
-import { getState } from './config';
+import { getState } from './redux/config';
 
 const getTodos = () => getState('todos');
 const getTodosItems = () => getTodos().items;

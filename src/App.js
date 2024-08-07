@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import { store } from './config';
+import { store } from './redux/config';
+
 import ListsContainer from './components/ListsContainer';
 import NavBar from './components/NavBar';
 

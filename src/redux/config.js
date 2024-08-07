@@ -6,10 +6,10 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { todosSlice } from './redux/reducers/todos';
-import { listsSlice } from './redux/reducers/lists';
-import { projectsSlice } from './redux/reducers/projects';
-import { LOCAL_STORAGE_KEY } from './constants';
+import { todosSlice } from './reducers/todos';
+import { listsSlice } from './reducers/lists';
+import { projectsSlice } from './reducers/projects';
+import { LOCAL_STORAGE_KEY } from '../constants';
 
 /**
  * Store todo data in local storage after latest state reduce.
