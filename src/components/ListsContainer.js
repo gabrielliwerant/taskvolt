@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const ListsContainer = ({ reorder, selectTodo, reorderList, selectList, drop }) => {
+const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop }) => {
   const classes = useStyles();
 
   const onDragEnd = result => {
@@ -36,7 +36,7 @@ const ListsContainer = ({ reorder, selectTodo, reorderList, selectList, drop }) 
 
     if (result.type === LIST_TYPE) {
       reorderList({
-        listId: getDraggableId(result.draggableId),
+        id: getDraggableId(result.draggableId),
         oldIndex: result.source.index,
         newIndex: result.destination.index
       });
@@ -44,8 +44,8 @@ const ListsContainer = ({ reorder, selectTodo, reorderList, selectList, drop }) 
     }
 
     if (result.type === ITEM_TYPE) {
-      reorder({
-        id: getDraggableId(result.source.droppableId),
+      reorderTodo({
+        listId: getDraggableId(result.source.droppableId),
         oldIndex: result.source.index,
         newIndex: result.destination.index
       });
@@ -82,7 +82,7 @@ const ListsContainer = ({ reorder, selectTodo, reorderList, selectList, drop }) 
 };
 
 ListsContainer.propTypes = {
-  reorder: PropTypes.func.isRequired,
+  reorderTodo: PropTypes.func.isRequired,
   selectTodo: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
   selectList: PropTypes.func.isRequired,
@@ -90,7 +90,7 @@ ListsContainer.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  reorder: (listId, oldIndex, newIndex) => dispatch(
+  reorderTodo: (listId, oldIndex, newIndex) => dispatch(
     todosSlice.actions.reorder(listId, oldIndex, newIndex)
   ),
   selectTodo: id => dispatch(todosSlice.actions.select(id)),

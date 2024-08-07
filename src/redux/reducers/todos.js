@@ -16,7 +16,7 @@ const todosSlice = createSlice({
   reducers: {
     add: (state, action) => {
       const id = makeId();
-      
+
       state.items[id] = makeNewTodo(id, action.payload, 'New todo');
       state.sort[action.payload].push(id);
     },
@@ -52,7 +52,7 @@ const todosSlice = createSlice({
       list.splice(action.payload.newIndex, 0, orderedId);
     },
     addSort: (state, action) => { state.sort[action.payload.id] = []; },
-    select: (state, action) => { state.selected = action.payload.id; }
+    select: (state, action) => { state.selected = action.payload; }
   }
 });
 

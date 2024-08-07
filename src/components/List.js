@@ -128,7 +128,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     edit: () => dispatch(listsSlice.actions.edit(id)),
     save: draft => () => dispatch(listsSlice.actions.save({ id, draft })),
     cancel: () => dispatch(listsSlice.actions.cancel(id)),
-    change: draft => () => dispatch(listsSlice.actions.change({ id, draft })),
+    change: draft => dispatch(listsSlice.actions.change({ id, draft })),
     remove: () => dispatch(listsSlice.actions.remove(id))
   };
 };
