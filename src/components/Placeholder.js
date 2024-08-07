@@ -9,6 +9,9 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import { getTodosSort } from '../redux/selectors/todos';
+import { getListSelected, getListDropping } from '../redux/selectors/lists';
+
 import {
   TOP_OFFSET,
   BORDER_OFFSET,
@@ -21,11 +24,6 @@ import {
   LIST_PADDING,
   Z_INDEX
 } from '../jss/constants';
-import {
-  getTodosSort,
-  getListSelected,
-  getListDropping
-} from '../selectors';
 
 const classNames = require('classnames');
 

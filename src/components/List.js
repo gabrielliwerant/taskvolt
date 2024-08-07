@@ -7,7 +7,7 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '../jss/constants';
 import { tilt } from '../jss/utils';
-import { getListsItems, getListSelected } from '../selectors';
+import { getListsItems, getListSelected } from '../redux/selectors/lists';
 import { todosSlice } from '../redux/reducers/todos';
 import { listsSlice } from '../redux/reducers/lists';
 

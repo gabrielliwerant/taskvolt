@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
 import { projectsSlice } from '../redux/reducers/projects';
-import { getProjectsItems } from '../selectors';
+import { getProjectsItems } from '../redux/selectors/projects';
 
 import NameInputEdit from './NameInputEdit';
 

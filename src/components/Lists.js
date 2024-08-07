@@ -4,9 +4,10 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { TOP_OFFSET } from '../jss/constants';
-import { getListsSort } from '../selectors';
-import { LIST_TYPE } from '../constants';
+import { getListsSort } from '../redux/selectors/lists';
+import { LIST_TYPE } from '../constants'
+
+import { TOP_OFFSET } from '../jss/constants';;
 import Placeholder from './Placeholder';
 import List from './List';
 

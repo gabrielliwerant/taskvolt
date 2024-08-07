@@ -4,10 +4,12 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { LIST_PADDING } from '../jss/constants';
-import { getListsSort, getTodosItems, getTodosSort } from '../selectors';
+import { getTodosItems, getTodosSort } from '../redux/selectors/todos';
+import { getListsSort } from '../redux/selectors/lists';
 import { ITEM_TYPE } from '../constants';
 import { getIndexFromId } from '../utils';
+
+import { LIST_PADDING } from '../jss/constants';
 import Placeholder from './Placeholder';
 import Todo from './Todo';
 
