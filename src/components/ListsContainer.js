@@ -4,10 +4,10 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import { todosSlice } from '../redux/reducers/todos';
-import { listsSlice } from '../redux/reducers/lists';
-import { getDraggableId } from '../utils';
-import { LIST_TYPE, ITEM_TYPE } from '../constants';
+import { getDraggableId } from '@src/utils';
+import { LIST_TYPE, ITEM_TYPE } from '@src/constants';
+import { todosSlice } from '@redux/reducers/todos';
+import { listsSlice } from '@redux/reducers/lists';
 
 import Lists from './Lists';
 

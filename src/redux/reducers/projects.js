@@ -6,8 +6,8 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getInitialState } from '../../main/getInitialState';
-import { makeNewList } from '../../main/lists';
+import { getInitialState } from '@main/getInitialState';
+import { makeNewList } from '@main/lists';
 
 const projectsSlice = createSlice({
   name: 'projects',

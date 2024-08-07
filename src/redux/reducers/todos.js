@@ -6,9 +6,9 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getInitialState } from '../../main/getInitialState';
-import { makeNewTodo } from '../../main/todos';
-import { makeId } from '../../utils';
+import { makeId } from '@src/utils';
+import { getInitialState } from '@main/getInitialState';
+import { makeNewTodo } from '@main/todos';
 
 const todosSlice = createSlice({
   name: 'todos',

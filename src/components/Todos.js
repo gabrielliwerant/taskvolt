@@ -4,12 +4,13 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { getTodosItems, getTodosSort } from '../redux/selectors/todos';
-import { getListsSort } from '../redux/selectors/lists';
-import { ITEM_TYPE } from '../constants';
-import { getIndexFromId } from '../utils';
+import { ITEM_TYPE } from '@src/constants';
+import { getIndexFromId } from '@src/utils';
+import { getTodosItems, getTodosSort } from '@redux/selectors/todos';
+import { getListsSort } from '@redux/selectors/lists';
 
-import { LIST_PADDING } from '../jss/constants';
+import { LIST_PADDING } from '@jss/constants';
+
 import Placeholder from './Placeholder';
 import Todo from './Todo';
 
@@ -36,9 +37,7 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
               draggableId={`item-${todoId}`}
               index={index}
             >
-              {(provided) => (
-                <Todo provided={provided} todo={todosItems[todoId]} />
-              )}
+              {(provided) => <Todo provided={provided} todo={todosItems[todoId]} />}
             </Draggable>
           ))}
           {todosSort[listId].map((todoId, index) => (

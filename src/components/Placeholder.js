@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { getTodosSort } from '../redux/selectors/todos';
-import { getListSelected, getListDropping } from '../redux/selectors/lists';
+import { getTodosSort } from '@redux/selectors/todos';
+import { getListSelected, getListDropping } from '@redux/selectors/lists';
 
 import {
   TOP_OFFSET,

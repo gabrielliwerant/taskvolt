@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 
-import { Z_INDEX } from '../jss/constants';
-import { todosSlice } from '../redux/reducers/todos';
-import { listsSlice } from '../redux/reducers/lists';
-import { makeId } from '../utils';
+import { makeId } from '@src/utils';
+import { todosSlice } from '@redux/reducers/todos';
+import { listsSlice } from '@redux/reducers/lists';
+
+import { Z_INDEX } from '@jss/constants';
 
 import Button from './Button';
 import Projects from './Projects';

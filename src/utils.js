@@ -26,7 +26,6 @@ const getDraggableId = id => id.split('-').pop();
  * @param {object} sort
  * @returns {string}
  */
-const getIndexFromId = (id, sort) =>
-  Object.values(sort).findIndex(el => el === id);
+const getIndexFromId = (id, sort) => Object.values(sort).findIndex(el => el === id);
 
 export { makeId, getDraggableId, getIndexFromId };

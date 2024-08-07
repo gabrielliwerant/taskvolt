@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { IS_DEBUG_MODE_ON } from '../debugging/constants';
-import { logStorage } from '../debugging/logging';
+import { IS_DEBUG_MODE_ON } from '@debugging/constants';
+import { logStorage } from '@debugging/logging';
 
 import { LOCAL_STORAGE_KEY } from './constants';
 

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import { todosSlice } from '../redux/reducers/todos';
-import { getTodoSelected } from '../redux/selectors/todos';
+import { todosSlice } from '@redux/reducers/todos';
+import { getTodoSelected } from '@redux/selectors/todos';
 
 import { BORDER_OFFSET, TODO_WIDTH, TODO_HEIGHT, TODO_MARGIN, Z_INDEX } from '../jss/constants';
 import { tilt } from '../jss/utils';

@@ -5,7 +5,8 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
-import { flex, fullWidth } from '../jss/styles';
+import { flex, fullWidth } from '@jss/styles';
+
 import Button from './Button';
 import NameInput from './NameInput';
 

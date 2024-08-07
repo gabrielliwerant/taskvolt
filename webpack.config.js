@@ -14,26 +14,40 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: {
+    alias: {
+      // main application code section
+      '@src': path.resolve(__dirname, 'src'),
+      // debugging-specific code
+      '@debugging': path.resolve(__dirname, 'debugging'),
+      // non-ui
+      '@main': path.resolve(__dirname, 'src/main'),
+      '@redux': path.resolve(__dirname, 'src/redux'),
+      // ui
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@jss': path.resolve(__dirname, 'src/jss')
+    }
+  },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    }),
+    })
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-        'style-loader',
-        'css-loader'
-        ],
+          'style-loader',
+          'css-loader'
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
           'file-loader'
-        ],
+        ]
       },
       {
         test: /\.(js|jsx)$/,
@@ -45,6 +59,6 @@ module.exports = {
           }
         }
       }
-    ],
-  },
+    ]
+  }
 };

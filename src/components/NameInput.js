@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
-import { TODO_INPUT_WIDTH } from '../jss/constants';
+import { TODO_INPUT_WIDTH } from '@jss/constants';
 
 const classNames = require('classnames');
 

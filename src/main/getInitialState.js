@@ -4,7 +4,7 @@
  * Retrieves the initial state of the application.
  */
 
-import { LOCAL_STORAGE_KEY } from '../constants';
+import { LOCAL_STORAGE_KEY } from '@src/constants';
 
 import { makeNewList } from './lists';
 import { makeNewProject } from './projects';

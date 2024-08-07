@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { projectsSlice } from '../redux/reducers/projects';
-import { getProjectsItems } from '../redux/selectors/projects';
+import { projectsSlice } from '@redux/reducers/projects';
+import { getProjectsItems } from '@redux/selectors/projects';
 
 import NameInputEdit from './NameInputEdit';
 
