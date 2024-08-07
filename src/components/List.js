@@ -7,7 +7,7 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
 import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '../jss/constants';
 import { tilt } from '../jss/utils';
-import { getListsItems, getListSelected } from '../redux/selectors/lists';
+import { getListItemById, getListSelected } from '../redux/selectors/lists';
 import { todosSlice } from '../redux/reducers/todos';
 import { listsSlice } from '../redux/reducers/lists';
 
@@ -50,22 +50,22 @@ const useStyles = createUseStyles({
 
 const List = ({
   provided,
-  listId,
-  listsItems,
+  id,
+  item,
   dragId,
-  add,
+  addTodo,
   edit,
   change,
   save,
   cancel,
   remove
 }) => {
-  const onChange = id => e => change({ id, draft: e.target.value });
+  const onChange = e => change(e.target.value);
   const classes = useStyles();
 
   return (
     <li
-      key={listId}
+      key={id}
       className={classes.container}
       ref={provided.innerRef}
       {...provided.draggableProps}
@@ -73,28 +73,26 @@ const List = ({
     >
       <div
         className={classes.listContainer}
-        style={{ transform: dragId === listId ? tilt : '' }}
+        style={{ transform: dragId === id ? tilt : '' }}
       >
         <div className={classes.listTitleContainer}>
           <NameInputEdit
-            onClickEdit={edit({ id: listId })}
-            onChangeEdit={onChange(listId)}
-            onClickSave={save(
-              { id: listId, draft: listsItems[listId].text.draft }
-            )}
-            onClickCancel={cancel({ id: listId })}
-            textFinal={listsItems[listId].text.final}
-            textDraft={listsItems[listId].text.draft}
-            isEditActive={listsItems[listId].isEditActive}
+            onClickEdit={edit}
+            onChangeEdit={onChange}
+            onClickSave={save(item.text.draft)}
+            onClickCancel={cancel}
+            textFinal={item.text.final}
+            textDraft={item.text.draft}
+            isEditActive={item.isEditActive}
             isComplete={false}
             myClassNames={{ text: classes.text }}
           />
-          <Button onClick={add({ id: listId })} isIcon><AddTwoToneIcon /></Button>
-          <Button onClick={remove({ id: listId })} isIcon>
+          <Button onClick={addTodo} isIcon><AddTwoToneIcon /></Button>
+          <Button onClick={remove} isIcon>
             <DeleteTwoToneIcon />
           </Button>
         </div>
-        <Todos listId={listId} />
+        <Todos listId={id} />
       </div>
     </li>
   );
@@ -102,10 +100,10 @@ const List = ({
 
 List.propTypes = {
   provided: PropTypes.object.isRequired,
-  listId: PropTypes.string.isRequired,
-  listsItems: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
   dragId: PropTypes.string.isRequired,
-  add: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -113,18 +111,26 @@ List.propTypes = {
   remove: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({
-  listsItems: getListsItems(),
-  dragId: getListSelected()
-});
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.id;
 
-const mapDispatchToProps = dispatch => ({
-  add: id => () => dispatch(todosSlice.actions.add(id)),
-  edit: id => () => dispatch(listsSlice.actions.edit(id)),
-  save: (id, draft) => () => dispatch(listsSlice.actions.save(id, draft)),
-  cancel: id => () => dispatch(listsSlice.actions.cancel(id)),
-  change: id => dispatch(listsSlice.actions.change(id)),
-  remove: id => () => dispatch(listsSlice.actions.remove(id))
-});
+  return {
+    item: getListItemById(id),
+    dragId: getListSelected()
+  }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const id = ownProps.id;
+
+  return {
+    addTodo: () => dispatch(todosSlice.actions.add(id)),
+    edit: () => dispatch(listsSlice.actions.edit(id)),
+    save: draft => () => dispatch(listsSlice.actions.save({ id, draft })),
+    cancel: () => dispatch(listsSlice.actions.cancel(id)),
+    change: draft => () => dispatch(listsSlice.actions.change({ id, draft })),
+    remove: () => dispatch(listsSlice.actions.remove(id))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

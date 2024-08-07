@@ -17,19 +17,19 @@ const useStyles = createUseStyles({
   }
 });
 
-const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
+const ListsContainer = ({ reorder, selectTodo, reorderList, selectList, drop }) => {
   const classes = useStyles();
 
   const onDragEnd = result => {
     if (!result.destination) {
       if (result.type === LIST_TYPE) {
-        selectList({ id: '' });
-        drop({ index: null });
+        selectList('');
+        drop(null);
         return;
       }
 
       if (result.type === ITEM_TYPE) {
-        select({ id: '' });
+        selectTodo('');
         return;
       }
     }
@@ -40,31 +40,31 @@ const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
         oldIndex: result.source.index,
         newIndex: result.destination.index
       });
-      selectList({ id: '' });
+      selectList('');
     }
 
     if (result.type === ITEM_TYPE) {
       reorder({
-        listId: getDraggableId(result.source.droppableId),
+        id: getDraggableId(result.source.droppableId),
         oldIndex: result.source.index,
         newIndex: result.destination.index
       });
-      select({ id: '' });
+      selectTodo('');
     }
   };
 
   const onDragStart = start => {
     if (start.type === LIST_TYPE) {
-      selectList({ id: getDraggableId(start.draggableId) });
-      drop({ index: start.source.index });
+      selectList(getDraggableId(start.draggableId));
+      drop(start.source.index);
     }
 
-    if (start.type === ITEM_TYPE) select({ id: getDraggableId(start.draggableId) });
+    if (start.type === ITEM_TYPE) selectTodo(getDraggableId(start.draggableId));
   };
 
   const onDragUpdate = update => {
     if (update.type === LIST_TYPE) {
-      if (update.destination) drop({ index: update.destination.index });
+      if (update.destination) drop(update.destination.index);
     }
   };
 
@@ -83,7 +83,7 @@ const ListsContainer = ({ reorder, select, reorderList, selectList, drop }) => {
 
 ListsContainer.propTypes = {
   reorder: PropTypes.func.isRequired,
-  select: PropTypes.func.isRequired,
+  selectTodo: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
   selectList: PropTypes.func.isRequired,
   drop: PropTypes.func.isRequired
@@ -93,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
   reorder: (listId, oldIndex, newIndex) => dispatch(
     todosSlice.actions.reorder(listId, oldIndex, newIndex)
   ),
-  select: id => dispatch(todosSlice.actions.select(id)),
+  selectTodo: id => dispatch(todosSlice.actions.select(id)),
   reorderList: (listId, oldIndex, newIndex) => dispatch(
     listsSlice.actions.reorder(listId, oldIndex, newIndex)
   ),

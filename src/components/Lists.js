@@ -24,26 +24,12 @@ const Lists = ({ listsSort }) => {
   const classes = useStyles();
 
   return (
-    <Droppable
-      droppableId='droppable-lists'
-      direction='horizontal'
-      type={LIST_TYPE}
-    >
+    <Droppable droppableId='droppable-lists' direction='horizontal' type={LIST_TYPE}>
       {(provided) => (
-        <ul
-          className={classes.lists}
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-        >
+        <ul className={classes.lists} {...provided.droppableProps} ref={provided.innerRef}>
           {listsSort['1'].map((listId, index) => (
-            <Draggable
-              key={listId}
-              draggableId={`list-${listId}`}
-              index={index}
-            >
-              {(provided) => (
-                <List listId={listId} listIndex={index} provided={provided} />
-              )}
+            <Draggable key={listId} draggableId={`list-${listId}`} index={index}>
+              {(provided) => <List id={listId} listIndex={index} provided={provided} />}
             </Draggable>
           ))}
           {listsSort['1'].map((listId, listIndex) => (

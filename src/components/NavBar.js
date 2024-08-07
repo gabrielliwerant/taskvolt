@@ -29,13 +29,13 @@ const useStyles = createUseStyles({
   }
 });
 
-const NavBar = ({ addSort, add }) => {
+const NavBar = ({ addTodoSortSection, addList }) => {
   const classes = useStyles();
-  
+
   const onClick = () => {
     const id = makeId();
-    addSort({ id });
-    add({ id });
+    addTodoSortSection({ id });
+    addList(id);
   };
 
   return (
@@ -55,13 +55,13 @@ const NavBar = ({ addSort, add }) => {
 };
 
 NavBar.propTypes = {
-  addSort: PropTypes.func.isRequired,
-  add: PropTypes.func.isRequired
+  addTodoSortSection: PropTypes.func.isRequired,
+  addList: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
-  addSort: listId => dispatch(todosSlice.actions.addSort(listId)),
-  add: (listId, projectId) => dispatch(listsSlice.actions.add(listId, projectId))
+  addTodoSortSection: listId => dispatch(todosSlice.actions.addSort(listId)),
+  addList: (listId, projectId) => dispatch(listsSlice.actions.add(listId, projectId))
 });
 
 export default connect(null, mapDispatchToProps)(NavBar);

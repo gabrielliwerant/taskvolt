@@ -7,10 +7,11 @@
 import { getState } from '../config';
 
 const _getLists = () => getState('lists');
+const _getListsItems = () => _getLists().items;
 
-const getListsItems = () => _getLists().items;
+const getListItemById = id => _getListsItems()[id];
 const getListsSort = () => _getLists().sort;
 const getListSelected = () => _getLists().selected;
 const getListDropping = () => _getLists().dropping;
 
-export { getListsItems, getListsSort, getListSelected, getListDropping };
+export { getListItemById, getListsSort, getListSelected, getListDropping };

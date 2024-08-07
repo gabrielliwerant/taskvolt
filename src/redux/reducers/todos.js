@@ -16,8 +16,9 @@ const todosSlice = createSlice({
   reducers: {
     add: (state, action) => {
       const id = makeId();
-      state.items[id] = makeNewTodo(id, action.payload.id, 'New todo');
-      state.sort[action.payload.id].push(id);
+      
+      state.items[id] = makeNewTodo(id, action.payload, 'New todo');
+      state.sort[action.payload].push(id);
     },
     edit: (state, action) => {
       state.items[action.payload.id].isEditActive = true;

@@ -14,39 +14,43 @@ const listsSlice = createSlice({
   initialState: getInitialState().lists,
   reducers: {
     add: (state, action) => {
-      const listId = action.payload.id;
-      state.items[listId] = makeNewList(listId, '1', 'Todo List');
-      state.sort['1'].push(listId);
+      state.items[action.payload] = makeNewList(action.payload, '1', 'Todo List');
+      state.sort['1'].push(action.payload);
     },
     edit: (state, action) => {
-      state.items[action.payload.id].isEditActive = true;
+      state.items[action.payload].isEditActive = true;
     },
     save: (state, action) => {
-      state.items[action.payload.id].isEditActive = false;
-      state.items[action.payload.id].text.final = action.payload.draft;
+      const { id, draft } = action.payload;
+
+      state.items[id].isEditActive = false;
+      state.items[id].text.final = draft;
     },
     cancel: (state, action) => {
-      const final = state.items[action.payload.id].text.final;
-      state.items[action.payload.id].isEditActive = false;
-      state.items[action.payload.id].text.draft = final;
+      const final = state.items[action.payload].text.final;
+
+      state.items[action.payload].isEditActive = false;
+      state.items[action.payload].text.draft = final;
     },
     remove: (state, action) => {
-      const projectId = state.items[action.payload.id].projectId;
-      state.sort[projectId] = state
-        .sort[projectId]
-        .filter(id => id !== action.payload.id);
-      state.items[action.payload.id].isRemoved = true;
+      const projectId = state.items[action.payload].projectId;
+
+      state.sort[projectId] = state.sort[projectId].filter(id => id !== action.payload);
+      state.items[action.payload].isRemoved = true;
     },
     change: (state, action) => {
-      state.items[action.payload.id].text.draft = action.payload.draft;
+      const { id, draft } = action.payload;
+
+      state.items[id].text.draft = draft;
     },
     reorder: (state, action) => {
-      const orderedId = action.payload.listId;
-      state.sort['1'].splice(action.payload.oldIndex, 1);
-      state.sort['1'].splice(action.payload.newIndex, 0, orderedId);
+      const { id, oldIndex, newIndex } = action.payload;
+
+      state.sort['1'].splice(oldIndex, 1);
+      state.sort['1'].splice(newIndex, 0, id);
     },
-    select: (state, action) => { state.selected = action.payload.id; },
-    drop: (state, action) => { state.dropping = action.payload.index; }
+    select: (state, action) => { state.selected = action.payload; },
+    drop: (state, action) => { state.dropping = action.payload; }
   }
 });
 
