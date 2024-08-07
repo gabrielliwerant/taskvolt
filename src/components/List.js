@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '../jss/constants';
-import { tilt } from '../jss/utils';
 import { getListItemById, getListSelected } from '../redux/selectors/lists';
 import { todosSlice } from '../redux/reducers/todos';
 import { listsSlice } from '../redux/reducers/lists';
 
+import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '../jss/constants';
+import { flex } from '../jss/styles';
+import { tilt } from '../jss/utils';
 import Button from './Button';
 import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';
@@ -43,9 +44,9 @@ const useStyles = createUseStyles({
   },
   text: {
     fontSize: '20px',
-    width: '164px',
     height: '25px'
-  }
+  },
+  flex
 });
 
 const List = ({
@@ -87,10 +88,12 @@ const List = ({
             isComplete={false}
             myClassNames={{ text: classes.text }}
           />
-          <Button onClick={addTodo} isIcon><AddTwoToneIcon /></Button>
-          <Button onClick={remove} isIcon>
-            <DeleteTwoToneIcon />
-          </Button>
+          {!item.isEditActive &&
+            <div className={classes.flex}>
+              <Button onClick={addTodo} isIcon><AddTwoToneIcon /></Button>
+              <Button onClick={remove} isIcon><DeleteTwoToneIcon /></Button>
+            </div>
+          }
         </div>
         <Todos listId={id} />
       </div>

@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
+import { TODO_INPUT_WIDTH } from '../jss/constants';
+
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   active: {
-    display: 'inline-flex'
+    display: 'inline-flex',
+
+    '&:focus': {
+      outline: 'none'
+    }
   },
   inactive: {
     display: 'none'
@@ -21,12 +27,10 @@ const useStyles = createUseStyles({
   },
   item: {
     background: 'transparent',
-    cursor: 'text',
+    cursor: 'pointer',
     border: 'none',
     height: '16px',
-    '&:focus': {
-      outline: 'none'
-    }
+    width: `${TODO_INPUT_WIDTH}px`
   },
   text: {
     fontSize: '14px'
@@ -34,7 +38,7 @@ const useStyles = createUseStyles({
 });
 
 const NameInput = ({
-  isEditActive,
+  isActive,
   isComplete,
   onClick,
   onChange,
@@ -53,8 +57,8 @@ const NameInput = ({
       className={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
-        [classes.active]: !isEditActive,
-        [classes.inactive]: isEditActive,
+        [classes.active]: isActive,
+        [classes.inactive]: !isActive,
         [classes.complete]: isComplete,
         [classes.incomplete]: !isComplete,
         [classes.item]: true
@@ -64,7 +68,7 @@ const NameInput = ({
 };
 
 NameInput.propTypes = {
-  isEditActive: PropTypes.bool,
+  isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
   onClick: PropTypes.func,
   onChange: PropTypes.func,
@@ -73,7 +77,7 @@ NameInput.propTypes = {
 };
 
 NameInput.defaultProps = {
-  isEditActive: false,
+  isActive: false,
   isComplete: false,
   onClick: () => {},
   onChange: () => {},

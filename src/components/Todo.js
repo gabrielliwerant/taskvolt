@@ -9,6 +9,7 @@ import { getTodoSelected } from '../redux/selectors/todos';
 import { BORDER_OFFSET, TODO_WIDTH, TODO_HEIGHT, TODO_MARGIN, Z_INDEX } from '../jss/constants';
 import { tilt } from '../jss/utils';
 import NameInputEdit from './NameInputEdit';
+import Typography from './Typography';
 
 const classNames = require('classnames');
 
@@ -106,7 +107,9 @@ const Todo = ({
               [classes.complete]: todo.isComplete
             })}
           }
-        />
+        >
+          <Typography>{todo.text.final}</Typography>
+        </NameInputEdit>
       </div>
     </li>
   );

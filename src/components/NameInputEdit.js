@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
+import { flex, fullWidth } from '../jss/styles';
 import Button from './Button';
 import NameInput from './NameInput';
 
@@ -18,14 +19,12 @@ const useStyles = createUseStyles({
     display: 'none'
   },
   itemEditContainer: {
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  itemEditButtonsContainer: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '278px'
-  }
+  flex,
+  fullWidth
 });
 
 const NameInputEdit = ({
@@ -39,42 +38,48 @@ const NameInputEdit = ({
   textDraft,
   isEditActive,
   isComplete,
-  myClassNames
+  myClassNames,
+  children
 }) => {
   const classes = useStyles();
 
   return (
     <div
       className={classNames({
-        [classes.itemEditButtonsContainer]: true,
+        [classes.fullWidth]: true,
+        [classes.itemEditContainer]: !isEditActive,
         [myClassNames.container]: !!myClassNames?.container
       })}
     >
-      <NameInput
-        onClick={onClickEdit}
-        value={textFinal}
-        isEditActive={isEditActive}
-        isComplete={isComplete}
-        myClassNames={myClassNames}
-      />
-      <div
-        className={classNames({
-          [classes.active]: isEditActive,
-          [classes.inactive]: !isEditActive,
-          [classes.itemEditContainer]: true
-        })}
-      >
-        <NameInput
-          onChange={onChangeEdit}
-          value={textDraft}
-          myClassNames={myClassNames}
-        />
-        <Button onClick={onClickSave} isIcon><CheckTwoToneIcon /></Button>
-        <Button onClick={onClickCancel} isIcon><CloseTwoToneIcon /></Button>
-      </div>
-      {hasRemove && (
-        <Button onClick={onClickRemove} isIcon><DeleteTwoToneIcon /></Button>
-      )}
+      {!isEditActive &&
+        <Fragment>
+          <div role="button" onClick={onClickEdit}>
+            <NameInput
+              value={textFinal}
+              isActive={!isEditActive}
+              isComplete={isComplete}
+              myClassNames={myClassNames}
+            />
+          </div>
+          {hasRemove && <Button onClick={onClickRemove} isIcon><DeleteTwoToneIcon /></Button>}
+        </Fragment>
+      }
+      {isEditActive &&
+        <div className={classNames({ [classes.itemEditContainer]: true })}>
+          <NameInput
+            value={textDraft}
+            onChange={onChangeEdit}
+            isActive={isEditActive}
+            myClassNames={myClassNames}
+          >
+            {children}
+          </NameInput>
+          <div className={classes.flex}>
+            <Button onClick={onClickSave} isIcon><CheckTwoToneIcon /></Button>
+            <Button onClick={onClickCancel} isIcon><CloseTwoToneIcon /></Button>
+          </div>
+        </div>
+      }
     </div>
   );
 };
