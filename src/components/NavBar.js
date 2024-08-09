@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
+
+import AddRounded from '@mui/icons-material/AddRounded';
 
 import { makeId } from '@src/utils';
 import { todosSlice } from '@redux/reducers/todos';
@@ -45,7 +46,7 @@ const NavBar = ({ addTodoSortSection, addList }) => {
         <Projects />
         <ul>
           <li>
-            <Button onClick={onClick} isIcon trailing={<AddTwoToneIcon />}>
+            <Button onClick={onClick} isIcon trailing={<AddRounded />}>
               Add List
             </Button>
           </li>

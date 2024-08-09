@@ -7,15 +7,17 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
-import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
-import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
+
+import DeleteIcon from '@mui/icons-material/DeleteRounded';
+import CheckIcon from '@mui/icons-material/CheckRounded';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 
 import { TYPES } from '@src/constants';
 
+import { IconButton } from '@components/lib/IconButton';
+
 import { flex, fullWidth } from '@jss/styles';
 
-import Button from '../Button';
 import { Name, NameInput } from '../Name';
 import { active, inactive } from './styles';
 
@@ -69,7 +71,11 @@ const NameContainer = ({
               myClassNames={myClassNames}
             />
           </div>
-          {hasRemove && <Button onClick={onClickRemove} isIcon><DeleteTwoToneIcon /></Button>}
+          {hasRemove &&
+            <IconButton onClick={onClickRemove} ariaLabel='Delete item'>
+              <DeleteIcon fontSize='small' />
+            </IconButton>
+          }
         </Fragment>
       }
       {isEditActive &&
@@ -84,8 +90,12 @@ const NameContainer = ({
             {children}
           </NameInput>
           <div className={classes.flex}>
-            <Button onClick={onClickSave} isIcon><CheckTwoToneIcon /></Button>
-            <Button onClick={onClickCancel} isIcon><CloseTwoToneIcon /></Button>
+            <IconButton onClick={onClickSave} ariaLabel='Save changes'>
+              <CheckIcon fontSize='medium' />
+            </IconButton>
+            <IconButton onClick={onClickCancel} ariaLabel='Discard changes'>
+              <CloseIcon fontSize='medium' />
+            </IconButton>
           </div>
         </div>
       }

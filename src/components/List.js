@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
-import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+
+import AddIcon from '@mui/icons-material/AddRounded';
+import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
 import { TYPES } from '@src/constants';
 import { getListItemById, getListSelected } from '@redux/selectors/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
+import { IconButton } from '@components/lib/IconButton';
 import { BORDER_OFFSET, TODO_MARGIN, LIST_PADDING, WIDTHS, Z_INDEX } from '@jss/constants';
 import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
-import Button from './Button';
 import Todos from './Todos';
 import { NameContainer } from './Name';
 
@@ -92,8 +93,12 @@ const List = ({
           />
           {!item.isEditActive &&
             <div className={classes.flex}>
-              <Button onClick={addTodo} isIcon><AddTwoToneIcon /></Button>
-              <Button onClick={remove} isIcon><DeleteTwoToneIcon /></Button>
+              <IconButton onClick={addTodo} ariaLabel='Add todo item to list'>
+                <AddIcon fontSize='medium' />
+              </IconButton>
+              <IconButton onClick={remove} ariaLabel='Delete entire list'>
+                <DeleteIcon fontSize='medium' />
+              </IconButton>
             </div>
           }
         </div>
