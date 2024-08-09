@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
-import { TODO_INPUT_WIDTH } from '@jss/constants';
+import { TYPES } from '@src/constants';
+
+import { WIDTHS, HEIGHTS } from '@jss/constants';
 
 const classNames = require('classnames');
 
@@ -26,11 +28,8 @@ const useStyles = createUseStyles({
     textDecoration: 'none'
   },
   item: {
-    background: 'transparent',
-    cursor: 'pointer',
-    border: 'none',
-    height: '16px',
-    width: `${TODO_INPUT_WIDTH}px`
+    height: props => `${HEIGHTS[props.type].INPUT}px`,
+    width: props => `${WIDTHS[props.type].INPUT}px`
   },
   text: {
     fontSize: '14px'
@@ -40,12 +39,12 @@ const useStyles = createUseStyles({
 const NameInput = ({
   isActive,
   isComplete,
-  onClick,
   onChange,
   value,
+  type,
   myClassNames
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
   return (
@@ -53,7 +52,6 @@ const NameInput = ({
       type='text'
       value={value}
       onChange={onChange}
-      onClick={onClick}
       className={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
@@ -70,18 +68,18 @@ const NameInput = ({
 NameInput.propTypes = {
   isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
-  onClick: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST ]),
   myClassNames: PropTypes.object
 };
 
 NameInput.defaultProps = {
   isActive: false,
   isComplete: false,
-  onClick: () => {},
   onChange: () => {},
   value: '',
+  type: TYPES.TODO,
   myClassNames: {}
 };
 

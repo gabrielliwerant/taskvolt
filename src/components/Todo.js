@@ -6,8 +6,9 @@ import { createUseStyles } from 'react-jss';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
 
-import { BORDER_OFFSET, TODO_WIDTH, TODO_HEIGHT, TODO_MARGIN, Z_INDEX } from '../jss/constants';
-import { tilt } from '../jss/utils';
+import { BORDER_OFFSET, TODO_MARGIN, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
+import { tilt } from '@jss/utils';
+
 import NameInputEdit from './NameInputEdit';
 import Typography from './Typography';
 
@@ -40,8 +41,8 @@ const useStyles = createUseStyles({
   },
   item: {
     cursor: 'grab',
-    width: `${TODO_WIDTH + BORDER_OFFSET}`,
-    height: `${TODO_HEIGHT}px`,
+    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}`,
+    height: `${HEIGHTS.TODO.MAIN}px`,
     border: '1px solid transparent',
     marginBottom: `${TODO_MARGIN}px`,
     position: 'relative',

@@ -4,16 +4,35 @@
  * Holds re-usable constants for jss stlying.
  */
 
+import { TYPES } from '@src/constants';
+
 const TOP_OFFSET = 90;
 const BORDER_OFFSET = 2;
-const TODO_HEIGHT = 39;
-const TODO_WIDTH = 308;
 const TODO_MARGIN = 4;
 const TODO_HEIGHT_POSITION = 63;
-const TODO_INPUT_WIDTH = 210;
 const LIST_WIDTH_POSITION = 372;
-const LIST_WIDTH = 340;
 const LIST_PADDING = 15;
+
+const HEIGHTS = {
+  [TYPES.TODO]: {
+    MAIN: 39,
+    INPUT: 22
+  },
+  [TYPES.LIST]: {
+    INPUT: 25
+  }
+};
+
+const WIDTHS = {
+  [TYPES.TODO]: {
+    MAIN: 308,
+    INPUT: 190
+  },
+  [TYPES.LIST]: {
+    MAIN: 340,
+    INPUT: 216
+  }
+};
 
 const Z_INDEX = {
   ITEM_PLACEHOLDER: 2,
@@ -26,13 +45,11 @@ const Z_INDEX = {
 export {
   TOP_OFFSET,
   BORDER_OFFSET,
-  TODO_HEIGHT,
-  TODO_WIDTH,
   TODO_MARGIN,
   TODO_HEIGHT_POSITION,
-  TODO_INPUT_WIDTH,
   LIST_WIDTH_POSITION,
-  LIST_WIDTH,
   LIST_PADDING,
+  HEIGHTS,
+  WIDTHS,
   Z_INDEX
 };

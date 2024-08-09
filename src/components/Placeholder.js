@@ -16,12 +16,11 @@ import {
   TOP_OFFSET,
   BORDER_OFFSET,
   TODO_MARGIN,
-  TODO_HEIGHT,
-  TODO_WIDTH,
   TODO_HEIGHT_POSITION,
   LIST_WIDTH_POSITION,
-  LIST_WIDTH,
   LIST_PADDING,
+  HEIGHTS,
+  WIDTHS,
   Z_INDEX
 } from '../jss/constants';
 
@@ -60,7 +59,11 @@ const Placeholder = ({
 }) => {
   const classes = useStyles();
   const getListHeight = id =>
-    `${(TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * todosSort[id].length + TODO_HEIGHT_POSITION + LIST_PLACEHOLDER_HEIGHT_OFFSET - TODO_MARGIN}px`;
+    `${
+      (HEIGHTS.TODO.MAIN + BORDER_OFFSET + TODO_MARGIN) * todosSort[id].length
+      + TODO_HEIGHT_POSITION
+      + LIST_PLACEHOLDER_HEIGHT_OFFSET - TODO_MARGIN
+    }px`;
 
   let marginTop;
   let marginLeft;
@@ -71,18 +74,18 @@ const Placeholder = ({
   switch (variant) {
     case 'item':
       marginTop =
-        `${TODO_HEIGHT_POSITION + ((TODO_HEIGHT + BORDER_OFFSET + TODO_MARGIN) * index)}px`;
+        `${TODO_HEIGHT_POSITION + ((HEIGHTS.TODO.MAIN + BORDER_OFFSET + TODO_MARGIN) * index)}px`;
       marginLeft =
         `${((1 + listIndex) * LIST_WIDTH_POSITION) + LIST_PADDING + BORDER_OFFSET}px`;
-      height = `${TODO_HEIGHT}px`;
-      width = `${TODO_WIDTH}px`;
+      height = `${HEIGHTS.TODO.MAIN}px`;
+      width = `${WIDTHS.TODO.MAIN}px`;
       zIndex = Z_INDEX.TODO_PLACEHOLDER;
       break;
     case 'list':
       marginTop = `${TOP_OFFSET}px`;
       marginLeft = `${LIST_PADDING * 2 + (LIST_WIDTH_POSITION * listIndex)}px`;
       height = !!dragListId ? getListHeight(dragListId) : getListHeight(id);
-      width = `${LIST_WIDTH}px`;
+      width = `${WIDTHS.LIST.MAIN}px`;
       zIndex = Z_INDEX.LIST_PLACEHOLDER;
       break;
   }

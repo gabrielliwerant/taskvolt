@@ -5,10 +5,13 @@ import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 
+import { TYPES } from '@src/constants';
+
 import { flex, fullWidth } from '@jss/styles';
 
 import Button from './Button';
 import NameInput from './NameInput';
+import Name from './Name';
 
 const classNames = require('classnames');
 
@@ -39,6 +42,7 @@ const NameInputEdit = ({
   textDraft,
   isEditActive,
   isComplete,
+  type,
   myClassNames,
   children
 }) => {
@@ -55,7 +59,8 @@ const NameInputEdit = ({
       {!isEditActive &&
         <Fragment>
           <div role="button" onClick={onClickEdit}>
-            <NameInput
+            <Name
+              type={type}
               value={textFinal}
               isActive={!isEditActive}
               isComplete={isComplete}
@@ -68,6 +73,7 @@ const NameInputEdit = ({
       {isEditActive &&
         <div className={classNames({ [classes.itemEditContainer]: true })}>
           <NameInput
+            type={type}
             value={textDraft}
             onChange={onChangeEdit}
             isActive={isEditActive}
@@ -96,12 +102,14 @@ NameInputEdit.propTypes = {
   textDraft: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   isComplete: PropTypes.bool.isRequired,
+  type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST]),
   myClassNames: PropTypes.object
 };
 
 NameInputEdit.defaultProps = {
   onClickRemove: () => {},
   hasRemove: false,
+  type: TYPES.TODO,
   myClassNames: {}
 };
 

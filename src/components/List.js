@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
+import { TYPES } from '@src/constants';
 import { getListItemById, getListSelected } from '@redux/selectors/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
-import { BORDER_OFFSET, TODO_WIDTH, TODO_MARGIN, LIST_PADDING, Z_INDEX } from '@jss/constants';
+import { BORDER_OFFSET, TODO_MARGIN, LIST_PADDING, WIDTHS, Z_INDEX } from '@jss/constants';
 import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
@@ -29,7 +30,7 @@ const useStyles = createUseStyles({
     }
   },
   listContainer: {
-    width: `${TODO_WIDTH + BORDER_OFFSET}px`,
+    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
     padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - TODO_MARGIN}px ${LIST_PADDING}px`,
     background: '#f7f7f7',
     border: '1px solid #cccccc',
@@ -44,8 +45,7 @@ const useStyles = createUseStyles({
     justifyContent: 'space-between'
   },
   text: {
-    fontSize: '20px',
-    height: '25px'
+    fontSize: '20px'
   },
   flex
 });
@@ -88,6 +88,7 @@ const List = ({
             isEditActive={item.isEditActive}
             isComplete={false}
             myClassNames={{ text: classes.text }}
+            type={TYPES.LIST}
           />
           {!item.isEditActive &&
             <div className={classes.flex}>
