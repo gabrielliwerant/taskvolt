@@ -23,7 +23,7 @@ const useStyles = createUseStyles({
     marginBottom: '30px',
     marginRight: '30px',
     position: 'relative',
-    zIndex: Z_INDEX.list,
+    zIndex: Z_INDEX.LIST,
     '&:last-child': {
       marginRight: 0
     }

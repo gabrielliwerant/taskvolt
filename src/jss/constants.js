@@ -16,11 +16,11 @@ const LIST_WIDTH = 340;
 const LIST_PADDING = 15;
 
 const Z_INDEX = {
-  itemPlaceholder: 2,
-  listPlaceholder: 0,
-  item: 3,
-  list: 1,
-  navBar: 10
+  ITEM_PLACEHOLDER: 2,
+  LIST_PLACEHOLDER: 0,
+  TODO: 3,
+  LIST: 1,
+  NAV_BAR: 10
 };
 
 export {

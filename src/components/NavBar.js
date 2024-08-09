@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
     background: '#dddddd',
     marginRight: '20px',
     position: 'fixed',
-    zIndex: Z_INDEX.navBar,
+    zIndex: Z_INDEX.NAV_BAR,
     borderBottom: '1px solid #cccccc'
   },
   inner: {

@@ -76,14 +76,14 @@ const Placeholder = ({
         `${((1 + listIndex) * LIST_WIDTH_POSITION) + LIST_PADDING + BORDER_OFFSET}px`;
       height = `${TODO_HEIGHT}px`;
       width = `${TODO_WIDTH}px`;
-      zIndex = Z_INDEX.itemPlaceholder;
+      zIndex = Z_INDEX.TODO_PLACEHOLDER;
       break;
     case 'list':
       marginTop = `${TOP_OFFSET}px`;
       marginLeft = `${LIST_PADDING * 2 + (LIST_WIDTH_POSITION * listIndex)}px`;
       height = !!dragListId ? getListHeight(dragListId) : getListHeight(id);
       width = `${LIST_WIDTH}px`;
-      zIndex = Z_INDEX.listPlaceholder;
+      zIndex = Z_INDEX.LIST_PLACEHOLDER;
       break;
   }
 
