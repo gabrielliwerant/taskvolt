@@ -1,3 +1,9 @@
+/**
+ * src/components/Name/NameContainer.js
+ *
+ * Renders the container for the name of a given item, handling toggles between editing states.
+ */
+
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
@@ -9,19 +15,15 @@ import { TYPES } from '@src/constants';
 
 import { flex, fullWidth } from '@jss/styles';
 
-import Button from './Button';
-import NameInput from './NameInput';
-import Name from './Name';
+import Button from '../Button';
+import { Name, NameInput } from '../Name';
+import { active, inactive } from './styles';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  active: {
-    display: 'inline-flex'
-  },
-  inactive: {
-    display: 'none'
-  },
+  active,
+  inactive,
   itemEditContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -31,7 +33,7 @@ const useStyles = createUseStyles({
   fullWidth
 });
 
-const NameInputEdit = ({
+const NameContainer = ({
   onClickEdit,
   onChangeEdit,
   onClickSave,
@@ -91,7 +93,7 @@ const NameInputEdit = ({
   );
 };
 
-NameInputEdit.propTypes = {
+NameContainer.propTypes = {
   onClickEdit: PropTypes.func.isRequired,
   onChangeEdit: PropTypes.func.isRequired,
   onClickSave: PropTypes.func.isRequired,
@@ -106,11 +108,11 @@ NameInputEdit.propTypes = {
   myClassNames: PropTypes.object
 };
 
-NameInputEdit.defaultProps = {
+NameContainer.defaultProps = {
   onClickRemove: () => {},
   hasRemove: false,
   type: TYPES.TODO,
   myClassNames: {}
 };
 
-export default NameInputEdit;
+export default NameContainer;

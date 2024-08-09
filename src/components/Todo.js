@@ -9,8 +9,8 @@ import { getTodoSelected } from '@redux/selectors/todos';
 import { BORDER_OFFSET, TODO_MARGIN, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
 import { tilt } from '@jss/utils';
 
-import NameInputEdit from './NameInputEdit';
 import Typography from './Typography';
+import { NameContainer } from './Name';
 
 const classNames = require('classnames');
 
@@ -92,7 +92,7 @@ const Todo = ({
             [classes.complete]: todo.isComplete
           })}
         />
-        <NameInputEdit
+        <NameContainer
           onClickEdit={edit({ id: todo.id })}
           onChangeEdit={onChange(todo.id)}
           onClickSave={save({ id: todo.id, draft: todo.text.draft })}
@@ -110,7 +110,7 @@ const Todo = ({
           }
         >
           <Typography>{todo.text.final}</Typography>
-        </NameInputEdit>
+        </NameContainer>
       </div>
     </li>
   );

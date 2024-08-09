@@ -15,8 +15,8 @@ import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
 import Button from './Button';
-import NameInputEdit from './NameInputEdit';
 import Todos from './Todos';
+import { NameContainer } from './Name';
 
 const useStyles = createUseStyles({
   container: {
@@ -78,7 +78,7 @@ const List = ({
         style={{ transform: dragId === id ? tilt : '' }}
       >
         <div className={classes.listTitleContainer}>
-          <NameInputEdit
+          <NameContainer
             onClickEdit={edit}
             onChangeEdit={onChange}
             onClickSave={save(item.text.draft)}

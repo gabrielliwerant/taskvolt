@@ -1,3 +1,9 @@
+/**
+ * src/components/Name/Name.js
+ *
+ * Renders the name of a given item in various states.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
@@ -5,53 +11,30 @@ import { isEmpty } from 'lodash';
 
 import { TYPES } from '@src/constants';
 
-import { WIDTHS, HEIGHTS } from '@jss/constants';
+import { active, inactive, complete, incomplete, item, text } from './styles';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  active: {
-    display: 'inline-flex',
-
-    '&:focus': {
-      outline: 'none'
-    }
-  },
-  inactive: {
-    display: 'none'
-  },
-  complete: {
-    textDecoration: 'line-through',
-    opacity: '0.5'
-  },
-  incomplete: {
-    textDecoration: 'none'
-  },
+  active,
+  inactive,
+  complete,
+  incomplete,
   item: {
-    height: props => `${HEIGHTS[props.type].INPUT}px`,
-    width: props => `${WIDTHS[props.type].INPUT}px`
+    ...item,
+
+    cursor: 'pointer'
   },
-  text: {
-    fontSize: '14px'
-  }
+  text
 });
 
-const NameInput = ({
-  isActive,
-  isComplete,
-  onChange,
-  value,
-  type,
-  myClassNames
-}) => {
+const Name = ({ isActive, isComplete, onClick, value, type, myClassNames }) => {
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
   return (
-    <input
-      type='text'
-      value={value}
-      onChange={onChange}
+    <div
+      onClick={onClick}
       className={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
@@ -61,26 +44,28 @@ const NameInput = ({
         [classes.incomplete]: !isComplete,
         [classes.item]: true
       })}
-    />
+    >
+      {value}
+    </div>
   );
 };
 
-NameInput.propTypes = {
+Name.propTypes = {
   isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
-  onChange: PropTypes.func,
+  onClick: PropTypes.func,
   value: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST ]),
   myClassNames: PropTypes.object
 };
 
-NameInput.defaultProps = {
+Name.defaultProps = {
   isActive: false,
   isComplete: false,
-  onChange: () => {},
+  onClick: () => {},
   value: '',
   type: TYPES.TODO,
   myClassNames: {}
 };
 
-export default NameInput;
+export default Name;

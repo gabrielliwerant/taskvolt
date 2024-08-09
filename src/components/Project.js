@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { projectsSlice } from '@redux/reducers/projects';
 import { getProjectsItems } from '@redux/selectors/projects';
 
-import NameInputEdit from './NameInputEdit';
+import { NameContainer } from './Name';
 
 const useStyles = createUseStyles({
   text: {
@@ -20,7 +20,7 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
 
   return (
     <li key={id}>
-      <NameInputEdit
+      <NameContainer
         onClickEdit={edit({ id })}
         onChangeEdit={onChange(id)}
         onClickSave={save({ id, draft: projectsItems[id].text.draft })}
