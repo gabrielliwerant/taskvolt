@@ -12,7 +12,7 @@ import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
 import { IconButton } from '@components/lib/IconButton';
-import { BORDER_OFFSET, TODO_MARGIN, LIST_PADDING, WIDTHS, Z_INDEX } from '@jss/constants';
+import { BORDER_OFFSET, LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
 import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
   },
   listContainer: {
     width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
-    padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - TODO_MARGIN}px ${LIST_PADDING}px`,
+    padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
     background: '#f7f7f7',
     border: '1px solid #cccccc',
     borderRadius: '4px',

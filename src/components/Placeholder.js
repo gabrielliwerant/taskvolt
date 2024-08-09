@@ -9,20 +9,20 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import { TYPES } from '@src/constants';
 import { getTodosSort } from '@redux/selectors/todos';
 import { getListSelected, getListDropping } from '@redux/selectors/lists';
 
 import {
   TOP_OFFSET,
   BORDER_OFFSET,
-  TODO_MARGIN,
-  TODO_HEIGHT_POSITION,
   LIST_WIDTH_POSITION,
   LIST_PADDING,
+  MARGINS,
   HEIGHTS,
   WIDTHS,
   Z_INDEX
-} from '../jss/constants';
+} from '@jss/constants';
 
 const classNames = require('classnames');
 
@@ -60,9 +60,9 @@ const Placeholder = ({
   const classes = useStyles();
   const getListHeight = id =>
     `${
-      (HEIGHTS.TODO.MAIN + BORDER_OFFSET + TODO_MARGIN) * todosSort[id].length
-      + TODO_HEIGHT_POSITION
-      + LIST_PLACEHOLDER_HEIGHT_OFFSET - TODO_MARGIN
+      (HEIGHTS.TODO.MAIN + BORDER_OFFSET + MARGINS[TYPES.TODO].MAIN) * todosSort[id].length
+      + MARGINS[TYPES.TODO].PLACEHOLDER
+      + LIST_PLACEHOLDER_HEIGHT_OFFSET - MARGINS[TYPES.TODO].MAIN
     }px`;
 
   let marginTop;
@@ -73,11 +73,13 @@ const Placeholder = ({
 
   switch (variant) {
     case 'item':
-      marginTop =
-        `${TODO_HEIGHT_POSITION + ((HEIGHTS.TODO.MAIN + BORDER_OFFSET + TODO_MARGIN) * index)}px`;
+      marginTop = `${
+        MARGINS[TYPES.TODO].PLACEHOLDER
+        + ((HEIGHTS.TODO.MAIN + BORDER_OFFSET + MARGINS[TYPES.TODO].MAIN) * index)
+      }px`;
       marginLeft =
         `${((1 + listIndex) * LIST_WIDTH_POSITION) + LIST_PADDING + BORDER_OFFSET}px`;
-      height = `${HEIGHTS.TODO.MAIN}px`;
+      height = `${HEIGHTS.TODO.PLACEHOLDER}px`;
       width = `${WIDTHS.TODO.MAIN}px`;
       zIndex = Z_INDEX.TODO_PLACEHOLDER;
       break;

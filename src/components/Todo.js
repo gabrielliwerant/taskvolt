@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
+import { TYPES } from '@src/constants';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
 
-import { BORDER_OFFSET, TODO_MARGIN, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
+import { BORDER_OFFSET, MARGINS, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
 import { tilt } from '@jss/utils';
 
 import Typography from './Typography';
@@ -21,12 +22,14 @@ const useStyles = createUseStyles({
   },
   completeBackdrop: {
     background: 'linear-gradient(0.5turn, #fefefe, #ededed, #fefefe)',
+
     '&:hover': {
       background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)'
     }
   },
   defaultBackdrop: {
     background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
+
     '&:hover': {
       background: 'linear-gradient(0.5turn, #dddddd, #cccccc, #dddddd)'
     }
@@ -41,12 +44,13 @@ const useStyles = createUseStyles({
   },
   item: {
     cursor: 'grab',
-    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}`,
+    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
     height: `${HEIGHTS.TODO.MAIN}px`,
     border: '1px solid transparent',
-    marginBottom: `${TODO_MARGIN}px`,
+    marginBottom: `${MARGINS[TYPES.TODO].MAIN}px`,
     position: 'relative',
     zIndex: Z_INDEX.TODO,
+
     '&:focus': {
       outline: 'none'
     }

@@ -8,14 +8,20 @@ import { TYPES } from '@src/constants';
 
 const TOP_OFFSET = 90;
 const BORDER_OFFSET = 2;
-const TODO_MARGIN = 4;
-const TODO_HEIGHT_POSITION = 63;
 const LIST_WIDTH_POSITION = 372;
 const LIST_PADDING = 15;
+
+const MARGINS = {
+  [TYPES.TODO]: {
+    MAIN: 4,
+    PLACEHOLDER: 66
+  }
+};
 
 const HEIGHTS = {
   [TYPES.TODO]: {
     MAIN: 39,
+    PLACEHOLDER: 38,
     INPUT: 22
   },
   [TYPES.LIST]: {
@@ -45,10 +51,9 @@ const Z_INDEX = {
 export {
   TOP_OFFSET,
   BORDER_OFFSET,
-  TODO_MARGIN,
-  TODO_HEIGHT_POSITION,
   LIST_WIDTH_POSITION,
   LIST_PADDING,
+  MARGINS,
   HEIGHTS,
   WIDTHS,
   Z_INDEX
