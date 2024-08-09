@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { LIST_TYPE } from '@src/constants'
+import { TYPES } from '@src/constants'
 import { getListsSort } from '@redux/selectors/lists';
 
 import { TOP_OFFSET } from '@jss/constants';;
@@ -25,7 +25,7 @@ const Lists = ({ listsSort }) => {
   const classes = useStyles();
 
   return (
-    <Droppable droppableId='droppable-lists' direction='horizontal' type={LIST_TYPE}>
+    <Droppable droppableId='droppable-lists' direction='horizontal' type={TYPES.LIST}>
       {(provided) => (
         <ul className={classes.lists} {...provided.droppableProps} ref={provided.innerRef}>
           {listsSort['1'].map((listId, index) => (

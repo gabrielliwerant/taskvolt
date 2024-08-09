@@ -5,7 +5,10 @@
  */
 
 const LOCAL_STORAGE_KEY = 'TASKVOLT';
-const LIST_TYPE = 'LIST';
-const ITEM_TYPE = 'ITEM';
 
-export { LOCAL_STORAGE_KEY, LIST_TYPE, ITEM_TYPE };
+const TYPES = {
+  TODO: 'TODO',
+  LIST: 'LIST'
+};
+
+export { LOCAL_STORAGE_KEY, TYPES };

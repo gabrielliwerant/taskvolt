@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { ITEM_TYPE } from '@src/constants';
+import { TYPES } from '@src/constants';
 import { getIndexFromId } from '@src/utils';
 import { getTodosItems, getTodosSort } from '@redux/selectors/todos';
 import { getListsSort } from '@redux/selectors/lists';
@@ -24,7 +24,7 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
   const classes = useStyles();
 
   return (
-    <Droppable droppableId={`droppable-items-${listId}`} type={ITEM_TYPE}>
+    <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
       {(provided) => (
         <ul
           className={classes.list}

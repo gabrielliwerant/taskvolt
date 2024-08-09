@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import { getDraggableId } from '@src/utils';
-import { LIST_TYPE, ITEM_TYPE } from '@src/constants';
+import { TYPES } from '@src/constants';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
@@ -22,19 +22,19 @@ const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop
 
   const onDragEnd = result => {
     if (!result.destination) {
-      if (result.type === LIST_TYPE) {
+      if (result.type === TYPES.LIST) {
         selectList('');
         drop(null);
         return;
       }
 
-      if (result.type === ITEM_TYPE) {
+      if (result.type === TYPES.TODO) {
         selectTodo('');
         return;
       }
     }
 
-    if (result.type === LIST_TYPE) {
+    if (result.type === TYPES.LIST) {
       reorderList({
         id: getDraggableId(result.draggableId),
         oldIndex: result.source.index,
@@ -43,7 +43,7 @@ const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop
       selectList('');
     }
 
-    if (result.type === ITEM_TYPE) {
+    if (result.type === TYPES.TODO) {
       reorderTodo({
         listId: getDraggableId(result.source.droppableId),
         oldIndex: result.source.index,
@@ -54,16 +54,16 @@ const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop
   };
 
   const onDragStart = start => {
-    if (start.type === LIST_TYPE) {
+    if (start.type === TYPES.LIST) {
       selectList(getDraggableId(start.draggableId));
       drop(start.source.index);
     }
 
-    if (start.type === ITEM_TYPE) selectTodo(getDraggableId(start.draggableId));
+    if (start.type === TYPES.TODO) selectTodo(getDraggableId(start.draggableId));
   };
 
   const onDragUpdate = update => {
-    if (update.type === LIST_TYPE) {
+    if (update.type === TYPES.LIST) {
       if (update.destination) drop(update.destination.index);
     }
   };
