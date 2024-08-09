@@ -29,7 +29,8 @@ const incomplete = {
 
 const item = {
   height: props => `${HEIGHTS[props.type].INPUT}px`,
-  width: props => `${WIDTHS[props.type].INPUT}px`
+  width: props => `${WIDTHS[props.type].INPUT}px`,
+  overflow: 'hidden' // KLUDGE: Fix long text display
 };
 
 const text = {
