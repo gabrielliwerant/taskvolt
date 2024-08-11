@@ -7,11 +7,12 @@ import { TYPES } from '@src/constants';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
 
+import { Checkbox } from '@components/lib/Checkbox';
+import Typography from '@components/Typography';
+import { NameContainer } from '@components/Name';
+
 import { BORDER_OFFSET, MARGINS, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
 import { tilt } from '@jss/utils';
-
-import Typography from './Typography';
-import { NameContainer } from './Name';
 
 const classNames = require('classnames');
 
@@ -88,14 +89,7 @@ const Todo = ({
         })}
         style={{ transform: dragId === todo.id ? tilt : '' }}
       >
-        <input
-          onChange={onComplete(todo.id)}
-          type='checkbox'
-          checked={todo.isComplete}
-          className={classNames({
-            [classes.complete]: todo.isComplete
-          })}
-        />
+        <Checkbox onChange={onComplete(todo.id)} isChecked={todo.isComplete} />
         <NameContainer
           onClickEdit={edit({ id: todo.id })}
           onChangeEdit={onChange(todo.id)}

@@ -20,8 +20,8 @@ const MARGINS = {
 
 const HEIGHTS = {
   [TYPES.TODO]: {
-    MAIN: 39,
-    PLACEHOLDER: 38,
+    MAIN: 50,
+    PLACEHOLDER: 46,
     INPUT: 22
   },
   [TYPES.LIST]: {
