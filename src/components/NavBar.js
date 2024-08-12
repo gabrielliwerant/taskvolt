@@ -11,23 +11,13 @@ import { listsSlice } from '@redux/reducers/lists';
 
 import { Z_INDEX } from '@jss/constants';
 
+import { AppBar } from '@components/lib/AppBar';
 import { Button } from '@components/lib/Button';
 import Projects from '@components/Projects';
 
 const useStyles = createUseStyles({
   container: {
-    width: '100%',
-    background: '#dddddd',
-    marginRight: '20px',
-    position: 'fixed',
-    zIndex: Z_INDEX.NAV_BAR,
-    borderBottom: '1px solid #cccccc'
-  },
-  inner: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '15px 20px'
+    justifyContent: 'space-between'
   }
 });
 
@@ -41,16 +31,14 @@ const NavBar = ({ addTodoSortSection, addList }) => {
   };
 
   return (
-    <header className={classes.container}>
-      <nav className={classes.inner}>
-        <Projects />
-        <ul>
-          <li>
-            <Button onClick={onClick} startIcon={<AddRounded />}>Add List</Button>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <AppBar color='default' myClassName={classes.container}>
+      <Projects />
+      <ul>
+        <li>
+          <Button onClick={onClick} startIcon={<AddRounded />}>Add List</Button>
+        </li>
+      </ul>
+    </AppBar>
   );
 };
 
