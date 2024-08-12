@@ -65,6 +65,7 @@ const NameContainer = ({
         [classes.itemEditContainer]: !isEditActive,
         [myClassNames.container]: !!myClassNames?.container
       })}
+      onDoubleClick={!isEditActive ? onClickEdit : () => {}}
     >
       {!isEditActive &&
         <Fragment>
