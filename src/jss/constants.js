@@ -14,7 +14,7 @@ const LIST_PADDING = 15;
 const MARGINS = {
   [TYPES.TODO]: {
     MAIN: 4,
-    PLACEHOLDER: 66
+    PLACEHOLDER: 73
   }
 };
 
@@ -22,21 +22,25 @@ const HEIGHTS = {
   [TYPES.TODO]: {
     MAIN: 50,
     PLACEHOLDER: 46,
-    INPUT: 22
+    INPUT: 32
   },
   [TYPES.LIST]: {
-    INPUT: 25
+    INPUT: 41
+  },
+  [TYPES.PROJECT]: {
+    INPUT: 40
   }
 };
 
 const WIDTHS = {
   [TYPES.TODO]: {
-    MAIN: 308,
-    INPUT: 190
+    MAIN: 308
   },
   [TYPES.LIST]: {
-    MAIN: 340,
-    INPUT: 216
+    MAIN: 340
+  },
+  [TYPES.PROJECT]: {
+    MAIN: 340
   }
 };
 

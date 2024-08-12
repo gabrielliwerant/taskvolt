@@ -11,6 +11,8 @@ import { isEmpty } from 'lodash';
 
 import { TYPES } from '@src/constants';
 
+import { TextField } from '@components/lib/TextField';
+
 import { active, inactive, complete, incomplete, item, text } from './styles';
 
 const classNames = require('classnames');
@@ -36,11 +38,11 @@ const NameInput = ({
   const myClasses = Object.values(myClassNames).join(' ');
 
   return (
-    <input
-      type='text'
+    <TextField
       value={value}
       onChange={onChange}
-      className={classNames({
+      type={type}
+      myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
         [classes.active]: isActive,
@@ -58,7 +60,7 @@ NameInput.propTypes = {
   isComplete: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST ]),
+  type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
 };
 

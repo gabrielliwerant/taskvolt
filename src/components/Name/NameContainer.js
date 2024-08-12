@@ -31,6 +31,12 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  nameBarButton: {
+    '& div': {
+      display: 'flex',
+      alignItems: 'center',
+    }
+  },
   flex,
   fullWidth
 });
@@ -62,7 +68,7 @@ const NameContainer = ({
     >
       {!isEditActive &&
         <Fragment>
-          <div role="button" onClick={onClickEdit}>
+          <div role="button" onClick={onClickEdit} className={classes.nameBarButton}>
             <Name
               type={type}
               value={textFinal}
@@ -114,7 +120,7 @@ NameContainer.propTypes = {
   textDraft: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   isComplete: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST]),
+  type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   myClassNames: PropTypes.object
 };
 

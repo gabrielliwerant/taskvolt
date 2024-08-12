@@ -29,12 +29,13 @@ const incomplete = {
 
 const item = {
   height: props => `${HEIGHTS[props.type].INPUT}px`,
-  width: props => `${WIDTHS[props.type].INPUT}px`,
   overflow: 'hidden' // KLUDGE: Fix long text display
 };
 
 const text = {
-  fontSize: '14px'
+  '& div': {
+    fontSize: '14px'
+  }
 };
 
 export { active, inactive, complete, incomplete, item, text };

@@ -8,7 +8,8 @@ const LOCAL_STORAGE_KEY = 'TASKVOLT';
 
 const TYPES = {
   TODO: 'TODO',
-  LIST: 'LIST'
+  LIST: 'LIST',
+  PROJECT: 'PROJECT'
 };
 
 export { LOCAL_STORAGE_KEY, TYPES };

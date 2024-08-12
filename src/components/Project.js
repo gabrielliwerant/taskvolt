@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import { TYPES } from '@src/constants';
 import { projectsSlice } from '@redux/reducers/projects';
 import { getProjectsItems } from '@redux/selectors/projects';
 
@@ -10,6 +11,8 @@ import { NameContainer } from './Name';
 
 const useStyles = createUseStyles({
   text: {
+    display: 'flex',
+    alignItems: 'center',
     fontSize: '18px'
   }
 });
@@ -29,6 +32,7 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
         textDraft={projectsItems[id].text.draft}
         isEditActive={projectsItems[id].isEditActive}
         isComplete={false}
+        type={TYPES.PROJECT}
         myClassNames={{ text: classes.text }}
       />
     </li>

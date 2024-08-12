@@ -55,7 +55,7 @@ Name.propTypes = {
   isComplete: PropTypes.bool,
   onClick: PropTypes.func,
   value: PropTypes.string,
-  type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST ]),
+  type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
 };
 

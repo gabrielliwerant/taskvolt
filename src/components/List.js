@@ -46,6 +46,8 @@ const useStyles = createUseStyles({
     justifyContent: 'space-between'
   },
   text: {
+    display: 'flex',
+    alignItems: 'center',
     fontSize: '20px'
   },
   flex
