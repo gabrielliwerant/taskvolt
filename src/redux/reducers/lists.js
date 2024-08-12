@@ -32,6 +32,7 @@ const listsSlice = createSlice({
       state.items[action.payload].isEditActive = false;
       state.items[action.payload].text.draft = final;
     },
+    initRemove: (state, action) => { state.removing = action.payload; },
     remove: (state, action) => {
       const projectId = state.items[action.payload].projectId;
 

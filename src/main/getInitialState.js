@@ -23,6 +23,7 @@ const getInitialState = () => {
     },
     lists: {
       items: { '1': { ...makeNewList('1', '1', 'Todo List') } },
+      removing: '',
       selected: '',
       dropping: null,
       sort: { '1': ['1'] }
