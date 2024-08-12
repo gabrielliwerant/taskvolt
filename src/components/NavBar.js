@@ -11,8 +11,8 @@ import { listsSlice } from '@redux/reducers/lists';
 
 import { Z_INDEX } from '@jss/constants';
 
-import Button from './Button';
-import Projects from './Projects';
+import { Button } from '@components/lib/Button';
+import Projects from '@components/Projects';
 
 const useStyles = createUseStyles({
   container: {
@@ -46,9 +46,7 @@ const NavBar = ({ addTodoSortSection, addList }) => {
         <Projects />
         <ul>
           <li>
-            <Button onClick={onClick} isIcon trailing={<AddRounded />}>
-              Add List
-            </Button>
+            <Button onClick={onClick} startIcon={<AddRounded />}>Add List</Button>
           </li>
         </ul>
       </nav>

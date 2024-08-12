@@ -15,7 +15,7 @@ import {
   DialogContentText,
   DialogTitle
 } from '@components/lib/Dialog';
-import { MyButton } from '@components/lib/Button';
+import { Button } from '@components/lib/Button';
 
 import { getListRemoving } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
@@ -42,8 +42,8 @@ const RemoveListDialog = ({ open, onClose, id, remove }) => {
         </DialogContent>
         <DialogActions>
           <Fragment>
-            <MyButton onClick={onRemove} color='error'>Delete List</MyButton>
-            <MyButton onClick={onClose}>Cancel</MyButton>
+            <Button onClick={onRemove} color='error'>Delete List</Button>
+            <Button onClick={onClose}>Cancel</Button>
           </Fragment>
         </DialogActions>
       </Fragment>
