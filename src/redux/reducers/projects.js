@@ -6,16 +6,18 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
+import { makeId } from '@src/utils';
 import { getInitialState } from '@main/getInitialState';
-import { makeNewList } from '@main/lists';
+import { makeNewProject } from '@main/projects';
 
 const projectsSlice = createSlice({
   name: 'projects',
   initialState: getInitialState().projects,
   reducers: {
     add: (state, action) => {
-      state.items[action.payload] = makeNewList(action.payload, '1', 'Project');
-      state.sort['1'].push(action.payload);
+      const id = makeId();
+      state.items[id] = makeNewProject(id, '1', 'New Project');
+      state.sort['1'].push(id);
     },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
