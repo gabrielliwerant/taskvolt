@@ -13,17 +13,29 @@ This is an ongoing experiment with the purpose of eventually creating an embedda
 
 ## Roadmap
 
-- Add project level to collect lists
+- [x] ~~Add project level to collect lists~~
+- [x] ~~Allow dragging items between lists~~
+- [x] ~~Improve UX around editing text~~
+- Allow collapsing lists
+- Add tooltips
+- Improve project tab UX (more space to click without entering edit mode)
+- Allow toggling visibility of completed todos
+- Allow reordering of project tabs
 - Allow exporting data
 - Allow importing data
 - Allow viewing trashed items
-- Improve UX around editing text
 - Add note type feature
-- Add other status changes to allow visual distinction?
 - Allow marking as important
-- Add branding/white label ability
+- Add branding
 - Add testing
+- Add basic user/login functionality
+- Add database integration for persistence across devices
 - Deploy to website
-- Allow custom color theming
-- Allow dragging items/notes between lists
+- Allow color pickers for todos/lists
+- Allow date/time picker for todos
 - Handle truncation/overflow in todos/notes
+
+## Known Bugs
+
+- Deleting a project tab to the left of the add project tab results in add tab being active
+- z-index of todos when switching between lists does not work properly
