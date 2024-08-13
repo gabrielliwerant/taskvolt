@@ -14,8 +14,10 @@ const listsSlice = createSlice({
   initialState: getInitialState().lists,
   reducers: {
     add: (state, action) => {
-      state.items[action.payload] = makeNewList(action.payload, '1', 'Todo List');
-      state.sort['1'].push(action.payload);
+      const { listId, projectId } = action.payload;
+      
+      state.items[listId] = makeNewList(listId, projectId, 'Todo List');
+      state.sort[projectId].push(listId);
     },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;

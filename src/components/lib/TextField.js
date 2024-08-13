@@ -18,7 +18,7 @@ const styles = {
     }
   },
   todo: {
-    '& .MuiInputBase-input': { padding: '6px 12px' }
+    '& .MuiInputBase-input': { padding: '5px 12px 6px' }
   },
   list: {},
   project: {}
@@ -47,8 +47,10 @@ const MyTextField = ({ onChange, value, type, ariaLabel, myClassName }) => {
 
 MyTextField.propTypes = {
   onChange: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  ariaLabel: PropTypes.string
+  value: PropTypes.string.isRequired,
+  type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]).isRequired,
+  ariaLabel: PropTypes.string,
+  myClassName: PropTypes.string
 };
 
 MyTextField.defaultProps = {

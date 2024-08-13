@@ -1,19 +1,35 @@
-import React from 'react';
+/**
+ * src/components/Projects.js
+ *
+ * Renders the projects section.
+ */
+
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { Tabs } from '@components/lib/Tab';
+import ProjectTab from '@components/ProjectTab';
+
 import { getProjectsSort } from '@redux/selectors/projects';
 
-import Project from './Project';
 
+const Projects = ({ projectsSort, addList }) => {
+  const [value, setValue] = useState(0);
 
-const Projects = ({ projectsSort }) => {
+  /**
+   * Handles tab change action.
+   *
+   * @param {object} e Event
+   * @param {integer} newValue New tab value index
+   * @returns {void}
+   */
+  const onChange = (e, newValue) => setValue(newValue);
+
   return (
-    <ul>
-      {projectsSort['1'].map(projectId => (
-        <Project key={projectId} id={projectId} />
-      ))}
-    </ul>
+    <Tabs value={value} onChange={onChange}>
+      {projectsSort['1'].map(id => <ProjectTab key={id} id={id} />)}
+    </Tabs>
   );
 };
 

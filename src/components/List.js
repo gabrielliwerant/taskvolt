@@ -48,7 +48,7 @@ const useStyles = createUseStyles({
   text: {
     display: 'flex',
     alignItems: 'center',
-    fontSize: '20px'
+    fontSize: '18px'
   },
   flex
 });

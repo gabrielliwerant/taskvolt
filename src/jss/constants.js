@@ -6,7 +6,7 @@
 
 import { TYPES } from '@src/constants';
 
-const TOP_OFFSET = 90;
+const TOP_OFFSET = 100;
 const BORDER_OFFSET = 2;
 const LIST_WIDTH_POSITION = 372;
 const LIST_PADDING = 15;
@@ -28,7 +28,8 @@ const HEIGHTS = {
     INPUT: 41
   },
   [TYPES.PROJECT]: {
-    INPUT: 40
+    MAIN: 40,
+    INPUT: 48
   }
 };
 

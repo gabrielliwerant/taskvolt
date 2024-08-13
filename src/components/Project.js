@@ -1,3 +1,9 @@
+/**
+ * src/components/Project.js
+ *
+ * Renders the project name and associated functionality.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
@@ -7,22 +13,35 @@ import { TYPES } from '@src/constants';
 import { projectsSlice } from '@redux/reducers/projects';
 import { getProjectsItems } from '@redux/selectors/projects';
 
-import { NameContainer } from './Name';
+import { NameContainer } from '@components/Name';
 
 const useStyles = createUseStyles({
-  text: {
+  project: {
     display: 'flex',
-    alignItems: 'center',
-    fontSize: '18px'
+    marginRight: '10px'
+  },
+  text: {
+    textTransform: 'none',
+    fontSize: '20px'
   }
 });
 
 const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
   const classes = useStyles();
+
+  /**
+   * Handles change action for input edit.
+   *
+   * @param {string} id Project id
+   * @returns {function[
+   *  @param {object} e Event
+   *  @returns {void}
+   * ]}
+   */
   const onChange = id => e => change({ id, draft: e.target.value });
 
   return (
-    <li key={id}>
+    <div key={id} className={classes.project}>
       <NameContainer
         onClickEdit={edit({ id })}
         onChangeEdit={onChange(id)}
@@ -35,7 +54,7 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
         type={TYPES.PROJECT}
         myClassNames={{ text: classes.text }}
       />
-    </li>
+    </div>
   );
 };
 

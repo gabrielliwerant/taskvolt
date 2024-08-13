@@ -51,7 +51,7 @@ const todosSlice = createSlice({
       list.splice(action.payload.oldIndex, 1);
       list.splice(action.payload.newIndex, 0, orderedId);
     },
-    addSort: (state, action) => { state.sort[action.payload.id] = []; },
+    addSort: (state, action) => { state.sort[action.payload] = []; },
     select: (state, action) => { state.selected = action.payload; }
   }
 });
