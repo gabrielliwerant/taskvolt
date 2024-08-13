@@ -38,15 +38,15 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
    *  @returns {void}
    * ]}
    */
-  const onChange = id => e => change({ id, draft: e.target.value });
+  const onChange = id => e => change(id, e.target.value);
 
   return (
     <div key={id} className={classes.project}>
       <NameContainer
-        onClickEdit={edit({ id })}
+        onClickEdit={edit(id)}
         onChangeEdit={onChange(id)}
-        onClickSave={save({ id, draft: projectsItems[id].text.draft })}
-        onClickCancel={cancel({ id })}
+        onClickSave={save(id, projectsItems[id].text.draft)}
+        onClickCancel={cancel(id)}
         textFinal={projectsItems[id].text.final}
         textDraft={projectsItems[id].text.draft}
         isEditActive={projectsItems[id].isEditActive}
@@ -73,9 +73,9 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = dispatch => ({
   edit: id => () => dispatch(projectsSlice.actions.edit(id)),
-  save: (id, draft) => () => dispatch(projectsSlice.actions.save(id, draft)),
+  save: (id, draft) => () => dispatch(projectsSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(projectsSlice.actions.cancel(id)),
-  change: id => dispatch(projectsSlice.actions.change(id))
+  change: (id, draft) => dispatch(projectsSlice.actions.change({ id, draft }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project);

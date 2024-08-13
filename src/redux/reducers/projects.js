@@ -14,31 +14,30 @@ const projectsSlice = createSlice({
   initialState: getInitialState().projects,
   reducers: {
     add: (state, action) => {
-      const projectId = action.payload.id;
-      state.items[projectId] = makeNewList(projectId, '1', 'Project');
-      state.sort['1'].push(projectId);
+      state.items[action.payload] = makeNewList(action.payload, '1', 'Project');
+      state.sort['1'].push(action.payload);
     },
     edit: (state, action) => {
-      state.items[action.payload.id].isEditActive = true;
+      state.items[action.payload].isEditActive = true;
     },
     save: (state, action) => {
-      state.items[action.payload.id].isEditActive = false;
-      state.items[action.payload.id].text.final = action.payload.draft;
+      const { id, draft } = action.payload;
+      state.items[id].isEditActive = false;
+      state.items[id].text.final = draft;
     },
     cancel: (state, action) => {
-      const final = state.items[action.payload.id].text.final;
-      state.items[action.payload.id].isEditActive = false;
-      state.items[action.payload.id].text.draft = final;
+      const final = state.items[action.payload].text.final;
+      state.items[action.payload].isEditActive = false;
+      state.items[action.payload].text.draft = final;
     },
     remove: (state, action) => {
-      const userId = state.items[action.payload.id].userId;
-      state.sort[userId] = state
-        .sort[userId]
-        .filter(id => id !== action.payload.id);
-      state.items[action.payload.id].isRemoved = true;
+      const userId = state.items[action.payload].userId;
+      state.sort[userId] = state.sort[userId].filter(id => id !== action.payload);
+      state.items[action.payload].isRemoved = true;
     },
     change: (state, action) => {
-      state.items[action.payload.id].text.draft = action.payload.draft;
+      const { id, draft } = action.payload;
+      state.items[id].text.draft = draft;
     }
   }
 });
