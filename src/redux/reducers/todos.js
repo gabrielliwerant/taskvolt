@@ -52,10 +52,25 @@ const todosSlice = createSlice({
     reorder: (state, action) => {
       const { listId, oldIndex, newIndex } = action.payload;
 
-      const list = state.sort[listId];
-      const orderedId = list[oldIndex];
-      list.splice(oldIndex, 1);
-      list.splice(newIndex, 0, orderedId);
+      const sort = state.sort[listId];
+      const todoId = sort[oldIndex];
+      sort.splice(oldIndex, 1);
+      sort.splice(newIndex, 0, todoId);
+    },
+    reorderToList: (state, action) => {
+      const { oldListId, newListId, oldIndex, newIndex } = action.payload;
+
+      // Get todo id
+      const todoId = state.sort[oldListId][oldIndex];
+
+      // Remove todo from current position in old sort array
+      state.sort[oldListId].splice(oldIndex, 1);
+
+      // Add todo to next position in new sort array
+      state.sort[newListId].splice(newIndex, 0, todoId);
+
+      // Update todo list id owner
+      state.items[todoId].listId = newListId;
     },
     select: (state, action) => { state.selected = action.payload; }
   }
