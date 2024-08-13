@@ -70,8 +70,8 @@ const Todo = ({
   complete
 }) => {
   const classes = useStyles();
-  const onComplete = id => e => complete({ id, checked: e.target.checked });
-  const onChange = id => e => change({ id, draft: e.target.value });
+  const onComplete = id => e => complete(id, e.target.checked);
+  const onChange = id => e => change(id, e.target.value);
 
   return (
     <li
@@ -91,11 +91,11 @@ const Todo = ({
       >
         <Checkbox onChange={onComplete(todo.id)} isChecked={todo.isComplete} />
         <NameContainer
-          onClickEdit={edit({ id: todo.id })}
+          onClickEdit={edit(todo.id)}
           onChangeEdit={onChange(todo.id)}
-          onClickSave={save({ id: todo.id, draft: todo.text.draft })}
-          onClickCancel={cancel({ id: todo.id })}
-          onClickRemove={remove({ id: todo.id })}
+          onClickSave={save(todo.id, todo.text.draft)}
+          onClickCancel={cancel(todo.id)}
+          onClickRemove={remove(todo.id)}
           hasRemove
           textFinal={todo.text.final}
           textDraft={todo.text.draft}
@@ -132,11 +132,11 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = dispatch => ({
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
-  save: (id, draft) => () => dispatch(todosSlice.actions.save(id, draft)),
+  save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),
   remove: id => () => dispatch(todosSlice.actions.remove(id)),
-  change: id => dispatch(todosSlice.actions.change(id)),
-  complete: id => dispatch(todosSlice.actions.complete(id))
+  change: (id, draft) => dispatch(todosSlice.actions.change({ id, draft })),
+  complete: (id, checked) => dispatch(todosSlice.actions.complete({ id, checked }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);
