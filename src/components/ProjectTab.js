@@ -22,7 +22,7 @@ import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 
-const ProjectTab = ({ id, isEditActive, addTodoSortSection, addList, initRemove }) => {
+const ProjectTab = ({ id, onClick, isEditActive, addTodoSortSection, addList, initRemove }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   /**
@@ -59,7 +59,7 @@ const ProjectTab = ({ id, isEditActive, addTodoSortSection, addList, initRemove 
   };
 
   return (
-    <Fragment>
+    <div role="button" onClick={onClick}>
       <Tab
         label={<Project key={id} id={id} />}
         icon={
@@ -77,7 +77,7 @@ const ProjectTab = ({ id, isEditActive, addTodoSortSection, addList, initRemove 
         }
       />
       <RemoveProjectDialog open={isDialogOpen} onClose={onDialogClose} />
-    </Fragment>
+    </div>
   );
 };
 

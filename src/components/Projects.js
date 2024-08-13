@@ -14,28 +14,48 @@ import { Tab, Tabs } from '@components/lib/Tab';
 import { IconButton } from '@components/lib/IconButton';
 import ProjectTab from '@components/ProjectTab';
 
+import { makeId } from '@src/utils';
 import { getProjectsSort } from '@redux/selectors/projects';
 import { projectsSlice } from '@redux/reducers/projects';
+import { listsSlice } from '@redux/reducers/lists';
 
 
-const Projects = ({ projectsSort, addProject }) => {
+const Projects = ({ projectsSort, addProject, addListSortSection, setActive }) => {
   const [value, setValue] = useState(0);
 
   /**
-   * Handles tab change action.
+   * Handles a click action on a given tab (project id) which both switches tabs, and sets the
+   * active view to the selected project.
    *
-   * @param {object} e Event
-   * @param {integer} newValue New tab value index
+   * @param {string} id Project id
+   * @param {integer} index Tab index
    * @returns {void}
    */
-  const onChange = (e, newValue) => setValue(newValue);
+  const onTabClick = (id, index) => () => {
+    setValue(index);
+    setActive(id);
+  };
+
+  /**
+   * Handle the add project click, which generates a new project along with associated list sorting.
+   *
+   * @returns {void}
+   */
+  const onAddProjectClick = () => {
+    const id = makeId();
+
+    addProject(id);
+    addListSortSection(id);
+  };
 
   return (
-    <Tabs value={value} onChange={onChange}>
-      {projectsSort['1'].map(id => <ProjectTab key={id} id={id} />)}
+    <Tabs value={value}>
+      {projectsSort['1'].map((id, index) =>
+        <ProjectTab key={id} id={id} onClick={onTabClick(id, index)} />
+      )}
       <Tab
         icon={
-          <IconButton onClick={addProject} ariaLabel='Add project'>
+          <IconButton onClick={onAddProjectClick} ariaLabel='Add project'>
             <AddIcon fontSize='small' />
           </IconButton>
         }
@@ -46,7 +66,9 @@ const Projects = ({ projectsSort, addProject }) => {
 
 Projects.propTypes = {
   projectsSort: PropTypes.object.isRequired,
-  addProject: PropTypes.func.isRequired
+  addProject: PropTypes.func.isRequired,
+  addListSortSection: PropTypes.func.isRequired,
+  setActive: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -54,7 +76,9 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addProject: () => dispatch(projectsSlice.actions.add())
+  addProject: id => dispatch(projectsSlice.actions.add(id)),
+  addListSortSection: id => dispatch(listsSlice.actions.addSort(id)),
+  setActive: id => dispatch(projectsSlice.actions.setActive(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

@@ -6,8 +6,9 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { getDraggableId } from '@src/utils';
 import { TYPES } from '@src/constants';
-import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
+import { todosSlice } from '@redux/reducers/todos';
+import { getProjectActive } from '@redux/selectors/projects';
 
 import Lists from './Lists';
 
@@ -17,7 +18,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop }) => {
+const ListsContainer = ({ projectId, reorderTodo, selectTodo, reorderList, selectList, drop }) => {
   const classes = useStyles();
 
   const onDragEnd = result => {
@@ -35,20 +36,21 @@ const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop
     }
 
     if (result.type === TYPES.LIST) {
-      reorderList({
-        id: getDraggableId(result.draggableId),
-        oldIndex: result.source.index,
-        newIndex: result.destination.index
-      });
+      reorderList(
+        getDraggableId(result.draggableId),
+        projectId,
+        result.source.index,
+        result.destination.index
+      );
       selectList('');
     }
 
     if (result.type === TYPES.TODO) {
-      reorderTodo({
-        listId: getDraggableId(result.source.droppableId),
-        oldIndex: result.source.index,
-        newIndex: result.destination.index
-      });
+      reorderTodo(
+        getDraggableId(result.source.droppableId),
+        result.source.index,
+        result.destination.index
+      );
       selectTodo('');
     }
   };
@@ -82,6 +84,7 @@ const ListsContainer = ({ reorderTodo, selectTodo, reorderList, selectList, drop
 };
 
 ListsContainer.propTypes = {
+  projectId: PropTypes.string.isRequired,
   reorderTodo: PropTypes.func.isRequired,
   selectTodo: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
@@ -89,16 +92,20 @@ ListsContainer.propTypes = {
   drop: PropTypes.func.isRequired
 };
 
+const mapStateToProps = () => ({
+  projectId: getProjectActive()
+});
+
 const mapDispatchToProps = dispatch => ({
   reorderTodo: (listId, oldIndex, newIndex) => dispatch(
-    todosSlice.actions.reorder(listId, oldIndex, newIndex)
+    todosSlice.actions.reorder({ listId, oldIndex, newIndex })
   ),
   selectTodo: id => dispatch(todosSlice.actions.select(id)),
-  reorderList: (listId, oldIndex, newIndex) => dispatch(
-    listsSlice.actions.reorder(listId, oldIndex, newIndex)
+  reorderList: (listId, projectId, oldIndex, newIndex) => dispatch(
+    listsSlice.actions.reorder({ listId, projectId, oldIndex, newIndex })
   ),
   selectList: id => dispatch(listsSlice.actions.select(id)),
   drop: index => dispatch(listsSlice.actions.drop(index))
 });
 
-export default connect(null, mapDispatchToProps)(ListsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);

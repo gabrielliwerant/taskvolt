@@ -15,10 +15,11 @@ const listsSlice = createSlice({
   reducers: {
     add: (state, action) => {
       const { listId, projectId } = action.payload;
-      
+
       state.items[listId] = makeNewList(listId, projectId, 'Todo List');
       state.sort[projectId].push(listId);
     },
+    addSort: (state, action) => { state.sort[action.payload] = []; },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
     },
@@ -47,10 +48,10 @@ const listsSlice = createSlice({
       state.items[id].text.draft = draft;
     },
     reorder: (state, action) => {
-      const { id, oldIndex, newIndex } = action.payload;
+      const { listId, projectId, oldIndex, newIndex } = action.payload;
 
-      state.sort['1'].splice(oldIndex, 1);
-      state.sort['1'].splice(newIndex, 0, id);
+      state.sort[projectId].splice(oldIndex, 1);
+      state.sort[projectId].splice(newIndex, 0, listId);
     },
     select: (state, action) => { state.selected = action.payload; },
     drop: (state, action) => { state.dropping = action.payload; }

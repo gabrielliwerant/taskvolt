@@ -19,7 +19,8 @@ import RemoveListDialog from '@components/RemoveListDialog';
 import { TOP_OFFSET } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
-import { getListsSort } from '@redux/selectors/lists';
+import { getProjectActive } from '@redux/selectors/projects';
+import { hasListsByProjectId, getListsSort } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
 
 const useStyles = createUseStyles({
@@ -31,7 +32,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Lists = ({ listsSort, initRemove }) => {
+const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
   const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -56,42 +57,57 @@ const Lists = ({ listsSort, initRemove }) => {
 
   return (
     <Fragment>
-      <Droppable droppableId='droppable-lists' direction='horizontal' type={TYPES.LIST}>
-        {(provided) => (
-          <ul className={classes.lists} {...provided.droppableProps} ref={provided.innerRef}>
-            {listsSort['1'].map((id, index) => (
-              <Draggable key={id} draggableId={`list-${id}`} index={index}>
-                {(provided) => (
-                  <List id={id} remove={onRemoveClick(id)} listIndex={index} provided={provided} />
-                )}
-              </Draggable>
-            ))}
-            {listsSort['1'].map((id, listIndex) => (
-              <Placeholder
-                key={id}
-                id={id}
-                listIndex={listIndex}
-                index={listIndex}
-                variant='list'
-              />
-            ))}
-            <div>{provided.placeholder}</div>
-          </ul>
-        )}
-      </Droppable>
+      {hasLists &&
+        <Droppable droppableId='droppable-lists' direction='horizontal' type={TYPES.LIST}>
+          {(provided) => (
+            <ul className={classes.lists} {...provided.droppableProps} ref={provided.innerRef}>
+              {listsSort[projectId].map((id, index) => (
+                <Draggable key={id} draggableId={`list-${id}`} index={index}>
+                  {(provided) => (
+                    <List
+                      id={id}
+                      remove={onRemoveClick(id)}
+                      listIndex={index}
+                      provided={provided}
+                    />
+                  )}
+                </Draggable>
+              ))}
+              {listsSort[projectId].map((id, listIndex) => (
+                <Placeholder
+                  key={id}
+                  id={id}
+                  listIndex={listIndex}
+                  index={listIndex}
+                  variant='list'
+                />
+              ))}
+              <div>{provided.placeholder}</div>
+            </ul>
+          )}
+        </Droppable>
+      }
       <RemoveListDialog open={isDialogOpen} onClose={onDialogClose} />
     </Fragment>
   );
 };
 
 Lists.propTypes = {
-  listsSort: PropTypes.object.isRequired,
+  projectId: PropTypes.string.isRequired,
+  hasLists: PropTypes.bool.isRequired,
+  listsSort: PropTypes.object,
   initRemove: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({
-  listsSort: getListsSort()
-});
+const mapStateToProps = () => {
+  const projectId = getProjectActive();
+
+  return {
+    projectId,
+    hasLists: hasListsByProjectId(projectId),
+    listsSort: getListsSort()
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   initRemove: id => dispatch(listsSlice.actions.initRemove(id))

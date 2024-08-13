@@ -20,6 +20,7 @@ const todosSlice = createSlice({
       state.items[id] = makeNewTodo(id, action.payload, 'New todo');
       state.sort[action.payload].push(id);
     },
+    addSort: (state, action) => { state.sort[action.payload] = []; },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
     },
@@ -56,7 +57,6 @@ const todosSlice = createSlice({
       list.splice(oldIndex, 1);
       list.splice(newIndex, 0, orderedId);
     },
-    addSort: (state, action) => { state.sort[action.payload] = []; },
     select: (state, action) => { state.selected = action.payload; }
   }
 });
