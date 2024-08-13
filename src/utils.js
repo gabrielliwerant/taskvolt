@@ -9,7 +9,7 @@
  *
  * @returns {string}
  */
-const makeId = () => `${Math.floor(Math.random() * 1000000)}`;
+const makeId = () => `${Math.floor(Math.random() * 100000000000)}`;
 
 /**
  * Get numerical id from draggable id string
