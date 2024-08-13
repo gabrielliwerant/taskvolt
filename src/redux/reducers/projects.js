@@ -32,6 +32,7 @@ const projectsSlice = createSlice({
       state.items[action.payload].isEditActive = false;
       state.items[action.payload].text.draft = final;
     },
+    initRemove: (state, action) => { state.removing = action.payload; },
     remove: (state, action) => {
       const userId = state.items[action.payload].userId;
       state.sort[userId] = state.sort[userId].filter(id => id !== action.payload);

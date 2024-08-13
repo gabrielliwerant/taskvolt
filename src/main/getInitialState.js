@@ -19,6 +19,7 @@ const getInitialState = () => {
   const initial = {
     projects: {
       items: { '1': { ...makeNewProject('1', '1', 'New Project') } },
+      removing: '',
       sort: { '1': ['1'] }
     },
     lists: {

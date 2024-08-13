@@ -33,12 +33,13 @@ const MyTab = ({ label, iconPosition, icon }) => {
 };
 
 MyTab.propTypes = {
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   iconPosition: PropTypes.string,
   icon: PropTypes.node
 };
 
 MyTab.defaultProps = {
+  label: '',
   iconPosition: 'end',
   icon: ''
 };

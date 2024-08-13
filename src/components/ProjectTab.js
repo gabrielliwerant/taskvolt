@@ -4,47 +4,80 @@
  * Renders the project-specific tab that contains project-related icons.
  */
 
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AddRounded from '@mui/icons-material/AddRounded';
+import AddIcon from '@mui/icons-material/AddRounded';
+import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
 import { IconButton } from '@components/lib/IconButton';
 import { Tab } from '@components/lib/Tab';
 import Project from '@components/Project';
+import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
 import { makeId } from '@src/utils';
 import { getProjectIsEditActive } from '@redux/selectors/projects';
-import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
+import { listsSlice } from '@redux/reducers/lists';
+import { projectsSlice } from '@redux/reducers/projects';
 
-const ProjectTab = ({ id, isEditActive, addTodoSortSection, addList }) => {
+const ProjectTab = ({ id, isEditActive, addTodoSortSection, addList, initRemove }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  /**
+   * Handle close action for todo list removal dialog.
+   *
+   * @returns {void}
+   */
+  const onDialogClose = () => setIsDialogOpen(false);
+
   /**
    * Handle the add list click action.
    *
    * @param {string} projectId
    * @returns {void}
    */
-  const onClick = projectId => () => {
+  const onClickAddList = projectId => () => {
     const listId = makeId();
 
     addTodoSortSection(listId);
     addList(listId, projectId);
   };
 
+  /**
+   * Handle remove attempt click action for projects, initiating dialog.
+   *
+   * We also save the project id we're attempting to delete for the removal dialog confirmation.
+   *
+   * @param {string} projectId
+   * @returns {void}
+   */
+  const onClickInitRemoveProject = projectId => () => {
+    setIsDialogOpen(true);
+    initRemove(projectId);
+  };
+
   return (
-    <Tab
-      label={<Project key={id} id={id} />}
-      icon={
-        !isEditActive
-          ?
-            <IconButton onClick={onClick(id)} ariaLabel='Add todo list'>
-              <AddRounded fontSize='small' />
-            </IconButton>
-          : ''
-      }
-    />
+    <Fragment>
+      <Tab
+        label={<Project key={id} id={id} />}
+        icon={
+          !isEditActive
+            ?
+              <Fragment>
+                <IconButton onClick={onClickAddList(id)} ariaLabel='Add todo list'>
+                  <AddIcon fontSize='small' />
+                </IconButton>
+                <IconButton onClick={onClickInitRemoveProject(id)} ariaLabel='Remove project'>
+                  <DeleteIcon fontSize='small' />
+                </IconButton>
+              </Fragment>
+            : ''
+        }
+      />
+      <RemoveProjectDialog open={isDialogOpen} onClose={onDialogClose} />
+    </Fragment>
   );
 };
 
@@ -52,7 +85,8 @@ ProjectTab.propTypes = {
   id: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   addTodoSortSection: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired
+  addList: PropTypes.func.isRequired,
+  initRemove: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -61,7 +95,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   addTodoSortSection: listId => dispatch(todosSlice.actions.addSort(listId)),
-  addList: (listId, projectId) => dispatch(listsSlice.actions.add({ listId, projectId }))
+  addList: (listId, projectId) => dispatch(listsSlice.actions.add({ listId, projectId })),
+  initRemove: projectId => dispatch(projectsSlice.actions.initRemove(projectId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectTab);

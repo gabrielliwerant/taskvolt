@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AddRounded from '@mui/icons-material/AddRounded';
+import AddIcon from '@mui/icons-material/AddRounded';
 
 import { Tab, Tabs } from '@components/lib/Tab';
 import { IconButton } from '@components/lib/IconButton';
@@ -36,7 +36,7 @@ const Projects = ({ projectsSort, addProject }) => {
       <Tab
         icon={
           <IconButton onClick={addProject} ariaLabel='Add project'>
-            <AddRounded fontSize='small' />
+            <AddIcon fontSize='small' />
           </IconButton>
         }
       />
