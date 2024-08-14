@@ -12,7 +12,7 @@ import { createUseStyles } from 'react-jss';
 import { todosSlice } from '@redux/reducers/todos';
 
 import { Checkbox } from '@components/lib/Checkbox';
-import Typography from '@components/Typography';
+import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
 
 import {

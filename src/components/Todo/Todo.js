@@ -13,7 +13,7 @@ import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
 
 import { Checkbox } from '@components/lib/Checkbox';
-import Typography from '@components/Typography';
+import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
 
 import {
