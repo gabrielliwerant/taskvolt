@@ -111,23 +111,30 @@ const NameContainer = ({
 };
 
 NameContainer.propTypes = {
-  onClickEdit: PropTypes.func.isRequired,
-  onChangeEdit: PropTypes.func.isRequired,
-  onClickSave: PropTypes.func.isRequired,
-  onClickCancel: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func,
+  onChangeEdit: PropTypes.func,
+  onClickSave: PropTypes.func,
+  onClickCancel: PropTypes.func,
   onClickRemove: PropTypes.func,
   hasRemove: PropTypes.bool,
   textFinal: PropTypes.string.isRequired,
-  textDraft: PropTypes.string.isRequired,
-  isEditActive: PropTypes.bool.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  textDraft: PropTypes.string,
+  isEditActive: PropTypes.bool,
+  isComplete: PropTypes.bool,
   type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   myClassNames: PropTypes.object
 };
 
 NameContainer.defaultProps = {
+  onClickEdit: () => {},
+  onChangeEdit: () => {},
+  onClickSave: () => {},
+  onClickCancel: () => {},
   onClickRemove: () => {},
+  textDraft: '',
   hasRemove: false,
+  isEditActive: false,
+  isComplete: false,
   type: TYPES.TODO,
   myClassNames: {}
 };

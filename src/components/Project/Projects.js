@@ -13,14 +13,17 @@ import AddIcon from '@mui/icons-material/AddRounded';
 import { Tab, Tabs } from '@components/lib/Tab';
 import { IconButton } from '@components/lib/IconButton';
 import ProjectTab from '@components/ProjectTab';
+import TrashTab from '@components/TrashTab';
 
 import { makeId } from '@src/utils';
+import { VIEWS } from '@main/constants';
 import { getProjectsSort } from '@redux/selectors/projects';
+import { appSlice } from '@redux/reducers/app';
 import { projectsSlice } from '@redux/reducers/projects';
 import { listsSlice } from '@redux/reducers/lists';
 
 
-const Projects = ({ projectsSort, addProject, addListSortSection, setActive }) => {
+const Projects = ({ projectsSort, addProject, addListSortSection, setActive, setView }) => {
   const [value, setValue] = useState(0);
 
   /**
@@ -32,6 +35,7 @@ const Projects = ({ projectsSort, addProject, addListSortSection, setActive }) =
    * @returns {void}
    */
   const onTabClick = (id, index) => () => {
+    setView(VIEWS.PROJECTS);
     setValue(index);
     setActive(id);
   };
@@ -48,6 +52,17 @@ const Projects = ({ projectsSort, addProject, addListSortSection, setActive }) =
     addListSortSection(id);
   };
 
+  /**
+   * Handles a click action for the trash tab by setting the active view.
+   *
+   * @param {integer} index Tab index
+   * @returns {void}
+   */
+  const onTrashTabClick = index => () => {
+    setView(VIEWS.TRASH);
+    setValue(index);
+  };
+
   return (
     <Tabs value={value}>
       {projectsSort['1'].map((id, index) =>
@@ -60,6 +75,7 @@ const Projects = ({ projectsSort, addProject, addListSortSection, setActive }) =
           </IconButton>
         }
       />
+      <TrashTab onClick={onTrashTabClick(projectsSort['1'].length + 1)} />
     </Tabs>
   );
 };
@@ -68,7 +84,8 @@ Projects.propTypes = {
   projectsSort: PropTypes.object.isRequired,
   addProject: PropTypes.func.isRequired,
   addListSortSection: PropTypes.func.isRequired,
-  setActive: PropTypes.func.isRequired
+  setActive: PropTypes.func.isRequired,
+  setView: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -78,7 +95,8 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = dispatch => ({
   addProject: id => dispatch(projectsSlice.actions.add(id)),
   addListSortSection: id => dispatch(listsSlice.actions.addSort(id)),
-  setActive: id => dispatch(projectsSlice.actions.setActive(id))
+  setActive: id => dispatch(projectsSlice.actions.setActive(id)),
+  setView: view => dispatch(appSlice.actions.setView(view))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

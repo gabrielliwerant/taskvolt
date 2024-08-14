@@ -8,6 +8,7 @@ import { LOCAL_STORAGE_KEY } from '@src/constants';
 
 import { makeNewList } from './lists';
 import { makeNewProject } from './projects';
+import { VIEWS } from './constants';
 
 /**
  * Retrieve data from local storage or initial data structure.
@@ -17,6 +18,9 @@ import { makeNewProject } from './projects';
 const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
+    app: {
+      view: VIEWS.PROJECTS
+    },
     projects: {
       items: { '1': { ...makeNewProject('1', '1', 'New Project') } },
       active: '1',

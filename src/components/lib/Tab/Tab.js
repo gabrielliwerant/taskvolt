@@ -6,19 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createUseStyles } from 'react-jss';
 
 import Tab from '@mui/material/Tab';
 
-const useStyles = createUseStyles({
-  tab: {
-    opacity: '1'
-  }
-});
+const classNames = require('classnames');
 
-const MyTab = ({ label, iconPosition, icon }) => {
-  const classes = useStyles();
-
+const MyTab = ({ label, iconPosition, icon, myClassName }) => {
   return (
     <Tab
       disableRipple
@@ -26,7 +19,7 @@ const MyTab = ({ label, iconPosition, icon }) => {
       label={label}
       iconPosition={iconPosition}
       icon={icon}
-      className={classes.tab}
+      className={classNames({ [myClassName]: !!myClassName })}
       component='div'
     />
   );
@@ -35,13 +28,15 @@ const MyTab = ({ label, iconPosition, icon }) => {
 MyTab.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   iconPosition: PropTypes.string,
-  icon: PropTypes.node
+  icon: PropTypes.node,
+  myClassName: PropTypes.string
 };
 
 MyTab.defaultProps = {
   label: '',
   iconPosition: 'end',
-  icon: ''
+  icon: '',
+  myClassName: ''
 };
 
 export { MyTab as Tab };

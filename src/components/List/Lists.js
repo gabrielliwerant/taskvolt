@@ -1,5 +1,5 @@
 /**
- * src/components/List.js
+ * src/components/List/Lists.js
  *
  * Renders the drag-droppable list of all todo lists for a given project.
  *
@@ -13,23 +13,17 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Placeholder from '@components/Placeholder';
-import List from '@components/List';
 import RemoveListDialog from '@components/RemoveListDialog';
+import { List } from '@components/List';
 
-import { TOP_OFFSET } from '@jss/constants';
-
+import { lists } from '@components/List/styles';
 import { TYPES } from '@src/constants';
 import { getProjectActive } from '@redux/selectors/projects';
 import { hasListsByProjectId, getListsSort } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
 
 const useStyles = createUseStyles({
-  lists: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: `${TOP_OFFSET}px 30px 0 30px`,
-    position: 'absolute'
-  }
+  lists
 });
 
 const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {

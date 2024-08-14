@@ -18,16 +18,20 @@ import {
 import { Button } from '@components/lib/Button';
 
 import { getListRemoving } from '@redux/selectors/lists';
+import { getTodoIdsByListId } from '@redux/selectors/todos';
 import { listsSlice } from '@redux/reducers/lists';
+import { todosSlice } from '@redux/reducers/todos';
 
-const RemoveListDialog = ({ open, onClose, id, remove }) => {
+const RemoveListDialog = ({ open, onClose, id, removeList, removeTodo }) => {
   /**
    * Handles the list removal action.
    *
    * @returns {void}
    */
   const onRemove = () => {
-    remove(id);
+    getTodoIdsByListId(id).forEach(todoId => removeTodo(todoId));
+
+    removeList(id);
     onClose();
   };
 
@@ -55,7 +59,8 @@ RemoveListDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  remove: PropTypes.func.isRequired
+  removeList: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -63,7 +68,8 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  remove: id => dispatch(listsSlice.actions.remove(id))
+  removeList: id => dispatch(listsSlice.actions.remove(id)),
+  removeTodo: id => dispatch(todosSlice.actions.remove(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveListDialog);

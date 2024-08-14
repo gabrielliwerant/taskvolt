@@ -1,11 +1,16 @@
+/**
+ * src/App.js
+ *
+ * Primary root for all React components.
+ */
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import { store } from '@redux/config';
+import Main from '@components/Main';
 
-import ListsContainer from '@components/ListsContainer';
-import NavBar from '@components/NavBar';
+import { store } from '@redux/config';
 
 const useStyles = createUseStyles({
   '@global': {
@@ -28,8 +33,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NavBar />
-      <ListsContainer />
+      <Main />
     </Provider>
   );
 };

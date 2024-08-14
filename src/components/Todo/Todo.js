@@ -1,9 +1,14 @@
+/**
+ * src/components/Todo/Todo.js
+ *
+ * Renders a todo item with associated functionality.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import { TYPES } from '@src/constants';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
 
@@ -11,51 +16,23 @@ import { Checkbox } from '@components/lib/Checkbox';
 import Typography from '@components/Typography';
 import { NameContainer } from '@components/Name';
 
-import { BORDER_OFFSET, MARGINS, HEIGHTS, WIDTHS, Z_INDEX } from '@jss/constants';
+import {
+  complete,
+  itemContainer,
+  item,
+  completeBackdrop,
+  defaultBackdrop
+} from '@components/Todo/styles';
 import { tilt } from '@jss/utils';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  complete: {
-    textDecoration: 'line-through',
-    opacity: '0.5'
-  },
-  completeBackdrop: {
-    background: 'linear-gradient(0.5turn, #fefefe, #ededed, #fefefe)',
-
-    '&:hover': {
-      background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)'
-    }
-  },
-  defaultBackdrop: {
-    background: 'linear-gradient(0.5turn, #eeeeee, #dddddd, #eeeeee)',
-
-    '&:hover': {
-      background: 'linear-gradient(0.5turn, #dddddd, #cccccc, #dddddd)'
-    }
-  },
-  itemContainer: {
-    padding: '4px',
-    border: '1px solid #bbbbbb',
-    borderRadius: '4px',
-    width: '300px',
-    display: 'flex',
-    alignItems: 'center'
-  },
-  item: {
-    cursor: 'grab',
-    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
-    height: `${HEIGHTS.TODO.MAIN}px`,
-    border: '1px solid transparent',
-    marginBottom: `${MARGINS[TYPES.TODO].MAIN}px`,
-    position: 'relative',
-    zIndex: Z_INDEX.TODO,
-
-    '&:focus': {
-      outline: 'none'
-    }
-  }
+  complete,
+  completeBackdrop,
+  defaultBackdrop,
+  itemContainer,
+  item
 });
 
 const Todo = ({

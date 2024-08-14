@@ -1,5 +1,5 @@
 /**
- * constants.js
+ * src/constants.js
  *
  * Hold re-usable constants for the app.
  */

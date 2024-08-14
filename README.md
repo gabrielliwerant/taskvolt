@@ -2,7 +2,10 @@
 
 Local todo app running on react/redux toolkit.
 
-This is an ongoing experiment with the purpose of eventually creating an embeddable todo list with extensible functionality to be dictated by the user. Another potentiality is the democratization/decentralization of the todo list concept. Details to be fleshed out in a road map when available.
+This is an ongoing experiment with the purpose of eventually creating an embeddable todo list with
+extensible functionality to be dictated by the user. Another potentiality is the
+democratization/decentralization of the todo list concept. Details to be fleshed out in a road map
+when available.
 
 ## Running Locally
 
@@ -16,6 +19,8 @@ This is an ongoing experiment with the purpose of eventually creating an embedda
 - [x] ~~Add project level to collect lists~~
 - [x] ~~Allow dragging items between lists~~
 - [x] ~~Improve UX around editing text~~
+- [x] ~~Allow viewing trashed items~~
+- Auto delete/prune old trashed items based on timestamp
 - Allow collapsing lists
 - Add tooltips
 - Improve project tab UX (more space to click without entering edit mode)
@@ -23,7 +28,6 @@ This is an ongoing experiment with the purpose of eventually creating an embedda
 - Allow reordering of project tabs
 - Allow exporting data
 - Allow importing data
-- Allow viewing trashed items
 - Add note type feature
 - Allow marking as important
 - Add branding

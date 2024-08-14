@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { AppBar } from '@components/lib/AppBar';
-import Projects from '@components/Projects';
+import { Projects } from '@components/Project';
 
 const NavBar = ({}) => {
   return (

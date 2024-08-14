@@ -10,6 +10,7 @@ const _getLists = () => getState('lists');
 const _getListsItems = () => _getLists().items;
 
 const getListItemById = id => _getListsItems()[id];
+const isListRemoved = id => !!_getListsItems()?.[id]?.isRemoved;
 const hasListItemById = id => !!_getListsItems()?.[id];
 const getListsSort = () => _getLists().sort;
 const hasListsByProjectId = id => !!getListsSort()?.[id];
@@ -17,12 +18,17 @@ const getListRemoving = () => _getLists().removing;
 const getListSelected = () => _getLists().selected;
 const getListDropping = () => _getLists().dropping;
 
+const getListTextFinalFromList = list => list.text.final;
+
 export {
   getListItemById,
+  isListRemoved,
   hasListItemById,
   getListsSort,
   hasListsByProjectId,
   getListRemoving,
   getListSelected,
-  getListDropping
+  getListDropping,
+
+  getListTextFinalFromList
 };

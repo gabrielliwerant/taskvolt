@@ -2,6 +2,8 @@
  * src/components/ProjectTab.js
  *
  * Renders the project-specific tab that contains project-related icons.
+ *
+ * KLUDGE: Helps avoid issues with `Tabs` component auto-adding props.
  */
 
 import React, { Fragment, useState } from 'react';
@@ -13,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
 import { IconButton } from '@components/lib/IconButton';
 import { Tab } from '@components/lib/Tab';
-import Project from '@components/Project';
+import { Project } from '@components/Project';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
 import { makeId } from '@src/utils';

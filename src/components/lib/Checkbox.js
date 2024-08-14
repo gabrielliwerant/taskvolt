@@ -13,12 +13,13 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '@mui/material/Checkbox';
 
-const MyCheckbox = ({ onChange, isChecked, ariaLabel }) => {
+const MyCheckbox = ({ onChange, isChecked, disabled, ariaLabel }) => {
   return (
     <Checkbox
       size='small'
       onChange={onChange}
       checked={isChecked}
+      disabled={disabled}
       inputProps={{ 'aria-label': ariaLabel }}
       sx={{
         '&:not(.Mui-checked)': {
@@ -45,13 +46,16 @@ const MyCheckbox = ({ onChange, isChecked, ariaLabel }) => {
 };
 
 MyCheckbox.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   isChecked: PropTypes.bool,
+  disabled: PropTypes.bool,
   ariaLabel: PropTypes.string
 };
 
 MyCheckbox.defaultProps = {
+  onChange: () => {},
   isChecked: false,
+  disabled: false,
   ariaLabel: ''
 };
 

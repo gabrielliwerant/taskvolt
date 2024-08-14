@@ -1,8 +1,16 @@
+/**
+ * src/components/ListsContainer.js
+ *
+ * Renders the container for all lists and the primary view for a selected project.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
+
+import { Lists } from '@components/List';
 
 import { getDragDropId } from '@src/utils';
 import { TYPES } from '@src/constants';
@@ -10,8 +18,6 @@ import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { getProjectActive } from '@redux/selectors/projects';
 import { hasListItemById } from '@redux/selectors/lists';
-
-import Lists from '@components/Lists';
 
 const useStyles = createUseStyles({
   container: {

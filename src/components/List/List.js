@@ -1,3 +1,9 @@
+/**
+ * src/components/List/List.js
+ *
+ * Renders a list of todo items with associated drag/drop functionality.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
@@ -6,50 +12,29 @@ import { connect } from 'react-redux';
 import AddIcon from '@mui/icons-material/AddRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { IconButton } from '@components/lib/IconButton';
+import { Todos } from '@components/Todo';
+import { NameContainer } from '@components/Name';
+
+import {
+  listItemContainer,
+  listContainer,
+  listTitleContainer,
+  text
+} from '@components/List/styles';
+import { flex } from '@jss/styles';
+import { tilt } from '@jss/utils';
+
 import { TYPES } from '@src/constants';
 import { getListItemById, getListSelected } from '@redux/selectors/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
-import { IconButton } from '@components/lib/IconButton';
-import { BORDER_OFFSET, LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
-import { flex } from '@jss/styles';
-import { tilt } from '@jss/utils';
-
-import Todos from './Todos';
-import { NameContainer } from './Name';
-
 const useStyles = createUseStyles({
-  container: {
-    height: '100%',
-    marginBottom: '30px',
-    marginRight: '30px',
-    position: 'relative',
-    zIndex: Z_INDEX.LIST,
-    '&:last-child': {
-      marginRight: 0
-    }
-  },
-  listContainer: {
-    width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
-    padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
-    background: '#f7f7f7',
-    border: '1px solid #cccccc',
-    borderRadius: '4px',
-    '&:hover': {
-      background: '#f2f2f2'
-    }
-  },
-  listTitleContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  text: {
-    display: 'flex',
-    alignItems: 'center',
-    fontSize: '18px'
-  },
+  listItemContainer,
+  listContainer,
+  listTitleContainer,
+  text,
   flex
 });
 
@@ -71,7 +56,7 @@ const List = ({
   return (
     <li
       key={id}
-      className={classes.container}
+      className={classes.listItemContainer}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
@@ -123,14 +108,10 @@ List.propTypes = {
   remove: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.id;
-
-  return {
-    item: getListItemById(id),
-    dragId: getListSelected()
-  }
-};
+const mapStateToProps = (state, ownProps) => ({
+  item: getListItemById(ownProps.id),
+  dragId: getListSelected()
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const id = ownProps.id;

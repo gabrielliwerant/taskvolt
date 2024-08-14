@@ -9,21 +9,20 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import { NameContainer } from '@components/Name';
+
+import { text } from '@components/Project/styles';
+
 import { TYPES } from '@src/constants';
 import { projectsSlice } from '@redux/reducers/projects';
 import { getProjectsItems } from '@redux/selectors/projects';
-
-import { NameContainer } from '@components/Name';
 
 const useStyles = createUseStyles({
   project: {
     display: 'flex',
     marginRight: '10px'
   },
-  text: {
-    textTransform: 'none',
-    fontSize: '20px'
-  }
+  text
 });
 
 const Project = ({ projectsItems, id, edit, save, cancel, change }) => {

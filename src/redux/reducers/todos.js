@@ -41,6 +41,7 @@ const todosSlice = createSlice({
       state.sort[listId] = state.sort[listId].filter(id => id !== action.payload);
       state.items[action.payload].isRemoved = true;
     },
+    expunge: (state, action) => { delete state.items[action.payload]; },
     complete: (state, action) => {
       const { id, checked } = action.payload;
       state.items[id].isComplete = checked;

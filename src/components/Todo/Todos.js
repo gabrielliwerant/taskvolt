@@ -1,23 +1,27 @@
+/**
+ * src/components/Todo/Todos.js
+ *
+ * Renders a set of todo items with drag and drop functionality.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
+import Placeholder from '@components/Placeholder';
+import { Todo } from '@components/Todo';
+
+import { todos } from '@components/Todo/styles';
+
 import { TYPES } from '@src/constants';
 import { getIndexFromId } from '@src/utils';
 import { getTodosItems, getTodosSort } from '@redux/selectors/todos';
 import { getListsSort } from '@redux/selectors/lists';
 
-import { LIST_PADDING } from '@jss/constants';
-
-import Placeholder from './Placeholder';
-import Todo from './Todo';
-
 const useStyles = createUseStyles({
-  list: {
-    marginTop: `${LIST_PADDING}px`
-  }
+  todos
 });
 
 const Todos = ({ listId, listSort, todosItems, todosSort }) => {
@@ -26,17 +30,9 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
   return (
     <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
       {(provided) => (
-        <ul
-          className={classes.list}
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-        >
+        <ul className={classes.todos} {...provided.droppableProps} ref={provided.innerRef}>
           {todosSort[listId].map((todoId, index) => (
-            <Draggable
-              key={todoId}
-              draggableId={`item-${todoId}`}
-              index={index}
-            >
+            <Draggable key={todoId} draggableId={`item-${todoId}`} index={index}>
               {(provided) => <Todo provided={provided} todo={todosItems[todoId]} />}
             </Draggable>
           ))}
