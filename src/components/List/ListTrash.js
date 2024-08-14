@@ -32,11 +32,24 @@ import {
 } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
 
+const classNames = require('classnames');
+
 const useStyles = createUseStyles({
   listItemContainer,
-  listContainer,
+  listContainer: {
+    ...listContainer,
+
+    '&:hover': {}
+  },
   listTitleContainer,
-  text,
+  text: {
+    ...text,
+
+    cursor: 'default'
+  },
+  removed: {
+    opacity: '0.6'
+  },
   flex
 });
 
@@ -51,7 +64,9 @@ const ListTrash = ({ id, item, isRemoved, hasList, expunge }) => {
             <div className={classes.listTitleContainer}>
               <NameContainer
                 textFinal={getListTextFinalFromList(item)}
-                myClassNames={{ text: classes.text }}
+                myClassNames={{
+                  container: classNames({ [classes.removed]: !isRemoved }), text: classes.text
+                }}
                 type={TYPES.LIST}
               />
               <div className={classes.flex}>

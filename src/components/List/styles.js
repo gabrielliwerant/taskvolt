@@ -32,6 +32,7 @@ const listContainer = {
   background: '#f7f7f7',
   border: '1px solid #cccccc',
   borderRadius: '4px',
+  
   '&:hover': {
     background: '#f2f2f2'
   }

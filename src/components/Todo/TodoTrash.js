@@ -28,10 +28,25 @@ const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   complete,
-  completeBackdrop,
-  defaultBackdrop,
+  completeBackdrop: {
+    ...completeBackdrop,
+
+    '&:hover': {}
+  },
+  defaultBackdrop: {
+    ...defaultBackdrop,
+
+    '&:hover': {}
+  },
   itemContainer,
-  item
+  item: {
+    ...item,
+
+    cursor: 'default'
+  },
+  name: {
+    cursor: 'default'
+  }
 });
 
 const TodoTrash = ({ todo, expunge }) => {
@@ -53,7 +68,9 @@ const TodoTrash = ({ todo, expunge }) => {
           textFinal={todo.text.final}
           isEditActive={todo.isEditActive}
           isComplete={todo.isComplete}
-          myClassNames={{ container: classNames({ [classes.complete]: todo.isComplete })}}
+          myClassNames={{
+            container: classNames({ [classes.name]: true, [classes.complete]: todo.isComplete })
+          }}
         >
           <Typography>{todo.text.final}</Typography>
         </NameContainer>
