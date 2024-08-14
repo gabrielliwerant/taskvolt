@@ -30,7 +30,6 @@ import {
   isListRemoved,
   getListTextFinalFromList
 } from '@redux/selectors/lists';
-import { listsSlice } from '@redux/reducers/lists';
 
 const classNames = require('classnames');
 
@@ -103,8 +102,4 @@ const mapStateToProps = (state, ownProps) => ({
   hasList: hasListItemById(ownProps.id)
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  expunge: () => dispatch(listsSlice.actions.expunge(ownProps.id))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListTrash);
+export default connect(mapStateToProps, null)(ListTrash);

@@ -6,7 +6,6 @@
 
 import { LOCAL_STORAGE_KEY } from '@src/constants';
 
-import { makeNewList } from './lists';
 import { makeNewProject } from './projects';
 import { VIEWS } from './constants';
 
@@ -29,11 +28,11 @@ const getInitialState = () => {
       sort: { '1': ['1'] }
     },
     lists: {
-      items: { '1': { ...makeNewList('1', '1', 'Todo List') } },
+      items: {},
       removing: '',
       selected: '',
       dropping: null,
-      sort: { '1': ['1'] }
+      sort: { '1': [] }
     },
     todos: { items: {}, sort: { '1': [] }, selected: '' }
   };

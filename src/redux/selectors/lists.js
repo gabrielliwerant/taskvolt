@@ -13,7 +13,7 @@ const getListItemById = id => _getListsItems()[id];
 const isListRemoved = id => !!_getListsItems()?.[id]?.isRemoved;
 const hasListItemById = id => !!_getListsItems()?.[id];
 const getListsSort = () => _getLists().sort;
-const hasListsByProjectId = id => !!getListsSort()?.[id];
+const hasListsByProjectId = id => !!getListsSort()?.[id].length;
 const getListRemoving = () => _getLists().removing;
 const getListSelected = () => _getLists().selected;
 const getListDropping = () => _getLists().dropping;

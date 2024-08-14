@@ -24,6 +24,17 @@ const getTodoIdsByListId = id =>
   Object.values(getTodosItems()).filter(item => item.listId === id).map(item => item.id);
 
 /**
+ * From a given list id, return all removed todo ids that have that list id.
+ *
+ * @param {string} id List id
+ * @returns {array[string]}
+ */
+const getRemovedTodoIdsByListId = id =>
+  Object.values(getTodosItems())
+    .filter(item => item.isRemoved && item.listId === id)
+    .map(item => item.id);
+
+/**
  * Return a unique array of list ids that have any removed todo items.
  *
  * @returns {array[string]}
@@ -47,6 +58,7 @@ export {
   getTodosSort,
   getTodoSelected,
   getTodoIdsByListId,
+  getRemovedTodoIdsByListId,
   getUniqueListIdsFromRemovedTodoItems,
   getRemovedTodoItemsByListId,
 

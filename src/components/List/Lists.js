@@ -12,11 +12,13 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
+import { List } from '@components/List';
 import Placeholder from '@components/Placeholder';
 import RemoveListDialog from '@components/RemoveListDialog';
-import { List } from '@components/List';
+import MessageLarge from '@components/MessageLarge';
 
 import { lists } from '@components/List/styles';
+
 import { TYPES } from '@src/constants';
 import { getProjectActive } from '@redux/selectors/projects';
 import { hasListsByProjectId, getListsSort } from '@redux/selectors/lists';
@@ -81,6 +83,7 @@ const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
           )}
         </Droppable>
       }
+      {!hasLists && <MessageLarge>Create a List to Begin...</MessageLarge>}
       <RemoveListDialog open={isDialogOpen} onClose={onDialogClose} />
     </Fragment>
   );

@@ -19,7 +19,7 @@ const Trash = ({ todosItems }) => {
     setListIds(getUniqueListIdsFromRemovedTodoItems())
   }, [todosItems]);
 
-  return <ListsTrash lists={listIds} />;
+  return <ListsTrash listIds={listIds} />;
 };
 
 Trash.propTypes = {
