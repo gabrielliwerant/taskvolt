@@ -9,5 +9,6 @@ import { getState } from '../config';
 const _getApp = () => getState('app');
 
 const getAppView = () => _getApp().view;
+const getAppActiveTab = () => _getApp().activeTab;
 
-export { getAppView };
+export { getAppView, getAppActiveTab };

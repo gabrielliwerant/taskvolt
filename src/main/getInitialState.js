@@ -19,7 +19,8 @@ const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
     app: {
-      view: VIEWS.PROJECTS
+      view: VIEWS.PROJECTS,
+      activeTab: 0
     },
     projects: {
       items: { '1': { ...makeNewProject('1', '1', 'New Project') } },

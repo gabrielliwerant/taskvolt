@@ -12,7 +12,8 @@ const appSlice = createSlice({
   name: 'app',
   initialState: getInitialState().app,
   reducers: {
-    setView: (state, action) => { state.view = action.payload; }
+    setView: (state, action) => { state.view = action.payload; },
+    setActiveTab: (state, action) => { state.activeTab = action.payload; }
   }
 });
 
