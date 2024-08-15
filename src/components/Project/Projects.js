@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AddIcon from '@mui/icons-material/AddRounded';
+import AddCircleIcon from '@mui/icons-material/AddCircleRounded';
 
 import { Tab, Tabs } from '@components/lib/Tab';
 import { Tooltip } from '@components/lib/Tooltip';
@@ -80,7 +80,7 @@ const Projects = ({
         icon={
           <Tooltip title='Add project'>
             <IconButton onClick={onAddProjectClick} ariaLabel='Add project'>
-              <AddIcon fontSize='small' />
+              <AddCircleIcon />
             </IconButton>
           </Tooltip>
         }
