@@ -52,6 +52,7 @@ const getRemovedTodoItemsByListId = id =>
   Object.values(getTodosItems()).filter(item => item.isRemoved && item.listId === id);
 
 const getTodoIdFromTodo = todo => todo.id;
+const getTodoListIdFromTodo = todo => todo.listId;
 
 export {
   getTodosItems,
@@ -62,5 +63,6 @@ export {
   getUniqueListIdsFromRemovedTodoItems,
   getRemovedTodoItemsByListId,
 
-  getTodoIdFromTodo
+  getTodoIdFromTodo,
+  getTodoListIdFromTodo
 };

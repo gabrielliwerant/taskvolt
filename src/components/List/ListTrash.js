@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import RestoreIcon from '@mui/icons-material/RestoreRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
 import { IconButton } from '@components/lib/IconButton';
@@ -30,6 +31,9 @@ import {
   isListRemoved,
   getListTextFinalFromList
 } from '@redux/selectors/lists';
+import { getRemovedTodoIdsByListId } from '@redux/selectors/todos';
+import { listsSlice } from '@redux/reducers/lists';
+import { todosSlice } from '@redux/reducers/todos';
 
 const classNames = require('classnames');
 
@@ -52,8 +56,20 @@ const useStyles = createUseStyles({
   flex
 });
 
-const ListTrash = ({ id, item, isRemoved, hasList, expunge }) => {
+const ListTrash = ({ id, item, isRemoved, hasList, expunge, restoreList, restoreTodo }) => {
   const classes = useStyles();
+
+  /**
+   * Handle list item restoration.
+   *
+   * When restoring a whole list, we must also restore any removed todos associated with it.
+   *
+   * @returns {void}
+   */
+  const onRestoreClick = () => {
+    getRemovedTodoIdsByListId(id).forEach(todoId => restoreTodo(todoId));
+    restoreList(id);
+  };
 
   return (
     <Fragment>
@@ -70,9 +86,14 @@ const ListTrash = ({ id, item, isRemoved, hasList, expunge }) => {
               />
               <div className={classes.flex}>
                 {isRemoved &&
-                  <IconButton onClick={expunge} ariaLabel='Delete entire list permanently'>
-                    <DeleteIcon fontSize='medium' />
-                  </IconButton>
+                  <Fragment>
+                    <IconButton onClick={onRestoreClick} ariaLabel='Restore list'>
+                      <RestoreIcon fontSize='medium' />
+                    </IconButton>
+                    <IconButton onClick={expunge} ariaLabel='Delete entire list permanently'>
+                      <DeleteIcon fontSize='medium' />
+                    </IconButton>
+                  </Fragment>
                 }
               </div>
             </div>
@@ -89,7 +110,9 @@ ListTrash.propTypes = {
   item: PropTypes.object,
   isRemoved: PropTypes.bool.isRequired,
   hasList: PropTypes.bool.isRequired,
-  expunge: PropTypes.func.isRequired
+  expunge: PropTypes.func.isRequired,
+  restoreList: PropTypes.func.isRequired,
+  restoreTodo: PropTypes.func.isRequired
 };
 
 ListTrash.defaultProps = {
@@ -102,4 +125,9 @@ const mapStateToProps = (state, ownProps) => ({
   hasList: hasListItemById(ownProps.id)
 });
 
-export default connect(mapStateToProps, null)(ListTrash);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  restoreList: id => dispatch(listsSlice.actions.restore(id)),
+  restoreTodo: id => dispatch(todosSlice.actions.restore(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListTrash);

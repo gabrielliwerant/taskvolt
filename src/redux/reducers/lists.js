@@ -43,6 +43,12 @@ const listsSlice = createSlice({
       state.items[action.payload].isRemoved = true;
     },
     expunge: (state, action) => { delete state.items[action.payload]; },
+    restore: (state, action) => {
+      const projectId = state.items[action.payload].projectId;
+
+      state.sort[projectId].push(action.payload);
+      state.items[action.payload].isRemoved = false;
+    },
     change: (state, action) => {
       const { id, draft } = action.payload;
 

@@ -42,6 +42,12 @@ const todosSlice = createSlice({
       state.items[action.payload].isRemoved = true;
     },
     expunge: (state, action) => { delete state.items[action.payload]; },
+    restore: (state, action) => {
+      const listId = state.items[action.payload].listId;
+
+      state.sort[listId].push(action.payload);
+      state.items[action.payload].isRemoved = false;
+    },
     complete: (state, action) => {
       const { id, checked } = action.payload;
       state.items[id].isComplete = checked;
