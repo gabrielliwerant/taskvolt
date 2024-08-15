@@ -69,11 +69,12 @@ const Projects = ({
   const onTrashTabClick = index => () => {
     setView(VIEWS.TRASH);
     setActiveTab(index);
+    setActive(''); // Disable active for all projects while in `trash` view mode
   };
 
   return (
     <Tabs value={activeTab}>
-      {projectsSort['1'].map((id, index) =>
+      {projectsSort.map((id, index) =>
         <ProjectTab key={id} id={id} onClick={onTabClick(id, index)} />
       )}
       <Tab
@@ -85,13 +86,13 @@ const Projects = ({
           </Tooltip>
         }
       />
-      <TrashTab onClick={onTrashTabClick(projectsSort['1'].length + 1)} />
+      <TrashTab onClick={onTrashTabClick(projectsSort.length + 1)} />
     </Tabs>
   );
 };
 
 Projects.propTypes = {
-  projectsSort: PropTypes.object.isRequired,
+  projectsSort: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeTab: PropTypes.number.isRequired,
   addProject: PropTypes.func.isRequired,
   addListSortSection: PropTypes.func.isRequired,

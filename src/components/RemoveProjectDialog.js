@@ -17,16 +17,25 @@ import {
 } from '@components/lib/Dialog';
 import { Button } from '@components/lib/Button';
 
-import { getProjectRemoving } from '@redux/selectors/projects';
+import { getProjectRemoving, getProjectIdBySortIndex } from '@redux/selectors/projects';
+import { getAppActiveTab } from '@redux/selectors/app';
 import { projectsSlice } from '@redux/reducers/projects';
+import { appSlice } from '@redux/reducers/app';
 
-const RemoveProjectDialog = ({ open, onClose, id, remove }) => {
+const RemoveProjectDialog = ({ open, onClose, id, activeTab, remove, setActive, setActiveTab }) => {
   /**
    * Handles the list removal action.
    *
+   * @param {object} e Event
    * @returns {void}
    */
-  const onRemove = () => {
+  const onRemove = e => {
+    e.stopPropagation(); // Prevent other tab onClick actions
+
+    const newIndex = activeTab - 1;
+
+    setActiveTab(newIndex);
+    setActive(getProjectIdBySortIndex(newIndex));
     remove(id);
     onClose();
   };
@@ -55,15 +64,21 @@ RemoveProjectDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  remove: PropTypes.func.isRequired
+  activeTab: PropTypes.number.isRequired,
+  remove: PropTypes.func.isRequired,
+  setActive: PropTypes.func.isRequired,
+  setActiveTab: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
-  id: getProjectRemoving()
+  id: getProjectRemoving(),
+  activeTab: getAppActiveTab()
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  remove: id => dispatch(projectsSlice.actions.remove(id))
+  remove: id => dispatch(projectsSlice.actions.remove(id)),
+  setActive: id => dispatch(projectsSlice.actions.setActive(id)),
+  setActiveTab: index => dispatch(appSlice.actions.setActiveTab(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveProjectDialog);

@@ -62,9 +62,14 @@ const ProjectTab = ({
    * We also save the project id we're attempting to delete for the removal dialog confirmation.
    *
    * @param {string} projectId
-   * @returns {void}
+   * @returns {function[
+   *  @param {object} e Event
+   *  @returns {void}
+   * ]}
    */
-  const onClickInitRemoveProject = projectId => () => {
+  const onClickInitRemoveProject = projectId => e => {
+    e.stopPropagation(); // Prevent other tab onClick actions
+
     setIsDialogOpen(true);
     initRemove(projectId);
   };

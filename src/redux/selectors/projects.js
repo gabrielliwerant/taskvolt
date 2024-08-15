@@ -9,10 +9,11 @@ import { getState } from '../config';
 const _getProjects = () => getState('projects');
 
 const getProjectsItems = () => _getProjects().items;
-const getProjectsSort = () => _getProjects().sort;
+const getProjectsSort = (id = '1') => _getProjects().sort[id];
 const getProjectRemoving = () => _getProjects().removing;
 const getProjectActive = () => _getProjects().active;
 const _getProjectById = id => _getProjects().items[id];
+const getProjectIdBySortIndex = index => _getProjectById(getProjectsSort()[index]).id;
 const getProjectIsEditActive = id => _getProjectById(id).isEditActive;
 
 const getProjectTextFinalFromProject = project => project.text.final;
@@ -24,6 +25,7 @@ export {
   getProjectsSort,
   getProjectRemoving,
   getProjectActive,
+  getProjectIdBySortIndex,
   getProjectIsEditActive,
 
   getProjectTextFinalFromProject,
