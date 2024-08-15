@@ -15,6 +15,7 @@ const getProjectActive = () => _getProjects().active;
 const _getProjectById = id => _getProjects().items[id];
 const getProjectIdBySortIndex = index => _getProjectById(getProjectsSort()[index]).id;
 const getProjectIsEditActive = id => _getProjectById(id).isEditActive;
+const getTrashTabIndex = () => getProjectsSort().length + 1; // Add one for the `add` tab
 
 const getProjectTextFinalFromProject = project => project.text.final;
 const getProjectDraftTextFromProject = project => project.text.draft;
@@ -27,6 +28,7 @@ export {
   getProjectActive,
   getProjectIdBySortIndex,
   getProjectIsEditActive,
+  getTrashTabIndex,
 
   getProjectTextFinalFromProject,
   getProjectDraftTextFromProject,

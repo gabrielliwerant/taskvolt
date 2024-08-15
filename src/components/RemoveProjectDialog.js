@@ -32,11 +32,11 @@ const RemoveProjectDialog = ({ open, onClose, id, activeTab, remove, setActive, 
   const onRemove = e => {
     e.stopPropagation(); // Prevent other tab onClick actions
 
-    const newIndex = activeTab - 1;
+    const newIndex = activeTab - 1 >= 0 ? activeTab - 1 : 0;
 
+    remove(id);
     setActiveTab(newIndex);
     setActive(getProjectIdBySortIndex(newIndex));
-    remove(id);
     onClose();
   };
 
