@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import { todosSlice } from '@redux/reducers/todos';
-import { getTodoSelected } from '@redux/selectors/todos';
+import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
@@ -32,6 +32,8 @@ import {
   getTodoIsEditActiveFromTodo,
   getTodoIsCompleteFromTodo
 } from '@redux/selectors/todos';
+import { todosSlice } from '@redux/reducers/todos';
+import { getTodoSelected } from '@redux/selectors/todos';
 
 const classNames = require('classnames');
 
@@ -83,8 +85,11 @@ const Todo = ({
           onChangeEdit={onChange(getTodoIdFromTodo(todo))}
           onClickSave={save(getTodoIdFromTodo(todo), getTodoDraftTextFromTodo(todo))}
           onClickCancel={cancel(getTodoIdFromTodo(todo))}
-          onClickRemove={remove(getTodoIdFromTodo(todo))}
-          hasRemove
+          inactiveIconSection={
+            <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
+              <DeleteIcon fontSize='small' />
+            </IconButton>
+          }
           textFinal={getTodoFinalTextFromTodo(todo)}
           textDraft={getTodoDraftTextFromTodo(todo)}
           isEditActive={getTodoIsEditActiveFromTodo(todo)}

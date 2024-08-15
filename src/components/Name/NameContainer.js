@@ -8,7 +8,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
-import DeleteIcon from '@mui/icons-material/DeleteRounded';
 import CheckIcon from '@mui/icons-material/CheckRounded';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 
@@ -46,15 +45,13 @@ const NameContainer = ({
   onChangeEdit,
   onClickSave,
   onClickCancel,
-  onClickRemove,
-  hasRemove,
+  inactiveIconSection,
   textFinal,
   textDraft,
   isEditActive,
   isComplete,
   type,
-  myClassNames,
-  children
+  myClassNames
 }) => {
   const classes = useStyles();
 
@@ -78,11 +75,7 @@ const NameContainer = ({
               myClassNames={myClassNames}
             />
           </div>
-          {hasRemove &&
-            <IconButton onClick={onClickRemove} ariaLabel='Delete item'>
-              <DeleteIcon fontSize='small' />
-            </IconButton>
-          }
+          {!!inactiveIconSection && inactiveIconSection}
         </Fragment>
       }
       {isEditActive &&
@@ -93,9 +86,7 @@ const NameContainer = ({
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
-          >
-            {children}
-          </NameInput>
+          />
           <div className={classes.flex}>
             <IconButton onClick={onClickSave} ariaLabel='Save changes'>
               <CheckIcon fontSize='medium' />
@@ -115,8 +106,7 @@ NameContainer.propTypes = {
   onChangeEdit: PropTypes.func,
   onClickSave: PropTypes.func,
   onClickCancel: PropTypes.func,
-  onClickRemove: PropTypes.func,
-  hasRemove: PropTypes.bool,
+  inactiveIconSection: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   textFinal: PropTypes.string.isRequired,
   textDraft: PropTypes.string,
   isEditActive: PropTypes.bool,
@@ -130,7 +120,7 @@ NameContainer.defaultProps = {
   onChangeEdit: () => {},
   onClickSave: () => {},
   onClickCancel: () => {},
-  onClickRemove: () => {},
+  inactiveIconSection: '',
   textDraft: '',
   hasRemove: false,
   isEditActive: false,
