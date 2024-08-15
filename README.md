@@ -21,10 +21,15 @@ when available.
 - [x] ~~Improve UX around editing text~~
 - [x] ~~Allow viewing trashed items~~
 - [x] ~~Add tooltips~~
+- [x] ~~Improve project tab UX (and ability to click without entering edit mode)~~
+- Add basic user/login functionality
+- Add database integration for persistence across devices
+- Deploy to website
+- Allow color pickers for todos/lists
+- Allow date/time picker for todos
+- Handle truncation/overflow in todos/notes
 - Auto delete/prune old trashed items based on timestamp
-- Allow collapsing lists
 - Add fancy animations/transitions
-- Improve project tab UX (more space to click without entering edit mode)
 - Allow toggling visibility of completed todos
 - Allow reordering of project tabs
 - Allow exporting data
@@ -33,12 +38,7 @@ when available.
 - Allow marking as important
 - Add branding
 - Add testing
-- Add basic user/login functionality
-- Add database integration for persistence across devices
-- Deploy to website
-- Allow color pickers for todos/lists
-- Allow date/time picker for todos
-- Handle truncation/overflow in todos/notes
+- Allow collapsing lists
 
 ## Known Bugs
 

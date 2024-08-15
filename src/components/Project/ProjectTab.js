@@ -20,12 +20,20 @@ import { Project } from '@components/Project';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
 import { makeId } from '@src/utils';
-import { getProjectIsEditActive } from '@redux/selectors/projects';
+import { getProjectIsEditActive, getProjectActive } from '@redux/selectors/projects';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 
-const ProjectTab = ({ id, onClick, isEditActive, addTodoSortSection, addList, initRemove }) => {
+const ProjectTab = ({
+  id,
+  onClick,
+  isEditActive,
+  activeId,
+  addTodoSortSection,
+  addList,
+  initRemove
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   /**
@@ -64,19 +72,19 @@ const ProjectTab = ({ id, onClick, isEditActive, addTodoSortSection, addList, in
   return (
     <div role="button" onClick={onClick}>
       <Tab
-        label={<Project key={id} id={id} />}
+        label={<Project key={id} id={id} activeId={activeId} />}
         icon={
-          !isEditActive
+          !isEditActive && activeId === id
             ?
               <Fragment>
                 <Tooltip title='Add list to project'>
                   <IconButton onClick={onClickAddList(id)} ariaLabel='Add todo list'>
-                    <AddIcon fontSize='small' />
+                    <AddIcon />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title='Delete project'>
                   <IconButton onClick={onClickInitRemoveProject(id)} ariaLabel='Remove project'>
-                    <DeleteIcon fontSize='small' />
+                    <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               </Fragment>
@@ -91,13 +99,15 @@ const ProjectTab = ({ id, onClick, isEditActive, addTodoSortSection, addList, in
 ProjectTab.propTypes = {
   id: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
+  activeId: PropTypes.string.isRequired,
   addTodoSortSection: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
   initRemove: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  isEditActive: getProjectIsEditActive(ownProps.id)
+  isEditActive: getProjectIsEditActive(ownProps.id),
+  activeId: getProjectActive()
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -30,7 +30,7 @@ const useStyles = createUseStyles({
   text
 });
 
-const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
+const Project = ({ projectsItems, id, activeId, edit, save, cancel, change }) => {
   const classes = useStyles();
 
   /**
@@ -47,7 +47,7 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
   return (
     <div key={id} className={classes.project}>
       <NameContainer
-        onClickEdit={edit(id)}
+        onClickEdit={id === activeId ? edit(id) : () => {}}
         onChangeEdit={onChange(id)}
         onClickSave={save(id, getProjectDraftTextFromProject(projectsItems[id]))}
         onClickCancel={cancel(id)}
@@ -65,6 +65,7 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
 Project.propTypes = {
   projectsItems: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  activeId: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
