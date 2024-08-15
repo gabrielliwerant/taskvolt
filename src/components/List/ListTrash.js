@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import RestoreIcon from '@mui/icons-material/RestoreRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { TodosTrash } from '@components/Todo';
 import { NameContainer } from '@components/Name';
@@ -87,12 +88,16 @@ const ListTrash = ({ id, item, isRemoved, hasList, expunge, restoreList, restore
               <div className={classes.flex}>
                 {isRemoved &&
                   <Fragment>
-                    <IconButton onClick={onRestoreClick} ariaLabel='Restore list'>
-                      <RestoreIcon fontSize='medium' />
-                    </IconButton>
-                    <IconButton onClick={expunge} ariaLabel='Delete entire list permanently'>
-                      <DeleteIcon fontSize='medium' />
-                    </IconButton>
+                    <Tooltip title='Restore list'>
+                      <IconButton onClick={onRestoreClick} ariaLabel='Restore entire list'>
+                        <RestoreIcon fontSize='medium' />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Delete permanently'>
+                      <IconButton onClick={expunge} ariaLabel='Delete entire list permanently'>
+                        <DeleteIcon fontSize='medium' />
+                      </IconButton>
+                    </Tooltip>
                   </Fragment>
                 }
               </div>

@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import AddIcon from '@mui/icons-material/AddRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Tab } from '@components/lib/Tab';
 import { Project } from '@components/Project';
@@ -68,12 +69,16 @@ const ProjectTab = ({ id, onClick, isEditActive, addTodoSortSection, addList, in
           !isEditActive
             ?
               <Fragment>
-                <IconButton onClick={onClickAddList(id)} ariaLabel='Add todo list'>
-                  <AddIcon fontSize='small' />
-                </IconButton>
-                <IconButton onClick={onClickInitRemoveProject(id)} ariaLabel='Remove project'>
-                  <DeleteIcon fontSize='small' />
-                </IconButton>
+                <Tooltip title='Add list to project'>
+                  <IconButton onClick={onClickAddList(id)} ariaLabel='Add todo list'>
+                    <AddIcon fontSize='small' />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title='Delete project'>
+                  <IconButton onClick={onClickInitRemoveProject(id)} ariaLabel='Remove project'>
+                    <DeleteIcon fontSize='small' />
+                  </IconButton>
+                </Tooltip>
               </Fragment>
             : ''
         }

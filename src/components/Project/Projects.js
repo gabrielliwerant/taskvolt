@@ -11,8 +11,9 @@ import { connect } from 'react-redux';
 import AddIcon from '@mui/icons-material/AddRounded';
 
 import { Tab, Tabs } from '@components/lib/Tab';
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
-import ProjectTab from '@components/ProjectTab';
+import { ProjectTab } from '@components/Project';
 import TrashTab from '@components/TrashTab';
 
 import { makeId } from '@src/utils';
@@ -77,9 +78,11 @@ const Projects = ({
       )}
       <Tab
         icon={
-          <IconButton onClick={onAddProjectClick} ariaLabel='Add project'>
-            <AddIcon fontSize='small' />
-          </IconButton>
+          <Tooltip title='Add project'>
+            <IconButton onClick={onAddProjectClick} ariaLabel='Add project'>
+              <AddIcon fontSize='small' />
+            </IconButton>
+          </Tooltip>
         }
       />
       <TrashTab onClick={onTrashTabClick(projectsSort['1'].length + 1)} />

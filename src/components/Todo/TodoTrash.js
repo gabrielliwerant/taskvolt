@@ -12,6 +12,7 @@ import { createUseStyles } from 'react-jss';
 import RestoreIcon from '@mui/icons-material/RestoreRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
@@ -106,12 +107,16 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList }) => {
           <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
         </NameContainer>
         <div className={classes.flex}>
-          <IconButton onClick={onClickRestore} ariaLabel='Restore item'>
-            <RestoreIcon fontSize='small' />
-          </IconButton>
-          <IconButton onClick={expunge(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
-            <DeleteIcon fontSize='small' />
-          </IconButton>
+          <Tooltip title='Restore todo'>
+            <IconButton onClick={onClickRestore} ariaLabel='Restore todo item'>
+              <RestoreIcon fontSize='small' />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title='Delete permanently'>
+            <IconButton onClick={expunge(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
+              <DeleteIcon fontSize='small' />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
     </li>

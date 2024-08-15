@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/CloseRounded';
 
 import { TYPES } from '@src/constants';
 
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 
 import { flex, fullWidth } from '@jss/styles';
@@ -88,12 +89,16 @@ const NameContainer = ({
             myClassNames={myClassNames}
           />
           <div className={classes.flex}>
-            <IconButton onClick={onClickSave} ariaLabel='Save changes'>
-              <CheckIcon fontSize='medium' />
-            </IconButton>
-            <IconButton onClick={onClickCancel} ariaLabel='Discard changes'>
-              <CloseIcon fontSize='medium' />
-            </IconButton>
+            <Tooltip title='Save changes'>
+              <IconButton onClick={onClickSave} ariaLabel='Save changes'>
+                <CheckIcon fontSize='medium' />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='Discard changes'>
+              <IconButton onClick={onClickCancel} ariaLabel='Discard changes'>
+                <CloseIcon fontSize='medium' />
+              </IconButton>
+            </Tooltip>
           </div>
         </div>
       }

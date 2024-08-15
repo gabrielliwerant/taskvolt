@@ -13,6 +13,7 @@ import AddIcon from '@mui/icons-material/AddRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
 import { IconButton } from '@components/lib/IconButton';
+import { Tooltip } from '@components/lib/Tooltip';
 import { Todos } from '@components/Todo';
 import { NameContainer } from '@components/Name';
 
@@ -86,12 +87,16 @@ const List = ({
           />
           {!getListIsEditActiveFromList(item) &&
             <div className={classes.flex}>
-              <IconButton onClick={addTodo} ariaLabel='Add todo item to list'>
-                <AddIcon fontSize='medium' />
-              </IconButton>
-              <IconButton onClick={remove} ariaLabel='Delete entire list'>
-                <DeleteIcon fontSize='medium' />
-              </IconButton>
+              <Tooltip title='Add todo item'>
+                <IconButton onClick={addTodo} ariaLabel='Add todo item to list'>
+                  <AddIcon fontSize='medium' />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title='Delete list'>
+                <IconButton onClick={remove} ariaLabel='Delete entire list'>
+                  <DeleteIcon fontSize='medium' />
+                </IconButton>
+              </Tooltip>
             </div>
           }
         </div>

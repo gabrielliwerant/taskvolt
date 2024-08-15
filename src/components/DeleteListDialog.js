@@ -38,15 +38,15 @@ const DeleteListDialog = ({ open, onClose, id, expungeList, expungeTodo }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <Fragment>
-        <DialogTitle id="delete-list-dialog-title">Expunge Todo List</DialogTitle>
+        <DialogTitle id="delete-list-dialog-title">Delete Todo List</DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-list-dialog-description">
-            This action will permanently delete the entire todo list, including all todo items it contains.
+            This action will <strong>permanently</strong> delete the entire todo list, including all todo items it contains.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Fragment>
-            <Button onClick={onExpunge} color='error'>Expunge List</Button>
+            <Button onClick={onExpunge} color='error'>Delete List</Button>
             <Button onClick={onClose}>Cancel</Button>
           </Fragment>
         </DialogActions>

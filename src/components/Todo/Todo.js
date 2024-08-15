@@ -11,6 +11,7 @@ import { createUseStyles } from 'react-jss';
 
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 
+import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
@@ -86,9 +87,11 @@ const Todo = ({
           onClickSave={save(getTodoIdFromTodo(todo), getTodoDraftTextFromTodo(todo))}
           onClickCancel={cancel(getTodoIdFromTodo(todo))}
           inactiveIconSection={
-            <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
-              <DeleteIcon fontSize='small' />
-            </IconButton>
+            <Tooltip title='Delete todo'>
+              <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete todo item'>
+                <DeleteIcon fontSize='small' />
+              </IconButton>
+            </Tooltip>
           }
           textFinal={getTodoFinalTextFromTodo(todo)}
           textDraft={getTodoDraftTextFromTodo(todo)}

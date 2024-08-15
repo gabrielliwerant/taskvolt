@@ -20,9 +20,9 @@ when available.
 - [x] ~~Allow dragging items between lists~~
 - [x] ~~Improve UX around editing text~~
 - [x] ~~Allow viewing trashed items~~
+- [x] ~~Add tooltips~~
 - Auto delete/prune old trashed items based on timestamp
 - Allow collapsing lists
-- Add tooltips
 - Add fancy animations/transitions
 - Improve project tab UX (more space to click without entering edit mode)
 - Allow toggling visibility of completed todos
