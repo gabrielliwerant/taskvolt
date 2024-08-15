@@ -15,10 +15,18 @@ const getProjectActive = () => _getProjects().active;
 const _getProjectById = id => _getProjects().items[id];
 const getProjectIsEditActive = id => _getProjectById(id).isEditActive;
 
+const getProjectTextFinalFromProject = project => project.text.final;
+const getProjectDraftTextFromProject = project => project.text.draft;
+const getProjectIsEditActiveFromProject = project => project.isEditActive;
+
 export {
   getProjectsItems,
   getProjectsSort,
   getProjectRemoving,
   getProjectActive,
-  getProjectIsEditActive
+  getProjectIsEditActive,
+
+  getProjectTextFinalFromProject,
+  getProjectDraftTextFromProject,
+  getProjectIsEditActiveFromProject
 };

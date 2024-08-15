@@ -19,6 +19,8 @@ const getListSelected = () => _getLists().selected;
 const getListDropping = () => _getLists().dropping;
 
 const getListTextFinalFromList = list => list.text.final;
+const getListDraftTextFromList = list => list.text.draft;
+const getListIsEditActiveFromList = list => list.isEditActive;
 
 export {
   getListItemById,
@@ -30,5 +32,7 @@ export {
   getListSelected,
   getListDropping,
 
-  getListTextFinalFromList
+  getListTextFinalFromList,
+  getListDraftTextFromList,
+  getListIsEditActiveFromList
 };

@@ -53,6 +53,10 @@ const getRemovedTodoItemsByListId = id =>
 
 const getTodoIdFromTodo = todo => todo.id;
 const getTodoListIdFromTodo = todo => todo.listId;
+const getTodoFinalTextFromTodo = todo => todo.text.final;
+const getTodoDraftTextFromTodo = todo => todo.text.draft;
+const getTodoIsEditActiveFromTodo = todo => todo.isEditActive;
+const getTodoIsCompleteFromTodo = todo => todo.isComplete;
 
 export {
   getTodosItems,
@@ -64,5 +68,9 @@ export {
   getRemovedTodoItemsByListId,
 
   getTodoIdFromTodo,
-  getTodoListIdFromTodo
+  getTodoListIdFromTodo,
+  getTodoFinalTextFromTodo,
+  getTodoDraftTextFromTodo,
+  getTodoIsEditActiveFromTodo,
+  getTodoIsCompleteFromTodo
 };

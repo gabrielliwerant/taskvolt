@@ -26,7 +26,13 @@ import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
 import { TYPES } from '@src/constants';
-import { getListItemById, getListSelected } from '@redux/selectors/lists';
+import {
+  getListItemById,
+  getListSelected,
+  getListTextFinalFromList,
+  getListDraftTextFromList,
+  getListIsEditActiveFromList
+} from '@redux/selectors/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
@@ -69,16 +75,16 @@ const List = ({
           <NameContainer
             onClickEdit={edit}
             onChangeEdit={onChange}
-            onClickSave={save(item.text.draft)}
+            onClickSave={save(getListDraftTextFromList(item))}
             onClickCancel={cancel}
-            textFinal={item.text.final}
-            textDraft={item.text.draft}
-            isEditActive={item.isEditActive}
+            textFinal={getListTextFinalFromList(item)}
+            textDraft={getListDraftTextFromList(item)}
+            isEditActive={getListIsEditActiveFromList(item)}
             isComplete={false}
             myClassNames={{ text: classes.text }}
             type={TYPES.LIST}
           />
-          {!item.isEditActive &&
+          {!getListIsEditActiveFromList(item) &&
             <div className={classes.flex}>
               <IconButton onClick={addTodo} ariaLabel='Add todo item to list'>
                 <AddIcon fontSize='medium' />

@@ -25,6 +25,14 @@ import {
 } from '@components/Todo/styles';
 import { tilt } from '@jss/utils';
 
+import {
+  getTodoIdFromTodo,
+  getTodoFinalTextFromTodo,
+  getTodoDraftTextFromTodo,
+  getTodoIsEditActiveFromTodo,
+  getTodoIsCompleteFromTodo
+} from '@redux/selectors/todos';
+
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
@@ -52,7 +60,7 @@ const Todo = ({
 
   return (
     <li
-      key={todo.id}
+      key={getTodoIdFromTodo(todo)}
       className={classes.item}
       ref={provided.innerRef}
       {...provided.draggableProps}
@@ -61,30 +69,33 @@ const Todo = ({
       <div
         className={classNames({
           [classes.itemContainer]: true,
-          [classes.defaultBackdrop]: !todo.isComplete,
-          [classes.completeBackdrop]: todo.isComplete
+          [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
+          [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo)
         })}
-        style={{ transform: dragId === todo.id ? tilt : '' }}
+        style={{ transform: dragId === getTodoIdFromTodo(todo) ? tilt : '' }}
       >
-        <Checkbox onChange={onComplete(todo.id)} isChecked={todo.isComplete} />
+        <Checkbox
+          onChange={onComplete(getTodoIdFromTodo(todo))}
+          isChecked={getTodoIsCompleteFromTodo(todo)}
+        />
         <NameContainer
-          onClickEdit={edit(todo.id)}
-          onChangeEdit={onChange(todo.id)}
-          onClickSave={save(todo.id, todo.text.draft)}
-          onClickCancel={cancel(todo.id)}
-          onClickRemove={remove(todo.id)}
+          onClickEdit={edit(getTodoIdFromTodo(todo))}
+          onChangeEdit={onChange(getTodoIdFromTodo(todo))}
+          onClickSave={save(getTodoIdFromTodo(todo), getTodoDraftTextFromTodo(todo))}
+          onClickCancel={cancel(getTodoIdFromTodo(todo))}
+          onClickRemove={remove(getTodoIdFromTodo(todo))}
           hasRemove
-          textFinal={todo.text.final}
-          textDraft={todo.text.draft}
-          isEditActive={todo.isEditActive}
-          isComplete={todo.isComplete}
-          myClassNames={{ container:
-            classNames({
-              [classes.complete]: todo.isComplete
+          textFinal={getTodoFinalTextFromTodo(todo)}
+          textDraft={getTodoDraftTextFromTodo(todo)}
+          isEditActive={getTodoIsEditActiveFromTodo(todo)}
+          isComplete={getTodoIsCompleteFromTodo(todo)}
+          myClassNames={{
+            container: classNames({
+              [classes.complete]: getTodoIsCompleteFromTodo(todo)
             })}
           }
         >
-          <Typography>{todo.text.final}</Typography>
+          <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
         </NameContainer>
       </div>
     </li>

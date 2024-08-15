@@ -27,7 +27,13 @@ import {
 import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
-import { getTodoListIdFromTodo } from '@redux/selectors/todos';
+import {
+  getTodoIdFromTodo,
+  getTodoListIdFromTodo,
+  getTodoFinalTextFromTodo,
+  getTodoIsEditActiveFromTodo,
+  getTodoIsCompleteFromTodo
+} from '@redux/selectors/todos';
 import { isListRemoved } from '@redux/selectors/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
@@ -73,7 +79,7 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList }) => {
 
     if (isListRemoved(listId)) restoreList(listId);
 
-    restoreTodo(todo.id);
+    restoreTodo(getTodoIdFromTodo(todo));
   };
 
   return (
@@ -81,26 +87,29 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList }) => {
       <div
         className={classNames({
           [classes.itemContainer]: true,
-          [classes.defaultBackdrop]: !todo.isComplete,
-          [classes.completeBackdrop]: todo.isComplete,
+          [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
+          [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo),
         })}
       >
-        <Checkbox isChecked={todo.isComplete} disabled />
+        <Checkbox isChecked={getTodoIsCompleteFromTodo(todo)} disabled />
         <NameContainer
-          textFinal={todo.text.final}
-          isEditActive={todo.isEditActive}
-          isComplete={todo.isComplete}
+          textFinal={getTodoFinalTextFromTodo(todo)}
+          isEditActive={getTodoIsEditActiveFromTodo(todo)}
+          isComplete={getTodoIsCompleteFromTodo(todo)}
           myClassNames={{
-            container: classNames({ [classes.name]: true, [classes.complete]: todo.isComplete })
+            container: classNames({
+              [classes.name]: true,
+              [classes.complete]: getTodoIsCompleteFromTodo(todo)
+            })
           }}
         >
-          <Typography>{todo.text.final}</Typography>
+          <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
         </NameContainer>
         <div className={classes.flex}>
           <IconButton onClick={onClickRestore} ariaLabel='Restore item'>
             <RestoreIcon fontSize='small' />
           </IconButton>
-          <IconButton onClick={expunge(todo.id)} ariaLabel='Delete item'>
+          <IconButton onClick={expunge(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
             <DeleteIcon fontSize='small' />
           </IconButton>
         </div>

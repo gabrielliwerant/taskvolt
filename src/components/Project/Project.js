@@ -15,7 +15,12 @@ import { text } from '@components/Project/styles';
 
 import { TYPES } from '@src/constants';
 import { projectsSlice } from '@redux/reducers/projects';
-import { getProjectsItems } from '@redux/selectors/projects';
+import {
+  getProjectsItems,
+  getProjectTextFinalFromProject,
+  getProjectDraftTextFromProject,
+  getProjectIsEditActiveFromProject
+} from '@redux/selectors/projects';
 
 const useStyles = createUseStyles({
   project: {
@@ -44,11 +49,11 @@ const Project = ({ projectsItems, id, edit, save, cancel, change }) => {
       <NameContainer
         onClickEdit={edit(id)}
         onChangeEdit={onChange(id)}
-        onClickSave={save(id, projectsItems[id].text.draft)}
+        onClickSave={save(id, getProjectDraftTextFromProject(projectsItems[id]))}
         onClickCancel={cancel(id)}
-        textFinal={projectsItems[id].text.final}
-        textDraft={projectsItems[id].text.draft}
-        isEditActive={projectsItems[id].isEditActive}
+        textFinal={getProjectTextFinalFromProject(projectsItems[id])}
+        textDraft={getProjectDraftTextFromProject(projectsItems[id])}
+        isEditActive={getProjectIsEditActiveFromProject(projectsItems[id])}
         isComplete={false}
         type={TYPES.PROJECT}
         myClassNames={{ text: classes.text }}
