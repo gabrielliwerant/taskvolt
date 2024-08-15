@@ -11,7 +11,7 @@ import { BORDER_OFFSET, LIST_PADDING, TOP_OFFSET, MARGINS, WIDTHS, Z_INDEX } fro
 const lists = {
   display: 'flex',
   justifyContent: 'center',
-  padding: `${TOP_OFFSET}px 30px 0 30px`,
+  padding: `${TOP_OFFSET}px`,
   position: 'absolute'
 };
 

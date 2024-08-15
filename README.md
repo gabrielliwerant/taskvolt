@@ -23,6 +23,7 @@ when available.
 - Auto delete/prune old trashed items based on timestamp
 - Allow collapsing lists
 - Add tooltips
+- Add fancy animations/transitions
 - Improve project tab UX (more space to click without entering edit mode)
 - Allow toggling visibility of completed todos
 - Allow reordering of project tabs

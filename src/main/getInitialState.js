@@ -19,7 +19,8 @@ const getInitialState = () => {
   const initial = {
     app: {
       view: VIEWS.PROJECTS,
-      activeTab: 0
+      activeTab: 0,
+      isLoggedIn: true
     },
     projects: {
       items: { '1': { ...makeNewProject('1', '1', 'New Project') } },

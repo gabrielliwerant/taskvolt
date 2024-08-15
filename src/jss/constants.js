@@ -6,7 +6,7 @@
 
 import { TYPES } from '@src/constants';
 
-const TOP_OFFSET = 100;
+const TOP_OFFSET = 30;
 const BORDER_OFFSET = 2;
 const LIST_WIDTH_POSITION = 372;
 const LIST_PADDING = 15;

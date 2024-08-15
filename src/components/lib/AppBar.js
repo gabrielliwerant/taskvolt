@@ -10,18 +10,26 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import ToolBar from '@mui/material/ToolBar';
 
-const MyAppBar = ({ color, children, myClassName }) => {
-  return <AppBar color={color}><ToolBar className={myClassName}>{children}</ToolBar></AppBar>;
+const MyAppBar = ({ color, position, component, children, myClassName }) => {
+  return (
+    <AppBar component={component} position={position} color={color}>
+      <ToolBar className={myClassName}>{children}</ToolBar>
+    </AppBar>
+  );
 };
 
 MyAppBar.propTypes = {
   color: PropTypes.string,
+  component: PropTypes.string,
+  position: PropTypes.string,
   children: PropTypes.element.isRequired,
   myClassName: PropTypes.string
 };
 
 MyAppBar.defaultProps = {
   color: 'primary',
+  component: 'header',
+  position: 'relative',
   myClassName: ''
 };
 

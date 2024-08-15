@@ -10,9 +10,11 @@ import { createUseStyles } from 'react-jss';
 
 import { Typography } from '@components/lib/Typography';
 
+import { TOP_OFFSET } from '@jss/constants';
+
 const useStyles = createUseStyles({
   largeMessage: {
-    marginTop: '150px',
+    marginTop: `${TOP_OFFSET * 2}px`,
     opacity: '0.5'
   }
 });
