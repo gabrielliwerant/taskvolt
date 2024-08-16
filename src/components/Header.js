@@ -18,6 +18,7 @@ import { Button } from '@components/lib/Button';
 
 import { flex } from '@jss/styles';
 
+import { exportLocalJsonData } from '@main/export';
 import { appSlice } from '@redux/reducers/app';
 import { isAppLoggedIn } from '@redux/selectors/app';
 
@@ -66,7 +67,7 @@ const Header = ({ isLoggedIn, login, logout }) => {
           </IconButton>
           <Menu open={isMenuOpen} onClose={onMenuClose} anchorEl={menuAnchorEl}>
             <MenuList>
-              <MenuItem>Export Data</MenuItem>
+              <MenuItem onClick={exportLocalJsonData}>Export Data</MenuItem>
             </MenuList>
           </Menu>
         </div>

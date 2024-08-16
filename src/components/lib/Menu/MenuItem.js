@@ -9,11 +9,12 @@ import PropTypes from 'prop-types';
 
 import MenuItem from '@mui/material/MenuItem';
 
-const MyMenuItem = ({ children }) => {
-  return <MenuItem>{children}</MenuItem>;
+const MyMenuItem = ({ onClick, children }) => {
+  return <MenuItem onClick={onClick}>{children}</MenuItem>;
 };
 
 MyMenuItem.propTypes = {
+  onClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
 };
 
