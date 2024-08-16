@@ -6,10 +6,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createUseStyles } from 'react-jss';
 
 import TextField from '@mui/material/TextField';
 
 import { TYPES } from '@src/constants';
+
+const classNames = require('classnames');
+
+const useStyles = createUseStyles({
+  hidden: {
+    visibility: 'hidden',
+    display: 'none !important'
+  }
+});
 
 const styles = {
   background: {
@@ -30,32 +40,44 @@ const TYPE_TO_STYLES = {
   [TYPES.PROJECT]: 'project'
 };
 
-const MyTextField = ({ onChange, value, type, ariaLabel, myClassName }) => {
+const MyTextField = ({ id, onChange, value, type, itemType, ariaLabel, isHidden, myClassName }) => {
+  const classes = useStyles();
+
   return (
     <TextField
       size='small'
       autoFocus
       fullWidth
+      id={id}
       onChange={onChange}
       value={value}
       aria-label={ariaLabel}
-      className={myClassName}
-      sx={{ ...styles.background, ...styles[TYPE_TO_STYLES[type]] }}
+      className={classNames({ [classes.hidden]: isHidden, [myClassName]: !!myClassName })}
+      type={type}
+      sx={{ ...styles.background, ...styles[TYPE_TO_STYLES[itemType]] }}
     />
   );
 };
 
 MyTextField.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]).isRequired,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  type: PropTypes.string,
+  itemType: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   ariaLabel: PropTypes.string,
+  isHidden: PropTypes.bool,
   myClassName: PropTypes.string
 };
 
 MyTextField.defaultProps = {
-  type: TYPES.LIST,
+  id: '',
+  onChange: () => {},
+  value: '',
+  type: 'text',
+  itemType: TYPES.LIST,
   ariaLabel: '',
+  isHidden: false,
   myClassName: ''
 };
 

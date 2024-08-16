@@ -14,7 +14,7 @@ import { LOCAL_STORAGE_KEY } from '@src/constants';
  * @returns {void}
  */
 const exportLocalJsonData = () => {
-  const dataToExport = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+  const dataToExport = localStorage.getItem(LOCAL_STORAGE_KEY);
   const stringifiedData = JSON.stringify(dataToExport);
   const blob = new Blob([stringifiedData], { type: 'application/json' });
 

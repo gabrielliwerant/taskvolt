@@ -23,6 +23,7 @@ when available.
 - [x] ~~Add tooltips~~
 - [x] ~~Improve project tab UX (and ability to click without entering edit mode)~~
 - [x] ~~Allow exporting data~~
+- [x] ~~Allow importing data~~
 - Add basic user/login functionality
 - Add database integration for persistence across devices
 - Deploy to website
@@ -33,7 +34,6 @@ when available.
 - Add fancy animations/transitions
 - Allow toggling visibility of completed todos
 - Allow reordering of project tabs
-- Allow importing data
 - Add note type feature
 - Allow marking as important
 - Add branding

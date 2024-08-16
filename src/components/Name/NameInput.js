@@ -41,7 +41,7 @@ const NameInput = ({
     <TextField
       value={value}
       onChange={onChange}
-      type={type}
+      itemType={type}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
