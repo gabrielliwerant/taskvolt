@@ -44,3 +44,4 @@ when available.
 
 - Deleting a project tab to the left of the add project tab results in add tab being active
 - z-index of todos when switching between lists does not work properly
+- `Tooltip` for the `TrashTab` blocks clickable surface

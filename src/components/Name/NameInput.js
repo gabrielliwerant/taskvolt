@@ -30,6 +30,7 @@ const NameInput = ({
   isActive,
   isComplete,
   onChange,
+  onKeyDown,
   value,
   type,
   myClassNames
@@ -41,6 +42,7 @@ const NameInput = ({
     <TextField
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       itemType={type}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
@@ -59,6 +61,7 @@ NameInput.propTypes = {
   isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   value: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
@@ -68,6 +71,7 @@ NameInput.defaultProps = {
   isActive: false,
   isComplete: false,
   onChange: () => {},
+  onKeyDown: () => {},
   value: '',
   type: TYPES.TODO,
   myClassNames: {}

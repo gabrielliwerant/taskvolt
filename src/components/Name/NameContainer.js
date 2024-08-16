@@ -56,6 +56,23 @@ const NameContainer = ({
 }) => {
   const classes = useStyles();
 
+  /**
+   * Handle key down events so that we can use keyboard actions for name editing.
+   *
+   * @param {object} e Event
+   * @returns {void}
+   */
+  const onKeyDownHandler = e => {
+    switch (e.code) {
+      case 'Enter':
+        onClickSave();
+        break;
+      case 'Escape':
+        onClickCancel();
+        break;
+    }
+  };
+
   return (
     <div
       className={classNames({
@@ -87,6 +104,7 @@ const NameContainer = ({
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
+            onKeyDown={onKeyDownHandler}
           />
           <div className={classes.flex}>
             <Tooltip title='Save changes'>

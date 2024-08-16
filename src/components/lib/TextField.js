@@ -40,7 +40,17 @@ const TYPE_TO_STYLES = {
   [TYPES.PROJECT]: 'project'
 };
 
-const MyTextField = ({ id, onChange, value, type, itemType, ariaLabel, isHidden, myClassName }) => {
+const MyTextField = ({
+  id,
+  onChange,
+  onKeyDown,
+  value,
+  type,
+  itemType,
+  ariaLabel,
+  isHidden,
+  myClassName
+}) => {
   const classes = useStyles();
 
   return (
@@ -50,6 +60,7 @@ const MyTextField = ({ id, onChange, value, type, itemType, ariaLabel, isHidden,
       fullWidth
       id={id}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       value={value}
       aria-label={ariaLabel}
       className={classNames({ [classes.hidden]: isHidden, [myClassName]: !!myClassName })}
@@ -62,6 +73,7 @@ const MyTextField = ({ id, onChange, value, type, itemType, ariaLabel, isHidden,
 MyTextField.propTypes = {
   id: PropTypes.string,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   value: PropTypes.string,
   type: PropTypes.string,
   itemType: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
@@ -73,6 +85,7 @@ MyTextField.propTypes = {
 MyTextField.defaultProps = {
   id: '',
   onChange: () => {},
+  onKeyDown: () => {},
   value: '',
   type: 'text',
   itemType: TYPES.LIST,
