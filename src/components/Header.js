@@ -13,12 +13,12 @@ import MenuIcon from '@mui/icons-material/MenuRounded';
 import FileDownloadIcon from '@mui/icons-material/FileDownloadRounded';
 import FileUploadIcon from '@mui/icons-material/FileUploadRounded';
 
-import { Menu, MenuList, MenuItem } from '@components/lib/Menu';
+import { MenuList, MenuItem } from '@components/lib/Menu';
 import { CircularProgress } from '@components/lib/CircularProgress';
 import { TextField } from '@components/lib/TextField';
-import { IconButton } from '@components/lib/IconButton';
 import { AppBar } from '@components/lib/AppBar';
 import { Button } from '@components/lib/Button';
+import MenuSection from '@components/MenuSection';
 
 import { flex } from '@jss/styles';
 
@@ -43,24 +43,7 @@ const useStyles = createUseStyles({
 
 const Header = ({ isLoggedIn, login, logout }) => {
   const classes = useStyles();
-  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const isMenuOpen = !!menuAnchorEl;
-
-  /**
-   * Handle menu icon click by setting the anchor element for menu display, which in turn sets the
-   * open boolean.
-   *
-   * @returns {void}
-   */
-  const onMenuClick = e => setMenuAnchorEl(e.currentTarget);
-
-  /**
-   * Handle menu close by resetting the anchor element.
-   *
-   * @returns {void}
-   */
-  const onMenuClose = () => setMenuAnchorEl(null);
 
   /**
    * Handle upload click.
@@ -101,20 +84,26 @@ const Header = ({ isLoggedIn, login, logout }) => {
             {isLoggedIn && <Button variant='text' color='inherit' onClick={logout}>Logout</Button>}
             {!isLoggedIn && <Button variant='text' color='inherit' onClick={login}>Login</Button>}
           </div>
-          <IconButton color='inherit' onClick={onMenuClick} ariaLabel='Main menu'>
-            <MenuIcon />
-          </IconButton>
-          <Menu open={isMenuOpen} onClose={onMenuClose} anchorEl={menuAnchorEl}>
+          <MenuSection icon={<MenuIcon />} ariaLabel='Main menu'>
             <MenuList>
-              <MenuItem onClick={exportLocalJsonData}><FileDownloadIcon /> Export Data</MenuItem>
-              <MenuItem onClick={onUploadClick}>
-                {isUploading
-                  ? <CircularProgress myClassName={classes.progress} />
-                  : <FileUploadIcon />
-                } Import Data
+              <MenuItem
+                onClick={exportLocalJsonData}
+                icon={<FileDownloadIcon />}
+              >
+                Export Data
+              </MenuItem>
+              <MenuItem
+                onClick={onUploadClick}
+                icon={
+                  isUploading
+                    ? <CircularProgress myClassName={classes.progress} />
+                    : <FileUploadIcon />
+                }
+              >
+                Import Data
               </MenuItem>
             </MenuList>
-          </Menu>
+          </MenuSection>
         </div>
         <TextField id='file_input' type='file' isHidden />
       </Fragment>
