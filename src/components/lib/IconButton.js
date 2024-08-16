@@ -10,9 +10,16 @@ import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 
 
-const MyIconButton = forwardRef(({ onClick, children, ariaLabel, ...otherProps }, ref) => {
+const MyIconButton = forwardRef(({ color, onClick, children, ariaLabel, ...otherProps }, ref) => {
   return (
-    <IconButton ref={ref} size='small' onClick={onClick} aria-label={ariaLabel} {...otherProps}>
+    <IconButton
+      ref={ref}
+      size='small'
+      color={color}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      {...otherProps}
+    >
       {children}
     </IconButton>
   );
