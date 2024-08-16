@@ -9,6 +9,7 @@ import { getState } from '../config';
 const _getProjects = () => getState('projects');
 
 const getProjectsItems = () => _getProjects().items;
+const isProjectRemoved = id => !!getProjectsItems()?.[id]?.isRemoved;
 const getProjectsSort = (id = '1') => _getProjects().sort[id];
 const getProjectRemoving = () => _getProjects().removing;
 const getProjectActive = () => _getProjects().active;
@@ -23,6 +24,7 @@ const getProjectIsEditActiveFromProject = project => project.isEditActive;
 
 export {
   getProjectsItems,
+  isProjectRemoved,
   getProjectsSort,
   getProjectRemoving,
   getProjectActive,

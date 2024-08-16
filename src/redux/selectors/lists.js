@@ -11,8 +11,10 @@ const _getListsItems = () => _getLists().items;
 
 const getListItemById = id => _getListsItems()[id];
 const isListRemoved = id => !!_getListsItems()?.[id]?.isRemoved;
+const getListItemProjectId = id => getListItemById(id).projectId;
 const hasListItemById = id => !!_getListsItems()?.[id];
 const getListsSort = () => _getLists().sort;
+const getListsByProjectId = id => getListsSort(id)[id];
 const hasListsByProjectId = id => !!getListsSort()?.[id].length;
 const getListRemoving = () => _getLists().removing;
 const getListSelected = () => _getLists().selected;
@@ -25,8 +27,10 @@ const getListIsEditActiveFromList = list => list.isEditActive;
 export {
   getListItemById,
   isListRemoved,
+  getListItemProjectId,
   hasListItemById,
   getListsSort,
+  getListsByProjectId,
   hasListsByProjectId,
   getListRemoving,
   getListSelected,

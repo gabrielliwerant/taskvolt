@@ -26,13 +26,16 @@ import {
 import { flex } from '@jss/styles';
 
 import { TYPES } from '@src/constants';
+import { isProjectRemoved } from '@redux/selectors/projects';
 import {
   getListItemById,
+  getListItemProjectId,
   hasListItemById,
   isListRemoved,
   getListTextFinalFromList
 } from '@redux/selectors/lists';
 import { getRemovedTodoIdsByListId } from '@redux/selectors/todos';
+import { projectsSlice } from '@redux/reducers/projects';
 import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
 
@@ -57,7 +60,16 @@ const useStyles = createUseStyles({
   flex
 });
 
-const ListTrash = ({ id, item, isRemoved, hasList, expunge, restoreList, restoreTodo }) => {
+const ListTrash = ({
+  id,
+  item,
+  isRemoved,
+  hasList,
+  expunge,
+  restoreProject,
+  restoreList,
+  restoreTodo
+}) => {
   const classes = useStyles();
 
   /**
@@ -70,6 +82,10 @@ const ListTrash = ({ id, item, isRemoved, hasList, expunge, restoreList, restore
   const onRestoreClick = () => {
     getRemovedTodoIdsByListId(id).forEach(todoId => restoreTodo(todoId));
     restoreList(id);
+
+    const projectId = getListItemProjectId(id);
+
+    if (isProjectRemoved(projectId)) restoreProject(projectId);
   };
 
   return (
@@ -116,6 +132,7 @@ ListTrash.propTypes = {
   isRemoved: PropTypes.bool.isRequired,
   hasList: PropTypes.bool.isRequired,
   expunge: PropTypes.func.isRequired,
+  restoreProject: PropTypes.func.isRequired,
   restoreList: PropTypes.func.isRequired,
   restoreTodo: PropTypes.func.isRequired
 };
@@ -131,6 +148,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  restoreProject: id => dispatch(projectsSlice.actions.restore(id)),
   restoreList: id => dispatch(listsSlice.actions.restore(id)),
   restoreTodo: id => dispatch(todosSlice.actions.restore(id))
 });

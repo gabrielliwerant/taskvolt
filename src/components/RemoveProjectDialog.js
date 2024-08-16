@@ -17,12 +17,26 @@ import {
 } from '@components/lib/Dialog';
 import { Button } from '@components/lib/Button';
 
+import { getTodoIdsByListId } from '@redux/selectors/todos';
+import { getListsByProjectId } from '@redux/selectors/lists';
 import { getProjectRemoving, getProjectIdBySortIndex } from '@redux/selectors/projects';
 import { getAppActiveTab } from '@redux/selectors/app';
+import { todosSlice } from '@redux/reducers/todos';
+import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 import { appSlice } from '@redux/reducers/app';
 
-const RemoveProjectDialog = ({ open, onClose, id, activeTab, remove, setActive, setActiveTab }) => {
+const RemoveProjectDialog = ({
+  open,
+  onClose,
+  id,
+  activeTab,
+  removeList,
+  removeTodo,
+  removeProject,
+  setActive,
+  setActiveTab
+}) => {
   /**
    * Handles the list removal action.
    *
@@ -32,11 +46,17 @@ const RemoveProjectDialog = ({ open, onClose, id, activeTab, remove, setActive, 
   const onRemove = e => {
     e.stopPropagation(); // Prevent other tab onClick actions
 
-    const newIndex = activeTab - 1 >= 0 ? activeTab - 1 : 0;
+    // Remove all todos and lists from project before removing the project
+    getListsByProjectId(id).forEach(listId => {
+      getTodoIdsByListId(listId).forEach(todoId => removeTodo(todoId));
+      removeList(listId);
+    });
+    removeProject(id);
 
-    remove(id);
+    const newIndex = activeTab - 1 >= 0 ? activeTab - 1 : 0;
     setActiveTab(newIndex);
     setActive(getProjectIdBySortIndex(newIndex));
+
     onClose();
   };
 
@@ -65,7 +85,9 @@ RemoveProjectDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   activeTab: PropTypes.number.isRequired,
-  remove: PropTypes.func.isRequired,
+  removeProject: PropTypes.func.isRequired,
+  removeList: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
   setActive: PropTypes.func.isRequired,
   setActiveTab: PropTypes.func.isRequired
 };
@@ -76,7 +98,9 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  remove: id => dispatch(projectsSlice.actions.remove(id)),
+  removeProject: id => dispatch(projectsSlice.actions.remove(id)),
+  removeList: id => dispatch(listsSlice.actions.remove(id)),
+  removeTodo: id => dispatch(todosSlice.actions.remove(id)),
   setActive: id => dispatch(projectsSlice.actions.setActive(id)),
   setActiveTab: index => dispatch(appSlice.actions.setActiveTab(index))
 });
