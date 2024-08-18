@@ -35,6 +35,10 @@ const todosSlice = createSlice({
       state.items[action.payload].isEditActive = false;
       state.items[action.payload].text.draft = final;
     },
+    setDateTimestamp: (state, action) => {
+      const { id, timestamp } = action.payload;
+      state.items[id].dateTimestamp = timestamp;
+    },
     remove: (state, action) => {
       const listId = state.items[action.payload].listId;
 

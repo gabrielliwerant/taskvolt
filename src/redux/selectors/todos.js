@@ -13,6 +13,7 @@ const _getTodos = () => getState('todos');
 const getTodosItems = () => _getTodos().items;
 const getTodosSort = () => _getTodos().sort;
 const getTodoSelected = () => _getTodos().selected;
+const getTodoItemDateTimestampById = id => getTodosItems(id).dateTimestamp;
 
 /**
  * From a given list id, return all todo ids that have that list id.
@@ -62,6 +63,7 @@ export {
   getTodosItems,
   getTodosSort,
   getTodoSelected,
+  getTodoItemDateTimestampById,
   getTodoIdsByListId,
   getRemovedTodoIdsByListId,
   getUniqueListIdsFromRemovedTodoItems,

@@ -31,9 +31,7 @@ const MenuSection = ({ icon, ariaLabel, children }) => {
 
   return (
     <Fragment>
-      <IconButton color='inherit' onClick={onMenuClick} ariaLabel={ariaLabel}>
-        {icon}
-      </IconButton>
+      <IconButton color='inherit' onClick={onMenuClick} ariaLabel={ariaLabel}>{icon}</IconButton>
       <Menu open={isMenuOpen} onClose={onMenuClose} anchorEl={menuAnchorEl}>
         {children}
       </Menu>

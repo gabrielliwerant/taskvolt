@@ -4,18 +4,23 @@
  * Renders a todo item with associated functionality.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
+import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
+import EventIcon from '@mui/icons-material/EventRounded';
 
+import { MenuList, MenuItem } from '@components/lib/Menu';
 import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
+import { DateCalendar } from '@components/lib/DateCalendar';
 import { NameContainer } from '@components/Name';
+import MenuSection from '@components/MenuSection';
 
 import {
   complete,
@@ -24,10 +29,12 @@ import {
   completeBackdrop,
   defaultBackdrop
 } from '@components/Todo/styles';
+import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
 import {
   getTodoIdFromTodo,
+  getTodoItemDateTimestampById,
   getTodoFinalTextFromTodo,
   getTodoDraftTextFromTodo,
   getTodoIsEditActiveFromTodo,
@@ -43,23 +50,53 @@ const useStyles = createUseStyles({
   completeBackdrop,
   defaultBackdrop,
   itemContainer,
-  item
+  item,
+  flex
 });
 
 const Todo = ({
   provided,
   todo,
   dragId,
+  dateTimestamp,
   edit,
   save,
   cancel,
+  setDate,
   remove,
   change,
   complete
 }) => {
   const classes = useStyles();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   const onComplete = id => e => complete(id, e.target.checked);
   const onChange = id => e => change(id, e.target.value);
+
+  /**
+   * Handle date calendar click action from menu.
+   *
+   * @returns {void}
+   */
+  const onCalendarClick = () => setIsCalendarOpen(true);
+
+  /**
+   * Handle date calendar dialog close action.
+   *
+   * @returns {void}
+   */
+  const onCalendarCloseClick = () => setIsCalendarOpen(false);
+
+  /**
+   * Handle date calendar dialog confirm action.
+   *
+   * @param {integer} timestamp
+   * @returns {void}
+   */
+  const onCalendarConfirm = timestamp => {
+    setDate(getTodoIdFromTodo(todo), timestamp);
+    setIsCalendarOpen(false);
+  };
 
   return (
     <li
@@ -87,12 +124,23 @@ const Todo = ({
           onClickSave={save(getTodoIdFromTodo(todo), getTodoDraftTextFromTodo(todo))}
           onClickCancel={cancel(getTodoIdFromTodo(todo))}
           inactiveIconSection={
-            <Tooltip title='Delete todo'>
-              <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete todo item'>
-                <DeleteIcon fontSize='small' />
-              </IconButton>
-            </Tooltip>
+            <div className={classes.flex}>
+              <Tooltip title='Delete todo'>
+                <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete todo item'>
+                  <DeleteIcon fontSize='small' />
+                </IconButton>
+              </Tooltip>
+              <MenuSection
+                icon={<MoreVertIcon fontSize='small' />}
+                ariaLabel='Additional Actions Menu'
+              >
+                <MenuList>
+                  <MenuItem onClick={onCalendarClick} icon={<EventIcon />}>Add Date</MenuItem>
+                </MenuList>
+              </MenuSection>
+            </div>
           }
+          dateTimestamp={dateTimestamp}
           textFinal={getTodoFinalTextFromTodo(todo)}
           textDraft={getTodoDraftTextFromTodo(todo)}
           isEditActive={getTodoIsEditActiveFromTodo(todo)}
@@ -106,6 +154,12 @@ const Todo = ({
           <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
         </NameContainer>
       </div>
+      <DateCalendar
+        isOpen={isCalendarOpen}
+        onConfirm={onCalendarConfirm}
+        onClose={onCalendarCloseClick}
+        value={dateTimestamp}
+      />
     </li>
   );
 };
@@ -117,19 +171,22 @@ Todo.propTypes = {
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  setDate: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
   complete: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({
-  dragId: getTodoSelected()
+const mapStateToProps = (state, ownProps) => ({
+  dragId: getTodoSelected(),
+  dateTimestamp: getTodoItemDateTimestampById(getTodoIdFromTodo(ownProps.todo))
 });
 
 const mapDispatchToProps = dispatch => ({
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),
+  setDate: (id, timestamp) => dispatch(todosSlice.actions.setDateTimestamp({ id, timestamp })),
   remove: id => () => dispatch(todosSlice.actions.remove(id)),
   change: (id, draft) => dispatch(todosSlice.actions.change({ id, draft })),
   complete: (id, checked) => dispatch(todosSlice.actions.complete({ id, checked }))

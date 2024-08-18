@@ -18,6 +18,7 @@ const makeNewTodo = (id, listId, final) => ({
     draft: final,
     final
   },
+  dateTimestamp: null,
   listId,
   isEditActive: false,
   isComplete: false,
