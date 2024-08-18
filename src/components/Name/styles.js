@@ -29,8 +29,7 @@ const incomplete = {
 
 const item = {
   justifyContent: 'center',
-  height: props => `${HEIGHTS[props.type].INPUT}px`,
-  overflow: 'hidden' // KLUDGE: Fix long text display
+  height: props => `${HEIGHTS[props.type].INPUT}px`
 };
 
 const text = {

@@ -24,14 +24,18 @@ import MenuSection from '@components/MenuSection';
 
 import {
   complete,
-  itemContainer,
+  todoContainer,
+  todoContainerPaddingWithDatetime,
+  todoContainerPaddingWithoutDatetime,
   item,
   completeBackdrop,
   defaultBackdrop
 } from '@components/Todo/styles';
 import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
+import { WIDTHS, COLORS } from '@jss/constants';
 
+import { TYPES } from '@src/constants';
 import {
   getTodoIdFromTodo,
   getTodoItemDateTimestampById,
@@ -49,7 +53,26 @@ const useStyles = createUseStyles({
   complete,
   completeBackdrop,
   defaultBackdrop,
-  itemContainer,
+  todoContainer: {
+    ...todoContainer,
+
+    '& label': {
+      marginLeft: '-2px',
+      minWidth: WIDTHS[TYPES.TODO].LABEL,
+      background: `linear-gradient(180deg,
+        ${COLORS[TYPES.TODO].BACKGROUND_LABEL.START},
+        ${COLORS[TYPES.TODO].BACKGROUND_LABEL.STOP})`
+    },
+    '&:hover label': {
+      marginLeft: '-2px',
+      minWidth: WIDTHS[TYPES.TODO].LABEL,
+      background: `linear-gradient(180deg,
+        ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.START},
+        ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.STOP})`
+    }
+  },
+  todoContainerPaddingWithDatetime,
+  todoContainerPaddingWithoutDatetime,
   item,
   flex
 });
@@ -108,7 +131,9 @@ const Todo = ({
     >
       <div
         className={classNames({
-          [classes.itemContainer]: true,
+          [classes.todoContainer]: true,
+          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
+          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
           [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
           [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo)
         })}

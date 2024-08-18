@@ -35,7 +35,8 @@ const HEIGHTS = {
 
 const WIDTHS = {
   [TYPES.TODO]: {
-    MAIN: 308
+    MAIN: 308,
+    LABEL: 93
   },
   [TYPES.LIST]: {
     MAIN: 340
@@ -59,12 +60,19 @@ const COLORS = {
     BACKGROUND_COMPLETE: { START: '#fefefe', STOP: '#ededed'},
     BACKGROUND_COMPLETE_HOVER: { START: '#eeeeee', STOP: '#dddddd'},
     BACKGROUND_DEFAULT: { START: '#eeeeee', STOP: '#dddddd'},
-    BACKGROUND_DEFAULT_HOVER: { START: '#dddddd', STOP: '#cccccc'}
+    BACKGROUND_DEFAULT_HOVER: { START: '#dddddd', STOP: '#cccccc'},
+    BACKGROUND_LABEL: { START: '#eaeaea', STOP: '#ffffff' },
+    BACKGROUND_LABEL_HOVER: { START: '#d9d9d9', STOP: '#ffffff' },
+    BACKGROUND_TEXT_FIELD: '#ffffff'
   },
   [TYPES.LIST]: {
     BACKGROUND: '#f7f7f7',
     BACKGROUND_HOVER: '#f2f2f2',
-    BORDER: '#cccccc'
+    BORDER: '#cccccc',
+    BACKGROUND_TEXT_FIELD: '#ffffff'
+  },
+  [TYPES.PROJECT]: {
+    BACKGROUND_TEXT_FIELD: '#ffffff'
   }
 };
 

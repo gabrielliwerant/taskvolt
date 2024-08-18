@@ -20,7 +20,9 @@ import { NameContainer } from '@components/Name';
 
 import {
   complete,
-  itemContainer,
+  todoContainer,
+  todoContainerPaddingWithDatetime,
+  todoContainerPaddingWithoutDatetime,
   item,
   completeBackdrop,
   defaultBackdrop
@@ -33,7 +35,8 @@ import {
   getTodoListIdFromTodo,
   getTodoFinalTextFromTodo,
   getTodoIsEditActiveFromTodo,
-  getTodoIsCompleteFromTodo
+  getTodoIsCompleteFromTodo,
+  getTodoItemDateTimestampById
 } from '@redux/selectors/todos';
 import { isListRemoved, getListItemProjectId } from '@redux/selectors/lists';
 import { isProjectRemoved } from '@redux/selectors/projects';
@@ -55,7 +58,9 @@ const useStyles = createUseStyles({
 
     '&:hover': {}
   },
-  itemContainer,
+  todoContainer,
+  todoContainerPaddingWithDatetime,
+  todoContainerPaddingWithoutDatetime,
   item: {
     ...item,
 
@@ -69,6 +74,7 @@ const useStyles = createUseStyles({
 
 const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) => {
   const classes = useStyles();
+  const dateTimestamp = getTodoItemDateTimestampById(getTodoIdFromTodo(todo));
 
   /**
    * Handle todo item restoration.
@@ -91,7 +97,9 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
     <li className={classes.item}>
       <div
         className={classNames({
-          [classes.itemContainer]: true,
+          [classes.todoContainer]: true,
+          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
+          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
           [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
           [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo),
         })}
@@ -101,6 +109,7 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
           textFinal={getTodoFinalTextFromTodo(todo)}
           isEditActive={getTodoIsEditActiveFromTodo(todo)}
           isComplete={getTodoIsCompleteFromTodo(todo)}
+          dateTimestamp={dateTimestamp}
           myClassNames={{
             container: classNames({
               [classes.name]: true,

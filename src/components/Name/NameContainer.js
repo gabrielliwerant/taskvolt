@@ -11,24 +11,33 @@ import { createUseStyles } from 'react-jss';
 import CheckIcon from '@mui/icons-material/CheckRounded';
 import CloseIcon from '@mui/icons-material/CloseRounded';
 
-import { TYPES } from '@src/constants';
-
 import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
+import { Typography } from '@components/lib/Typography';
+import { Name, NameInput } from '@components/Name';
 
+import { active, inactive } from '@components/Name/styles';
 import { flex, fullWidth } from '@jss/styles';
 
-import { Name, NameInput } from '../Name';
-import { active, inactive } from './styles';
+import { getFormattedDateFromUnixTimestamp } from '@src/utils';
+import { TYPES } from '@src/constants';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   active,
   inactive,
+  itemContainer: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   itemEditContainer: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  nameBarContainer: {
+    display: 'flex',
     justifyContent: 'space-between'
   },
   nameBarButton: {
@@ -36,6 +45,11 @@ const useStyles = createUseStyles({
       display: 'flex',
       alignItems: 'center',
     }
+  },
+  dateTimestamp: {
+    marginTop: '-8px !important',
+    marginBottom: '-10px !important',
+    opacity: '0.6'
   },
   flex,
   fullWidth
@@ -47,6 +61,7 @@ const NameContainer = ({
   onClickSave,
   onClickCancel,
   inactiveIconSection,
+  dateTimestamp,
   textFinal,
   textDraft,
   isEditActive,
@@ -77,23 +92,30 @@ const NameContainer = ({
     <div
       className={classNames({
         [classes.fullWidth]: true,
-        [classes.itemEditContainer]: !isEditActive,
+        [classes.itemContainer]: true,
         [myClassNames.container]: !!myClassNames?.container
       })}
       onDoubleClick={!isEditActive ? onClickEdit : () => {}}
     >
       {!isEditActive &&
         <Fragment>
-          <div role="button" onClick={onClickEdit} className={classes.nameBarButton}>
-            <Name
-              type={type}
-              value={textFinal}
-              isActive={!isEditActive}
-              isComplete={isComplete}
-              myClassNames={myClassNames}
-            />
+          {dateTimestamp &&
+            <Typography variant='caption' component='div' className={classes.dateTimestamp}>
+              {getFormattedDateFromUnixTimestamp(dateTimestamp)}
+            </Typography>
+          }
+          <div className={classes.nameBarContainer}>
+            <div role="button" onClick={onClickEdit} className={classes.nameBarButton}>
+              <Name
+                type={type}
+                value={textFinal}
+                isActive={!isEditActive}
+                isComplete={isComplete}
+                myClassNames={myClassNames}
+              />
+            </div>
+            {!!inactiveIconSection && inactiveIconSection}
           </div>
-          {!!inactiveIconSection && inactiveIconSection}
         </Fragment>
       }
       {isEditActive &&
@@ -101,6 +123,7 @@ const NameContainer = ({
           <NameInput
             type={type}
             value={textDraft}
+            label={dateTimestamp ? getFormattedDateFromUnixTimestamp(dateTimestamp) : ''}
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
@@ -130,6 +153,7 @@ NameContainer.propTypes = {
   onClickSave: PropTypes.func,
   onClickCancel: PropTypes.func,
   inactiveIconSection: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
+  dateTimestamp: PropTypes.number,
   textFinal: PropTypes.string.isRequired,
   textDraft: PropTypes.string,
   isEditActive: PropTypes.bool,
@@ -144,6 +168,7 @@ NameContainer.defaultProps = {
   onClickSave: () => {},
   onClickCancel: () => {},
   inactiveIconSection: '',
+  dateTimestamp: null,
   textDraft: '',
   hasRemove: false,
   isEditActive: false,

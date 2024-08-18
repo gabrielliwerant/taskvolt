@@ -47,6 +47,7 @@ const MyTextField = ({
   onChange,
   onKeyDown,
   value,
+  label,
   type,
   itemType,
   ariaLabel,
@@ -64,6 +65,7 @@ const MyTextField = ({
       onChange={onChange}
       onKeyDown={onKeyDown}
       value={value}
+      label={label}
       aria-label={ariaLabel}
       className={classNames({ [classes.hidden]: isHidden, [myClassName]: !!myClassName })}
       type={type}
@@ -77,6 +79,7 @@ MyTextField.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   value: PropTypes.string,
+  label: PropTypes.string,
   type: PropTypes.string,
   itemType: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   ariaLabel: PropTypes.string,
@@ -89,6 +92,7 @@ MyTextField.defaultProps = {
   onChange: () => {},
   onKeyDown: () => {},
   value: '',
+  label: '',
   type: 'text',
   itemType: TYPES.LIST,
   ariaLabel: '',

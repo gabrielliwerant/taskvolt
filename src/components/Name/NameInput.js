@@ -9,11 +9,12 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
-import { TYPES } from '@src/constants';
-
 import { TextField } from '@components/lib/TextField';
+import { Typography } from '@components/lib/Typography';
 
-import { active, inactive, complete, incomplete, item, text } from './styles';
+import { active, inactive, complete, incomplete, item, text } from '@components/Name/styles';
+
+import { TYPES } from '@src/constants';
 
 const classNames = require('classnames');
 
@@ -32,6 +33,7 @@ const NameInput = ({
   onChange,
   onKeyDown,
   value,
+  label,
   type,
   myClassNames
 }) => {
@@ -41,6 +43,7 @@ const NameInput = ({
   return (
     <TextField
       value={value}
+      label={label}
       onChange={onChange}
       onKeyDown={onKeyDown}
       itemType={type}
@@ -63,6 +66,7 @@ NameInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   value: PropTypes.string,
+  label: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
 };
@@ -73,6 +77,7 @@ NameInput.defaultProps = {
   onChange: () => {},
   onKeyDown: () => {},
   value: '',
+  label: '',
   type: TYPES.TODO,
   myClassNames: {}
 };
