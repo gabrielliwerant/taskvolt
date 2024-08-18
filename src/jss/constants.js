@@ -63,7 +63,11 @@ const COLORS = {
     BACKGROUND_DEFAULT_HOVER: { START: '#dddddd', STOP: '#cccccc'},
     BACKGROUND_LABEL: { START: '#eaeaea', STOP: '#ffffff' },
     BACKGROUND_LABEL_HOVER: { START: '#d9d9d9', STOP: '#ffffff' },
-    BACKGROUND_TEXT_FIELD: '#ffffff'
+    BACKGROUND_TEXT_FIELD: '#ffffff',
+    PLACEHOLDER: {
+      BORDER: '#aaaaaa',
+      BACKGROUND: '#dddddd'
+    }
   },
   [TYPES.LIST]: {
     BACKGROUND: '#f7f7f7',

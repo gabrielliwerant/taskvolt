@@ -12,4 +12,8 @@ const fullWidth = {
   width: '100%'
 };
 
-export { flex, fullWidth };
+const hidden = {
+  display: 'none'
+};
+
+export { flex, fullWidth, hidden };

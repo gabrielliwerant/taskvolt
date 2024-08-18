@@ -4,13 +4,13 @@
  * Renders a set of todo items with drag and drop functionality.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import Placeholder from '@components/Placeholder';
+import { TodoPlaceholder } from '@components/Todo';
 import { Todo } from '@components/Todo';
 
 import { todos } from '@components/Todo/styles';
@@ -32,17 +32,17 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
       {(provided) => (
         <ul className={classes.todos} {...provided.droppableProps} ref={provided.innerRef}>
           {todosSort[listId].map((todoId, index) => (
-            <Draggable key={todoId} draggableId={`item-${todoId}`} index={index}>
-              {(provided) => <Todo provided={provided} todo={todosItems[todoId]} />}
-            </Draggable>
-          ))}
-          {todosSort[listId].map((todoId, index) => (
-            <Placeholder
-              key={todoId}
-              id={todoId}
-              listIndex={getIndexFromId(listId, listSort)}
-              index={index}
-            />
+            <Fragment key={todoId}>
+              <Draggable key={todoId} draggableId={`item-${todoId}`} index={index}>
+                {(provided) => <Todo provided={provided} todo={todosItems[todoId]} listId={listId} listSort={listSort} index={index} />}
+              </Draggable>
+              <TodoPlaceholder
+                key={`placeholder-${todoId}`}
+                id={todoId}
+                listIndex={getIndexFromId(listId, listSort)}
+                index={index}
+              />
+            </Fragment>
           ))}
           <div>{provided.placeholder}</div>
         </ul>
