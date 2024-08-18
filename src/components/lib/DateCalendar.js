@@ -16,32 +16,8 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@components/l
 import { Button } from '@components/lib/Button';
 import { Typography } from '@components/lib/Typography';
 
-// Reusable date format for display purposes
-const DATE_FORMAT = 'ddd, MMM D';
-
-/**
- * Retrieve the unix timestamp in seconds from a valid date object.
- *
- * @param {object} date Date object
- * @returns {integer}
- */
-const getUnixTimestampFromDate = date => dayjs(date).unix();
-
-/**
- * Retrieve the date object from a unix timestamp in seconds.
- *
- * @param {integer} unix Timestamp in seconds
- * @returns {object} Date object
- */
-const getDateFromUnixTimestamp = unix => dayjs.unix(unix || getUnixTimestampFromDate());
-
-/**
- * Retrieve the date object as a formatted string.
- *
- * @param {object} date Date object
- * @returns {string} Formatted date
- */
-const getDateFormatted = date => dayjs(date).format(DATE_FORMAT);
+import { getUnixTimestampFromDate, getDateFromUnixTimestamp, getDateFormatted } from '@src/utils';
+import { DATE_FORMAT } from '@src/constants';
 
 const MyDateCalendar = ({ onConfirm, onClose, isOpen, value }) => {
   const [displayDate, setDisplayDate] = useState(getDateFormatted());

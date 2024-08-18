@@ -12,4 +12,7 @@ const TYPES = {
   PROJECT: 'PROJECT'
 };
 
-export { LOCAL_STORAGE_KEY, TYPES };
+// Reusable date format for display purposes
+const DATE_FORMAT = 'ddd, MMM D';
+
+export { LOCAL_STORAGE_KEY, TYPES, DATE_FORMAT };
