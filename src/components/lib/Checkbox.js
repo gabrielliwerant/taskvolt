@@ -11,7 +11,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SquareIcon from '@mui/icons-material/SquareRounded';
 import Checkbox from '@mui/material/Checkbox';
+
+import { COLORS } from '@jss/constants';
 
 const MyCheckbox = ({ onChange, isChecked, disabled, ariaLabel }) => {
   return (
@@ -21,23 +24,13 @@ const MyCheckbox = ({ onChange, isChecked, disabled, ariaLabel }) => {
       checked={isChecked}
       disabled={disabled}
       inputProps={{ 'aria-label': ariaLabel }}
+      icon={<SquareIcon />}
       sx={{
         '&:not(.Mui-checked)': {
-          '& .PrivateSwitchBase-input': {
-            width: 'auto',
-            height: 'auto',
-            top: 'auto',
-            left: 'auto',
-            opacity: '1',
-            visibility: 'hidden'
-          },
-          '& .PrivateSwitchBase-input:before': {
-            content: '""',
-            position: 'absolute',
-            width: 'calc(100% - 1px)',
-            height: 'calc(100% - 1px)',
-            backgroundColor: '#FFFFFF',
-            visibility: 'visible'
+          '& .MuiSvgIcon-root path': {
+            fill: COLORS.WHITE,
+            stroke: 'rgba(0, 0, 0, 0.75)',
+            strokeWidth: '2px'
           }
         }
       }}

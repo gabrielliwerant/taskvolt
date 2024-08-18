@@ -66,6 +66,8 @@ const Z_INDEX = {
 };
 
 const COLORS = {
+  WHITE: '#ffffff',
+  BLACK: '#000000',
   [TYPES.TODO]: {
     BORDER: '#bbbbbb',
     BACKGROUND_COMPLETE: { START: '#fefefe', STOP: '#ededed'},
