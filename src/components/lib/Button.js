@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 
-const MyButton = ({ onClick, variant, color, startIcon, children }) => {
+const MyButton = ({ onClick, variant, size, color, startIcon, children }) => {
   return (
-    <Button variant={variant} onClick={onClick} color={color} startIcon={startIcon}>
+    <Button variant={variant} size={size} onClick={onClick} color={color} startIcon={startIcon}>
       {children}
     </Button>
   );
@@ -21,6 +21,7 @@ MyButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   color: PropTypes.string,
   variant: PropTypes.string,
+  size: PropTypes.string,
   startIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
 };
@@ -28,6 +29,7 @@ MyButton.propTypes = {
 MyButton.defaultProps = {
   color: 'primary',
   variant: 'contained',
+  size: 'medium',
   startIcon: ''
 };
 

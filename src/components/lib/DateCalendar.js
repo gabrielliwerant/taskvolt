@@ -19,9 +19,17 @@ import { Typography } from '@components/lib/Typography';
 import { getUnixTimestampFromDate, getDateFromUnixTimestamp, getDateFormatted } from '@src/utils';
 import { DATE_FORMAT } from '@src/constants';
 
+/**
+ * Helps set the initial date from a given value;
+ *
+ * @param {number|null} myValue Unix timestamp
+ * @returns {object|null}
+ */
+const setInitialDate = myValue => myValue ? getDateFromUnixTimestamp(myValue) : null;
+
 const MyDateCalendar = ({ onConfirm, onClose, isOpen, value }) => {
   const [displayDate, setDisplayDate] = useState(getDateFormatted());
-  const [chosenDate, setChosenDate] = useState(value ? getDateFromUnixTimestamp(value) : value);
+  const [chosenDate, setChosenDate] = useState(setInitialDate(value));
 
   /**
    * Handle update to display and saving data to state when we select new dates.
@@ -39,14 +47,28 @@ const MyDateCalendar = ({ onConfirm, onClose, isOpen, value }) => {
    *
    * @returns {void}
    */
-  const onDateConfirm = () => onConfirm(getUnixTimestampFromDate(chosenDate));
+  const onDateConfirm = () => {
+    const myDate = chosenDate ? getUnixTimestampFromDate(chosenDate) : null;
+
+    onConfirm(myDate);
+  };
 
   /**
    * Handle dialog close action.
    *
    * @returns {void}
    */
-  const onDateClose = () => onClose();
+  const onDateClose = () => {
+    setChosenDate(setInitialDate(value));
+    onClose();
+  };
+
+  /**
+   * Handles existing date removal in state.
+   *
+   * @returns {void}
+   */
+  const onDateRemove = () => setChosenDate(null);
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -55,7 +77,8 @@ const MyDateCalendar = ({ onConfirm, onClose, isOpen, value }) => {
           <Typography variant='overline'>Select Date</Typography>
         </DialogTitle>
         <DialogContent>
-          <Typography variant='h4'>{displayDate}</Typography>
+          <Typography variant='h4' gutterBottom>{displayDate}</Typography>
+          <Button onClick={onDateRemove} size='small'>Remove Date</Button>
         </DialogContent>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar value={chosenDate} disablePast onChange={onDateChange} />
