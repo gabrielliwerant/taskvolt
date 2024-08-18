@@ -8,6 +8,11 @@ const flex = {
   display: 'flex'
 };
 
+const flexCenterY = {
+  display: 'flex',
+  alignItems: 'center'
+};
+
 const fullWidth = {
   width: '100%'
 };
@@ -17,3 +22,4 @@ const hidden = {
 };
 
 export { flex, fullWidth, hidden };
+export { flex, flexCenterY, fullWidth, hidden };

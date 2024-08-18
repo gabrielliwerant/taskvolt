@@ -13,7 +13,7 @@ import { NameContainer } from '@components/Name';
 
 import { text } from '@components/Project/styles';
 
-import { TYPES } from '@src/constants';
+import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import { projectsSlice } from '@redux/reducers/projects';
 import {
   getProjectsItems,
@@ -42,7 +42,12 @@ const Project = ({ projectsItems, id, activeId, edit, save, cancel, change }) =>
    *  @returns {void}
    * ]}
    */
-  const onChange = id => e => change(id, e.target.value);
+  const onChange = id => e => {
+    // Prevent entering characters past our limit
+    if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.PROJECT]) return;
+
+    change(id, e.target.value);
+  };
 
   return (
     <div key={id} className={classes.project}>

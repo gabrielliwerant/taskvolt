@@ -14,6 +14,8 @@ import { TodoPlaceholder } from '@components/Todo';
 import { Todo } from '@components/Todo';
 
 import { todos } from '@components/Todo/styles';
+import { getTodosHeight } from '@components/Todo/utils';
+import { LIST_PADDING } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
 import { getIndexFromId } from '@src/utils';
@@ -30,22 +32,29 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
   return (
     <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
       {(provided) => (
-        <ul className={classes.todos} {...provided.droppableProps} ref={provided.innerRef}>
-          {todosSort[listId].map((todoId, index) => (
-            <Fragment key={todoId}>
+        <Fragment>
+          <ul className={classes.todos} {...provided.droppableProps} ref={provided.innerRef}>
+            {todosSort[listId].map((todoId, index) => (
               <Draggable key={todoId} draggableId={`item-${todoId}`} index={index}>
-                {(provided) => <Todo provided={provided} todo={todosItems[todoId]} listId={listId} listSort={listSort} index={index} />}
+                {(provided) => <Todo provided={provided} id={todoId} todo={todosItems[todoId]} />}
               </Draggable>
+            ))}
+            <div>{provided.placeholder}</div>
+          </ul>
+          <ul
+            className={classes.todos}
+            style={{ marginTop: `-${getTodosHeight(todosSort[listId])}px` }}
+          >
+            {todosSort[listId].map((todoId, index) => (
               <TodoPlaceholder
                 key={`placeholder-${todoId}`}
                 id={todoId}
                 listIndex={getIndexFromId(listId, listSort)}
                 index={index}
               />
-            </Fragment>
-          ))}
-          <div>{provided.placeholder}</div>
-        </ul>
+            ))}
+          </ul>
+        </Fragment>
       )}
     </Droppable>
   );

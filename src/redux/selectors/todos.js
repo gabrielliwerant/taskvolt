@@ -13,6 +13,11 @@ const _getTodos = () => getState('todos');
 const getTodosItems = () => _getTodos().items;
 const getTodosSort = () => _getTodos().sort;
 const getTodoSelected = () => _getTodos().selected;
+const _getTodoItemById = id => getTodosItems()[id];
+const isTodoCompleteById = id => _getTodoItemById(id).isComplete;
+const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
+const getTodoFinalTextById = id => _getTodoItemById(id).text.final;
+const isTodoEditActiveById = id => _getTodoItemById(id).isEditActive;
 const getTodoItemDateTimestampById = id => getTodosItems()[id].dateTimestamp;
 
 /**
@@ -54,15 +59,15 @@ const getRemovedTodoItemsByListId = id =>
 
 const getTodoIdFromTodo = todo => todo.id;
 const getTodoListIdFromTodo = todo => todo.listId;
-const getTodoFinalTextFromTodo = todo => todo.text.final;
-const getTodoDraftTextFromTodo = todo => todo.text.draft;
-const getTodoIsEditActiveFromTodo = todo => todo.isEditActive;
-const getTodoIsCompleteFromTodo = todo => todo.isComplete;
 
 export {
   getTodosItems,
   getTodosSort,
   getTodoSelected,
+  isTodoCompleteById,
+  getTodoDraftTextById,
+  getTodoFinalTextById,
+  isTodoEditActiveById,
   getTodoItemDateTimestampById,
   getTodoIdsByListId,
   getRemovedTodoIdsByListId,
@@ -70,9 +75,5 @@ export {
   getRemovedTodoItemsByListId,
 
   getTodoIdFromTodo,
-  getTodoListIdFromTodo,
-  getTodoFinalTextFromTodo,
-  getTodoDraftTextFromTodo,
-  getTodoIsEditActiveFromTodo,
-  getTodoIsCompleteFromTodo
+  getTodoListIdFromTodo
 };

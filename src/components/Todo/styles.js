@@ -10,14 +10,17 @@ import {
   BORDER_OFFSET,
   LIST_PADDING,
   MARGINS,
-  HEIGHTS,
   WIDTHS,
   Z_INDEX,
   COLORS
 } from '@jss/constants';
 
 const todos = {
-  marginTop: `${LIST_PADDING}px`
+  marginTop: `${LIST_PADDING}px`,
+
+  '& > li': {
+    marginBottom: '4px'
+  }
 };
 
 const complete = {
@@ -26,7 +29,7 @@ const complete = {
 };
 
 const todoContainer = {
-  padding: '0 4px 4px 4px',
+  padding: '0 4px 0 4px',
   border: `1px solid ${COLORS[TYPES.TODO].BORDER}`,
   borderRadius: '4px',
   width: '300px',
@@ -35,19 +38,18 @@ const todoContainer = {
 };
 
 const todoContainerPaddingWithDatetime = {
-  paddingTop: '11px'
+  paddingTop: '11px',
+  paddingBottom: '4px'
 };
 
 const todoContainerPaddingWithoutDatetime = {
-  paddingTop: '4px'
+  paddingTop: '4px',
+  paddingBottom: '4px'
 };
 
 const item = {
   cursor: 'grab',
   width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
-  height: `${HEIGHTS.TODO.MAIN}px`,
-  border: '1px solid transparent',
-  marginBottom: `${MARGINS[TYPES.TODO].MAIN}px`,
   position: 'relative',
   zIndex: Z_INDEX.TODO,
 

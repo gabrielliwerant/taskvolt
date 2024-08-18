@@ -31,18 +31,17 @@ import {
   completeBackdrop,
   defaultBackdrop
 } from '@components/Todo/styles';
-import { flex } from '@jss/styles';
+import { flexCenterY } from '@jss/styles';
 import { tilt } from '@jss/utils';
 import { WIDTHS, COLORS } from '@jss/constants';
 
-import { TYPES } from '@src/constants';
+import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import {
-  getTodoIdFromTodo,
-  getTodoItemDateTimestampById,
-  getTodoFinalTextFromTodo,
-  getTodoDraftTextFromTodo,
-  getTodoIsEditActiveFromTodo,
-  getTodoIsCompleteFromTodo
+  isTodoCompleteById,
+  getTodoDraftTextById,
+  getTodoFinalTextById,
+  isTodoEditActiveById,
+  getTodoItemDateTimestampById
 } from '@redux/selectors/todos';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
@@ -74,14 +73,19 @@ const useStyles = createUseStyles({
   todoContainerPaddingWithDatetime,
   todoContainerPaddingWithoutDatetime,
   item,
-  flex
+  flexCenterY
 });
 
 const Todo = ({
+  id,
   provided,
   todo,
   dragId,
   dateTimestamp,
+  isComplete,
+  textDraft,
+  textFinal,
+  isEditActive,
   edit,
   save,
   cancel,
@@ -93,8 +97,20 @@ const Todo = ({
   const classes = useStyles();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const onComplete = id => e => complete(id, e.target.checked);
-  const onChange = id => e => change(id, e.target.value);
+  const onComplete = e => complete(id, e.target.checked);
+
+  /**
+   * Handles the input field change for text name updates.
+   *
+   * @param {object} e Event
+   * @returns {void}
+   */
+  const onChange = e => {
+    // Prevent entering characters past our limit
+    if (e.target.value.length > MAX_LENGTH_INPUT) return;
+
+    change(id, e.target.value);
+  };
 
   /**
    * Handle date calendar click action from menu.
@@ -117,13 +133,12 @@ const Todo = ({
    * @returns {void}
    */
   const onCalendarConfirm = timestamp => {
-    setDate(getTodoIdFromTodo(todo), timestamp);
+    setDate(id, timestamp);
     setIsCalendarOpen(false);
   };
 
   return (
     <li
-      key={getTodoIdFromTodo(todo)}
       className={classes.item}
       ref={provided.innerRef}
       {...provided.draggableProps}
@@ -134,24 +149,21 @@ const Todo = ({
           [classes.todoContainer]: true,
           [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
           [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
-          [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
-          [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo)
+          [classes.defaultBackdrop]: !isComplete,
+          [classes.completeBackdrop]: isComplete
         })}
-        style={{ transform: dragId === getTodoIdFromTodo(todo) ? tilt : '' }}
+        style={{ transform: dragId === id ? tilt : '' }}
       >
-        <Checkbox
-          onChange={onComplete(getTodoIdFromTodo(todo))}
-          isChecked={getTodoIsCompleteFromTodo(todo)}
-        />
+        <Checkbox onChange={onComplete} isChecked={isComplete} />
         <NameContainer
-          onClickEdit={edit(getTodoIdFromTodo(todo))}
-          onChangeEdit={onChange(getTodoIdFromTodo(todo))}
-          onClickSave={save(getTodoIdFromTodo(todo), getTodoDraftTextFromTodo(todo))}
-          onClickCancel={cancel(getTodoIdFromTodo(todo))}
+          onClickEdit={edit(id)}
+          onChangeEdit={onChange}
+          onClickSave={save(id, textDraft)}
+          onClickCancel={cancel(id)}
           inactiveIconSection={
-            <div className={classes.flex}>
+            <div className={classes.flexCenterY}>
               <Tooltip title='Delete todo'>
-                <IconButton onClick={remove(getTodoIdFromTodo(todo))} ariaLabel='Delete todo item'>
+                <IconButton onClick={remove(id)} ariaLabel='Delete todo item'>
                   <DeleteIcon fontSize='small' />
                 </IconButton>
               </Tooltip>
@@ -166,17 +178,13 @@ const Todo = ({
             </div>
           }
           dateTimestamp={dateTimestamp}
-          textFinal={getTodoFinalTextFromTodo(todo)}
-          textDraft={getTodoDraftTextFromTodo(todo)}
-          isEditActive={getTodoIsEditActiveFromTodo(todo)}
-          isComplete={getTodoIsCompleteFromTodo(todo)}
-          myClassNames={{
-            container: classNames({
-              [classes.complete]: getTodoIsCompleteFromTodo(todo)
-            })}
-          }
+          textFinal={textFinal}
+          textDraft={textDraft}
+          isEditActive={isEditActive}
+          isComplete={isComplete}
+          myClassNames={{ container: classNames({ [classes.complete]: isComplete })}}
         >
-          <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
+          <Typography>{textFinal}</Typography>
         </NameContainer>
       </div>
       <DateCalendar
@@ -190,9 +198,15 @@ const Todo = ({
 };
 
 Todo.propTypes = {
+  id: PropTypes.string.isRequired,
   provided: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
   dragId: PropTypes.string.isRequired,
+  dateTimestamp: PropTypes.number,
+  isComplete: PropTypes.bool.isRequired,
+  textDraft: PropTypes.string.isRequired,
+  textFinal: PropTypes.string.isRequired,
+  isEditActive: PropTypes.bool.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -202,9 +216,17 @@ Todo.propTypes = {
   complete: PropTypes.func.isRequired
 };
 
+Todo.defaultProps = {
+  dateTimestamp: null
+};
+
 const mapStateToProps = (state, ownProps) => ({
   dragId: getTodoSelected(),
-  dateTimestamp: getTodoItemDateTimestampById(getTodoIdFromTodo(ownProps.todo))
+  dateTimestamp: getTodoItemDateTimestampById(ownProps.id),
+  isComplete : isTodoCompleteById(ownProps.id),
+  textDraft : getTodoDraftTextById(ownProps.id),
+  textFinal : getTodoFinalTextById(ownProps.id),
+  isEditActive: isTodoEditActiveById(ownProps.id)
 });
 
 const mapDispatchToProps = dispatch => ({

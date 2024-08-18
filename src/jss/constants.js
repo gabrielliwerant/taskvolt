@@ -6,6 +6,17 @@
 
 import { TYPES } from '@src/constants';
 
+// Map number of lines of text to the corresponding height value
+// TODO: Make this data driven instead of hard-coded
+const LINES_TO_HEIGHT = {
+  [TYPES.TODO]: {
+    TWO: 48,
+    THREE: 67,
+    FOUR: 86,
+    FIVE: 105
+  }
+};
+
 const TOP_OFFSET = 30;
 const BORDER_OFFSET = 2;
 const LIST_WIDTH_POSITION = 372;
@@ -47,7 +58,7 @@ const WIDTHS = {
 };
 
 const Z_INDEX = {
-  ITEM_PLACEHOLDER: 2,
+  TODO_PLACEHOLDER: 2,
   LIST_PLACEHOLDER: 0,
   TODO: 3,
   LIST: 1,
@@ -73,7 +84,11 @@ const COLORS = {
     BACKGROUND: '#f7f7f7',
     BACKGROUND_HOVER: '#f2f2f2',
     BORDER: '#cccccc',
-    BACKGROUND_TEXT_FIELD: '#ffffff'
+    BACKGROUND_TEXT_FIELD: '#ffffff',
+    PLACEHOLDER: {
+      BORDER: '#cccccc',
+      BACKGROUND: '#efefef'
+    }
   },
   [TYPES.PROJECT]: {
     BACKGROUND_TEXT_FIELD: '#ffffff'
@@ -81,6 +96,7 @@ const COLORS = {
 };
 
 export {
+  LINES_TO_HEIGHT,
   TOP_OFFSET,
   BORDER_OFFSET,
   LIST_WIDTH_POSITION,

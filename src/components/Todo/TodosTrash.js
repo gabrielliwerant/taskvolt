@@ -28,7 +28,9 @@ const TodosTrash = ({ listId, todosItems }) => {
 
   return (
     <ul className={classes.todos}>
-      {todosItems.map(todo => <TodoTrash key={getTodoIdFromTodo(todo)} todo={todo} />)}
+      {todosItems.map(todo => 
+        <TodoTrash key={getTodoIdFromTodo(todo)} id={getTodoIdFromTodo(todo)} todo={todo} />
+      )}
     </ul>
   );
 };

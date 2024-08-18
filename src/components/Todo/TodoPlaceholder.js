@@ -9,29 +9,29 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { hidden } from '@jss/styles';
-import {
-  BORDER_OFFSET,
-  LIST_WIDTH_POSITION,
-  LIST_PADDING,
-  MARGINS,
-  HEIGHTS,
-  WIDTHS,
-  Z_INDEX,
-  COLORS
-} from '@jss/constants';
+import { LINES_TO_HEIGHT, WIDTHS, Z_INDEX, COLORS } from '@jss/constants';
 
-import { TYPES } from '@src/constants';
-import { getTodosSort } from '@redux/selectors/todos';
-import { getListSelected } from '@redux/selectors/lists';
+import { TYPES, MAX_LENGTH_PER_LINE } from '@src/constants';
+import { getTodoFinalTextById } from '@redux/selectors/todos';
 
 const classNames = require('classnames');
 
+/**
+ * Retrieve the appropriate height class name for the given text length.
+ *
+ * @param {integer} len Length of text
+ * @returns {string} Class name
+ */
+const getClassNameForTextLength = len => {
+  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].TWO) return 'twoLines';
+  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].THREE) return 'threeLines';
+  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].FOUR) return 'fourLines';
+  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].FIVE) return 'fiveLines';
+};
+
 const useStyles = createUseStyles({
   placeholder: {
-    position: 'absolute',
-    borderRadius: '4px',
-    height: `${HEIGHTS.TODO.PLACEHOLDER}px`,
+    position: 'relative',
     width: `${WIDTHS.TODO.MAIN}px`,
     zIndex: Z_INDEX.TODO_PLACEHOLDER,
     left: 0,
@@ -39,46 +39,39 @@ const useStyles = createUseStyles({
   },
   item: {
     border: `1px dashed ${COLORS[TYPES.TODO].PLACEHOLDER.BORDER}`,
+    borderRadius: '4px',
     background: COLORS[TYPES.TODO].PLACEHOLDER.BACKGROUND
   },
-  hidden
+  twoLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].TWO - 2}px` },
+  threeLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].THREE - 2}px` },
+  fourLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].FOUR - 2}px` },
+  fiveLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].FIVE - 2}px` }
 });
 
-const Placeholder = ({ id, listIndex, index, dragListId, todosSort }) => {
+const TodoPlaceholder = ({ id, textFinal }) => {
   const classes = useStyles();
 
-  const marginTop = `${
-    MARGINS[TYPES.TODO].PLACEHOLDER
-    + ((HEIGHTS.TODO.MAIN + BORDER_OFFSET + MARGINS[TYPES.TODO].MAIN) * index)
-  }px`;
-  const marginLeft = `${((1 + listIndex) * LIST_WIDTH_POSITION) + LIST_PADDING + BORDER_OFFSET}px`;
-
   return (
-    <div
-      key={id}
-      style={{ marginTop, marginLeft }}
-      className={
-        classNames({
-          [classes.placeholder]: true,
-          [classes.item]: true,
-          [classes.hidden]: !!dragListId
-        })
-      }
-    />
+    <li className={classes.item}>
+      <div
+        className={
+          classNames({
+            [classes.placeholder]: true,
+            [classes[getClassNameForTextLength(textFinal.length)]]: true
+          })
+        }
+      />
+    </li>
   );
 };
 
-Placeholder.propTypes = {
+TodoPlaceholder.propTypes = {
   id: PropTypes.string.isRequired,
-  listIndex: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-  dragListId: PropTypes.string.isRequired,
-  todosSort: PropTypes.object.isRequired
+  textFinal: PropTypes.string.isRequired
 };
 
-const mapStateToProps = () => ({
-  todosSort: getTodosSort(),
-  dragListId: getListSelected()
+const mapStateToProps = (state, ownProps) => ({
+  textFinal : getTodoFinalTextById(ownProps.id)
 });
 
-export default connect(mapStateToProps, null)(Placeholder);
+export default connect(mapStateToProps, null)(TodoPlaceholder);

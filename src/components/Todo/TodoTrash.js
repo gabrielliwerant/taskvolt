@@ -31,11 +31,9 @@ import { flex } from '@jss/styles';
 import { tilt } from '@jss/utils';
 
 import {
-  getTodoIdFromTodo,
+  isTodoCompleteById,
+  getTodoFinalTextById,
   getTodoListIdFromTodo,
-  getTodoFinalTextFromTodo,
-  getTodoIsEditActiveFromTodo,
-  getTodoIsCompleteFromTodo,
   getTodoItemDateTimestampById
 } from '@redux/selectors/todos';
 import { isListRemoved, getListItemProjectId } from '@redux/selectors/lists';
@@ -72,9 +70,18 @@ const useStyles = createUseStyles({
   flex
 });
 
-const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) => {
+const TodoTrash = ({
+  id,
+  todo,
+  isComplete,
+  textFinal,
+  expunge,
+  restoreTodo,
+  restoreList,
+  restoreProject
+}) => {
   const classes = useStyles();
-  const dateTimestamp = getTodoItemDateTimestampById(getTodoIdFromTodo(todo));
+  const dateTimestamp = getTodoItemDateTimestampById(id);
 
   /**
    * Handle todo item restoration.
@@ -90,7 +97,7 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
     if (isProjectRemoved(projectId)) restoreProject(projectId);
     if (isListRemoved(listId)) restoreList(listId);
 
-    restoreTodo(getTodoIdFromTodo(todo));
+    restoreTodo();
   };
 
   return (
@@ -100,24 +107,24 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
           [classes.todoContainer]: true,
           [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
           [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
-          [classes.defaultBackdrop]: !getTodoIsCompleteFromTodo(todo),
-          [classes.completeBackdrop]: getTodoIsCompleteFromTodo(todo),
+          [classes.defaultBackdrop]: !isComplete,
+          [classes.completeBackdrop]: isComplete,
         })}
       >
-        <Checkbox isChecked={getTodoIsCompleteFromTodo(todo)} disabled />
+        <Checkbox isChecked={isComplete} disabled />
         <NameContainer
-          textFinal={getTodoFinalTextFromTodo(todo)}
-          isEditActive={getTodoIsEditActiveFromTodo(todo)}
-          isComplete={getTodoIsCompleteFromTodo(todo)}
+          textFinal={textFinal}
+          isEditActive={false}
+          isComplete={isComplete}
           dateTimestamp={dateTimestamp}
           myClassNames={{
             container: classNames({
               [classes.name]: true,
-              [classes.complete]: getTodoIsCompleteFromTodo(todo)
+              [classes.complete]: isComplete
             })
           }}
         >
-          <Typography>{getTodoFinalTextFromTodo(todo)}</Typography>
+          <Typography>{textFinal}</Typography>
         </NameContainer>
         <div className={classes.flex}>
           <Tooltip title='Restore todo'>
@@ -126,7 +133,7 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
             </IconButton>
           </Tooltip>
           <Tooltip title='Delete permanently'>
-            <IconButton onClick={expunge(getTodoIdFromTodo(todo))} ariaLabel='Delete item'>
+            <IconButton onClick={expunge} ariaLabel='Delete item'>
               <DeleteIcon fontSize='small' />
             </IconButton>
           </Tooltip>
@@ -137,18 +144,26 @@ const TodoTrash = ({ todo, expunge, restoreTodo, restoreList, restoreProject }) 
 };
 
 TodoTrash.propTypes = {
+  id: PropTypes.string.isRequired,
   todo: PropTypes.object.isRequired,
+  isComplete: PropTypes.bool.isRequired,
+  textFinal: PropTypes.string.isRequired,
   expunge: PropTypes.func.isRequired,
   restoreTodo: PropTypes.func.isRequired,
   restoreList: PropTypes.func.isRequired,
   restoreProject: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = dispatch => ({
-  expunge: id => () => dispatch(todosSlice.actions.expunge(id)),
-  restoreTodo: id => dispatch(todosSlice.actions.restore(id)),
+const mapStateToProps = (state, ownProps) => ({
+  isComplete : isTodoCompleteById(ownProps.id),
+  textFinal : getTodoFinalTextById(ownProps.id)
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  expunge: () => dispatch(todosSlice.actions.expunge(ownProps.id)),
+  restoreTodo: () => dispatch(todosSlice.actions.restore(ownProps.id)),
   restoreList: id => dispatch(listsSlice.actions.restore(id)),
   restoreProject: id => dispatch(projectsSlice.actions.restore(id))
 });
 
-export default connect(null, mapDispatchToProps)(TodoTrash);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoTrash);

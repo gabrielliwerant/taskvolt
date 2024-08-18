@@ -29,10 +29,11 @@ const incomplete = {
 
 const item = {
   justifyContent: 'center',
-  height: props => `${HEIGHTS[props.type].INPUT}px`
+  minHeight: props => `${HEIGHTS[props.type].INPUT}px`
 };
 
 const text = {
+  wordBreak: 'break-all',
   '& div': {
     fontSize: '14px'
   }

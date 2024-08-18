@@ -24,6 +24,8 @@ when available.
 - [x] ~~Improve project tab UX (and ability to click without entering edit mode)~~
 - [x] ~~Allow exporting data~~
 - [x] ~~Allow importing data~~
+- [x] ~~Handle truncation/overflow in todo names~~
+- Handle truncation/overflow in list names
 - Add basic user/login functionality
 - Add database integration for persistence across devices
 - Deploy to website
@@ -42,6 +44,7 @@ when available.
 
 ## Known Bugs
 
-- Deleting a project tab to the left of the add project tab results in add tab being active
-- z-index of todos when switching between lists does not work properly
 - `Tooltip` for the `TrashTab` blocks clickable surface
+- Change size of placeholders when in edit mode
+- Allow placeholders to swamp positions
+- Todos with text past 2 lines cause display issues with date/time
