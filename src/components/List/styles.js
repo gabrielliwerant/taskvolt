@@ -6,7 +6,15 @@
 
 import { TYPES } from '@src/constants';
 
-import { BORDER_OFFSET, LIST_PADDING, TOP_OFFSET, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
+import {
+  BORDER_OFFSET,
+  LIST_PADDING,
+  TOP_OFFSET,
+  MARGINS,
+  WIDTHS,
+  Z_INDEX,
+  COLORS
+} from '@jss/constants';
 
 const lists = {
   display: 'flex',
@@ -29,12 +37,12 @@ const listItemContainer = {
 const listContainer = {
   width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
   padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
-  background: '#f7f7f7',
-  border: '1px solid #cccccc',
+  background: COLORS[TYPES.LIST].BACKGROUND,
+  border: `1px solid ${COLORS[TYPES.LIST].BORDER}`,
   borderRadius: '4px',
 
   '&:hover': {
-    background: '#f2f2f2'
+    background: COLORS[TYPES.LIST].BACKGROUND_HOVER
   }
 };
 

@@ -10,6 +10,8 @@ import { createUseStyles } from 'react-jss';
 
 import TextField from '@mui/material/TextField';
 
+import { COLORS } from '@jss/constants';
+
 import { TYPES } from '@src/constants';
 
 const classNames = require('classnames');
@@ -24,7 +26,7 @@ const useStyles = createUseStyles({
 const styles = {
   background: {
     '& .MuiOutlinedInput-root': {
-      background: '#FFFFFF'
+      background: COLORS[TYPES.TODO].BACKGROUND_TEXT_FIELD
     }
   },
   todo: {

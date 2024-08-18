@@ -53,6 +53,21 @@ const Z_INDEX = {
   NAV_BAR: 10
 };
 
+const COLORS = {
+  [TYPES.TODO]: {
+    BORDER: '#bbbbbb',
+    BACKGROUND_COMPLETE: { START: '#fefefe', STOP: '#ededed'},
+    BACKGROUND_COMPLETE_HOVER: { START: '#eeeeee', STOP: '#dddddd'},
+    BACKGROUND_DEFAULT: { START: '#eeeeee', STOP: '#dddddd'},
+    BACKGROUND_DEFAULT_HOVER: { START: '#dddddd', STOP: '#cccccc'}
+  },
+  [TYPES.LIST]: {
+    BACKGROUND: '#f7f7f7',
+    BACKGROUND_HOVER: '#f2f2f2',
+    BORDER: '#cccccc'
+  }
+};
+
 export {
   TOP_OFFSET,
   BORDER_OFFSET,
@@ -61,5 +76,6 @@ export {
   MARGINS,
   HEIGHTS,
   WIDTHS,
-  Z_INDEX
+  Z_INDEX,
+  COLORS
 };
