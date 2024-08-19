@@ -12,6 +12,7 @@ import { createUseStyles } from 'react-jss';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
 import EventIcon from '@mui/icons-material/EventRounded';
+import AccessTimeIcon from '@mui/icons-material/AccessTimeRounded';
 
 import { MenuList, MenuItem } from '@components/lib/Menu';
 import { Tooltip } from '@components/lib/Tooltip';
@@ -26,7 +27,7 @@ const useStyles = createUseStyles({
   flexCenterY
 });
 
-const TodoActions = ({ id, remove, onCalendarClick }) => {
+const TodoActions = ({ id, remove, onCalendarClick, onClockClick }) => {
   const classes = useStyles();
 
   return (
@@ -42,6 +43,7 @@ const TodoActions = ({ id, remove, onCalendarClick }) => {
       >
         <MenuList>
           <MenuItem onClick={onCalendarClick} icon={<EventIcon />}>Add Date</MenuItem>
+          <MenuItem onClick={onClockClick} icon={<AccessTimeIcon />}>Add Time</MenuItem>
         </MenuList>
       </MenuSection>
     </div>
@@ -51,7 +53,8 @@ const TodoActions = ({ id, remove, onCalendarClick }) => {
 TodoActions.propTypes = {
   id: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
-  onCalendarClick: PropTypes.func.isRequired
+  onCalendarClick: PropTypes.func.isRequired,
+  onClockClick: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

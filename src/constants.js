@@ -31,5 +31,14 @@ const MAX_LENGTH_PER_LINE = {
 
 // Reusable date format for display purposes
 const DATE_FORMAT = 'ddd, MMM D';
+// Reusable time format for display purposes
+const TIME_FORMAT = 'hh:mm';
 
-export { LOCAL_STORAGE_KEY, TYPES, MAX_LENGTH_INPUT, MAX_LENGTH_PER_LINE, DATE_FORMAT };
+export {
+  LOCAL_STORAGE_KEY,
+  TYPES,
+  MAX_LENGTH_INPUT,
+  MAX_LENGTH_PER_LINE,
+  DATE_FORMAT,
+  TIME_FORMAT
+};

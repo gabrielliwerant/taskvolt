@@ -39,9 +39,17 @@ const todosSlice = createSlice({
       const { id, timestamp } = action.payload;
       state.items[id].date.timestamp = timestamp;
     },
-    toggleDateEmailReminder: (state, action) => {
-      const currentState = state.items[action.payload].date.shouldEmailReminder;
-      state.items[action.payload].date.shouldEmailReminder = !currentState;
+    setTimeTimestamp: (state, action) => {
+      const { id, timestamp } = action.payload;
+      state.items[id].time.timestamp = timestamp;
+    },
+    setDateReminder: (state, action) => {
+      const { id, hasReminder } = action.payload;
+      state.items[id].date.hasReminder = hasReminder;
+    },
+    setTimeReminder: (state, action) => {
+      const { id, hasReminder } = action.payload;
+      state.items[id].time.hasReminder = hasReminder;
     },
     remove: (state, action) => {
       const listId = state.items[action.payload].listId;

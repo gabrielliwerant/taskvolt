@@ -20,7 +20,11 @@ const makeNewTodo = (id, listId, final) => ({
   },
   date: {
     timestamp: null,
-    shouldEmailReminder: false
+    hasReminder: false
+  },
+  time: {
+    timestamp: null,
+    hasReminder: false
   },
   listId,
   isEditActive: false,

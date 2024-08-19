@@ -24,7 +24,9 @@ const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
 const getTodoFinalTextById = id => _getTodoItemById(id).text.final;
 const isTodoEditActiveById = id => _getTodoItemById(id).isEditActive;
 const getTodoItemDateTimestampById = id => getTodosItems()[id].date.timestamp;
-const hasTodoEmailReminder = id => getTodosItems()[id].date.shouldEmailReminder;
+const hasTodoDateReminder = id => getTodosItems()[id].date.hasReminder;
+const getTodoItemTimeTimestampById = id => getTodosItems()[id].time.timestamp;
+const hasTodoTimeReminder = id => getTodosItems()[id].time.hasReminder;
 
 /**
  * From a given list id, return all todo ids that have that list id.
@@ -88,7 +90,9 @@ export {
   getTodoFinalTextById,
   isTodoEditActiveById,
   getTodoItemDateTimestampById,
-  hasTodoEmailReminder,
+  hasTodoDateReminder,
+  getTodoItemTimeTimestampById,
+  hasTodoTimeReminder,
   getTodoIdsByListId,
   getTodoItemsByListId,
   getRemovedTodoIdsByListId,

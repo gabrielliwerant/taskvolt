@@ -24,22 +24,26 @@ when available.
 - [x] ~~Improve project tab UX (and ability to click without entering edit mode)~~
 - [x] ~~Allow exporting data~~
 - [x] ~~Allow importing data~~
+- [x] ~~Allow date/time picker for todos~~
 - [x] ~~Handle truncation/overflow in todo names~~
 - Handle truncation/overflow in list names
-- Add basic user/login functionality
-- Add database integration for persistence across devices
-- Deploy to website
 - Allow color pickers for todos/lists
-- Allow date/time picker for todos
-- Handle truncation/overflow in todos/notes
 - Auto delete/prune old trashed items based on timestamp
 - Add fancy animations/transitions
-- Allow toggling visibility of completed todos
-- Allow reordering of project tabs
-- Add note type feature
-- Allow marking as important
 - Add branding
+- Allow reordering of project tabs
+- Add basic user/login functionality
+- Add server for DB, users, and email handling
+- Add database integration for persistence across devices
+- Deploy to website
 - Add testing
+
+## Possible Additions
+
+- Allow toggling visibility of completed todos
+- Add note type feature
+- Add comments on todos feature
+- Allow marking as important
 - Allow collapsing lists
 
 ## Known Bugs
@@ -47,3 +51,4 @@ when available.
 - `Tooltip` for the `TrashTab` blocks clickable surface
 - Allow placeholders to swap positions
 - Todos with text past 2 lines cause display issues with date/time
+- Improper anchorEl warning in MenuSection (use refs instead?)

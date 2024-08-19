@@ -9,12 +9,17 @@ import PropTypes from 'prop-types';
 
 import DialogActions from '@mui/material/DialogActions';
 
-const MyDialogActions = ({ children }) => {
-  return <DialogActions>{children}</DialogActions>;
+const MyDialogActions = ({ children, styles }) => {
+  return <DialogActions sx={{ ...styles }}>{children}</DialogActions>;
 };
 
 MyDialogActions.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  styles: PropTypes.object
+};
+
+MyDialogActions.defaultProps = {
+  styles: {}
 };
 
 export { MyDialogActions as DialogActions };

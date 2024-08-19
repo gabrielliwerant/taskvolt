@@ -35,23 +35,25 @@ const DateCalendarModal = ({
   onClose,
   isOpen,
   value,
-  hasEmailReminder,
-  onEmailReminderChange
+  hasReminder,
+  onReminderChange
 }) => {
   const classes = useStyles();
   const [displayDate, setDisplayDate] = useState(getDateFormatted());
   const [chosenDate, setChosenDate] = useState(setInitialDate(value));
-  const [isEmailReminderChecked, setIsEmailReminderChecked] = useState(hasEmailReminder);
+  const [isReminderChecked, setIsReminderChecked] = useState(hasReminder);
+  const [isResetable, setIsResetable] = useState(!!value);
 
   /**
    * Handle update to display and saving data to state when we select new dates.
    *
-   * @param {object} value Date object
+   * @param {object} myValue Date object
    * @returns {void}
    */
-  const onDateChange = value => {
-    setDisplayDate(getDateFormatted(value));
-    setChosenDate(value);
+  const onDateChange = myValue => {
+    setDisplayDate(getDateFormatted(myValue));
+    setChosenDate(myValue);
+    setIsResetable(true);
   };
 
   /**
@@ -59,7 +61,10 @@ const DateCalendarModal = ({
    *
    * @returns {void}
    */
-  const onEmailReminderChangeHandler = () => setIsEmailReminderChecked(!isEmailReminderChecked);
+  const onReminderChangeHandler = () => {
+    setIsReminderChecked(!isReminderChecked);
+    setIsResetable(true);
+  };
 
   /**
    * Handle dialog confirmation by saving chosen date.
@@ -70,7 +75,7 @@ const DateCalendarModal = ({
     const myDate = chosenDate ? getUnixTimestampFromDate(chosenDate) : null;
 
     onConfirm(myDate);
-    onEmailReminderChange(isEmailReminderChecked);
+    onReminderChange(isReminderChecked);
   };
 
   /**
@@ -79,9 +84,10 @@ const DateCalendarModal = ({
    * @returns {void}
    */
   const onDateClose = () => {
-    setChosenDate(setInitialDate(value));
-    setIsEmailReminderChecked(hasEmailReminder);
     onClose();
+    setChosenDate(setInitialDate(value));
+    setIsReminderChecked(hasReminder);
+    if (!value) setIsResetable(false);
   };
 
   /**
@@ -89,7 +95,12 @@ const DateCalendarModal = ({
    *
    * @returns {void}
    */
-  const onDateRemove = () => setChosenDate(null);
+  const onDateRemove = () => {
+    setDisplayDate(getDateFormatted());
+    setChosenDate(null);
+    setIsResetable(false);
+    setIsReminderChecked(false);
+  };
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -100,20 +111,22 @@ const DateCalendarModal = ({
         <DialogContent>
           <Typography variant='h4' gutterBottom>{displayDate}</Typography>
           <div className={classes.flexCenterX}>
-            <Button onClick={onDateRemove} size='small'>Remove Date</Button>
             <FormControlLabel
               isDisabled={!chosenDate}
               label='Email reminder'
-              isChecked={isEmailReminderChecked}
-              onChange={onEmailReminderChangeHandler}
+              isChecked={isReminderChecked}
+              onChange={onReminderChangeHandler}
             />
           </div>
         </DialogContent>
         <DateCalendar value={chosenDate} onChange={onDateChange} />
-        <DialogActions>
+        <DialogActions styles={{ ...flexCenterX }}>
           <Fragment>
-            <Button variant='text' onClick={onDateConfirm}>Confirm</Button>
-            <Button variant='text' onClick={onDateClose}>Cancel</Button>
+            <Button onClick={onDateRemove} size='small' disabled={!isResetable}>Reset</Button>
+            <div>
+              <Button variant='text' onClick={onDateConfirm}>Confirm</Button>
+              <Button variant='text' onClick={onDateClose}>Cancel</Button>
+            </div>
           </Fragment>
         </DialogActions>
       </Fragment>
@@ -125,10 +138,9 @@ DateCalendarModal.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  hasEmailReminder: PropTypes.bool.isRequired,
-  onEmailReminderChange: PropTypes.func.isRequired,
-  value: PropTypes.number,
-  extraActions: PropTypes.oneOfType([PropTypes.element, PropTypes.node])
+  hasReminder: PropTypes.bool.isRequired,
+  onReminderChange: PropTypes.func.isRequired,
+  value: PropTypes.number
 };
 
 DateCalendarModal.defaultProps = {
