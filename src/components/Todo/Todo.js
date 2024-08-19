@@ -9,18 +9,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import DeleteIcon from '@mui/icons-material/DeleteRounded';
-import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
-import EventIcon from '@mui/icons-material/EventRounded';
-
-import { MenuList, MenuItem } from '@components/lib/Menu';
-import { Tooltip } from '@components/lib/Tooltip';
-import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
+import { TodoActions } from '@components/Todo';
 import DateCalendarModal from '@components/DateCalendarModal';
-import MenuSection from '@components/MenuSection';
 
 import {
   complete,
@@ -91,7 +84,6 @@ const Todo = ({
   save,
   cancel,
   setDate,
-  remove,
   change,
   complete,
   toggleEmailReminder
@@ -163,23 +155,7 @@ const Todo = ({
           onChangeEdit={onChange}
           onClickSave={save(id, textDraft)}
           onClickCancel={cancel(id)}
-          inactiveIconSection={
-            <div className={classes.flexCenterY}>
-              <Tooltip title='Delete todo'>
-                <IconButton onClick={remove(id)} ariaLabel='Delete todo item'>
-                  <DeleteIcon fontSize='small' />
-                </IconButton>
-              </Tooltip>
-              <MenuSection
-                icon={<MoreVertIcon fontSize='small' />}
-                ariaLabel='Additional Actions Menu'
-              >
-                <MenuList>
-                  <MenuItem onClick={onCalendarClick} icon={<EventIcon />}>Add Date</MenuItem>
-                </MenuList>
-              </MenuSection>
-            </div>
-          }
+          inactiveIconSection={<TodoActions id={id} onCalendarClick={onCalendarClick} />}
           dateTimestamp={dateTimestamp}
           textFinal={textFinal}
           textDraft={textDraft}
@@ -217,7 +193,6 @@ Todo.propTypes = {
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
   complete: PropTypes.func.isRequired,
   toggleEmailReminder: PropTypes.func.isRequired
@@ -242,7 +217,6 @@ const mapDispatchToProps = dispatch => ({
   save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),
   setDate: (id, timestamp) => dispatch(todosSlice.actions.setDateTimestamp({ id, timestamp })),
-  remove: id => () => dispatch(todosSlice.actions.remove(id)),
   change: (id, draft) => dispatch(todosSlice.actions.change({ id, draft })),
   complete: (id, checked) => dispatch(todosSlice.actions.complete({ id, checked })),
   toggleEmailReminder: id => () => dispatch(todosSlice.actions.toggleDateEmailReminder(id))
