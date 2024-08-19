@@ -18,8 +18,8 @@ import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
-import { DateCalendar } from '@components/lib/DateCalendar';
 import { NameContainer } from '@components/Name';
+import DateCalendarModal from '@components/DateCalendarModal';
 import MenuSection from '@components/MenuSection';
 
 import {
@@ -190,7 +190,7 @@ const Todo = ({
           <Typography>{textFinal}</Typography>
         </NameContainer>
       </div>
-      <DateCalendar
+      <DateCalendarModal
         isOpen={isCalendarOpen}
         onConfirm={onCalendarConfirm}
         onClose={onCalendarCloseClick}
