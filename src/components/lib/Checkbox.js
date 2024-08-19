@@ -31,6 +31,9 @@ const MyCheckbox = ({ onChange, isChecked, disabled, ariaLabel }) => {
             fill: COLORS.WHITE,
             stroke: 'rgba(0, 0, 0, 0.75)',
             strokeWidth: '2px'
+          },
+          '&.Mui-disabled .MuiSvgIcon-root path': {
+            stroke: 'rgba(0, 0, 0, 0.4)'
           }
         }
       }}
