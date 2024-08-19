@@ -37,7 +37,7 @@ const todosSlice = createSlice({
     },
     setDateTimestamp: (state, action) => {
       const { id, timestamp } = action.payload;
-      state.items[id].dateTimestamp = timestamp;
+      state.items[id].date.timestamp = timestamp;
     },
     remove: (state, action) => {
       const listId = state.items[action.payload].listId;

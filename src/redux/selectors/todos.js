@@ -23,7 +23,7 @@ const isTodoCompleteById = id => _getTodoItemById(id).isComplete;
 const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
 const getTodoFinalTextById = id => _getTodoItemById(id).text.final;
 const isTodoEditActiveById = id => _getTodoItemById(id).isEditActive;
-const getTodoItemDateTimestampById = id => getTodosItems()[id].dateTimestamp;
+const getTodoItemDateTimestampById = id => getTodosItems()[id].date.timestamp;
 
 /**
  * From a given list id, return all todo ids that have that list id.
