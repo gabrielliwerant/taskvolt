@@ -45,6 +45,5 @@ when available.
 ## Known Bugs
 
 - `Tooltip` for the `TrashTab` blocks clickable surface
-- Change size of placeholders when in edit mode
 - Allow placeholders to swamp positions
 - Todos with text past 2 lines cause display issues with date/time

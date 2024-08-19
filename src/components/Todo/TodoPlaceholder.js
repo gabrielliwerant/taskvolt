@@ -9,10 +9,13 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { LINES_TO_HEIGHT, WIDTHS, Z_INDEX, COLORS } from '@jss/constants';
+import { LINES_TO_HEIGHT, BORDER_OFFSET, WIDTHS, Z_INDEX, COLORS } from '@jss/constants';
 
 import { TYPES, MAX_LENGTH_PER_LINE } from '@src/constants';
-import { getTodoFinalTextById } from '@redux/selectors/todos';
+import {
+  getTodoFinalTextById,
+  isTodoEditActiveById
+} from '@redux/selectors/todos';
 
 const classNames = require('classnames');
 
@@ -48,7 +51,7 @@ const useStyles = createUseStyles({
   fiveLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].FIVE - 2}px` }
 });
 
-const TodoPlaceholder = ({ id, textFinal }) => {
+const TodoPlaceholder = ({ id, textFinal, isEditActive }) => {
   const classes = useStyles();
 
   return (
@@ -57,7 +60,8 @@ const TodoPlaceholder = ({ id, textFinal }) => {
         className={
           classNames({
             [classes.placeholder]: true,
-            [classes[getClassNameForTextLength(textFinal.length)]]: true
+            [classes.editActive]: isEditActive,
+            [classes[getClassNameForTextLength(textFinal.length)]]: !isEditActive
           })
         }
       />
@@ -67,11 +71,14 @@ const TodoPlaceholder = ({ id, textFinal }) => {
 
 TodoPlaceholder.propTypes = {
   id: PropTypes.string.isRequired,
-  textFinal: PropTypes.string.isRequired
+  textFinal: PropTypes.string.isRequired,
+  isEditActive: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  textFinal : getTodoFinalTextById(ownProps.id)
+  textFinal: getTodoFinalTextById(ownProps.id),
+  isEditActive: isTodoEditActiveById(ownProps.id)
 });
 
 export default connect(mapStateToProps, null)(TodoPlaceholder);

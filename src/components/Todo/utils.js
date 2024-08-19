@@ -7,7 +7,7 @@
 import { MARGINS, LINES_TO_HEIGHT } from '@jss/constants';
 
 import { TYPES, MAX_LENGTH_PER_LINE } from '@src/constants';
-import { getTodoFinalTextById } from '@redux/selectors/todos';
+import { getTodoFinalTextById, isTodoEditActiveById } from '@redux/selectors/todos';
 
 /**
  * Retrieve the appropriate pixel height for a given string length.
@@ -32,7 +32,8 @@ const getTodosHeight = ids => {
   let height = 0;
 
   ids.forEach(id => {
-    height += _getHeightForTextLength(getTodoFinalTextById(id).length);
+    if (isTodoEditActiveById(id)) height += LINES_TO_HEIGHT[TYPES.TODO].TWO;
+    else height += _getHeightForTextLength(getTodoFinalTextById(id).length);
     height += MARGINS[TYPES.TODO].MAIN;
   });
 
