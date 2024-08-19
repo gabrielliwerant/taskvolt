@@ -40,7 +40,8 @@ import {
   getTodoDraftTextById,
   getTodoFinalTextById,
   isTodoEditActiveById,
-  getTodoItemDateTimestampById
+  getTodoItemDateTimestampById,
+  hasTodoEmailReminder
 } from '@redux/selectors/todos';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
@@ -85,13 +86,15 @@ const Todo = ({
   textDraft,
   textFinal,
   isEditActive,
+  hasEmailReminder,
   edit,
   save,
   cancel,
   setDate,
   remove,
   change,
-  complete
+  complete,
+  toggleEmailReminder
 }) => {
   const classes = useStyles();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -190,6 +193,8 @@ const Todo = ({
         isOpen={isCalendarOpen}
         onConfirm={onCalendarConfirm}
         onClose={onCalendarCloseClick}
+        hasEmailReminder={hasEmailReminder}
+        onEmailReminderChange={toggleEmailReminder(id)}
         value={dateTimestamp}
       />
     </li>
@@ -206,13 +211,15 @@ Todo.propTypes = {
   textDraft: PropTypes.string.isRequired,
   textFinal: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
+  hasEmailReminder: PropTypes.bool.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
-  complete: PropTypes.func.isRequired
+  complete: PropTypes.func.isRequired,
+  toggleEmailReminder: PropTypes.func.isRequired
 };
 
 Todo.defaultProps = {
@@ -225,7 +232,8 @@ const mapStateToProps = (state, ownProps) => ({
   isComplete : isTodoCompleteById(ownProps.id),
   textDraft : getTodoDraftTextById(ownProps.id),
   textFinal : getTodoFinalTextById(ownProps.id),
-  isEditActive: isTodoEditActiveById(ownProps.id)
+  isEditActive: isTodoEditActiveById(ownProps.id),
+  hasEmailReminder: hasTodoEmailReminder(ownProps.id)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -235,7 +243,8 @@ const mapDispatchToProps = dispatch => ({
   setDate: (id, timestamp) => dispatch(todosSlice.actions.setDateTimestamp({ id, timestamp })),
   remove: id => () => dispatch(todosSlice.actions.remove(id)),
   change: (id, draft) => dispatch(todosSlice.actions.change({ id, draft })),
-  complete: (id, checked) => dispatch(todosSlice.actions.complete({ id, checked }))
+  complete: (id, checked) => dispatch(todosSlice.actions.complete({ id, checked })),
+  toggleEmailReminder: id => () => dispatch(todosSlice.actions.toggleDateEmailReminder(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);
