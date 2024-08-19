@@ -23,8 +23,7 @@ import {
   listTitleContainer,
   text
 } from '@components/List/styles';
-import { flex } from '@jss/styles';
-import { tilt } from '@jss/utils';
+import { tilt, flex } from '@jss/styles';
 
 import { TYPES } from '@src/constants';
 import {

@@ -4,8 +4,6 @@
  * Holds re-usable jss style utilties.
  */
 
-const tilt = 'rotate(2deg)';
-
 /**
  * Handle class concatenation for extra classes.
  *
@@ -25,4 +23,4 @@ const getClassNames = (mainName, extraNames) => {
   return classNames.trim();
 };
 
-export { tilt, getClassNames };
+export { getClassNames };

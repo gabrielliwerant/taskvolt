@@ -31,8 +31,7 @@ import {
   completeBackdrop,
   defaultBackdrop
 } from '@components/Todo/styles';
-import { flexCenterY } from '@jss/styles';
-import { tilt } from '@jss/utils';
+import { tilt, flexCenterY } from '@jss/styles';
 import { WIDTHS, COLORS } from '@jss/constants';
 
 import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';

@@ -28,7 +28,6 @@ import {
   defaultBackdrop
 } from '@components/Todo/styles';
 import { flex } from '@jss/styles';
-import { tilt } from '@jss/utils';
 
 import {
   isTodoCompleteById,

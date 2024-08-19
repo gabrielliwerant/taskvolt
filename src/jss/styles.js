@@ -4,6 +4,8 @@
  * Holds re-usable style objects for jss stlying.
  */
 
+const tilt = 'rotate(2deg)';
+
 const flex = {
   display: 'flex'
 };
@@ -21,4 +23,4 @@ const hidden = {
   display: 'none'
 };
 
-export { flex, flexCenterY, fullWidth, hidden };
+export { tilt, flex, flexCenterY, fullWidth, hidden };
