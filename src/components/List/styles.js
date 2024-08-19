@@ -16,8 +16,6 @@ import {
 } from '@jss/constants';
 
 const lists = {
-  display: 'flex',
-  justifyContent: 'center',
   padding: `${TOP_OFFSET}px`,
   position: 'absolute'
 };
@@ -45,16 +43,8 @@ const listContainer = {
   }
 };
 
-const listTitleContainer = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between'
-};
-
 const text = {
-  display: 'flex',
-  alignItems: 'center',
   fontSize: '18px'
 };
 
-export { lists, listItemContainer, listContainer, listTitleContainer, text };
+export { lists, listContainer, listItemContainer, text };

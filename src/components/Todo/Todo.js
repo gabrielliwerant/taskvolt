@@ -149,6 +149,7 @@ const Todo = ({
       <div
         className={classNames({
           [classes.todoContainer]: true,
+          [classes.flexCenterY]: true,
           [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
           [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
           [classes.defaultBackdrop]: !isComplete,

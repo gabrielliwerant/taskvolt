@@ -17,13 +17,8 @@ import { Tooltip } from '@components/lib/Tooltip';
 import { Todos } from '@components/Todo';
 import { NameContainer } from '@components/Name';
 
-import {
-  listItemContainer,
-  listContainer,
-  listTitleContainer,
-  text
-} from '@components/List/styles';
-import { tilt, flex } from '@jss/styles';
+import { listContainer, listItemContainer, text } from '@components/List/styles';
+import { tilt, flex, flexCenterX, flexCenterY } from '@jss/styles';
 
 import { TYPES } from '@src/constants';
 import {
@@ -36,11 +31,17 @@ import {
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 
+const classNames = require('classnames');
+
 const useStyles = createUseStyles({
-  listItemContainer,
   listContainer,
-  listTitleContainer,
-  text,
+  listItemContainer,
+  listNameContainerText: {
+    ...text,
+    ...flexCenterY
+  },
+  flexCenterX,
+  flexCenterY,
   flex
 });
 
@@ -71,7 +72,7 @@ const List = ({
         className={classes.listContainer}
         style={{ transform: dragId === id ? tilt : '' }}
       >
-        <div className={classes.listTitleContainer}>
+        <div className={classNames({ [classes.flexCenterX]: true, [classes.flexCenterY]: true })}>
           <NameContainer
             onClickEdit={edit}
             onChangeEdit={onChange}
@@ -81,7 +82,7 @@ const List = ({
             textDraft={getListDraftTextFromList(item)}
             isEditActive={getListIsEditActiveFromList(item)}
             isComplete={false}
-            myClassNames={{ text: classes.text }}
+            myClassNames={{ text: classes.listNameContainerText }}
             type={TYPES.LIST}
           />
           {!getListIsEditActiveFromList(item) &&

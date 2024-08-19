@@ -27,7 +27,7 @@ import {
   completeBackdrop,
   defaultBackdrop
 } from '@components/Todo/styles';
-import { flex } from '@jss/styles';
+import { flex, flexCenterY } from '@jss/styles';
 
 import {
   isTodoCompleteById,
@@ -66,6 +66,7 @@ const useStyles = createUseStyles({
   name: {
     cursor: 'default'
   },
+  flexCenterY,
   flex
 });
 
@@ -104,6 +105,7 @@ const TodoTrash = ({
       <div
         className={classNames({
           [classes.todoContainer]: true,
+          [classes.flexCenterY]: true,
           [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
           [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
           [classes.defaultBackdrop]: !isComplete,

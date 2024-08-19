@@ -17,6 +17,7 @@ import RemoveListDialog from '@components/RemoveListDialog';
 import MessageLarge from '@components/MessageLarge';
 
 import { lists } from '@components/List/styles';
+import { flexCenterX } from '@jss/styles';
 import { Z_INDEX } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
@@ -28,6 +29,7 @@ const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   lists,
+  flexCenterX,
   nonPlaceholders: {
     zIndex: Z_INDEX.LIST
   },
@@ -67,7 +69,11 @@ const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
           {(provided) => (
             <Fragment>
               <ul
-                className={classNames({ [classes.lists]: true, [classes.nonPlaceholders]: true })}
+                className={classNames({
+                  [classes.lists]: true,
+                  [classes.flexCenterX]: true,
+                  [classes.nonPlaceholders]: true
+                })}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
@@ -79,7 +85,13 @@ const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
                   </Draggable>
                 ))}
               </ul>
-              <ul className={classNames({ [classes.lists]: true, [classes.placeholders]: true })}>
+              <ul
+                className={classNames({
+                  [classes.lists]: true,
+                  [classes.flexCenterX]: true,
+                  [classes.placeholders]: true
+                })}
+              >
                 {listsSort[projectId].map((id, listIndex) => (
                   <ListPlaceholder
                     key={id}

@@ -14,11 +14,15 @@ import MessageLarge from '@components/MessageLarge';
 import DeleteListDialog from '@components/DeleteListDialog';
 
 import { lists } from '@components/List/styles';
+import { flexCenterX } from '@jss/styles';
 
 import { listsSlice } from '@redux/reducers/lists';
 
+const classNames = require('classnames');
+
 const useStyles = createUseStyles({
-  lists
+  lists,
+  flexCenterX
 });
 
 const ListsTrash = ({ listIds, initExpunge }) => {
@@ -47,7 +51,7 @@ const ListsTrash = ({ listIds, initExpunge }) => {
   return (
     <Fragment>
       {!!listIds.length &&
-        <ul className={classes.lists}>
+        <ul className={classNames({ [classes.lists]: true, [classes.flexCenterX]: true })}>
           {listIds.map(id => <ListTrash key={id} id={id} expunge={onExpungeClick(id)} />)}
         </ul>
       }

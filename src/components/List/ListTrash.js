@@ -17,13 +17,8 @@ import { IconButton } from '@components/lib/IconButton';
 import { TodosTrash } from '@components/Todo';
 import { NameContainer } from '@components/Name';
 
-import {
-  listItemContainer,
-  listContainer,
-  listTitleContainer,
-  text
-} from '@components/List/styles';
-import { flex } from '@jss/styles';
+import { listContainer, listItemContainer, text } from '@components/List/styles';
+import { flex, flexCenterX, flexCenterY } from '@jss/styles';
 
 import { TYPES } from '@src/constants';
 import { isProjectRemoved } from '@redux/selectors/projects';
@@ -42,21 +37,23 @@ import { todosSlice } from '@redux/reducers/todos';
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  listItemContainer,
   listContainer: {
     ...listContainer,
 
     '&:hover': {}
   },
-  listTitleContainer,
-  text: {
+  listItemContainer,
+  listNameContainerText: {
     ...text,
+    ...flexCenterY,
 
     cursor: 'default'
   },
   removed: {
     opacity: '0.6'
   },
+  flexCenterX,
+  flexCenterY,
   flex
 });
 
@@ -91,13 +88,19 @@ const ListTrash = ({
   return (
     <Fragment>
       {hasList &&
-        <li key={id} className={classes.listItemContainer}>
+        <li
+          key={id}
+          className={classes.listItemContainer}
+        >
           <div className={classes.listContainer}>
-            <div className={classes.listTitleContainer}>
+            <div
+              className={classNames({ [classes.flexCenterX]: true, [classes.flexCenterY]: true })}
+            >
               <NameContainer
                 textFinal={getListTextFinalFromList(item)}
                 myClassNames={{
-                  container: classNames({ [classes.removed]: !isRemoved }), text: classes.text
+                  container: classNames({ [classes.removed]: !isRemoved }),
+                  text: classes.listNameContainerText
                 }}
                 type={TYPES.LIST}
               />

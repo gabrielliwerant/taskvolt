@@ -32,9 +32,7 @@ const todoContainer = {
   padding: '0 4px 0 4px',
   border: `1px solid ${COLORS[TYPES.TODO].BORDER}`,
   borderRadius: '4px',
-  width: '300px',
-  display: 'flex',
-  alignItems: 'center'
+  width: '300px'
 };
 
 const todoContainerPaddingWithDatetime = {
