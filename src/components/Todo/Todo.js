@@ -107,7 +107,7 @@ const Todo = ({
    */
   const onChange = e => {
     // Prevent entering characters past our limit
-    if (e.target.value.length > MAX_LENGTH_INPUT) return;
+    if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.TODO]) return;
 
     change(id, e.target.value);
   };
