@@ -21,5 +21,4 @@ const hidden = {
   display: 'none'
 };
 
-export { flex, fullWidth, hidden };
 export { flex, flexCenterY, fullWidth, hidden };
