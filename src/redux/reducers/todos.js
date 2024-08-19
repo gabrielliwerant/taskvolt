@@ -83,7 +83,8 @@ const todosSlice = createSlice({
       // Update todo list id owner
       state.items[todoId].listId = newListId;
     },
-    select: (state, action) => { state.selected = action.payload; }
+    select: (state, action) => { state.selected = action.payload; },
+    drop: (state, action) => { state.dropping = action.payload; }
   }
 });
 

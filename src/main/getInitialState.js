@@ -35,7 +35,7 @@ const getInitialState = () => {
       dropping: null,
       sort: { '1': [] }
     },
-    todos: { items: {}, sort: { '1': [] }, selected: '' }
+    todos: { items: {}, sort: { '1': [] }, selected: '', dropping: null }
   };
 
   if (local) return JSON.parse(local);

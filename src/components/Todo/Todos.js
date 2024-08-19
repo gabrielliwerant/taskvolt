@@ -18,15 +18,13 @@ import { getTodosHeight } from '@components/Todo/utils';
 import { LIST_PADDING } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
-import { getIndexFromId } from '@src/utils';
 import { getTodosItems, getTodosSort } from '@redux/selectors/todos';
-import { getListsSort } from '@redux/selectors/lists';
 
 const useStyles = createUseStyles({
   todos
 });
 
-const Todos = ({ listId, listSort, todosItems, todosSort }) => {
+const Todos = ({ listId, todosItems, todosSort }) => {
   const classes = useStyles();
 
   return (
@@ -49,7 +47,7 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
               <TodoPlaceholder
                 key={`placeholder-${todoId}`}
                 id={todoId}
-                listIndex={getIndexFromId(listId, listSort)}
+                listId={listId}
                 index={index}
               />
             ))}
@@ -62,13 +60,11 @@ const Todos = ({ listId, listSort, todosItems, todosSort }) => {
 
 Todos.propTypes = {
   listId: PropTypes.string.isRequired,
-  listSort: PropTypes.object.isRequired,
   todosItems: PropTypes.object.isRequired,
   todosSort: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => ({
-  listSort: getListsSort(),
   todosItems: getTodosItems(),
   todosSort: getTodosSort()
 });

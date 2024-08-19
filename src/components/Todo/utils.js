@@ -23,6 +23,23 @@ const _getHeightForTextLength = len => {
 };
 
 /**
+ * Calculate the total height for a todo id.
+ *
+ * @param {string} id
+ * @returns {integer}
+ */
+const getTodoHeight = id => {
+  let height = 0;
+
+  if (isTodoEditActiveById(id)) height += LINES_TO_HEIGHT[TYPES.TODO].TWO;
+  else height += _getHeightForTextLength(getTodoFinalTextById(id).length);
+
+  height += MARGINS[TYPES.TODO].MAIN;
+
+  return height;
+};
+
+/**
  * Calculate the total height for a list of todo ids.
  *
  * @param {array[string]} ids
@@ -31,13 +48,9 @@ const _getHeightForTextLength = len => {
 const getTodosHeight = ids => {
   let height = 0;
 
-  ids.forEach(id => {
-    if (isTodoEditActiveById(id)) height += LINES_TO_HEIGHT[TYPES.TODO].TWO;
-    else height += _getHeightForTextLength(getTodoFinalTextById(id).length);
-    height += MARGINS[TYPES.TODO].MAIN;
-  });
+  ids.forEach(id => height += getTodoHeight(id));
 
   return height;
 };
 
-export { getTodosHeight };
+export { getTodoHeight, getTodosHeight };

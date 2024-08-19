@@ -32,7 +32,8 @@ const ListsContainer = ({
   selectTodo,
   reorderList,
   selectList,
-  drop
+  droppingList,
+  droppingTodo
 }) => {
   const classes = useStyles();
 
@@ -40,8 +41,7 @@ const ListsContainer = ({
     switch (result.type) {
       case TYPES.TODO:
         selectTodo('');
-
-        if (!result.destination) return;
+        droppingTodo(null);
 
         const destinationId = getDragDropId(result.destination.droppableId);
         const sourceId = getDragDropId(result.source.droppableId);
@@ -55,11 +55,7 @@ const ListsContainer = ({
         break;
       case TYPES.LIST:
         selectList('');
-
-        if (!result.destination) {
-          drop(null);
-          return;
-        }
+        droppingList(null);
 
         reorderList(
           getDragDropId(result.draggableId),
@@ -78,15 +74,17 @@ const ListsContainer = ({
         break;
       case TYPES.LIST:
         selectList(getDragDropId(start.draggableId));
-        drop(start.source.index);
         break;
     }
   };
 
   const onDragUpdate = update => {
     switch (update.type) {
+      case TYPES.TODO:
+        if (update.destination) droppingTodo(update.destination.index);
+        break;
       case TYPES.LIST:
-        if (update.destination) drop(update.destination.index);
+        if (update.destination) droppingList(update.destination.index);
         break;
     }
   };
@@ -107,7 +105,8 @@ ListsContainer.propTypes = {
   selectTodo: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
   selectList: PropTypes.func.isRequired,
-  drop: PropTypes.func.isRequired
+  droppingList: PropTypes.func.isRequired,
+  droppingTodo: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -126,7 +125,8 @@ const mapDispatchToProps = dispatch => ({
     listsSlice.actions.reorder({ listId, projectId, oldIndex, newIndex })
   ),
   selectList: id => dispatch(listsSlice.actions.select(id)),
-  drop: index => dispatch(listsSlice.actions.drop(index))
+  droppingList: index => dispatch(listsSlice.actions.drop(index)),
+  droppingTodo: index => dispatch(todosSlice.actions.drop(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);

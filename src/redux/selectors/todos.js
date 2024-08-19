@@ -12,8 +12,13 @@ const _getTodos = () => getState('todos');
 
 const getTodosItems = () => _getTodos().items;
 const getTodosSort = () => _getTodos().sort;
+const _getTodoSortByListId = id => getTodosSort()[id];
+const getTodoIdBySortIndex = (index, listId) => _getTodoSortByListId(listId)[index];
 const getTodoSelected = () => _getTodos().selected;
+const getTodoDropping = () => _getTodos().dropping;
+const getTodoSortIndexById = (id, listId) => _getTodoSortByListId(listId).findIndex(i => i === id);
 const _getTodoItemById = id => getTodosItems()[id];
+const getTodoItemListIdById = id => _getTodoItemById(id).listId;
 const isTodoCompleteById = id => _getTodoItemById(id).isComplete;
 const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
 const getTodoFinalTextById = id => _getTodoItemById(id).text.final;
@@ -63,7 +68,11 @@ const getTodoListIdFromTodo = todo => todo.listId;
 export {
   getTodosItems,
   getTodosSort,
+  getTodoIdBySortIndex,
   getTodoSelected,
+  getTodoDropping,
+  getTodoSortIndexById,
+  getTodoItemListIdById,
   isTodoCompleteById,
   getTodoDraftTextById,
   getTodoFinalTextById,
