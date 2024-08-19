@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import Placeholder from '@components/Placeholder';
 import { TodoTrash } from '@components/Todo';
 
 import { todos } from '@components/Todo/styles';
@@ -28,7 +27,7 @@ const TodosTrash = ({ listId, todosItems }) => {
 
   return (
     <ul className={classes.todos}>
-      {todosItems.map(todo => 
+      {todosItems.map(todo =>
         <TodoTrash key={getTodoIdFromTodo(todo)} id={getTodoIdFromTodo(todo)} todo={todo} />
       )}
     </ul>

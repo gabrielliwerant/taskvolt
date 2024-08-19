@@ -12,7 +12,6 @@ import {
   TOP_OFFSET,
   MARGINS,
   WIDTHS,
-  Z_INDEX,
   COLORS
 } from '@jss/constants';
 
@@ -28,7 +27,7 @@ const listItemContainer = {
   marginBottom: '30px',
   marginRight: '30px',
   position: 'relative',
-  zIndex: Z_INDEX.LIST,
+
   '&:last-child': {
     marginRight: 0
   }

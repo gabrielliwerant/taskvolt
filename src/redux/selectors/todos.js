@@ -35,6 +35,15 @@ const getTodoIdsByListId = id =>
   Object.values(getTodosItems()).filter(item => item.listId === id).map(item => item.id);
 
 /**
+ * From a given list id, return all todo items that have that list id.
+ *
+ * @param {string} id List id
+ * @returns {array[string]}
+ */
+const getTodoItemsByListId = id =>
+  Object.values(getTodosItems()).filter(item => item.listId === id);
+
+/**
  * From a given list id, return all removed todo ids that have that list id.
  *
  * @param {string} id List id
@@ -79,6 +88,7 @@ export {
   isTodoEditActiveById,
   getTodoItemDateTimestampById,
   getTodoIdsByListId,
+  getTodoItemsByListId,
   getRemovedTodoIdsByListId,
   getUniqueListIdsFromRemovedTodoItems,
   getRemovedTodoItemsByListId,
