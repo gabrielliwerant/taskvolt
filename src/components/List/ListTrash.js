@@ -21,6 +21,7 @@ import { listContainer, listItemContainer, text } from '@components/List/styles'
 import { flex, flexCenterX, flexCenterY } from '@jss/styles';
 
 import { TYPES } from '@src/constants';
+import { getAppActiveTab } from '@redux/selectors/app';
 import { isProjectRemoved } from '@redux/selectors/projects';
 import {
   getListItemById,
@@ -30,6 +31,7 @@ import {
   getListTextFinalFromList
 } from '@redux/selectors/lists';
 import { getRemovedTodoIdsByListId } from '@redux/selectors/todos';
+import { appSlice } from '@redux/reducers/app';
 import { projectsSlice } from '@redux/reducers/projects';
 import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
@@ -62,10 +64,12 @@ const ListTrash = ({
   item,
   isRemoved,
   hasList,
+  activeTab,
   expunge,
   restoreProject,
   restoreList,
-  restoreTodo
+  restoreTodo,
+  setActiveTab
 }) => {
   const classes = useStyles();
 
@@ -82,7 +86,10 @@ const ListTrash = ({
 
     const projectId = getListItemProjectId(id);
 
-    if (isProjectRemoved(projectId)) restoreProject(projectId);
+    if (!isProjectRemoved(projectId)) return;
+
+    restoreProject(projectId);
+    setActiveTab(activeTab + 1);
   };
 
   return (
@@ -134,10 +141,12 @@ ListTrash.propTypes = {
   item: PropTypes.object,
   isRemoved: PropTypes.bool.isRequired,
   hasList: PropTypes.bool.isRequired,
+  activeTab: PropTypes.number.isRequired,
   expunge: PropTypes.func.isRequired,
   restoreProject: PropTypes.func.isRequired,
   restoreList: PropTypes.func.isRequired,
-  restoreTodo: PropTypes.func.isRequired
+  restoreTodo: PropTypes.func.isRequired,
+  setActiveTab: PropTypes.func.isRequired
 };
 
 ListTrash.defaultProps = {
@@ -147,13 +156,15 @@ ListTrash.defaultProps = {
 const mapStateToProps = (state, ownProps) => ({
   item: getListItemById(ownProps.id),
   isRemoved: isListRemoved(ownProps.id),
-  hasList: hasListItemById(ownProps.id)
+  hasList: hasListItemById(ownProps.id),
+  activeTab: getAppActiveTab()
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   restoreProject: id => dispatch(projectsSlice.actions.restore(id)),
   restoreList: id => dispatch(listsSlice.actions.restore(id)),
-  restoreTodo: id => dispatch(todosSlice.actions.restore(id))
+  restoreTodo: id => dispatch(todosSlice.actions.restore(id)),
+  setActiveTab: index => dispatch(appSlice.actions.setActiveTab(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListTrash);
