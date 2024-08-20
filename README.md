@@ -40,6 +40,8 @@ when available.
 
 ## Possible Additions
 
+- Add date/time to trash todos
+- Add date/time to lists
 - Allow toggling visibility of completed todos
 - Add note type feature
 - Add comments on todos feature

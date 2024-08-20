@@ -4,7 +4,7 @@
  * Renders the time clock modal section for choosing times and other interactions.
  */
 
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
@@ -71,13 +71,15 @@ const TimeClockModal = ({
   onReminderChange
 }) => {
   const classes = useStyles();
-  const [displayTime, setDisplayTime] = useState(getTimeFormatted());
+  const [displayTime, setDisplayTime] = useState(getTimeFormatted(getDateFromUnixTimestamp(value)));
   const [chosenTime, setChosenTime] = useState(getDateFromUnixTimestamp(value));
   const [isReminderChecked, setIsReminderChecked] = useState(hasReminder);
-  const [isReminderDisabled, setIsReminderDisabled] = useState(!!value);
-  const [isDayHalfAm, setIsDayHalfAm] = useState(isAm(value));
+  const [isReminderDisabled, setIsReminderDisabled] = useState(!value);
+  const [isDayHalfAm, setIsDayHalfAm] = useState(isAm(getDateFromUnixTimestamp(value)));
   const [timeView, setTimeView] = useState(TIME_VIEWS.HOURS);
   const [isResetable, setIsResetable] = useState(!!value);
+
+  useEffect(() => setIsResetable(!!value), [value]);
 
   /**
    * Handle update to display and saving data to state when we select new times.
@@ -102,7 +104,7 @@ const TimeClockModal = ({
    */
   const onReminderChangeHandler = () => {
     setIsReminderChecked(!isReminderChecked);
-    setIsResetable(true);
+    if (!isReminderChecked) setIsResetable(true);
   };
 
   /**
@@ -129,7 +131,7 @@ const TimeClockModal = ({
     onClose();
     setDisplayTime(getTimeFormatted(date));
     setChosenTime(date);
-    setIsDayHalfAm(isAm(value));
+    setIsDayHalfAm(isAm(date));
     setIsReminderChecked(hasReminder);
     setTimeView(TIME_VIEWS.HOURS);
     if (!value) setIsReminderDisabled(true);
