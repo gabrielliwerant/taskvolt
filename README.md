@@ -48,6 +48,7 @@ when available.
 - Add comments on todos feature
 - Allow marking as important
 - Allow collapsing lists
+- Break up words that are too many characters to fit on a single line
 
 ## Known Bugs
 

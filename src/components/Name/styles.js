@@ -33,7 +33,7 @@ const item = {
 };
 
 const text = {
-  wordBreak: 'break-all',
+  wordBreak: 'break-word',
   '& div': {
     fontSize: '14px'
   }
