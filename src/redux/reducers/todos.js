@@ -6,7 +6,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { makeId } from '@src/utils';
+import { makeId, getUnixTimestampFromDate } from '@src/utils';
 import { getInitialState } from '@main/getInitialState';
 import { makeNewTodo } from '@main/todos';
 
@@ -55,14 +55,16 @@ const todosSlice = createSlice({
       const listId = state.items[action.payload].listId;
 
       state.sort[listId] = state.sort[listId].filter(id => id !== action.payload);
-      state.items[action.payload].isRemoved = true;
+      state.items[action.payload].trash.timestamp = getUnixTimestampFromDate();
+      state.items[action.payload].trash.isTrashed = true;
     },
     expunge: (state, action) => { delete state.items[action.payload]; },
     restore: (state, action) => {
       const listId = state.items[action.payload].listId;
 
       state.sort[listId].push(action.payload);
-      state.items[action.payload].isRemoved = false;
+      state.items[action.payload].trash.timestamp = null;
+      state.items[action.payload].trash.isTrashed = false;
     },
     complete: (state, action) => {
       const { id, checked } = action.payload;

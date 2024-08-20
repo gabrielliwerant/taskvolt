@@ -55,7 +55,7 @@ const ListsTrash = ({ listIds, initExpunge }) => {
           {listIds.map(id => <ListTrash key={id} id={id} expunge={onExpungeClick(id)} />)}
         </ul>
       }
-      {!listIds.length && <MessageLarge>No Removed Items...</MessageLarge>}
+      {!listIds.length && <MessageLarge>No Deleted Items...</MessageLarge>}
       <DeleteListDialog open={isDialogOpen} onClose={onDialogClose} />
     </Fragment>
   );

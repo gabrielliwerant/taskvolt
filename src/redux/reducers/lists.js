@@ -6,6 +6,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getUnixTimestampFromDate } from '@src/utils';
 import { getInitialState } from '@main/getInitialState';
 import { makeNewList } from '@main/lists';
 
@@ -40,14 +41,16 @@ const listsSlice = createSlice({
       const projectId = state.items[action.payload].projectId;
 
       state.sort[projectId] = state.sort[projectId].filter(id => id !== action.payload);
-      state.items[action.payload].isRemoved = true;
+      state.items[action.payload].trash.timestamp = getUnixTimestampFromDate();
+      state.items[action.payload].trash.isTrashed = true;
     },
     expunge: (state, action) => { delete state.items[action.payload]; },
     restore: (state, action) => {
       const projectId = state.items[action.payload].projectId;
 
       state.sort[projectId].push(action.payload);
-      state.items[action.payload].isRemoved = false;
+      state.items[action.payload].trash.timestamp = null;
+      state.items[action.payload].trash.isTrashed = false;
     },
     change: (state, action) => {
       const { id, draft } = action.payload;

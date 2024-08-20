@@ -54,7 +54,7 @@ const getTodoItemsByListId = id =>
  */
 const getRemovedTodoIdsByListId = id =>
   Object.values(getTodosItems())
-    .filter(item => item.isRemoved && item.listId === id)
+    .filter(item => item.trash.isTrashed && item.listId === id)
     .map(item => item.id);
 
 /**
@@ -62,8 +62,9 @@ const getRemovedTodoIdsByListId = id =>
  *
  * @returns {array[string]}
  */
-const getUniqueListIdsFromRemovedTodoItems = () =>
-  _uniq(Object.values(getTodosItems()).filter(item => item.isRemoved).map(item => item.listId));
+const getUniqueListIdsFromRemovedTodoItems = () => _uniq(
+  Object.values(getTodosItems()).filter(item => item.trash.isTrashed).map(item => item.listId)
+);
 
 /**
  * Retrieve all removed todo items from a given list id.
@@ -72,7 +73,7 @@ const getUniqueListIdsFromRemovedTodoItems = () =>
  * @returns {array[object]}
  */
 const getRemovedTodoItemsByListId = id =>
-  Object.values(getTodosItems()).filter(item => item.isRemoved && item.listId === id);
+  Object.values(getTodosItems()).filter(item => item.trash.isTrashed && item.listId === id);
 
 const getTodoIdFromTodo = todo => todo.id;
 const getTodoListIdFromTodo = todo => todo.listId;

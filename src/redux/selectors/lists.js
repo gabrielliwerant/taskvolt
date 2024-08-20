@@ -10,7 +10,7 @@ const _getLists = () => getState('lists');
 const _getListsItems = () => _getLists().items;
 
 const getListItemById = id => _getListsItems()[id];
-const isListRemoved = id => !!_getListsItems()?.[id]?.isRemoved;
+const isListRemoved = id => !!_getListsItems()?.[id]?.trash.isTrashed;
 const getListItemProjectId = id => getListItemById(id).projectId;
 const hasListItemById = id => !!_getListsItems()?.[id];
 const getListsSort = () => _getLists().sort;

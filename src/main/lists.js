@@ -18,9 +18,12 @@ const makeNewList = (id, projectId, final) => ({
     draft: final,
     final
   },
+  trash: {
+    timestamp: null,
+    isTrashed: false
+  },
   projectId,
-  isEditActive: false,
-  isRemoved: false
+  isEditActive: false
 });
 
 export { makeNewList };

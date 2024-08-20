@@ -26,10 +26,13 @@ const makeNewTodo = (id, listId, final) => ({
     timestamp: null,
     hasReminder: false
   },
+  trash: {
+    timestamp: null,
+    isTrashed: false
+  },
   listId,
   isEditActive: false,
-  isComplete: false,
-  isRemoved: false
+  isComplete: false
 });
 
 export { makeNewTodo };

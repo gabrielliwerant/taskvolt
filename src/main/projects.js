@@ -18,9 +18,12 @@ const makeNewProject = (id, userId, final) => ({
     draft: final,
     final
   },
+  trash: {
+    timestamp: null,
+    isTrashed: false
+  },
   userId,
   isEditActive: false,
-  isRemoved: false,
   isActive: false
 });
 
