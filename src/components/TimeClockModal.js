@@ -111,7 +111,7 @@ const TimeClockModal = ({
    * @returns {void}
    */
   const onTimeConfirm = () => {
-    const timestamp = chosenTime ? getUnixTimestampFromDate(chosenTime) : null;
+    const timestamp = isResetable ? getUnixTimestampFromDate(chosenTime) : null;
 
     onConfirm(timestamp);
     onReminderChange(isReminderChecked);
