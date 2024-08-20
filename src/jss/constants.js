@@ -46,8 +46,7 @@ const HEIGHTS = {
 
 const WIDTHS = {
   [TYPES.TODO]: {
-    MAIN: 308,
-    LABEL: 93
+    MAIN: 308
   },
   [TYPES.LIST]: {
     MAIN: 340

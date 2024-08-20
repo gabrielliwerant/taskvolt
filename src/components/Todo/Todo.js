@@ -26,7 +26,7 @@ import {
   defaultBackdrop
 } from '@components/Todo/styles';
 import { tilt, flexCenterY } from '@jss/styles';
-import { WIDTHS, COLORS } from '@jss/constants';
+import { COLORS } from '@jss/constants';
 
 import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import {
@@ -53,14 +53,12 @@ const useStyles = createUseStyles({
 
     '& label': {
       marginLeft: '-2px',
-      minWidth: WIDTHS[TYPES.TODO].LABEL,
       background: `linear-gradient(180deg,
         ${COLORS[TYPES.TODO].BACKGROUND_LABEL.START},
         ${COLORS[TYPES.TODO].BACKGROUND_LABEL.STOP})`
     },
     '&:hover label': {
       marginLeft: '-2px',
-      minWidth: WIDTHS[TYPES.TODO].LABEL,
       background: `linear-gradient(180deg,
         ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.START},
         ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.STOP})`
