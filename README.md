@@ -30,6 +30,7 @@ when available.
 - Allow color pickers for todos/lists
 - Auto delete/prune old trashed items based on timestamp
 - Add fancy animations/transitions
+- Completing todo should cancel reminders
 - Add branding
 - Allow reordering of project tabs
 - Add basic user/login functionality

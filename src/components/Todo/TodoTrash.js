@@ -33,7 +33,8 @@ import {
   isTodoCompleteById,
   getTodoFinalTextById,
   getTodoListIdFromTodo,
-  getTodoItemDateTimestampById
+  getTodoItemDateTimestampById,
+  getTodoItemTimeTimestampById
 } from '@redux/selectors/todos';
 import { isListRemoved, getListItemProjectId } from '@redux/selectors/lists';
 import { isProjectRemoved } from '@redux/selectors/projects';
@@ -82,6 +83,7 @@ const TodoTrash = ({
 }) => {
   const classes = useStyles();
   const dateTimestamp = getTodoItemDateTimestampById(id);
+  const timeTimestamp = getTodoItemTimeTimestampById(id);
 
   /**
    * Handle todo item restoration.
@@ -118,6 +120,7 @@ const TodoTrash = ({
           isEditActive={false}
           isComplete={isComplete}
           dateTimestamp={dateTimestamp}
+          timeTimestamp={timeTimestamp}
           myClassNames={{
             container: classNames({
               [classes.name]: true,
