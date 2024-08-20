@@ -19,8 +19,6 @@ import TimeClockModal from '@components/TimeClockModal';
 import {
   complete,
   todoContainer,
-  todoContainerPaddingWithDatetime,
-  todoContainerPaddingWithoutDatetime,
   item,
   completeBackdrop,
   defaultBackdrop
@@ -64,8 +62,6 @@ const useStyles = createUseStyles({
         ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.STOP})`
     }
   },
-  todoContainerPaddingWithDatetime,
-  todoContainerPaddingWithoutDatetime,
   item,
   flexCenterY
 });
@@ -173,8 +169,6 @@ const Todo = ({
         className={classNames({
           [classes.todoContainer]: true,
           [classes.flexCenterY]: true,
-          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp || !!timeTimestamp,
-          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp && !timeTimestamp,
           [classes.defaultBackdrop]: !isComplete,
           [classes.completeBackdrop]: isComplete
         })}

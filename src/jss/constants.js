@@ -10,10 +10,10 @@ import { TYPES } from '@src/constants';
 // TODO: Make this data driven instead of hard-coded
 const LINES_TO_HEIGHT = {
   [TYPES.TODO]: {
-    TWO: 48,
-    THREE: 67,
-    FOUR: 86,
-    FIVE: 105
+    TWO: 56,
+    THREE: 75,
+    FOUR: 94,
+    FIVE: 113
   }
 };
 

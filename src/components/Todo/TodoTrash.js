@@ -21,8 +21,6 @@ import { NameContainer } from '@components/Name';
 import {
   complete,
   todoContainer,
-  todoContainerPaddingWithDatetime,
-  todoContainerPaddingWithoutDatetime,
   item,
   completeBackdrop,
   defaultBackdrop
@@ -57,8 +55,6 @@ const useStyles = createUseStyles({
     '&:hover': {}
   },
   todoContainer,
-  todoContainerPaddingWithDatetime,
-  todoContainerPaddingWithoutDatetime,
   item: {
     ...item,
 
@@ -108,8 +104,6 @@ const TodoTrash = ({
         className={classNames({
           [classes.todoContainer]: true,
           [classes.flexCenterY]: true,
-          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
-          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
           [classes.defaultBackdrop]: !isComplete,
           [classes.completeBackdrop]: isComplete,
         })}

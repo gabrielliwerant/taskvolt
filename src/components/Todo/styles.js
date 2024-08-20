@@ -29,20 +29,10 @@ const complete = {
 };
 
 const todoContainer = {
-  padding: '0 4px 0 4px',
+  padding: '8px 4px',
   border: `1px solid ${COLORS[TYPES.TODO].BORDER}`,
   borderRadius: '4px',
   width: '300px'
-};
-
-const todoContainerPaddingWithDatetime = {
-  paddingTop: '11px',
-  paddingBottom: '4px'
-};
-
-const todoContainerPaddingWithoutDatetime = {
-  paddingTop: '4px',
-  paddingBottom: '4px'
 };
 
 const item = {
@@ -84,13 +74,4 @@ const defaultBackdrop = {
   }
 };
 
-export {
-  todos,
-  complete,
-  todoContainerPaddingWithDatetime,
-  todoContainerPaddingWithoutDatetime,
-  todoContainer,
-  item,
-  completeBackdrop,
-  defaultBackdrop
-};
+export { todos, complete, todoContainer, item, completeBackdrop, defaultBackdrop };
