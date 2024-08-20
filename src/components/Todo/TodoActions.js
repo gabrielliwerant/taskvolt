@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/DeleteRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
 import EventIcon from '@mui/icons-material/EventRounded';
 import AccessTimeIcon from '@mui/icons-material/AccessTimeRounded';
+import AlarmIcon from '@mui/icons-material/AlarmRounded';
 
 import { MenuList, MenuItem } from '@components/lib/Menu';
 import { Tooltip } from '@components/lib/Tooltip';
@@ -27,11 +28,40 @@ const useStyles = createUseStyles({
   flexCenterY
 });
 
-const TodoActions = ({ id, remove, onCalendarClick, onClockClick }) => {
+const TodoActions = ({
+  id,
+  remove,
+  onCalendarClick,
+  onClockClick,
+  hasDateReminder,
+  hasTimeReminder
+}) => {
   const classes = useStyles();
+
+  /**
+   * Set the tooltip and aria title/label for our date/time reminder.
+   *
+   * @returns {string}
+   */
+  const getReminderTitle = () => {
+    const dateReminder = hasDateReminder ? 'Date' : '';
+    const timeReminder = hasTimeReminder ? 'Time' : '';
+    const conjunction = hasDateReminder && hasTimeReminder ? ' and ' : '';
+
+    return `${dateReminder}${conjunction}${timeReminder} reminder set`;
+  };
 
   return (
     <div className={classes.flexCenterY}>
+      {(hasDateReminder || hasTimeReminder) &&
+        <Tooltip title={getReminderTitle()}>
+          <span>
+            <IconButton disabled ariaLabel={getReminderTitle()}>
+              <AlarmIcon fontSize='small' />
+            </IconButton>
+          </span>
+        </Tooltip>
+      }
       <Tooltip title='Delete todo'>
         <IconButton onClick={remove} ariaLabel='Delete todo item'>
           <DeleteIcon fontSize='small' />
@@ -54,7 +84,9 @@ TodoActions.propTypes = {
   id: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
   onCalendarClick: PropTypes.func.isRequired,
-  onClockClick: PropTypes.func.isRequired
+  onClockClick: PropTypes.func.isRequired,
+  hasDateReminder: PropTypes.bool.isRequired,
+  hasTimeReminder: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

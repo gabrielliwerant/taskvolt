@@ -9,12 +9,20 @@ import PropTypes from 'prop-types';
 
 import IconButton from '@mui/material/IconButton';
 
-const MyIconButton = forwardRef(({ color, onClick, children, ariaLabel, ...otherProps }, ref) => {
+const MyIconButton = forwardRef(({
+  color,
+  disabled,
+  onClick,
+  children,
+  ariaLabel,
+  ...otherProps
+}, ref) => {
   return (
     <IconButton
       ref={ref}
       size='small'
       color={color}
+      disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
       {...otherProps}
@@ -25,12 +33,17 @@ const MyIconButton = forwardRef(({ color, onClick, children, ariaLabel, ...other
 });
 
 MyIconButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  color: PropTypes.string,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
   children:  PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   ariaLabel: PropTypes.string
 };
 
 MyIconButton.defaultProps = {
+  color: 'default',
+  disabled: false,
+  onClick: () => {},
   ariaLabel: ''
 };
 

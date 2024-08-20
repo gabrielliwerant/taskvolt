@@ -6,7 +6,7 @@
 
 import dayjs from 'dayjs';
 
-import { DATE_FORMAT, TIME_FORMAT } from '@src/constants';
+import { DATE_FORMAT, TIME_FORMAT, TIME_FORMAT_ONLY_AM_PM } from '@src/constants';
 
 /**
  * Create ids for new lists/items
@@ -51,19 +51,22 @@ const getDateFromUnixTimestamp = unix => dayjs.unix(unix || getUnixTimestampFrom
 /**
  * Retrieve the date object as a formatted data string.
  *
- * @param {object|null} date Date object
+ * @param {object|null} dateTime Date object
+ * @param {string} format Format string for date/time
  * @returns {string} Formatted date
  */
-const getDateFormatted = date =>
-  date ? dayjs(date).format(DATE_FORMAT) : dayjs().format(DATE_FORMAT);
+const getDateFormatted = (dateTime, format = DATE_FORMAT) =>
+  dateTime ? dayjs(dateTime).format(format) : dayjs().format(format);
 
 /**
  * Retrieve the unix timestamp as a formatted data string.
  *
  * @param {integer} unix Timestamp in seconds
- * @returns {string} Formatted date
+ * @param {string} format Format string for date/time
+ * @returns {string} Formatted date/time
  */
-const getFormattedDateFromUnixTimestamp = unix => getDateFormatted(getDateFromUnixTimestamp(unix));
+const getFormattedDateFromUnixTimestamp = (unix, format) =>
+  getDateFormatted(getDateFromUnixTimestamp(unix), format);
 
 /**
  * Retrieve the time object as a formatted data string.
@@ -77,9 +80,11 @@ const getTimeFormatted = date =>
 /**
  * Determines from a given date or the current date whether we're in the AM.
  *
- * @param {object|null} date Date object
+ * @param {object|null} dateTime Date object
  */
-const isAm = date => date ? dayjs(date).format('A') === 'AM' : dayjs().format('A') === 'AM';
+const isAm = dateTime => dateTime
+  ? dayjs(dateTime).format(TIME_FORMAT_ONLY_AM_PM) === 'AM'
+  : dayjs().format(TIME_FORMAT_ONLY_AM_PM) === 'AM';
 
 export {
   makeId,

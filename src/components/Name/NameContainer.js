@@ -20,7 +20,7 @@ import { active, inactive } from '@components/Name/styles';
 import { flex, fullWidth } from '@jss/styles';
 
 import { getFormattedDateFromUnixTimestamp } from '@src/utils';
-import { TYPES } from '@src/constants';
+import { TYPES, DATE_FORMAT, TIME_FORMAT_WITH_AM_PM } from '@src/constants';
 
 const classNames = require('classnames');
 
@@ -46,7 +46,7 @@ const useStyles = createUseStyles({
       alignItems: 'center',
     }
   },
-  dateTimestamp: {
+  dateTime: {
     marginTop: '-8px !important',
     marginBottom: '-10px !important',
     opacity: '0.6'
@@ -62,6 +62,7 @@ const NameContainer = ({
   onClickCancel,
   inactiveIconSection,
   dateTimestamp,
+  timeTimestamp,
   textFinal,
   textDraft,
   isEditActive,
@@ -88,6 +89,22 @@ const NameContainer = ({
     }
   };
 
+  /**
+   * Build the display text for date/time based on whether we have one or both timestamps.
+   *
+   * @returns {string}
+   */
+  const getDateTimeDisplayText = () => {
+    const dateFormatted = !!dateTimestamp
+      ? getFormattedDateFromUnixTimestamp(dateTimestamp, DATE_FORMAT)
+      : '';
+    const timeFormatted = !!timeTimestamp
+      ? getFormattedDateFromUnixTimestamp(timeTimestamp, TIME_FORMAT_WITH_AM_PM)
+      : '';
+
+    return `${dateFormatted} ${timeFormatted}`;
+  };
+
   return (
     <div
       className={classNames({
@@ -99,9 +116,9 @@ const NameContainer = ({
     >
       {!isEditActive &&
         <Fragment>
-          {dateTimestamp &&
-            <Typography variant='caption' component='div' className={classes.dateTimestamp}>
-              {getFormattedDateFromUnixTimestamp(dateTimestamp)}
+          {(!!dateTimestamp || !!timeTimestamp) &&
+            <Typography variant='caption' component='div' className={classes.dateTime}>
+              {getDateTimeDisplayText()}
             </Typography>
           }
           <div className={classes.nameBarContainer}>
@@ -123,7 +140,7 @@ const NameContainer = ({
           <NameInput
             type={type}
             value={textDraft}
-            label={dateTimestamp ? getFormattedDateFromUnixTimestamp(dateTimestamp) : ''}
+            label={(!!dateTimestamp || !!timeTimestamp) ? getDateTimeDisplayText() : ''}
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
@@ -154,6 +171,7 @@ NameContainer.propTypes = {
   onClickCancel: PropTypes.func,
   inactiveIconSection: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   dateTimestamp: PropTypes.number,
+  timeTimestamp: PropTypes.number,
   textFinal: PropTypes.string.isRequired,
   textDraft: PropTypes.string,
   isEditActive: PropTypes.bool,
@@ -169,6 +187,7 @@ NameContainer.defaultProps = {
   onClickCancel: () => {},
   inactiveIconSection: '',
   dateTimestamp: null,
+  timeTimestamp: null,
   textDraft: '',
   hasRemove: false,
   isEditActive: false,

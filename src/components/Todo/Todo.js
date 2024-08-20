@@ -175,8 +175,8 @@ const Todo = ({
         className={classNames({
           [classes.todoContainer]: true,
           [classes.flexCenterY]: true,
-          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp,
-          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp,
+          [classes.todoContainerPaddingWithDatetime]: !!dateTimestamp || !!timeTimestamp,
+          [classes.todoContainerPaddingWithoutDatetime]: !dateTimestamp && !timeTimestamp,
           [classes.defaultBackdrop]: !isComplete,
           [classes.completeBackdrop]: isComplete
         })}
@@ -189,9 +189,16 @@ const Todo = ({
           onClickSave={save(id, textDraft)}
           onClickCancel={cancel(id)}
           inactiveIconSection={
-            <TodoActions id={id} onCalendarClick={onCalendarClick} onClockClick={onClockClick} />
+            <TodoActions
+              id={id}
+              onCalendarClick={onCalendarClick}
+              onClockClick={onClockClick}
+              hasDateReminder={hasDateReminder}
+              hasTimeReminder={hasTimeReminder}
+            />
           }
           dateTimestamp={dateTimestamp}
+          timeTimestamp={timeTimestamp}
           textFinal={textFinal}
           textDraft={textDraft}
           isEditActive={isEditActive}

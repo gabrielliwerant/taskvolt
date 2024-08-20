@@ -31,8 +31,10 @@ const MAX_LENGTH_PER_LINE = {
 
 // Reusable date format for display purposes
 const DATE_FORMAT = 'ddd, MMM D';
-// Reusable time format for display purposes
+// Reusable time formats for display purposes
 const TIME_FORMAT = 'hh:mm';
+const TIME_FORMAT_WITH_AM_PM = 'h:mm A';
+const TIME_FORMAT_ONLY_AM_PM = 'A';
 
 export {
   LOCAL_STORAGE_KEY,
@@ -40,5 +42,7 @@ export {
   MAX_LENGTH_INPUT,
   MAX_LENGTH_PER_LINE,
   DATE_FORMAT,
-  TIME_FORMAT
+  TIME_FORMAT,
+  TIME_FORMAT_WITH_AM_PM,
+  TIME_FORMAT_ONLY_AM_PM
 };
