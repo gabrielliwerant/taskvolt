@@ -23,9 +23,6 @@ const useStyles = createUseStyles({
   trashTab: {
     display: 'flex'
   },
-  trashTabTooltip: {
-    marginTop: '-21px !important'
-  },
   text
 });
 
@@ -33,16 +30,12 @@ const TrashTab = ({ onClick }) => {
   const classes = useStyles();
 
   return (
-    <Tooltip title='View deleted items' myClassName={classes.trashTabTooltip}>
-      <div role="button" onClick={onClick} className={classes.trashTab}>
-        <Tab
-          label={'Trash'}
-          icon={<AutoDeleteIcon />}
-          iconPosition='start'
-          myClassName={classes.text}
-        />
-      </div>
-    </Tooltip>
+    <div role="button" onClick={onClick} className={classes.trashTab}>
+      <Tab
+        label={<Tooltip title='View deleted items'><span>Trash</span></Tooltip>}
+        myClassName={classes.text}
+      />
+    </div>
   );
 };
 

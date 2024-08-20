@@ -52,7 +52,6 @@ when available.
 
 ## Known Bugs
 
-- `Tooltip` for the `TrashTab` blocks clickable surface
 - Allow placeholders to swap positions
 - Todos with text past 2 lines cause display issues with date/time
 - Improper anchorEl warning in MenuSection (use refs instead?)
