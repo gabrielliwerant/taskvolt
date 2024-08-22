@@ -9,7 +9,9 @@ import PropTypes from 'prop-types';
 
 import Typography from '@mui/material/Typography';
 
-const MyTypography = ({ align, variant, gutterBottom, component, className, children }) => {
+import { theme, shouldContrast, COLOR_OPTIONS } from '@src/theme';
+
+const MyTypography = ({ align, variant, gutterBottom, component, color, className, children }) => {
   return (
     <Typography
       variant={variant}
@@ -17,6 +19,7 @@ const MyTypography = ({ align, variant, gutterBottom, component, className, chil
       className={className}
       component={component}
       align={align}
+      sx={{ color: shouldContrast(color) ? 'contrastText' : COLOR_OPTIONS.PRIMARY }}
     >
       {children}
     </Typography>
@@ -28,6 +31,7 @@ MyTypography.propTypes = {
   variant: PropTypes.string,
   gutterBottom: PropTypes.bool,
   component: PropTypes.string,
+  color: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
 };
@@ -37,6 +41,7 @@ MyTypography.defaultProps = {
   className: '',
   align: 'inherit',
   variant: 'body1',
+  color: 'primary',
   gutterBottom: false
 };
 

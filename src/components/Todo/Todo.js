@@ -24,7 +24,7 @@ import {
   defaultBackdrop
 } from '@components/Todo/styles';
 import { tilt, flexCenterY } from '@jss/styles';
-import { COLORS } from '@jss/constants';
+import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 
 import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import {
@@ -35,7 +35,8 @@ import {
   getTodoItemDateTimestampById,
   getTodoItemTimeTimestampById,
   hasTodoDateReminder,
-  hasTodoTimeReminder
+  hasTodoTimeReminder,
+  getTodoItemColor
 } from '@redux/selectors/todos';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
@@ -44,24 +45,24 @@ const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   complete,
-  completeBackdrop,
-  defaultBackdrop,
-  todoContainer: {
-    ...todoContainer,
+  completeBackdrop: props => completeBackdrop(props.color),
+  defaultBackdrop: props => defaultBackdrop(props.color),
+  todoContainer: props => ({
+    ...todoContainer(props.color),
 
     '& label': {
       marginLeft: '-2px',
       background: `linear-gradient(180deg,
-        ${COLORS[TYPES.TODO].BACKGROUND_LABEL.START},
-        ${COLORS[TYPES.TODO].BACKGROUND_LABEL.STOP})`
+        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL.START},
+        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL.STOP})`
     },
     '&:hover label': {
       marginLeft: '-2px',
       background: `linear-gradient(180deg,
-        ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.START},
-        ${COLORS[TYPES.TODO].BACKGROUND_LABEL_HOVER.STOP})`
+        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL_HOVER.START},
+        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL_HOVER.STOP})`
     }
-  },
+  }),
   item,
   flexCenterY
 });
@@ -79,6 +80,7 @@ const Todo = ({
   isEditActive,
   hasDateReminder,
   hasTimeReminder,
+  color,
   edit,
   save,
   cancel,
@@ -89,7 +91,7 @@ const Todo = ({
   setDateReminder,
   setTimeReminder
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ color });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isClockOpen, setIsClockOpen] = useState(false);
 
@@ -174,8 +176,9 @@ const Todo = ({
         })}
         style={{ transform: dragId === id ? tilt : '' }}
       >
-        <Checkbox onChange={onComplete} isChecked={isComplete} />
+        <Checkbox onChange={onComplete} isChecked={isComplete} color={color} />
         <NameContainer
+          color={color}
           onClickEdit={edit(id)}
           onChangeEdit={onChange}
           onClickSave={save(id, textDraft)}
@@ -233,6 +236,14 @@ Todo.propTypes = {
   isEditActive: PropTypes.bool.isRequired,
   hasDateReminder: PropTypes.bool.isRequired,
   hasTimeReminder: PropTypes.bool.isRequired,
+  color: PropTypes.PropTypes.oneOf([
+    COLOR_OPTIONS.ERROR,
+    COLOR_OPTIONS.WARNING,
+    COLOR_OPTIONS.SUCCESS,
+    COLOR_OPTIONS.INFO,
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.SECONDARY
+  ]).isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -258,7 +269,8 @@ const mapStateToProps = (state, ownProps) => ({
   textFinal : getTodoFinalTextById(ownProps.id),
   isEditActive: isTodoEditActiveById(ownProps.id),
   hasDateReminder: hasTodoDateReminder(ownProps.id),
-  hasTimeReminder: hasTodoTimeReminder(ownProps.id)
+  hasTimeReminder: hasTodoTimeReminder(ownProps.id),
+  color: getTodoItemColor(ownProps.id)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -26,8 +26,8 @@ when available.
 - [x] ~~Allow importing data~~
 - [x] ~~Allow date/time picker for todos~~
 - [x] ~~Handle truncation/overflow in todo names~~
+- [x] ~~Allow color pickers for todos~~
 - Handle truncation/overflow in list names
-- Allow color pickers for todos/lists
 - Auto delete/prune old trashed items based on timestamp
 - Add fancy animations/transitions
 - Completing todo should cancel reminders
@@ -42,6 +42,7 @@ when available.
 ## Possible Additions
 
 - Add date/time to trash todos
+- Add color pickers for lists
 - Add date/time to lists
 - Allow toggling visibility of completed todos
 - Add note type feature

@@ -9,7 +9,9 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
-import { TYPES } from '@src/constants';
+import { Typography } from '@components/lib/Typography';
+
+import { TYPES, TYPE_TO_TYPOGRAPHY_VARIANT } from '@src/constants';
 
 import { active, inactive, complete, incomplete, item, text } from './styles';
 
@@ -28,7 +30,7 @@ const useStyles = createUseStyles({
   text
 });
 
-const Name = ({ isActive, isComplete, onClick, value, type, myClassNames }) => {
+const Name = ({ isActive, isComplete, onClick, value, type, color, myClassNames }) => {
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
@@ -45,7 +47,7 @@ const Name = ({ isActive, isComplete, onClick, value, type, myClassNames }) => {
         [classes.item]: true
       })}
     >
-      {value}
+      <Typography variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>{value}</Typography>
     </div>
   );
 };
@@ -55,6 +57,7 @@ Name.propTypes = {
   isComplete: PropTypes.bool,
   onClick: PropTypes.func,
   value: PropTypes.string,
+  color: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
 };
@@ -64,6 +67,7 @@ Name.defaultProps = {
   isComplete: false,
   onClick: () => {},
   value: '',
+  color: 'primary',
   type: TYPES.TODO,
   myClassNames: {}
 };

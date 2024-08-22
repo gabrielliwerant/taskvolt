@@ -4,6 +4,7 @@
  * Holds reusable styles for list-related components.
  */
 
+import { ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
 
 import {
@@ -11,8 +12,7 @@ import {
   LIST_PADDING,
   TOP_OFFSET,
   MARGINS,
-  WIDTHS,
-  COLORS
+  WIDTHS
 } from '@jss/constants';
 
 const lists = {
@@ -34,12 +34,12 @@ const listItemContainer = {
 const listContainer = {
   width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
   padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
-  background: COLORS[TYPES.LIST].BACKGROUND,
-  border: `1px solid ${COLORS[TYPES.LIST].BORDER}`,
+  background: ITEM_COLORS[TYPES.LIST].BACKGROUND,
+  border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER}`,
   borderRadius: '4px',
 
   '&:hover': {
-    background: COLORS[TYPES.LIST].BACKGROUND_HOVER
+    background: ITEM_COLORS[TYPES.LIST].BACKGROUND_HOVER
   }
 };
 

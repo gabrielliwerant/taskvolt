@@ -4,6 +4,8 @@
  * Handles logic specific to the todo system.
  */
 
+import { COLOR_OPTIONS } from '@src/theme';
+
 /**
  * Create new todo item
  *
@@ -31,6 +33,7 @@ const makeNewTodo = (id, listId, final) => ({
     isTrashed: false
   },
   listId,
+  color: COLOR_OPTIONS.PRIMARY,
   isEditActive: false,
   isComplete: false
 });

@@ -10,7 +10,8 @@ import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
 import { getClassNames } from '@jss/utils';
-import { LINES_TO_HEIGHT, BORDER_OFFSET, WIDTHS, Z_INDEX, COLORS } from '@jss/constants';
+import { LINES_TO_HEIGHT, BORDER_OFFSET, WIDTHS, Z_INDEX } from '@jss/constants';
+import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 import { getTodoHeight } from '@components/Todo/utils';
 
 import { TYPES, MAX_LENGTH_PER_LINE } from '@src/constants';
@@ -21,7 +22,8 @@ import {
   isTodoEditActiveById,
   getTodoSelected,
   getTodoDropping,
-  getTodoItemListIdById
+  getTodoItemListIdById,
+  getTodoItemColor
 } from '@redux/selectors/todos';
 
 /**
@@ -45,11 +47,11 @@ const useStyles = createUseStyles({
     left: 0,
     top: 0
   },
-  item: {
-    border: `1px dashed ${COLORS[TYPES.TODO].PLACEHOLDER.BORDER}`,
+  item: props => ({
+    border: `1px dashed ${ITEM_COLORS[TYPES.TODO][props.color].PLACEHOLDER.BORDER}`,
     borderRadius: '4px',
-    background: COLORS[TYPES.TODO].PLACEHOLDER.BACKGROUND
-  },
+    background: ITEM_COLORS[TYPES.TODO][props.color].PLACEHOLDER.BACKGROUND
+  }),
   editActive: { height: `${LINES_TO_HEIGHT[TYPES.TODO].TWO - BORDER_OFFSET}px` },
   twoLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].TWO - BORDER_OFFSET}px` },
   threeLines: { height: `${LINES_TO_HEIGHT[TYPES.TODO].THREE - BORDER_OFFSET}px` },
@@ -64,9 +66,10 @@ const TodoPlaceholder = ({
   index,
   isEditActive,
   droppingIndex,
-  selectedId
+  selectedId,
+  color
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ color });
 
   /**
    * Determine if we're dragging but not dropping.
@@ -198,7 +201,15 @@ TodoPlaceholder.propTypes = {
   isEditActive: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   droppingIndex: PropTypes.number,
-  selectedId: PropTypes.string
+  selectedId: PropTypes.string,
+  color: PropTypes.PropTypes.oneOf([
+    COLOR_OPTIONS.ERROR,
+    COLOR_OPTIONS.WARNING,
+    COLOR_OPTIONS.SUCCESS,
+    COLOR_OPTIONS.INFO,
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.SECONDARY
+  ]).isRequired
 };
 
 TodoPlaceholder.defaultProps = {
@@ -210,7 +221,8 @@ const mapStateToProps = (state, ownProps) => ({
   textFinal: getTodoFinalTextById(ownProps.id),
   isEditActive: isTodoEditActiveById(ownProps.id),
   droppingIndex: getTodoDropping(),
-  selectedId: getTodoSelected()
+  selectedId: getTodoSelected(),
+  color: getTodoItemColor(ownProps.id)
 });
 
 export default connect(mapStateToProps, null)(TodoPlaceholder);

@@ -8,8 +8,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
+import { ThemeProvider } from '@mui/material/styles';
+
 import Main from '@components/Main';
 
+import { theme } from '@src/theme';
 import { store } from '@redux/config';
 
 const useStyles = createUseStyles({
@@ -33,7 +36,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Main />
+      <ThemeProvider theme={theme}>
+        <Main />
+      </ThemeProvider>
     </Provider>
   );
 };

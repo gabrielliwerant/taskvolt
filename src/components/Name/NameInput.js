@@ -28,6 +28,7 @@ const useStyles = createUseStyles({
 });
 
 const NameInput = ({
+  color,
   isActive,
   isComplete,
   onChange,
@@ -42,6 +43,7 @@ const NameInput = ({
 
   return (
     <TextField
+      color={color}
       value={value}
       label={label}
       onChange={onChange}
@@ -61,6 +63,7 @@ const NameInput = ({
 };
 
 NameInput.propTypes = {
+  color: PropTypes.string,
   isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
   onChange: PropTypes.func,
@@ -72,6 +75,7 @@ NameInput.propTypes = {
 };
 
 NameInput.defaultProps = {
+  color: 'primary',
   isActive: false,
   isComplete: false,
   onChange: () => {},

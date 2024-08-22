@@ -51,6 +51,10 @@ const todosSlice = createSlice({
       const { id, hasReminder } = action.payload;
       state.items[id].time.hasReminder = hasReminder;
     },
+    setColor: (state, action) => {
+      const { id, color } = action.payload;
+      state.items[id].color = color;
+    },
     remove: (state, action) => {
       const listId = state.items[action.payload].listId;
 

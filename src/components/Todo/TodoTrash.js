@@ -18,6 +18,7 @@ import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
 
+import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 import {
   complete,
   todoContainer,
@@ -32,7 +33,8 @@ import {
   getTodoFinalTextById,
   getTodoListIdFromTodo,
   getTodoItemDateTimestampById,
-  getTodoItemTimeTimestampById
+  getTodoItemTimeTimestampById,
+  getTodoItemColor
 } from '@redux/selectors/todos';
 import { isListRemoved, getListItemProjectId } from '@redux/selectors/lists';
 import { isProjectRemoved } from '@redux/selectors/projects';
@@ -44,17 +46,17 @@ const classNames = require('classnames');
 
 const useStyles = createUseStyles({
   complete,
-  completeBackdrop: {
-    ...completeBackdrop,
+  completeBackdrop: props => ({
+    ...completeBackdrop(props.color),
 
     '&:hover': {}
-  },
-  defaultBackdrop: {
-    ...defaultBackdrop,
+  }),
+  defaultBackdrop: props => ({
+    ...defaultBackdrop(props.color),
 
     '&:hover': {}
-  },
-  todoContainer,
+  }),
+  todoContainer: props => todoContainer(props.color),
   item: {
     ...item,
 
@@ -72,12 +74,13 @@ const TodoTrash = ({
   todo,
   isComplete,
   textFinal,
+  color,
   expunge,
   restoreTodo,
   restoreList,
   restoreProject
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ color });
   const dateTimestamp = getTodoItemDateTimestampById(id);
   const timeTimestamp = getTodoItemTimeTimestampById(id);
 
@@ -110,6 +113,7 @@ const TodoTrash = ({
       >
         <Checkbox isChecked={isComplete} disabled />
         <NameContainer
+          color={color}
           textFinal={textFinal}
           isEditActive={false}
           isComplete={isComplete}
@@ -127,12 +131,12 @@ const TodoTrash = ({
         <div className={classes.flex}>
           <Tooltip title='Restore todo'>
             <IconButton onClick={onClickRestore} ariaLabel='Restore todo item'>
-              <RestoreIcon fontSize='small' />
+              <RestoreIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
             </IconButton>
           </Tooltip>
           <Tooltip title='Delete permanently'>
             <IconButton onClick={expunge} ariaLabel='Delete item'>
-              <DeleteIcon fontSize='small' />
+              <DeleteIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
             </IconButton>
           </Tooltip>
         </div>
@@ -146,6 +150,14 @@ TodoTrash.propTypes = {
   todo: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
   textFinal: PropTypes.string.isRequired,
+  color: PropTypes.PropTypes.oneOf([
+    COLOR_OPTIONS.ERROR,
+    COLOR_OPTIONS.WARNING,
+    COLOR_OPTIONS.SUCCESS,
+    COLOR_OPTIONS.INFO,
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.SECONDARY
+  ]).isRequired,
   expunge: PropTypes.func.isRequired,
   restoreTodo: PropTypes.func.isRequired,
   restoreList: PropTypes.func.isRequired,
@@ -154,7 +166,8 @@ TodoTrash.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   isComplete : isTodoCompleteById(ownProps.id),
-  textFinal : getTodoFinalTextById(ownProps.id)
+  textFinal : getTodoFinalTextById(ownProps.id),
+  color: getTodoItemColor(ownProps.id)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

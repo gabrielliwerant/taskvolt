@@ -12,6 +12,12 @@ const TYPES = {
   PROJECT: 'PROJECT'
 };
 
+const TYPE_TO_TYPOGRAPHY_VARIANT = {
+  [TYPES.TODO]: 'body1',
+  [TYPES.LIST]: 'body1',
+  [TYPES.PROJECT]: 'h6'
+};
+
 // Maximum number of characters to allow editing/saving item names
 const MAX_LENGTH_INPUT = {
   [TYPES.TODO]: 111,
@@ -39,6 +45,7 @@ const TIME_FORMAT_ONLY_AM_PM = 'A';
 export {
   LOCAL_STORAGE_KEY,
   TYPES,
+  TYPE_TO_TYPOGRAPHY_VARIANT,
   MAX_LENGTH_INPUT,
   MAX_LENGTH_PER_LINE,
   DATE_FORMAT,

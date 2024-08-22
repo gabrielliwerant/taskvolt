@@ -6,6 +6,8 @@
 
 import { TYPES } from '@src/constants';
 
+import { COLOR_OPTIONS } from '@src/theme';
+
 // Map number of lines of text to the corresponding height value
 // TODO: Make this data driven instead of hard-coded
 const LINES_TO_HEIGHT = {
@@ -64,38 +66,6 @@ const Z_INDEX = {
   NAV_BAR: 10
 };
 
-const COLORS = {
-  WHITE: '#ffffff',
-  BLACK: '#000000',
-  [TYPES.TODO]: {
-    BORDER: '#bbbbbb',
-    BACKGROUND_COMPLETE: { START: '#fefefe', STOP: '#ededed'},
-    BACKGROUND_COMPLETE_HOVER: { START: '#eeeeee', STOP: '#dddddd'},
-    BACKGROUND_DEFAULT: { START: '#eeeeee', STOP: '#dddddd'},
-    BACKGROUND_DEFAULT_HOVER: { START: '#dddddd', STOP: '#cccccc'},
-    BACKGROUND_LABEL: { START: '#eaeaea', STOP: '#ffffff' },
-    BACKGROUND_LABEL_HOVER: { START: '#d9d9d9', STOP: '#ffffff' },
-    BACKGROUND_TEXT_FIELD: '#ffffff',
-    PLACEHOLDER: {
-      BORDER: '#aaaaaa',
-      BACKGROUND: '#dddddd'
-    }
-  },
-  [TYPES.LIST]: {
-    BACKGROUND: '#f7f7f7',
-    BACKGROUND_HOVER: '#f2f2f2',
-    BORDER: '#cccccc',
-    BACKGROUND_TEXT_FIELD: '#ffffff',
-    PLACEHOLDER: {
-      BORDER: '#cccccc',
-      BACKGROUND: '#efefef'
-    }
-  },
-  [TYPES.PROJECT]: {
-    BACKGROUND_TEXT_FIELD: '#ffffff'
-  }
-};
-
 export {
   LINES_TO_HEIGHT,
   TOP_OFFSET,
@@ -105,6 +75,5 @@ export {
   MARGINS,
   HEIGHTS,
   WIDTHS,
-  Z_INDEX,
-  COLORS
+  Z_INDEX
 };

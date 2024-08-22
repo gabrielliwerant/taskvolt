@@ -11,9 +11,9 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-const MyMenuItem = ({ onClick, icon, children }) => {
+const MyMenuItem = ({ onClick, icon, disableRipple, children }) => {
   return (
-    <MenuItem onClick={onClick}>
+    <MenuItem onClick={onClick} disableRipple={disableRipple}>
       {!!icon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText>{children}</ListItemText>
     </MenuItem>
@@ -21,13 +21,17 @@ const MyMenuItem = ({ onClick, icon, children }) => {
 };
 
 MyMenuItem.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
+  disableRipple: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node])
 };
 
 MyMenuItem.defaultProps = {
-  icon: ''
+  onClick: () => {},
+  icon: '',
+  disableRipple: false,
+  children: ''
 };
 
 export { MyMenuItem as MenuItem };

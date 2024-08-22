@@ -18,6 +18,7 @@ import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';
 import { flex, fullWidth } from '@jss/styles';
+import { shouldContrast } from '@src/theme';
 
 import { getFormattedDateFromUnixTimestamp } from '@src/utils';
 import { TYPES, DATE_FORMAT, TIME_FORMAT_WITH_AM_PM } from '@src/constants';
@@ -56,6 +57,7 @@ const useStyles = createUseStyles({
 });
 
 const NameContainer = ({
+  color,
   onClickEdit,
   onChangeEdit,
   onClickSave,
@@ -117,13 +119,23 @@ const NameContainer = ({
       {!isEditActive &&
         <Fragment>
           {(!!dateTimestamp || !!timeTimestamp) &&
-            <Typography variant='caption' component='div' className={classes.dateTime}>
+            <Typography
+              variant='caption'
+              color={color}
+              component='div'
+              className={classes.dateTime}
+            >
               {getDateTimeDisplayText()}
             </Typography>
           }
           <div className={classes.nameBarContainer}>
-            <div role="button" onClick={onClickEdit} className={classes.nameBarButton}>
+            <div
+              role="button"
+              onClick={!isEditActive ? onClickEdit : () => {}}
+              className={classes.nameBarButton}
+            >
               <Name
+                color={color}
                 type={type}
                 value={textFinal}
                 isActive={!isEditActive}
@@ -138,6 +150,7 @@ const NameContainer = ({
       {isEditActive &&
         <div className={classNames({ [classes.itemEditContainer]: true })}>
           <NameInput
+            color={color}
             type={type}
             value={textDraft}
             label={(!!dateTimestamp || !!timeTimestamp) ? getDateTimeDisplayText() : ''}
@@ -149,12 +162,12 @@ const NameContainer = ({
           <div className={classes.flex}>
             <Tooltip title='Save changes'>
               <IconButton onClick={onClickSave} ariaLabel='Save changes'>
-                <CheckIcon fontSize='medium' />
+                <CheckIcon fontSize='medium' color={shouldContrast(color) ? 'white' : 'inherit'} />
               </IconButton>
             </Tooltip>
             <Tooltip title='Discard changes'>
               <IconButton onClick={onClickCancel} ariaLabel='Discard changes'>
-                <CloseIcon fontSize='medium' />
+                <CloseIcon fontSize='medium' color={shouldContrast(color) ? 'white' : 'inherit'} />
               </IconButton>
             </Tooltip>
           </div>
@@ -165,6 +178,7 @@ const NameContainer = ({
 };
 
 NameContainer.propTypes = {
+  color: PropTypes.string,
   onClickEdit: PropTypes.func,
   onChangeEdit: PropTypes.func,
   onClickSave: PropTypes.func,
@@ -181,6 +195,7 @@ NameContainer.propTypes = {
 };
 
 NameContainer.defaultProps = {
+  color: 'primary',
   onClickEdit: () => {},
   onChangeEdit: () => {},
   onClickSave: () => {},

@@ -14,22 +14,27 @@ import PropTypes from 'prop-types';
 import SquareIcon from '@mui/icons-material/SquareRounded';
 import Checkbox from '@mui/material/Checkbox';
 
-import { COLORS } from '@jss/constants';
+import { theme, COLOR_OPTIONS } from '@src/theme';
 
-const MyCheckbox = ({ onChange, isChecked, disabled, ariaLabel }) => {
+const MyCheckbox = ({ onChange, isChecked, disabled, color, fillColor, ariaLabel }) => {
+
   return (
     <Checkbox
       size='small'
       onChange={onChange}
       checked={isChecked}
       disabled={disabled}
+      color={color}
       inputProps={{ 'aria-label': ariaLabel }}
       icon={<SquareIcon />}
       sx={{
+        '& .MuiSvgIcon-root path': {
+          fill: fillColor === COLOR_OPTIONS.WHITE ? '' : theme.palette[fillColor].main
+        },
         '&:not(.Mui-checked)': {
           '& .MuiSvgIcon-root path': {
-            fill: COLORS.WHITE,
-            stroke: 'rgba(0, 0, 0, 0.75)',
+            fill: theme.palette[fillColor].main,
+            stroke: fillColor === COLOR_OPTIONS.WHITE ? 'rgba(0, 0, 0, 0.75)' : '',
             strokeWidth: '2px'
           },
           '&.Mui-disabled .MuiSvgIcon-root path': {
@@ -45,6 +50,17 @@ MyCheckbox.propTypes = {
   onChange: PropTypes.func,
   isChecked: PropTypes.bool,
   disabled: PropTypes.bool,
+  color: PropTypes.string,
+  fillColor: PropTypes.oneOf([
+    COLOR_OPTIONS.ERROR,
+    COLOR_OPTIONS.WARNING,
+    COLOR_OPTIONS.SUCCESS,
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.INFO,
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.SECONDARY,
+    COLOR_OPTIONS.WHITE
+  ]),
   ariaLabel: PropTypes.string
 };
 
@@ -52,6 +68,7 @@ MyCheckbox.defaultProps = {
   onChange: () => {},
   isChecked: false,
   disabled: false,
+  fillColor: COLOR_OPTIONS.WHITE,
   ariaLabel: ''
 };
 

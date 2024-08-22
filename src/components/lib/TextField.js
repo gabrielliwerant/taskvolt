@@ -10,7 +10,7 @@ import { createUseStyles } from 'react-jss';
 
 import TextField from '@mui/material/TextField';
 
-import { COLORS } from '@jss/constants';
+import { theme, COLOR_OPTIONS } from '@src/theme';
 
 import { TYPES } from '@src/constants';
 
@@ -26,7 +26,7 @@ const useStyles = createUseStyles({
 const styles = {
   background: {
     '& .MuiOutlinedInput-root': {
-      background: COLORS[TYPES.TODO].BACKGROUND_TEXT_FIELD
+      background: theme.palette[COLOR_OPTIONS.WHITE].main
     }
   },
   todo: {
@@ -48,6 +48,7 @@ const MyTextField = ({
   onKeyDown,
   value,
   label,
+  color,
   type,
   itemType,
   ariaLabel,
@@ -66,6 +67,7 @@ const MyTextField = ({
       onKeyDown={onKeyDown}
       value={value}
       label={label}
+      color={color}
       aria-label={ariaLabel}
       className={classNames({ [classes.hidden]: isHidden, [myClassName]: !!myClassName })}
       type={type}
@@ -80,6 +82,7 @@ MyTextField.propTypes = {
   onKeyDown: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
+  color: PropTypes.string,
   type: PropTypes.string,
   itemType: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   ariaLabel: PropTypes.string,
@@ -93,6 +96,7 @@ MyTextField.defaultProps = {
   onKeyDown: () => {},
   value: '',
   label: '',
+  color: 'primary',
   type: 'text',
   itemType: TYPES.LIST,
   ariaLabel: '',

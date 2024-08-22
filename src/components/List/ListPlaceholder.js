@@ -11,8 +11,9 @@ import { connect } from 'react-redux';
 
 import { getTodosHeight } from '@components/Todo/utils';
 import { listItemContainer } from '@components/List/styles';
-import { LIST_PADDING, MARGINS, WIDTHS, Z_INDEX, COLORS } from '@jss/constants';
+import { LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
 
+import { ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
 import { getTodosSort, getTodoItemsByListId } from '@redux/selectors/todos';
 import {
@@ -33,9 +34,9 @@ const useStyles = createUseStyles({
     top: 0
   },
   item: {
-    border: `1px dashed ${COLORS[TYPES.LIST].PLACEHOLDER.BORDER}`,
+    border: `1px dashed ${ITEM_COLORS[TYPES.LIST].PLACEHOLDER.BORDER}`,
     borderRadius: '4px',
-    background: COLORS[TYPES.LIST].PLACEHOLDER.BACKGROUND
+    background: ITEM_COLORS[TYPES.LIST].PLACEHOLDER.BACKGROUND
   },
   listItemContainer
 });
