@@ -21,7 +21,7 @@ import { flexCenterX } from '@jss/styles';
 import { Z_INDEX } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
-import { getProjectActive } from '@redux/selectors/projects';
+import { getProjectActive, hasProjects } from '@redux/selectors/projects';
 import { hasListsByProjectId, getListsSort } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
 
@@ -38,7 +38,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
+const Lists = ({ projectId, hasLists, hasProjects, listsSort, initRemove }) => {
   const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -106,15 +106,17 @@ const Lists = ({ projectId, hasLists, listsSort, initRemove }) => {
           )}
         </Droppable>
       }
-      {!hasLists && <MessageLarge>Create a List to Begin...</MessageLarge>}
+      {!hasProjects && <MessageLarge>Create a Project to Begin...</MessageLarge>}
+      {hasProjects && !hasLists && <MessageLarge>Create a List to Begin...</MessageLarge>}
       <RemoveListDialog open={isDialogOpen} onClose={onDialogClose} />
     </Fragment>
   );
 };
 
 Lists.propTypes = {
-  projectId: PropTypes.string.isRequired,
+  projectId: PropTypes.string,
   hasLists: PropTypes.bool.isRequired,
+  hasProjects: PropTypes.bool.isRequired,
   listsSort: PropTypes.object,
   initRemove: PropTypes.func.isRequired
 };
@@ -125,6 +127,7 @@ const mapStateToProps = () => {
   return {
     projectId,
     hasLists: hasListsByProjectId(projectId),
+    hasProjects: hasProjects(),
     listsSort: getListsSort()
   };
 };

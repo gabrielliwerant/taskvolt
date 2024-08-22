@@ -14,15 +14,13 @@ import AutoDeleteIcon from '@mui/icons-material/AutoDeleteRounded';
 
 import { Tooltip } from '@components/lib/Tooltip';
 import { Tab } from '@components/lib/Tab';
+import TabButton from '@components/TabButton';
 
 import { text } from '@components/Project/styles';
 
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  trashTab: {
-    display: 'flex'
-  },
   text
 });
 
@@ -30,12 +28,12 @@ const TrashTab = ({ onClick }) => {
   const classes = useStyles();
 
   return (
-    <div role="button" onClick={onClick} className={classes.trashTab}>
+    <TabButton onClick={onClick}>
       <Tab
         label={<Tooltip title='View deleted items'><span>Trash</span></Tooltip>}
         myClassName={classes.text}
       />
-    </div>
+    </TabButton>
   );
 };
 

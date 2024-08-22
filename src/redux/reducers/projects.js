@@ -15,8 +15,8 @@ const projectsSlice = createSlice({
   initialState: getInitialState().projects,
   reducers: {
     add: (state, action) => {
-      state.items[action.payload] = makeNewProject(action.payload, '1', 'New Project');
-      state.sort['1'].push(action.payload);
+      state.items[action.payload] = makeNewProject(action.payload, 'New Project');
+      state.sort.push(action.payload);
     },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
@@ -31,11 +31,9 @@ const projectsSlice = createSlice({
       state.items[action.payload].isEditActive = false;
       state.items[action.payload].text.draft = final;
     },
-    initRemove: (state, action) => { state.removing = action.payload; },
+    setRemoving: (state, action) => { state.removing = action.payload; },
     remove: (state, action) => {
-      const userId = state.items[action.payload].userId;
-
-      state.sort[userId] = state.sort[userId].filter(id => id !== action.payload);
+      state.sort = state.sort.filter(id => id !== action.payload);
       state.items[action.payload].trash.timestamp = getUnixTimestampFromDate();
       state.items[action.payload].trash.isTrashed = true;
     },

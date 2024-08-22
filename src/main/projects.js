@@ -8,11 +8,10 @@
  * Create new todo project
  *
  * @param {string} id Project id
- * @param {string} userId
  * @param {string} final Text to be saved for todo project editing
  * @returns {object}
  */
-const makeNewProject = (id, userId, final) => ({
+const makeNewProject = (id, final) => ({
   id,
   text: {
     draft: final,
@@ -22,7 +21,6 @@ const makeNewProject = (id, userId, final) => ({
     timestamp: null,
     isTrashed: false
   },
-  userId,
   isEditActive: false,
   isActive: false
 });

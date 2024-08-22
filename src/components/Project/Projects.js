@@ -59,7 +59,7 @@ const Projects = ({ projectsSort, activeTab, setActive, setView, setActiveTab })
 
 Projects.propTypes = {
   projectsSort: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeTab: PropTypes.number.isRequired,
+  activeTab: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
   setActive: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   setActiveTab: PropTypes.func.isRequired

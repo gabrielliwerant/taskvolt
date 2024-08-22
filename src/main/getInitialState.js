@@ -19,27 +19,31 @@ const getInitialState = () => {
   const initial = {
     app: {
       view: VIEWS.PROJECTS,
-      activeTab: 0,
-      isLoggedIn: true
+      activeTab: false,
+      isLoggedIn: true,
+      user: {
+        id: '1',
+        email: ''
+      }
     },
     projects: {
-      items: { '1': { ...makeNewProject('1', '1', 'New Project') } },
-      active: '1',
+      items: {},
+      active: '',
       removing: '',
-      sort: { '1': ['1'] }
+      sort: []
     },
     lists: {
       items: {},
       removing: '',
       selected: '',
       dropping: null,
-      sort: { '1': [] }
+      sort: {}
     },
     todos: {
       items: {},
-      sort: { '1': [] },
       selected: '',
-      dropping: null
+      dropping: null,
+      sort: {}
     }
   };
 

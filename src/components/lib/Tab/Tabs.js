@@ -14,7 +14,8 @@ const MyTabs = ({ value, children }) => {
 };
 
 MyTabs.propTypes = {
-  value: PropTypes.number.isRequired
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
 };
 
 export { MyTabs as Tabs };

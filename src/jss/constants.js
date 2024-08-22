@@ -34,14 +34,13 @@ const MARGINS = {
 const HEIGHTS = {
   [TYPES.TODO]: {
     MAIN: 50,
-    PLACEHOLDER: 46,
     INPUT: 32
   },
   [TYPES.LIST]: {
     INPUT: 41
   },
   [TYPES.PROJECT]: {
-    MAIN: 40,
+    MAIN: 72,
     INPUT: 48
   }
 };

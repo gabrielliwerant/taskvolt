@@ -17,6 +17,7 @@ import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
 import { Tab } from '@components/lib/Tab';
 import { Project } from '@components/Project';
+import TabButton from '@components/TabButton';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
 import { makeId } from '@src/utils';
@@ -32,7 +33,7 @@ const ProjectTab = ({
   activeId,
   addTodoSortSection,
   addList,
-  initRemove
+  setRemoving
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -71,11 +72,11 @@ const ProjectTab = ({
     e.stopPropagation(); // Prevent other tab onClick actions
 
     setIsDialogOpen(true);
-    initRemove(projectId);
+    setRemoving(projectId);
   };
 
   return (
-    <div role="button" onClick={onClick}>
+    <TabButton onClick={onClick}>
       <Tab
         label={<Project key={id} id={id} activeId={activeId} />}
         icon={
@@ -97,7 +98,7 @@ const ProjectTab = ({
         }
       />
       <RemoveProjectDialog open={isDialogOpen} onClose={onDialogClose} />
-    </div>
+    </TabButton>
   );
 };
 
@@ -107,7 +108,7 @@ ProjectTab.propTypes = {
   activeId: PropTypes.string.isRequired,
   addTodoSortSection: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
-  initRemove: PropTypes.func.isRequired
+  setRemoving: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -118,7 +119,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   addTodoSortSection: listId => dispatch(todosSlice.actions.addSort(listId)),
   addList: (listId, projectId) => dispatch(listsSlice.actions.add({ listId, projectId })),
-  initRemove: projectId => dispatch(projectsSlice.actions.initRemove(projectId))
+  setRemoving: projectId => dispatch(projectsSlice.actions.setRemoving(projectId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectTab);

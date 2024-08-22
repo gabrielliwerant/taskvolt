@@ -19,24 +19,85 @@ import { Button } from '@components/lib/Button';
 
 import { getTodoIdsByListId } from '@redux/selectors/todos';
 import { getListsByProjectId } from '@redux/selectors/lists';
-import { getProjectRemoving, getProjectIdBySortIndex } from '@redux/selectors/projects';
+import { getProjectsSort, getProjectRemoving } from '@redux/selectors/projects';
 import { getAppActiveTab } from '@redux/selectors/app';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 import { appSlice } from '@redux/reducers/app';
 
+/**
+ * Retrieve the index corresponding to an id within a given array.
+ *
+ * @param {array[string]} sortArr
+ * @param {string} id
+ * @returns {integer}
+ */
+const getSortIndexById = (sortArr, id) => sortArr.findIndex(index => index === id);
+
 const RemoveProjectDialog = ({
   open,
   onClose,
   id,
   activeTab,
+  projectsSort,
   removeList,
   removeTodo,
   removeProject,
+  resetRemoving,
   setActive,
   setActiveTab
 }) => {
+  /**
+   * Handles close action for dialog.
+   *
+   * @returns {void}
+   */
+  const onCloseHandler = () => {
+    onClose();
+    resetRemoving();
+  };
+
+  /**
+   * Set the active tab and project state when removing a project and the current active tab is not
+   * the first one.
+   *
+   * @returns {void}
+   */
+  const setActiveWhenFirstTabNotActive = () => {
+    if (activeTab === 0) return;
+
+    setActiveTab(activeTab - 1);
+    setActive(projectsSort[getSortIndexById(projectsSort, id) - 1]);
+  };
+
+  /**
+   * Set the active tab and project state when removing a project and the current active tab is the
+   * first one.
+   *
+   * @returns {void}
+   */
+  const setActiveWhenFirstTabActive = () => {
+    if (projectsSort.length <= 1 || activeTab !== 0) return;
+
+    const newSort = projectsSort.toSpliced(getSortIndexById(projectsSort, id), 1);
+
+    setActive(newSort[0]);
+  };
+
+  /**
+   * Set the active tab and project state when removing a project and the current active is the last
+   * remaining tab.
+   *
+   * @returns {void}
+   */
+  const setActiveWhenProjectsEmpty = () => {
+    if (projectsSort.length > 1) return;
+
+    setActiveTab(false);
+    setActive('');
+  };
+
   /**
    * Handles the list removal action.
    *
@@ -53,15 +114,15 @@ const RemoveProjectDialog = ({
     });
     removeProject(id);
 
-    const newIndex = activeTab - 1 >= 0 ? activeTab - 1 : 0;
-    setActiveTab(newIndex);
-    setActive(getProjectIdBySortIndex(newIndex));
+    onCloseHandler();
 
-    onClose();
+    setActiveWhenFirstTabNotActive();
+    setActiveWhenFirstTabActive();
+    setActiveWhenProjectsEmpty();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onCloseHandler}>
       <Fragment>
         <DialogTitle id="remove-list-dialog-title">Delete Project</DialogTitle>
         <DialogContent>
@@ -72,7 +133,7 @@ const RemoveProjectDialog = ({
         <DialogActions>
           <Fragment>
             <Button onClick={onRemove} color='error'>Delete Project</Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onCloseHandler}>Cancel</Button>
           </Fragment>
         </DialogActions>
       </Fragment>
@@ -84,21 +145,29 @@ RemoveProjectDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  activeTab: PropTypes.number.isRequired,
+  activeTab: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
+  projectsSort: PropTypes.arrayOf(PropTypes.string),
   removeProject: PropTypes.func.isRequired,
+  resetRemoving: PropTypes.func.isRequired,
   removeList: PropTypes.func.isRequired,
   removeTodo: PropTypes.func.isRequired,
   setActive: PropTypes.func.isRequired,
   setActiveTab: PropTypes.func.isRequired
 };
 
+RemoveProjectDialog.defaultProps = {
+  projectsSort: []
+};
+
 const mapStateToProps = () => ({
   id: getProjectRemoving(),
-  activeTab: getAppActiveTab()
+  activeTab: getAppActiveTab(),
+  projectsSort: getProjectsSort()
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   removeProject: id => dispatch(projectsSlice.actions.remove(id)),
+  resetRemoving: () => dispatch(projectsSlice.actions.setRemoving('')),
   removeList: id => dispatch(listsSlice.actions.remove(id)),
   removeTodo: id => dispatch(todosSlice.actions.remove(id)),
   setActive: id => dispatch(projectsSlice.actions.setActive(id)),
