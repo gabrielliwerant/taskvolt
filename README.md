@@ -27,11 +27,11 @@ when available.
 - [x] ~~Allow date/time picker for todos~~
 - [x] ~~Handle truncation/overflow in todo names~~
 - [x] ~~Allow color pickers for todos~~
+- [x] ~~Add branding~~
 - Handle truncation/overflow in list names
 - Auto delete/prune old trashed items based on timestamp
 - Add fancy animations/transitions
 - Completing todo should cancel reminders
-- Add branding
 - Allow reordering of project tabs
 - Add basic user/login functionality
 - Add server for DB, users, and email handling
@@ -50,9 +50,11 @@ when available.
 - Allow marking as important
 - Allow collapsing lists
 - Break up words that are too many characters to fit on a single line
+- Allow special behavior when adding links
 
 ## Known Bugs
 
 - Allow placeholders to swap positions
 - Todos with text past 2 lines cause display issues with date/time
 - Improper anchorEl warning in MenuSection (use refs instead?)
+- Placeholder color inconsistencies
