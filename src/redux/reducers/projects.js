@@ -38,9 +38,7 @@ const projectsSlice = createSlice({
       state.items[action.payload].trash.isTrashed = true;
     },
     restore: (state, action) => {
-      const userId = state.items[action.payload].userId;
-
-      state.sort[userId].push(action.payload);
+      state.sort.push(action.payload);
       state.items[action.payload].trash.timestamp = null;
       state.items[action.payload].trash.isTrashed = false;
     },
