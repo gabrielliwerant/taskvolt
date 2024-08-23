@@ -107,7 +107,7 @@ const Lists = ({ projectId, hasLists, hasProjects, listsSort, initRemove }) => {
         </Droppable>
       }
       {!hasProjects && <MessageLarge>Create a Project to Begin...</MessageLarge>}
-      {hasProjects && !hasLists && <MessageLarge>Create a List to Begin...</MessageLarge>}
+      {hasProjects && !hasLists && <MessageLarge>Create a List...</MessageLarge>}
       <RemoveListDialog open={isDialogOpen} onClose={onDialogClose} />
     </Fragment>
   );
