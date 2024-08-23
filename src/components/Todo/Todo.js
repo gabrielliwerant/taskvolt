@@ -51,16 +51,10 @@ const useStyles = createUseStyles({
     ...todoContainer(props.color),
 
     '& label': {
-      marginLeft: '-2px',
-      background: `linear-gradient(180deg,
-        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL.START},
-        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL.STOP})`
+      marginLeft: '-2px'
     },
     '&:hover label': {
-      marginLeft: '-2px',
-      background: `linear-gradient(180deg,
-        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL_HOVER.START},
-        ${ITEM_COLORS[TYPES.TODO][props.color].BACKGROUND_LABEL_HOVER.STOP})`
+      marginLeft: '-2px'
     }
   }),
   item,

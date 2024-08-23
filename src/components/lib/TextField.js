@@ -10,7 +10,7 @@ import { createUseStyles } from 'react-jss';
 
 import TextField from '@mui/material/TextField';
 
-import { theme, COLOR_OPTIONS } from '@src/theme';
+import { theme, shouldContrast, COLOR_OPTIONS } from '@src/theme';
 
 import { TYPES } from '@src/constants';
 
@@ -23,17 +23,86 @@ const useStyles = createUseStyles({
   }
 });
 
-const styles = {
-  background: {
-    '& .MuiOutlinedInput-root': {
-      background: theme.palette[COLOR_OPTIONS.WHITE].main
+/**
+ * Retrieve the appropriate background override styles based on the color.
+ *
+ * @param {string} myColor
+ * @returns {object} Style object
+ */
+const getBackgroundStyles = myColor => {
+  const background = shouldContrast(myColor) ? theme.palette[myColor].dark : COLOR_OPTIONS.WHITE;
+
+  return { background };
+};
+
+/**
+ * Retrieve the appropriate border override styles based on the color.
+ *
+ * @param {string} myColor
+ * @returns {object|void} Style object
+ */
+const getBorderStyles = myColor => {
+  if (!shouldContrast(myColor)) return;
+
+  return {
+    '& fieldset': {
+      borderColor: theme.palette[myColor].dark
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.black.main
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: theme.palette[myColor].main
     }
-  },
-  todo: {
-    '& .MuiInputBase-input': { padding: '5px 12px 6px' }
-  },
-  list: {},
-  project: {}
+  };
+};
+
+/**
+ * Retrieve the appropriate label override styles based on the color.
+ *
+ * @param {string} myColor
+ * @returns {object|void} Style object
+ */
+const getLabelStyles = myColor => {
+  if (myColor === COLOR_OPTIONS.PRIMARY) return;
+
+  const color = shouldContrast(myColor) ? theme.palette.contrastText : theme.palette.black.main;
+
+  return {
+    color,
+
+    '&.Mui-focused': {
+      color
+    }
+  };
+};
+
+/**
+ * Retrieve the appropriate input override styles based on the color.
+ *
+ * @param {string} myColor
+ * @returns {object|void} Style object
+ */
+const getInputStyles = myColor => {
+  if (myColor === COLOR_OPTIONS.PRIMARY) return;
+
+  const color = shouldContrast(myColor) ? theme.palette.contrastText : theme.palette.black.main;
+
+  return { color };
+};
+
+/**
+ * Retrieve the appropriate item-specific input override styles based on the item type.
+ *
+ * @param {string} myColor
+ * @returns {object|void} Style object
+ */
+const getItemStyles = type => {
+  if (type !== TYPES.TODO) return;
+
+  return {
+    padding: '5px 12px 6px'
+  };
 };
 
 const TYPE_TO_STYLES = {
@@ -71,7 +140,19 @@ const MyTextField = ({
       aria-label={ariaLabel}
       className={classNames({ [classes.hidden]: isHidden, [myClassName]: !!myClassName })}
       type={type}
-      sx={{ ...styles.background, ...styles[TYPE_TO_STYLES[itemType]] }}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          ...getBackgroundStyles(color),
+          ...getBorderStyles(color)
+        },
+        '& .MuiInputLabel-root': {
+          ...getLabelStyles(color)
+        },
+        input: {
+          ...getInputStyles(color),
+          ...getItemStyles(itemType)
+        }
+      }}
     />
   );
 };

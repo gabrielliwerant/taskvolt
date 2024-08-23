@@ -50,6 +50,9 @@ const theme = createTheme({
     [COLOR_OPTIONS.WHITE]: {
       main: COLORS_MAIN[COLOR_OPTIONS.WHITE]
     },
+    [COLOR_OPTIONS.BLACK]: {
+      main: COLORS_MAIN[COLOR_OPTIONS.BLACK]
+    },
     contrastText: COLORS_MAIN[COLOR_OPTIONS.WHITE]
   }
 });
@@ -66,88 +69,70 @@ const shouldContrast = color =>
 // Handles adjustable colors for todos.
 const ITEM_COLORS = {
   [TYPES.TODO]: {
-    FONT: COLORS_MAIN[COLOR_OPTIONS.DARK],
     [COLOR_OPTIONS.PRIMARY]: {
       BORDER: grey[500],
       BACKGROUND_COMPLETE: { START: grey[100], STOP: grey[100] },
       BACKGROUND_COMPLETE_HOVER: { START: grey[200], STOP: grey[200] },
       BACKGROUND_DEFAULT: { START: grey[300], STOP: grey[300] },
       BACKGROUND_DEFAULT_HOVER: { START: grey[400], STOP: grey[400] },
-      BACKGROUND_LABEL: { START: grey[400], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: grey[500], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
       PLACEHOLDER: {
         BORDER: grey[700],
         BACKGROUND: grey[500]
       }
     },
     [COLOR_OPTIONS.SECONDARY]: {
-      FONT: COLORS_MAIN[COLOR_OPTIONS.WHITE],
       BORDER: grey[900],
       BACKGROUND_COMPLETE: { START: grey[500], STOP: grey[500] },
       BACKGROUND_COMPLETE_HOVER: { START: grey[600], STOP: grey[600] },
       BACKGROUND_DEFAULT: { START: grey[700], STOP: grey[700] },
       BACKGROUND_DEFAULT_HOVER: { START: grey[800], STOP: grey[800] },
-      BACKGROUND_LABEL: { START: grey[700], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: grey[800], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
       PLACEHOLDER: {
-        BORDER: COLORS_MAIN[COLOR_OPTIONS.BLACK],
-        BACKGROUND: grey[800]
+        BORDER: grey[700],
+        BACKGROUND: grey[500]
       }
     },
     [COLOR_OPTIONS.ERROR]: {
-      FONT: COLORS_MAIN[COLOR_OPTIONS.WHITE],
       BORDER: red[800],
       BACKGROUND_COMPLETE: { START: red[200], STOP: red[200] },
       BACKGROUND_COMPLETE_HOVER: { START: red[300], STOP: red[300] },
       BACKGROUND_DEFAULT: { START: red[400], STOP: red[400] },
       BACKGROUND_DEFAULT_HOVER: { START: red[500], STOP: red[500] },
-      BACKGROUND_LABEL: { START: red[500], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: red[400], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
       PLACEHOLDER: {
-        BORDER: red[900],
-        BACKGROUND: red[600]
+        BORDER: grey[700],
+        BACKGROUND: grey[500]
       }
     },
     [COLOR_OPTIONS.WARNING]: {
-      FONT: COLORS_MAIN[COLOR_OPTIONS.WHITE],
       BORDER: yellow[600],
       BACKGROUND_COMPLETE: { START: yellow[200], STOP: yellow[200] },
       BACKGROUND_COMPLETE_HOVER: { START: yellow[300], STOP: yellow[300] },
       BACKGROUND_DEFAULT: { START: yellow[400], STOP: yellow[400] },
       BACKGROUND_DEFAULT_HOVER: { START: yellow[500], STOP: yellow[500] },
-      BACKGROUND_LABEL: { START: yellow[300], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: yellow[400], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
       PLACEHOLDER: {
-        BORDER: yellow[700],
-        BACKGROUND: yellow[600]
+        BORDER: grey[700],
+        BACKGROUND: grey[500]
       }
     },
     [COLOR_OPTIONS.SUCCESS]: {
-      FONT: COLORS_MAIN[COLOR_OPTIONS.WHITE],
-      BORDER: green[700],
-      BACKGROUND_COMPLETE: { START: green[300], STOP: green[300]},
-      BACKGROUND_COMPLETE_HOVER: { START: green[400], STOP: green[400]},
-      BACKGROUND_DEFAULT: { START: green[500], STOP: green[500] },
-      BACKGROUND_DEFAULT_HOVER: { START: green[600], STOP: green[600] },
-      BACKGROUND_LABEL: { START: green[500], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: green[600], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
+      BORDER: green[800],
+      BACKGROUND_COMPLETE: { START: green[400], STOP: green[400]},
+      BACKGROUND_COMPLETE_HOVER: { START: green[500], STOP: green[500]},
+      BACKGROUND_DEFAULT: { START: green[600], STOP: green[600] },
+      BACKGROUND_DEFAULT_HOVER: { START: green[700], STOP: green[700] },
       PLACEHOLDER: {
-        BORDER: green[900],
-        BACKGROUND: green[700]
+        BORDER: grey[700],
+        BACKGROUND: grey[500]
       }
     },
     [COLOR_OPTIONS.INFO]: {
-      FONT: COLORS_MAIN[COLOR_OPTIONS.WHITE],
       BORDER: blue[700],
       BACKGROUND_COMPLETE: { START: blue[200], STOP: blue[200] },
       BACKGROUND_COMPLETE_HOVER: { START: blue[300], STOP: blue[300] },
       BACKGROUND_DEFAULT: { START: blue[400], STOP: blue[400] },
       BACKGROUND_DEFAULT_HOVER: { START: blue[500], STOP: blue[500] },
-      BACKGROUND_LABEL: { START: blue[400], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
-      BACKGROUND_LABEL_HOVER: { START: blue[500], STOP: COLORS_MAIN[COLOR_OPTIONS.WHITE] },
       PLACEHOLDER: {
-        BORDER: blue[900],
-        BACKGROUND: blue[700]
+        BORDER: grey[700],
+        BACKGROUND: grey[500]
       }
     }
   },

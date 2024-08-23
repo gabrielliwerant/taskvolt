@@ -18,7 +18,7 @@ import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';
 import { flex, fullWidth } from '@jss/styles';
-import { shouldContrast } from '@src/theme';
+import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 
 import { getFormattedDateFromUnixTimestamp } from '@src/utils';
 import { TYPES, DATE_FORMAT, TIME_FORMAT_WITH_AM_PM } from '@src/constants';
@@ -49,7 +49,9 @@ const useStyles = createUseStyles({
   },
   dateTime: {
     marginTop: '-8px !important',
-    marginBottom: '-10px !important',
+    marginBottom: '-10px !important'
+  },
+  dateTimePrimaryText: {
     opacity: '0.6'
   },
   flex,
@@ -123,7 +125,10 @@ const NameContainer = ({
               variant='caption'
               color={color}
               component='div'
-              className={classes.dateTime}
+              className={classNames({
+                [classes.dateTime]: true,
+                [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
+              })}
             >
               {getDateTimeDisplayText()}
             </Typography>
