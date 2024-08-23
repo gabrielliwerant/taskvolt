@@ -6,6 +6,7 @@
 
 // View options for display in the main section
 const VIEWS = {
+  START: 'start',
   PROJECTS: 'projects',
   TRASH: 'trash'
 };

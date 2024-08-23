@@ -42,7 +42,7 @@ const theme = createTheme({
       main: yellow[400]
     },
     [COLOR_OPTIONS.SUCCESS]: {
-      main: green[500]
+      main: green[600]
     },
     [COLOR_OPTIONS.INFO]: {
       main: blue[400]

@@ -24,6 +24,7 @@ import MenuSection from '@components/MenuSection';
 
 import { flex } from '@jss/styles';
 
+import { VIEWS } from '@main/constants';
 import { exportLocalJsonData } from '@main/export';
 import { importLocalJsonData } from '@main/import';
 import { appSlice } from '@redux/reducers/app';
@@ -51,7 +52,7 @@ const useStyles = createUseStyles({
   flex
 });
 
-const Header = ({ isLoggedIn, login, logout }) => {
+const Header = ({ isLoggedIn, login, logout, setStartView }) => {
   const classes = useStyles();
   const [isUploading, setIsUploading] = useState(false);
 
@@ -85,6 +86,16 @@ const Header = ({ isLoggedIn, login, logout }) => {
     fileInputEl.click();
   };
 
+  /**
+   * Handle logout click button action.
+   *
+   * @returns {void}
+   */
+  const onLogoutClick = () => {
+    logout();
+    setStartView();
+  };
+
   return (
     <AppBar myClassName={classes.headerContainer}>
       <Fragment>
@@ -96,7 +107,9 @@ const Header = ({ isLoggedIn, login, logout }) => {
         />
         <div className={classes.flex}>
           <div className={classes.loginButtonContainer}>
-            {isLoggedIn && <Button variant='text' color='inherit' onClick={logout}>Logout</Button>}
+            {isLoggedIn &&
+              <Button variant='text' color='inherit' onClick={onLogoutClick}>Logout</Button>
+            }
             {!isLoggedIn && <Button variant='text' color='inherit' onClick={login}>Login</Button>}
           </div>
           <MenuSection icon={<MenuIcon />} ariaLabel='Main menu'>
@@ -130,6 +143,7 @@ Header.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  setStartView: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -138,7 +152,8 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = dispatch => ({
   login: () => dispatch(appSlice.actions.login()),
-  logout: () => dispatch(appSlice.actions.logout())
+  logout: () => dispatch(appSlice.actions.logout()),
+  setStartView: () => dispatch(appSlice.actions.setView(VIEWS.START))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

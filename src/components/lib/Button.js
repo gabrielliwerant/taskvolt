@@ -14,6 +14,7 @@ const MyButton = forwardRef(({
   variant,
   size,
   disabled,
+  fullWidth,
   color,
   startIcon,
   children,
@@ -26,6 +27,7 @@ const MyButton = forwardRef(({
       variant={variant}
       size={size}
       disabled={disabled}
+      fullWidth={fullWidth}
       onClick={onClick}
       color={color}
       startIcon={startIcon}
@@ -43,6 +45,7 @@ MyButton.propTypes = {
   variant: PropTypes.string,
   size: PropTypes.string,
   disabled: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   startIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   myClassName: PropTypes.string
@@ -53,6 +56,7 @@ MyButton.defaultProps = {
   variant: 'contained',
   size: 'medium',
   disabled: false,
+  fullWidth: false,
   startIcon: '',
   myClassName: ''
 };

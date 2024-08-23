@@ -14,8 +14,8 @@ const appSlice = createSlice({
   reducers: {
     setView: (state, action) => { state.view = action.payload; },
     setActiveTab: (state, action) => { state.activeTab = action.payload; },
-    login: (state, action) => { state.isLoggedIn = true; },
-    logout: (state, action) => { state.isLoggedIn = false; }
+    login: (state, action) => { state.user.isLoggedIn = true; },
+    logout: (state, action) => { state.user.isLoggedIn = false; }
   }
 });
 
