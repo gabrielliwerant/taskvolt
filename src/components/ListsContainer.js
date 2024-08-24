@@ -43,6 +43,8 @@ const ListsContainer = ({
         selectTodo('');
         droppingTodo(null);
 
+        if (!result.destination) return;
+
         const destinationId = getDragDropId(result.destination.droppableId);
         const sourceId = getDragDropId(result.source.droppableId);
 
@@ -56,6 +58,8 @@ const ListsContainer = ({
       case TYPES.LIST:
         selectList('');
         droppingList(null);
+
+        if (!result.destination) return;
 
         reorderList(
           getDragDropId(result.draggableId),
