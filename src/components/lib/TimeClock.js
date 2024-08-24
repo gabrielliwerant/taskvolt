@@ -14,7 +14,7 @@ import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 const MyTimeClock = ({ value, view, onChange }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <TimeClock disablePast ampm value={value} view={view} onChange={onChange} />
+      <TimeClock ampm value={value} view={view} onChange={onChange} />
     </LocalizationProvider>
   );
 };
