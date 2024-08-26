@@ -42,7 +42,7 @@ const getInitialState = () => {
     todos: {
       items: {},
       selected: '',
-      dropping: null,
+      dragSort: {},
       sort: {}
     }
   };

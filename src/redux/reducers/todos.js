@@ -19,8 +19,12 @@ const todosSlice = createSlice({
 
       state.items[id] = makeNewTodo(id, action.payload, 'New todo');
       state.sort[action.payload].push(id);
+      state.dragSort[action.payload].push(id);
     },
-    addSort: (state, action) => { state.sort[action.payload] = []; },
+    addSort: (state, action) => {
+      state.sort[action.payload] = [];
+      state.dragSort[action.payload] = [];
+    },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
     },
@@ -59,6 +63,7 @@ const todosSlice = createSlice({
       const listId = state.items[action.payload].listId;
 
       state.sort[listId] = state.sort[listId].filter(id => id !== action.payload);
+      state.dragSort[listId] = state.dragSort[listId].filter(id => id !== action.payload);
       state.items[action.payload].trash.timestamp = getUnixTimestampFromDate();
       state.items[action.payload].trash.isTrashed = true;
     },
@@ -67,6 +72,7 @@ const todosSlice = createSlice({
       const listId = state.items[action.payload].listId;
 
       state.sort[listId].push(action.payload);
+      state.dragSort[listId].push(action.payload);
       state.items[action.payload].trash.timestamp = null;
       state.items[action.payload].trash.isTrashed = false;
     },
@@ -86,6 +92,14 @@ const todosSlice = createSlice({
       sort.splice(oldIndex, 1);
       sort.splice(newIndex, 0, todoId);
     },
+    reorderDrag: (state, action) => {
+      const { listId, oldIndex, newIndex } = action.payload;
+
+      const sort = state.dragSort[listId];
+      const todoId = sort[oldIndex];
+      sort.splice(oldIndex, 1);
+      sort.splice(newIndex, 0, todoId);
+    },
     reorderToList: (state, action) => {
       const { oldListId, newListId, oldIndex, newIndex } = action.payload;
 
@@ -101,8 +115,7 @@ const todosSlice = createSlice({
       // Update todo list id owner
       state.items[todoId].listId = newListId;
     },
-    select: (state, action) => { state.selected = action.payload; },
-    drop: (state, action) => { state.dropping = action.payload; }
+    select: (state, action) => { state.selected = action.payload; }
   }
 });
 

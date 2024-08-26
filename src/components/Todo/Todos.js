@@ -18,7 +18,7 @@ import { getTodosHeight } from '@components/Todo/utils';
 import { LIST_PADDING } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
-import { getTodosItems, getTodosSort } from '@redux/selectors/todos';
+import { getTodosItems, getTodosSort, getTodosDragSort } from '@redux/selectors/todos';
 
 const classNames = require('classnames');
 
@@ -27,7 +27,7 @@ const useStyles = createUseStyles({
   items
 });
 
-const Todos = ({ listId, todosItems, todosSort }) => {
+const Todos = ({ listId, todosItems, todosSort, todosDragSort }) => {
   const classes = useStyles();
   const [placeholdersHeight, setPlaceholdersHeight] = useState(0);
 
@@ -36,9 +36,9 @@ const Todos = ({ listId, todosItems, todosSort }) => {
   }, [todosItems]);
 
   return (
-    <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
-      {(provided) => (
-        <Fragment>
+    <Fragment>
+      <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
+        {(provided) => (
           <ul
             className={classNames({ [classes.todos]: true, [classes.items]: true })}
             ref={provided.innerRef}
@@ -51,31 +51,33 @@ const Todos = ({ listId, todosItems, todosSort }) => {
             ))}
             <div>{provided.placeholder}</div>
           </ul>
-          <ul className={classes.todos} style={{ marginTop: `-${placeholdersHeight}px` }}>
-            {todosSort[listId].map((todoId, index) => (
-              <TodoPlaceholder
-                key={`placeholder-${todoId}`}
-                id={todoId}
-                listId={listId}
-                index={index}
-              />
-            ))}
-          </ul>
-        </Fragment>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+      <ul className={classes.todos} style={{ marginTop: `-${placeholdersHeight}px` }}>
+        {todosDragSort[listId].map((todoId, index) => (
+          <TodoPlaceholder
+            key={`placeholder-${todoId}`}
+            id={todoId}
+            listId={listId}
+            index={index}
+          />
+        ))}
+      </ul>
+    </Fragment>
   );
 };
 
 Todos.propTypes = {
   listId: PropTypes.string.isRequired,
   todosItems: PropTypes.object.isRequired,
-  todosSort: PropTypes.object.isRequired
+  todosSort: PropTypes.object.isRequired,
+  todosDragSort: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => ({
   todosItems: getTodosItems(),
-  todosSort: getTodosSort()
+  todosSort: getTodosSort(),
+  todosDragSort: getTodosDragSort()
 });
 
 export default connect(mapStateToProps, null)(Todos);

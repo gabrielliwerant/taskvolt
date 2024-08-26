@@ -16,13 +16,9 @@ import { getTodoHeight } from '@components/Todo/utils';
 
 import { TYPES } from '@src/constants';
 import {
-  getTodoSortIndexById,
-  doesSelectedListIdMatchTodoListId,
   getTodoFinalTextById,
   isTodoEditActiveById,
   isTodoCompleteById,
-  getTodoSelected,
-  getTodoDropping,
   getTodoItemColor,
   hasTodoItemDateTimestamp,
   hasTodoItemTimeTimestamp
@@ -50,8 +46,6 @@ const TodoPlaceholder = ({
   index,
   isEditActive,
   isComplete,
-  droppingIndex,
-  selectedId,
   color,
   hasDateTimestamp,
   hasTimeTimestamp
@@ -62,16 +56,6 @@ const TodoPlaceholder = ({
   useEffect(() => {
     setPlaceholderHeight(getTodoHeight(index, listId));
   }, [textFinal, isEditActive, isComplete, hasDateTimestamp, hasTimeTimestamp, color]);
-
-  useEffect(() => {
-    if (!selectedId || droppingIndex === null) return;
-    if (!doesSelectedListIdMatchTodoListId(selectedId, listId)) return;
-    if (index !== droppingIndex) return;
-
-    const selectedIndex = getTodoSortIndexById(selectedId, listId);
-
-    setPlaceholderHeight(getTodoHeight(selectedIndex, listId));
-  }, [droppingIndex]);
 
   return (
     <li className={classes.item} style={{ height: `${placeholderHeight}px` }}>
@@ -87,8 +71,6 @@ TodoPlaceholder.propTypes = {
   isEditActive: PropTypes.bool.isRequired,
   isComplete: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  droppingIndex: PropTypes.number,
-  selectedId: PropTypes.string,
   color: PropTypes.PropTypes.oneOf([
     COLOR_OPTIONS.ERROR,
     COLOR_OPTIONS.WARNING,
@@ -102,8 +84,6 @@ TodoPlaceholder.propTypes = {
 };
 
 TodoPlaceholder.defaultProps = {
-  droppingIndex: null,
-  selectedId: '',
   hasDateTimestamp: null,
   hasTimeTimestamp: null
 };
@@ -112,8 +92,6 @@ const mapStateToProps = (state, ownProps) => ({
   textFinal: getTodoFinalTextById(ownProps.id),
   isEditActive: isTodoEditActiveById(ownProps.id),
   isComplete : isTodoCompleteById(ownProps.id),
-  droppingIndex: getTodoDropping(),
-  selectedId: getTodoSelected(),
   color: getTodoItemColor(ownProps.id),
   hasDateTimestamp: hasTodoItemDateTimestamp(ownProps.id),
   hasTimeTimestamp: hasTodoItemTimeTimestamp(ownProps.id)

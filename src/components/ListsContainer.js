@@ -18,6 +18,7 @@ import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { getProjectActive } from '@redux/selectors/projects';
 import { hasListItemById } from '@redux/selectors/lists';
+import { getTodoIdBySortIndex, getTodoDragSortIndexById } from '@redux/selectors/todos';
 
 const useStyles = createUseStyles({
   container: {
@@ -27,13 +28,14 @@ const useStyles = createUseStyles({
 
 const ListsContainer = ({
   projectId,
+  todosDragSort,
   reorderTodo,
+  reorderDragTodo,
   reorderTodoToList,
   selectTodo,
   reorderList,
   selectList,
-  droppingList,
-  droppingTodo
+  droppingList
 }) => {
   const classes = useStyles();
 
@@ -41,7 +43,6 @@ const ListsContainer = ({
     switch (result.type) {
       case TYPES.TODO:
         selectTodo('');
-        droppingTodo(null);
 
         if (!result.destination) return;
 
@@ -85,7 +86,16 @@ const ListsContainer = ({
   const onDragUpdate = update => {
     switch (update.type) {
       case TYPES.TODO:
-        if (update.destination) droppingTodo(update.destination.index);
+        if (!update.destination) return;
+
+        const selectedId = getDragDropId(update.draggableId);
+        const listId = getDragDropId(update.destination.droppableId);
+
+        reorderDragTodo(
+          listId,
+          getTodoDragSortIndexById(selectedId, listId),
+          update.destination.index
+        );
         break;
       case TYPES.LIST:
         if (update.destination) droppingList(update.destination.index);
@@ -105,12 +115,12 @@ const ListsContainer = ({
 ListsContainer.propTypes = {
   projectId: PropTypes.string.isRequired,
   reorderTodo: PropTypes.func.isRequired,
+  reorderDragTodo: PropTypes.func.isRequired,
   reorderTodoToList: PropTypes.func.isRequired,
   selectTodo: PropTypes.func.isRequired,
   reorderList: PropTypes.func.isRequired,
   selectList: PropTypes.func.isRequired,
-  droppingList: PropTypes.func.isRequired,
-  droppingTodo: PropTypes.func.isRequired
+  droppingList: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
@@ -121,6 +131,9 @@ const mapDispatchToProps = dispatch => ({
   reorderTodo: (listId, oldIndex, newIndex) => dispatch(
     todosSlice.actions.reorder({ listId, oldIndex, newIndex })
   ),
+  reorderDragTodo: (listId, oldIndex, newIndex) => dispatch(
+    todosSlice.actions.reorderDrag({ listId, oldIndex, newIndex })
+  ),
   reorderTodoToList: (oldListId, newListId, oldIndex, newIndex) => dispatch(
     todosSlice.actions.reorderToList({ oldListId, newListId, oldIndex, newIndex })
   ),
@@ -130,7 +143,6 @@ const mapDispatchToProps = dispatch => ({
   ),
   selectList: id => dispatch(listsSlice.actions.select(id)),
   droppingList: index => dispatch(listsSlice.actions.drop(index)),
-  droppingTodo: index => dispatch(todosSlice.actions.drop(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);
