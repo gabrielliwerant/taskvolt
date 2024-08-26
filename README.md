@@ -41,7 +41,6 @@ when available.
 
 ## Possible Additions
 
-- Add date/time to trash todos
 - Add color pickers for lists
 - Add date/time to lists
 - Allow toggling visibility of completed todos
@@ -55,4 +54,3 @@ when available.
 ## Known Bugs
 
 - Improper anchorEl warning in MenuSection (use refs instead?)
-- Placeholder color inconsistencies

@@ -93,8 +93,8 @@ const ITEM_COLORS = {
       BACKGROUND_DEFAULT: { START: grey[700], STOP: grey[700] },
       BACKGROUND_DEFAULT_HOVER: { START: grey[800], STOP: grey[800] },
       PLACEHOLDER: {
-        BORDER: grey[700],
-        BACKGROUND: grey[500]
+        BORDER: grey[900],
+        BACKGROUND: grey[800]
       }
     },
     [COLOR_OPTIONS.ERROR]: {
@@ -104,8 +104,8 @@ const ITEM_COLORS = {
       BACKGROUND_DEFAULT: { START: red[400], STOP: red[400] },
       BACKGROUND_DEFAULT_HOVER: { START: red[500], STOP: red[500] },
       PLACEHOLDER: {
-        BORDER: grey[700],
-        BACKGROUND: grey[500]
+        BORDER: red[900],
+        BACKGROUND: red[700]
       }
     },
     [COLOR_OPTIONS.WARNING]: {
@@ -115,8 +115,8 @@ const ITEM_COLORS = {
       BACKGROUND_DEFAULT: { START: yellow[400], STOP: yellow[400] },
       BACKGROUND_DEFAULT_HOVER: { START: yellow[500], STOP: yellow[500] },
       PLACEHOLDER: {
-        BORDER: grey[700],
-        BACKGROUND: grey[500]
+        BORDER: yellow[700],
+        BACKGROUND: yellow[500]
       }
     },
     [COLOR_OPTIONS.SUCCESS]: {
@@ -126,8 +126,8 @@ const ITEM_COLORS = {
       BACKGROUND_DEFAULT: { START: green[600], STOP: green[600] },
       BACKGROUND_DEFAULT_HOVER: { START: green[700], STOP: green[700] },
       PLACEHOLDER: {
-        BORDER: grey[700],
-        BACKGROUND: grey[500]
+        BORDER: green[900],
+        BACKGROUND: green[700]
       }
     },
     [COLOR_OPTIONS.INFO]: {
@@ -137,8 +137,8 @@ const ITEM_COLORS = {
       BACKGROUND_DEFAULT: { START: blue[400], STOP: blue[400] },
       BACKGROUND_DEFAULT_HOVER: { START: blue[500], STOP: blue[500] },
       PLACEHOLDER: {
-        BORDER: grey[700],
-        BACKGROUND: grey[500]
+        BORDER: blue[900],
+        BACKGROUND: blue[700]
       }
     }
   },
