@@ -30,8 +30,7 @@ const MyTypography = ({
       component={component}
       align={align}
       sx={{
-        color: shouldContrast(color) ? 'contrastText' : COLOR_OPTIONS.PRIMARY,
-        lineHeight: 'normal'
+        color: shouldContrast(color) ? 'contrastText' : COLOR_OPTIONS.PRIMARY
       }}
     >
       {children}

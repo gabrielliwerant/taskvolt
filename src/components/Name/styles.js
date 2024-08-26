@@ -34,6 +34,7 @@ const item = {
 
 const text = {
   wordBreak: 'break-word',
+
   '& div': {
     fontSize: '14px'
   }

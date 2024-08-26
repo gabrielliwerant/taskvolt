@@ -54,6 +54,12 @@ const theme = createTheme({
       main: COLORS_MAIN[COLOR_OPTIONS.BLACK]
     },
     contrastText: COLORS_MAIN[COLOR_OPTIONS.WHITE]
+  },
+  typography: {
+    fontDisplay: 'optional',
+    'body1': {
+      lineHeight: '1.25'
+    }
   }
 });
 
