@@ -35,7 +35,7 @@ const Main = ({ view, isLoggedIn }) => {
 };
 
 Main.propTypes = {
-  view: PropTypes.oneOf([VIEWS.PROJECTS, VIEWS.TRASH]).isRequired
+  view: PropTypes.oneOf([VIEWS.START, VIEWS.PROJECTS, VIEWS.TRASH]).isRequired
 };
 
 const mapStateToProps = () => ({
