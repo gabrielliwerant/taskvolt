@@ -17,11 +17,12 @@ import { Typography } from '@components/lib/Typography';
 import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';
-import { flex, fullWidth } from '@jss/styles';
+import { flex, flexCenterX, flexCenterY, fullWidth } from '@jss/styles';
+import { WIDTHS } from '@jss/constants';
 import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 
-import { getFormattedDateFromUnixTimestamp } from '@src/utils';
-import { TYPES, DATE_FORMAT, TIME_FORMAT_WITH_AM_PM } from '@src/constants';
+import { TYPES } from '@src/constants';
+import { getDateTimeDisplayText } from '@components/Name/utils';
 
 const classNames = require('classnames');
 
@@ -32,33 +33,24 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexDirection: 'column'
   },
-  itemEditContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  nameBarContainer: {
-    display: 'flex',
-    justifyContent: 'space-between'
+  todoName: {
+    width: `${WIDTHS[TYPES.TODO].NAME}px`
   },
   nameBarButton: {
     '& div': {
-      display: 'flex',
-      alignItems: 'center',
+      ...flexCenterY,
+
+      justifyContent: 'start'
     }
   },
-  dateTime: {
-    marginTop: '-8px !important',
-    marginBottom: '-10px !important'
-  },
-  dateTimePrimaryText: {
-    opacity: '0.6'
-  },
   flex,
+  flexCenterY,
+  flexCenterX,
   fullWidth
 });
 
 const NameContainer = ({
+  id,
   color,
   onClickEdit,
   onChangeEdit,
@@ -93,22 +85,6 @@ const NameContainer = ({
     }
   };
 
-  /**
-   * Build the display text for date/time based on whether we have one or both timestamps.
-   *
-   * @returns {string}
-   */
-  const getDateTimeDisplayText = () => {
-    const dateFormatted = !!dateTimestamp
-      ? getFormattedDateFromUnixTimestamp(dateTimestamp, DATE_FORMAT)
-      : '';
-    const timeFormatted = !!timeTimestamp
-      ? getFormattedDateFromUnixTimestamp(timeTimestamp, TIME_FORMAT_WITH_AM_PM)
-      : '';
-
-    return `${dateFormatted} ${timeFormatted}`;
-  };
-
   return (
     <div
       className={classNames({
@@ -120,26 +96,17 @@ const NameContainer = ({
     >
       {!isEditActive &&
         <Fragment>
-          {(!!dateTimestamp || !!timeTimestamp) &&
-            <Typography
-              variant='caption'
-              color={color}
-              component='div'
-              className={classNames({
-                [classes.dateTime]: true,
-                [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
-              })}
-            >
-              {getDateTimeDisplayText()}
-            </Typography>
-          }
-          <div className={classes.nameBarContainer}>
+          <div className={classes.flexCenterX}>
             <div
               role="button"
               onClick={!isEditActive ? onClickEdit : () => {}}
-              className={classes.nameBarButton}
+              className={classNames({
+                [classes.nameBarButton]: true,
+                [classes.todoName]: type === TYPES.TODO
+              })}
             >
               <Name
+                id={id}
                 color={color}
                 type={type}
                 value={textFinal}
@@ -153,12 +120,16 @@ const NameContainer = ({
         </Fragment>
       }
       {isEditActive &&
-        <div className={classNames({ [classes.itemEditContainer]: true })}>
+        <div className={classNames({ [classes.flexCenterY]: true, [classes.flexCenterX]: true })}>
           <NameInput
             color={color}
             type={type}
             value={textDraft}
-            label={(!!dateTimestamp || !!timeTimestamp) ? getDateTimeDisplayText() : ''}
+            label={
+              (!!dateTimestamp || !!timeTimestamp)
+                ? getDateTimeDisplayText(dateTimestamp, timeTimestamp)
+                : ''
+            }
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
@@ -183,6 +154,7 @@ const NameContainer = ({
 };
 
 NameContainer.propTypes = {
+  id: PropTypes.string,
   color: PropTypes.string,
   onClickEdit: PropTypes.func,
   onChangeEdit: PropTypes.func,
@@ -200,6 +172,7 @@ NameContainer.propTypes = {
 };
 
 NameContainer.defaultProps = {
+  id: '',
   color: 'primary',
   onClickEdit: () => {},
   onChangeEdit: () => {},

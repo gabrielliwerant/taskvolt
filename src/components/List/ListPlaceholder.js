@@ -15,7 +15,7 @@ import { LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
 
 import { ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
-import { getTodosSort, getTodoItemsByListId } from '@redux/selectors/todos';
+import { getTodoItemsByListId } from '@redux/selectors/todos';
 import {
   getListSelected,
   getListDropping,
@@ -45,15 +45,7 @@ const useStyles = createUseStyles({
 const LIST_TITLE_HEIGHT = 41;
 const LIST_PLACEHOLDER_HEIGHT_OFFSET = 13;
 
-const ListPlaceholder = ({
-  id,
-  projectId,
-  index,
-  selectedId,
-  droppingIndex,
-  todosSort,
-  todoItems
-}) => {
+const ListPlaceholder = ({ id, projectId, index, selectedId, droppingIndex, todoItems }) => {
   const classes = useStyles();
 
   /**
@@ -81,7 +73,7 @@ const ListPlaceholder = ({
     if (getIsSelectedList() && selectedId) listId = selectedId;
     if (getIsDroppingList() && droppingId) listId = droppingId;
 
-    const todosHeight = getTodosHeight(todosSort[listId]);
+    const todosHeight = getTodosHeight(listId);
 
     return todosHeight + LIST_TITLE_HEIGHT + (LIST_PADDING * 3) - MARGINS[TYPES.TODO].MAIN;
   };
@@ -104,7 +96,6 @@ ListPlaceholder.propTypes = {
   projectId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   selectedId: PropTypes.string.isRequired,
-  todosSort: PropTypes.object.isRequired,
   todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   droppingIndex: PropTypes.number
 };
@@ -114,7 +105,6 @@ ListPlaceholder.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  todosSort: getTodosSort(),
   todoItems: getTodoItemsByListId(ownProps.id),
   selectedId: getListSelected(),
   droppingIndex: getListDropping()

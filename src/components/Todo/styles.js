@@ -10,11 +10,13 @@ import { TYPES } from '@src/constants';
 import { BORDER_OFFSET, LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
 
 const todos = {
-  marginTop: `${LIST_PADDING}px`,
-
   '& > li': {
     marginBottom: '4px'
   }
+};
+
+const items = {
+  marginTop: `${LIST_PADDING}px`
 };
 
 const complete = {
@@ -26,7 +28,10 @@ const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
   padding: '8px 4px',
   border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER}`,
   borderRadius: '4px',
-  width: '300px'
+  width: '300px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'baseline'
 });
 
 const item = {
@@ -68,4 +73,28 @@ const defaultBackdrop = (color = COLOR_OPTIONS.PRIMARY) => ({
   }
 });
 
-export { todos, complete, todoContainer, item, completeBackdrop, defaultBackdrop };
+const dateTime = {
+  paddingLeft: '38px',
+  marginBottom: '-10px'
+};
+
+const dateTimeText = {
+  opacity: '0.8'
+};
+
+const dateTimePrimaryText = {
+  opacity: '0.6'
+};
+
+export {
+  todos,
+  items,
+  complete,
+  todoContainer,
+  item,
+  completeBackdrop,
+  defaultBackdrop,
+  dateTime,
+  dateTimeText,
+  dateTimePrimaryText
+};

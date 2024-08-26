@@ -21,11 +21,15 @@ import {
   todoContainer,
   item,
   completeBackdrop,
-  defaultBackdrop
+  defaultBackdrop,
+  dateTime,
+  dateTimeText,
+  dateTimePrimaryText
 } from '@components/Todo/styles';
 import { tilt, flexCenterY } from '@jss/styles';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 
+import { getDateTimeDisplayText } from '@components/Name/utils';
 import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import {
   isTodoCompleteById,
@@ -57,6 +61,9 @@ const useStyles = createUseStyles({
       marginLeft: '-2px'
     }
   }),
+  dateTime,
+  dateTimeText,
+  dateTimePrimaryText,
   item,
   flexCenterY
 });
@@ -170,32 +177,49 @@ const Todo = ({
         })}
         style={{ transform: dragId === id ? tilt : '' }}
       >
-        <Checkbox onChange={onComplete} isChecked={isComplete} color={color} />
-        <NameContainer
-          color={color}
-          onClickEdit={edit(id)}
-          onChangeEdit={onChange}
-          onClickSave={save(id, textDraft)}
-          onClickCancel={cancel(id)}
-          inactiveIconSection={
-            <TodoActions
-              id={id}
-              onCalendarClick={onCalendarClick}
-              onClockClick={onClockClick}
-              hasDateReminder={hasDateReminder}
-              hasTimeReminder={hasTimeReminder}
-            />
-          }
-          dateTimestamp={dateTimestamp}
-          timeTimestamp={timeTimestamp}
-          textFinal={textFinal}
-          textDraft={textDraft}
-          isEditActive={isEditActive}
-          isComplete={isComplete}
-          myClassNames={{ container: classNames({ [classes.complete]: isComplete })}}
-        >
-          <Typography>{textFinal}</Typography>
-        </NameContainer>
+        {(!!dateTimestamp || !!timeTimestamp) && !isEditActive &&
+          <Typography
+            variant='caption'
+            color={color}
+            component='div'
+            className={classNames({
+              [classes.dateTime]: true,
+              [classes.dateTimeText]: color !== COLOR_OPTIONS.PRIMARY,
+              [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
+            })}
+          >
+            {getDateTimeDisplayText(dateTimestamp, timeTimestamp)}
+          </Typography>
+        }
+        <div className={classes.flexCenterY}>
+          <Checkbox onChange={onComplete} isChecked={isComplete} color={color} />
+          <NameContainer
+            id={id}
+            color={color}
+            onClickEdit={edit(id)}
+            onChangeEdit={onChange}
+            onClickSave={save(id, textDraft)}
+            onClickCancel={cancel(id)}
+            inactiveIconSection={
+              <TodoActions
+                id={id}
+                onCalendarClick={onCalendarClick}
+                onClockClick={onClockClick}
+                hasDateReminder={hasDateReminder}
+                hasTimeReminder={hasTimeReminder}
+              />
+            }
+            dateTimestamp={dateTimestamp}
+            timeTimestamp={timeTimestamp}
+            textFinal={textFinal}
+            textDraft={textDraft}
+            isEditActive={isEditActive}
+            isComplete={isComplete}
+            myClassNames={{ container: classNames({ [classes.complete]: isComplete })}}
+          >
+            <Typography>{textFinal}</Typography>
+          </NameContainer>
+        </div>
       </div>
       <DateCalendarModal
         isOpen={isCalendarOpen}

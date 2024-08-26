@@ -79,9 +79,7 @@ const Lists = ({ projectId, hasLists, hasProjects, listsSort, initRemove }) => {
               >
                 {listsSort[projectId].map((id, index) => (
                   <Draggable key={id} draggableId={`list-${id}`} index={index}>
-                    {(provided) => (
-                      <List id={id} remove={onRemoveClick(id)} provided={provided} />
-                    )}
+                    {provided => <List id={id} remove={onRemoveClick(id)} provided={provided} />}
                   </Draggable>
                 ))}
               </ul>

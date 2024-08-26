@@ -4,51 +4,43 @@
  * Holds reusable utilities for todo-related components.
  */
 
-import { MARGINS, LINES_TO_HEIGHT } from '@jss/constants';
+import { MARGINS, BORDER_OFFSET } from '@jss/constants';
 
-import { TYPES, MAX_LENGTH_PER_LINE } from '@src/constants';
-import { getTodoFinalTextById, isTodoEditActiveById } from '@redux/selectors/todos';
+import { TYPES } from '@src/constants';
 
 /**
- * Retrieve the appropriate pixel height for a given string length.
+ * Calculate the total height for a list of todos.
  *
- * @param {integer} len String length
+ * @param {integer} index
+ * @param {string} listId
  * @returns {integer}
  */
-const _getHeightForTextLength = len => {
-  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].TWO) return LINES_TO_HEIGHT[TYPES.TODO].TWO;
-  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].THREE) return LINES_TO_HEIGHT[TYPES.TODO].THREE;
-  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].FOUR) return LINES_TO_HEIGHT[TYPES.TODO].FOUR;
-  if (len <= MAX_LENGTH_PER_LINE[TYPES.TODO].FIVE) return LINES_TO_HEIGHT[TYPES.TODO].FIVE;
+const getTodoHeight = (index, listId) => {
+  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-items-${listId}"]`);
+  const todoEl = todosEl.children[index];
+
+  return todoEl.clientHeight - BORDER_OFFSET;
 };
 
 /**
- * Calculate the total height for a todo id.
+ * Calculate the total height for a list of todos.
  *
- * @param {string} id
+ * @param {string} listId
  * @returns {integer}
  */
-const getTodoHeight = id => {
+const getTodosHeight = listId => {
   let height = 0;
+  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-items-${listId}"]`);
 
-  if (isTodoEditActiveById(id)) height += LINES_TO_HEIGHT[TYPES.TODO].TWO;
-  else height += _getHeightForTextLength(getTodoFinalTextById(id).length);
+  if (!todosEl?.children) return 0;
 
-  height += MARGINS[TYPES.TODO].MAIN;
+  // Subtracts one for placeholder `div`
+  const len = todosEl.children.length - 1;
 
-  return height;
-};
-
-/**
- * Calculate the total height for a list of todo ids.
- *
- * @param {array[string]} ids
- * @returns {integer}
- */
-const getTodosHeight = ids => {
-  let height = 0;
-
-  ids.forEach(id => height += getTodoHeight(id));
+  for (let i = 0; i < len; i += 1) {
+    height += todosEl.children[i].clientHeight;
+    height += MARGINS[TYPES.TODO].MAIN;
+  }
 
   return height;
 };

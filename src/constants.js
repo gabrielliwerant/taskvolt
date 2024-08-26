@@ -25,16 +25,6 @@ const MAX_LENGTH_INPUT = {
   [TYPES.PROJECT]: 21
 };
 
-// The maximum number of characters (string length) for a given number of lines of text.
-const MAX_LENGTH_PER_LINE = {
-  [TYPES.TODO]: {
-    TWO: 45,
-    THREE: 67,
-    FOUR: 89,
-    FIVE: 111
-  }
-};
-
 // Reusable date format for display purposes
 const DATE_FORMAT = 'ddd, MMM D';
 // Reusable time formats for display purposes
@@ -47,7 +37,6 @@ export {
   TYPES,
   TYPE_TO_TYPOGRAPHY_VARIANT,
   MAX_LENGTH_INPUT,
-  MAX_LENGTH_PER_LINE,
   DATE_FORMAT,
   TIME_FORMAT,
   TIME_FORMAT_WITH_AM_PM,

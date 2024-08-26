@@ -24,12 +24,17 @@ import {
   todoContainer,
   item,
   completeBackdrop,
-  defaultBackdrop
+  defaultBackdrop,
+  dateTime,
+  dateTimeText,
+  dateTimePrimaryText
 } from '@components/Todo/styles';
 import { flex, flexCenterY } from '@jss/styles';
 
+import { getDateTimeDisplayText } from '@components/Name/utils';
 import {
   isTodoCompleteById,
+  isTodoEditActiveById,
   getTodoFinalTextById,
   getTodoListIdFromTodo,
   getTodoItemDateTimestampById,
@@ -65,6 +70,9 @@ const useStyles = createUseStyles({
   name: {
     cursor: 'default'
   },
+  dateTime,
+  dateTimeText,
+  dateTimePrimaryText,
   flexCenterY,
   flex
 });
@@ -73,6 +81,7 @@ const TodoTrash = ({
   id,
   todo,
   isComplete,
+  isEditActive,
   textFinal,
   color,
   expunge,
@@ -111,34 +120,50 @@ const TodoTrash = ({
           [classes.completeBackdrop]: isComplete,
         })}
       >
-        <Checkbox isChecked={isComplete} disabled />
-        <NameContainer
-          color={color}
-          textFinal={textFinal}
-          isEditActive={false}
-          isComplete={isComplete}
-          dateTimestamp={dateTimestamp}
-          timeTimestamp={timeTimestamp}
-          myClassNames={{
-            container: classNames({
-              [classes.name]: true,
-              [classes.complete]: isComplete
-            })
-          }}
-        >
-          <Typography>{textFinal}</Typography>
-        </NameContainer>
-        <div className={classes.flex}>
-          <Tooltip title='Restore todo'>
-            <IconButton onClick={onClickRestore} ariaLabel='Restore todo item'>
-              <RestoreIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title='Delete permanently'>
-            <IconButton onClick={expunge} ariaLabel='Delete item'>
-              <DeleteIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
-            </IconButton>
-          </Tooltip>
+        {(!!dateTimestamp || !!timeTimestamp) && !isEditActive &&
+          <Typography
+            variant='caption'
+            color={color}
+            component='div'
+            className={classNames({
+              [classes.dateTime]: true,
+              [classes.dateTimeText]: color !== COLOR_OPTIONS.PRIMARY,
+              [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
+            })}
+          >
+            {getDateTimeDisplayText(dateTimestamp, timeTimestamp)}
+          </Typography>
+        }
+        <div className={classes.flexCenterY}>
+          <Checkbox isChecked={isComplete} disabled />
+          <NameContainer
+            color={color}
+            textFinal={textFinal}
+            isEditActive={false}
+            isComplete={isComplete}
+            dateTimestamp={dateTimestamp}
+            timeTimestamp={timeTimestamp}
+            myClassNames={{
+              container: classNames({
+                [classes.name]: true,
+                [classes.complete]: isComplete
+              })
+            }}
+          >
+            <Typography>{textFinal}</Typography>
+          </NameContainer>
+          <div className={classes.flex}>
+            <Tooltip title='Restore todo'>
+              <IconButton onClick={onClickRestore} ariaLabel='Restore todo item'>
+                <RestoreIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='Delete permanently'>
+              <IconButton onClick={expunge} ariaLabel='Delete item'>
+                <DeleteIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
+              </IconButton>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </li>
@@ -149,6 +174,7 @@ TodoTrash.propTypes = {
   id: PropTypes.string.isRequired,
   todo: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
+  isEditActive: PropTypes.bool.isRequired,
   textFinal: PropTypes.string.isRequired,
   color: PropTypes.PropTypes.oneOf([
     COLOR_OPTIONS.ERROR,
@@ -166,6 +192,7 @@ TodoTrash.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   isComplete : isTodoCompleteById(ownProps.id),
+  isEditActive: isTodoEditActiveById(ownProps.id),
   textFinal : getTodoFinalTextById(ownProps.id),
   color: getTodoItemColor(ownProps.id)
 });

@@ -11,15 +11,28 @@ import Typography from '@mui/material/Typography';
 
 import { theme, shouldContrast, COLOR_OPTIONS } from '@src/theme';
 
-const MyTypography = ({ align, variant, gutterBottom, component, color, className, children }) => {
+const MyTypography = ({
+  id,
+  align,
+  variant,
+  gutterBottom,
+  component,
+  color,
+  className,
+  children
+}) => {
   return (
     <Typography
+      id={`text-${id}`}
       variant={variant}
       gutterBottom={gutterBottom}
       className={className}
       component={component}
       align={align}
-      sx={{ color: shouldContrast(color) ? 'contrastText' : COLOR_OPTIONS.PRIMARY }}
+      sx={{
+        color: shouldContrast(color) ? 'contrastText' : COLOR_OPTIONS.PRIMARY,
+        lineHeight: 'normal'
+      }}
     >
       {children}
     </Typography>
@@ -27,6 +40,7 @@ const MyTypography = ({ align, variant, gutterBottom, component, color, classNam
 };
 
 MyTypography.propTypes = {
+  id: PropTypes.string,
   align: PropTypes.string,
   variant: PropTypes.string,
   gutterBottom: PropTypes.bool,
@@ -37,6 +51,7 @@ MyTypography.propTypes = {
 };
 
 MyTypography.defaultProps = {
+  id: '',
   component: '',
   className: '',
   align: 'inherit',

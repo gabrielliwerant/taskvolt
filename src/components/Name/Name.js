@@ -30,7 +30,7 @@ const useStyles = createUseStyles({
   text
 });
 
-const Name = ({ isActive, isComplete, onClick, value, type, color, myClassNames }) => {
+const Name = ({ id, isActive, isComplete, onClick, value, type, color, myClassNames }) => {
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
@@ -47,12 +47,19 @@ const Name = ({ isActive, isComplete, onClick, value, type, color, myClassNames 
         [classes.item]: true
       })}
     >
-      <Typography variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>{value}</Typography>
+      <Typography
+        id={id}
+        variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]}
+        color={color}
+      >
+        {value}
+      </Typography>
     </div>
   );
 };
 
 Name.propTypes = {
+  id: PropTypes.string,
   isActive: PropTypes.bool,
   isComplete: PropTypes.bool,
   onClick: PropTypes.func,
@@ -63,6 +70,7 @@ Name.propTypes = {
 };
 
 Name.defaultProps = {
+  id: '',
   isActive: false,
   isComplete: false,
   onClick: () => {},

@@ -8,17 +8,6 @@ import { TYPES } from '@src/constants';
 
 import { COLOR_OPTIONS } from '@src/theme';
 
-// Map number of lines of text to the corresponding height value
-// TODO: Make this data driven instead of hard-coded
-const LINES_TO_HEIGHT = {
-  [TYPES.TODO]: {
-    TWO: 56,
-    THREE: 75,
-    FOUR: 94,
-    FIVE: 113
-  }
-};
-
 const TOP_OFFSET = 30;
 const BORDER_OFFSET = 2;
 const LIST_WIDTH_POSITION = 372;
@@ -47,7 +36,8 @@ const HEIGHTS = {
 
 const WIDTHS = {
   [TYPES.TODO]: {
-    MAIN: 308
+    MAIN: 308,
+    NAME: 202
   },
   [TYPES.LIST]: {
     MAIN: 340
@@ -66,7 +56,6 @@ const Z_INDEX = {
 };
 
 export {
-  LINES_TO_HEIGHT,
   TOP_OFFSET,
   BORDER_OFFSET,
   LIST_WIDTH_POSITION,

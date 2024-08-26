@@ -19,13 +19,16 @@ const getTodoDropping = () => _getTodos().dropping;
 const getTodoSortIndexById = (id, listId) => _getTodoSortByListId(listId).findIndex(i => i === id);
 const _getTodoItemById = id => getTodosItems()[id];
 const getTodoItemListIdById = id => _getTodoItemById(id).listId;
+const doesSelectedListIdMatchTodoListId = (id, listId) => _getTodoItemById(id).listId === listId;
 const isTodoCompleteById = id => _getTodoItemById(id).isComplete;
 const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
 const getTodoFinalTextById = id => _getTodoItemById(id).text.final;
 const isTodoEditActiveById = id => _getTodoItemById(id).isEditActive;
 const getTodoItemDateTimestampById = id => _getTodoItemById(id).date.timestamp;
+const hasTodoItemDateTimestamp = id => !!_getTodoItemById(id).date.timestamp;
 const hasTodoDateReminder = id => _getTodoItemById(id).date.hasReminder;
 const getTodoItemTimeTimestampById = id => _getTodoItemById(id).time.timestamp;
+const hasTodoItemTimeTimestamp = id => _getTodoItemById(id).time.timestamp;
 const hasTodoTimeReminder = id => _getTodoItemById(id).time.hasReminder;
 const getTodoItemColor = id => _getTodoItemById(id).color;
 
@@ -87,16 +90,19 @@ export {
   getTodoDropping,
   getTodoSortIndexById,
   getTodoItemListIdById,
+  doesSelectedListIdMatchTodoListId,
   isTodoCompleteById,
   getTodoDraftTextById,
   getTodoFinalTextById,
   isTodoEditActiveById,
   getTodoItemDateTimestampById,
+  hasTodoItemDateTimestamp,
   hasTodoDateReminder,
   getTodoItemTimeTimestampById,
+  hasTodoItemTimeTimestamp,
   hasTodoTimeReminder,
   getTodoItemColor,
-  
+
   getTodoIdsByListId,
   getTodoItemsByListId,
   getRemovedTodoIdsByListId,
