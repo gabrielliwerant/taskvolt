@@ -36,7 +36,7 @@ const getInitialState = () => {
       items: {},
       removing: '',
       selected: '',
-      dropping: null,
+      dragSort: {},
       sort: {}
     },
     todos: {

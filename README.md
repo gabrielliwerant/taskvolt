@@ -54,7 +54,5 @@ when available.
 
 ## Known Bugs
 
-- Allow placeholders to swap positions
-- Todos with text past 2 lines cause display issues with date/time
 - Improper anchorEl warning in MenuSection (use refs instead?)
 - Placeholder color inconsistencies

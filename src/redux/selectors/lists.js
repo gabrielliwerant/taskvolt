@@ -14,14 +14,14 @@ const isListRemoved = id => !!_getListsItems()?.[id]?.trash.isTrashed;
 const getListItemProjectId = id => getListItemById(id).projectId;
 const hasListItemById = id => !!_getListsItems()?.[id];
 const getListsSort = () => _getLists().sort;
+const getListsDragSort = () => _getLists().dragSort;
 const getListsByProjectId = id => getListsSort()[id];
+const _getListsDragByProjectId = id => getListsDragSort()[id];
 const hasListsByProjectId = id => !!getListsSort()?.[id]?.length;
-const getListIdBySortIndex = (index, projectId) => getListsByProjectId(projectId)[index];
-const getListSortIndexById = (id, projectId) =>
-  getListsByProjectId(projectId).findIndex(i => i === id);
+const getListDragSortIndexById = (id, projectId) =>
+  _getListsDragByProjectId(projectId).findIndex(i => i === id);
 const getListRemoving = () => _getLists().removing;
 const getListSelected = () => _getLists().selected;
-const getListDropping = () => _getLists().dropping;
 
 const getListTextFinalFromList = list => list.text.final;
 const getListDraftTextFromList = list => list.text.draft;
@@ -33,13 +33,12 @@ export {
   getListItemProjectId,
   hasListItemById,
   getListsSort,
+  getListsDragSort,
   getListsByProjectId,
   hasListsByProjectId,
-  getListIdBySortIndex,
-  getListSortIndexById,
+  getListDragSortIndexById,
   getListRemoving,
   getListSelected,
-  getListDropping,
 
   getListTextFinalFromList,
   getListDraftTextFromList,

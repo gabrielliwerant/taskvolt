@@ -22,7 +22,7 @@ import { Z_INDEX } from '@jss/constants';
 
 import { TYPES } from '@src/constants';
 import { getProjectActive, hasProjects } from '@redux/selectors/projects';
-import { hasListsByProjectId, getListsSort } from '@redux/selectors/lists';
+import { hasListsByProjectId, getListsSort, getListsDragSort } from '@redux/selectors/lists';
 import { listsSlice } from '@redux/reducers/lists';
 
 const classNames = require('classnames');
@@ -38,7 +38,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Lists = ({ projectId, hasLists, hasProjects, listsSort, initRemove }) => {
+const Lists = ({ projectId, hasLists, hasProjects, listsSort, listsDragSort, initRemove }) => {
   const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -65,44 +65,46 @@ const Lists = ({ projectId, hasLists, hasProjects, listsSort, initRemove }) => {
   return (
     <Fragment>
       {hasLists &&
-        <Droppable droppableId='droppable-lists' direction='horizontal' type={TYPES.LIST}>
-          {(provided) => (
-            <Fragment>
-              <ul
-                className={classNames({
-                  [classes.lists]: true,
-                  [classes.flexCenterX]: true,
-                  [classes.nonPlaceholders]: true
-                })}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {listsSort[projectId].map((id, index) => (
-                  <Draggable key={id} draggableId={`list-${id}`} index={index}>
-                    {provided => <List id={id} remove={onRemoveClick(id)} provided={provided} />}
-                  </Draggable>
-                ))}
-              </ul>
-              <ul
-                className={classNames({
-                  [classes.lists]: true,
-                  [classes.flexCenterX]: true,
-                  [classes.placeholders]: true
-                })}
-              >
-                {listsSort[projectId].map((id, listIndex) => (
-                  <ListPlaceholder
-                    key={id}
-                    id={id}
-                    projectId={projectId}
-                    index={listIndex}
-                  />
-                ))}
-              </ul>
-              <div>{provided.placeholder}</div>
-            </Fragment>
-          )}
-        </Droppable>
+        <Fragment>
+          <Droppable droppableId='droppable-lists' direction='horizontal' type={TYPES.LIST}>
+            {(provided) => (
+              <Fragment>
+                <ul
+                  className={classNames({
+                    [classes.lists]: true,
+                    [classes.flexCenterX]: true,
+                    [classes.nonPlaceholders]: true
+                  })}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {listsSort[projectId].map((id, index) => (
+                    <Draggable key={id} draggableId={`list-${id}`} index={index}>
+                      {provided => <List id={id} remove={onRemoveClick(id)} provided={provided} />}
+                    </Draggable>
+                  ))}
+                </ul>
+                <div style={{ height: 0 }}>{provided.placeholder}</div>
+              </Fragment>
+            )}
+          </Droppable>
+          <ul
+            className={classNames({
+              [classes.lists]: true,
+              [classes.flexCenterX]: true,
+              [classes.placeholders]: true
+            })}
+          >
+            {listsDragSort[projectId].map((id, listIndex) => (
+              <ListPlaceholder
+                key={id}
+                id={id}
+                projectId={projectId}
+                index={listIndex}
+              />
+            ))}
+          </ul>
+        </Fragment>
       }
       {!hasProjects && <MessageLarge>Create a Project to Begin...</MessageLarge>}
       {hasProjects && !hasLists && <MessageLarge>Create a List...</MessageLarge>}
@@ -116,6 +118,7 @@ Lists.propTypes = {
   hasLists: PropTypes.bool.isRequired,
   hasProjects: PropTypes.bool.isRequired,
   listsSort: PropTypes.object,
+  listsDragSort: PropTypes.object,
   initRemove: PropTypes.func.isRequired
 };
 
@@ -126,7 +129,8 @@ const mapStateToProps = () => {
     projectId,
     hasLists: hasListsByProjectId(projectId),
     hasProjects: hasProjects(),
-    listsSort: getListsSort()
+    listsSort: getListsSort(),
+    listsDragSort: getListsDragSort()
   };
 };
 

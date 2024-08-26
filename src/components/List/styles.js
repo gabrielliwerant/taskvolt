@@ -24,11 +24,7 @@ const listItemContainer = {
   height: '100%',
   marginBottom: '30px',
   marginRight: '30px',
-  position: 'relative',
-
-  '&:last-child': {
-    marginRight: 0
-  }
+  position: 'relative'
 };
 
 const listContainer = {

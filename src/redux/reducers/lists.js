@@ -19,8 +19,12 @@ const listsSlice = createSlice({
 
       state.items[listId] = makeNewList(listId, projectId, 'Todo List');
       state.sort[projectId].push(listId);
+      state.dragSort[projectId].push(listId);
     },
-    addSort: (state, action) => { state.sort[action.payload] = []; },
+    addSort: (state, action) => {
+      state.sort[action.payload] = [];
+      state.dragSort[action.payload] = [];
+    },
     edit: (state, action) => {
       state.items[action.payload].isEditActive = true;
     },
@@ -41,6 +45,7 @@ const listsSlice = createSlice({
       const projectId = state.items[action.payload].projectId;
 
       state.sort[projectId] = state.sort[projectId].filter(id => id !== action.payload);
+      state.dragSort[projectId] = state.dragSort[projectId].filter(id => id !== action.payload);
       state.items[action.payload].trash.timestamp = getUnixTimestampFromDate();
       state.items[action.payload].trash.isTrashed = true;
     },
@@ -49,6 +54,7 @@ const listsSlice = createSlice({
       const projectId = state.items[action.payload].projectId;
 
       state.sort[projectId].push(action.payload);
+      state.dragSort[projectId].push(action.payload);
       state.items[action.payload].trash.timestamp = null;
       state.items[action.payload].trash.isTrashed = false;
     },
@@ -63,8 +69,13 @@ const listsSlice = createSlice({
       state.sort[projectId].splice(oldIndex, 1);
       state.sort[projectId].splice(newIndex, 0, listId);
     },
-    select: (state, action) => { state.selected = action.payload; },
-    drop: (state, action) => { state.dropping = action.payload; }
+    reorderDrag: (state, action) => {
+      const { listId, projectId, oldIndex, newIndex } = action.payload;
+
+      state.dragSort[projectId].splice(oldIndex, 1);
+      state.dragSort[projectId].splice(newIndex, 0, listId);
+    },
+    select: (state, action) => { state.selected = action.payload; }
   }
 });
 
