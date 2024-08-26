@@ -16,13 +16,14 @@ import TabButton from '@components/TabButton';
 
 import { makeId } from '@src/utils';
 import { VIEWS } from '@main/constants';
-import { getTrashTabIndex, getProjectSortIndexById } from '@redux/selectors/projects';
+import { getTrashTabIndex, getProjectSortIndexById, hasProjects } from '@redux/selectors/projects';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 import { appSlice } from '@redux/reducers/app';
 
 const AddProjectTab = ({
   trashTabIndex,
+  hasProjects,
   setProjectView,
   setActiveTab,
   setActiveProject,
@@ -47,7 +48,13 @@ const AddProjectTab = ({
 
   return (
     <TabButton onClick={onAddProjectClick}>
-      <Tab icon={<Tooltip title='Add project'><AddCircleIcon /></Tooltip>} />
+      <Tab
+        icon={
+          <Tooltip open={hasProjects ? undefined : true} arrow={!hasProjects} title='Add project'>
+            <AddCircleIcon />
+          </Tooltip>
+        }
+      />
     </TabButton>
   );
 };
@@ -62,7 +69,8 @@ AddProjectTab.propTypes = {
 };
 
 const mapStateToProps = () => ({
-  trashTabIndex: getTrashTabIndex()
+  trashTabIndex: getTrashTabIndex(),
+  hasProjects: hasProjects()
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
