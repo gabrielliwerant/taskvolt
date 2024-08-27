@@ -37,7 +37,7 @@ const Todos = ({ listId, todosItems, todosSort, todosDragSort }) => {
 
   return (
     <Fragment>
-      <Droppable droppableId={`droppable-items-${listId}`} type={TYPES.TODO}>
+      <Droppable droppableId={`droppable-todos-${listId}`} type={TYPES.TODO}>
         {(provided) => (
           <ul
             className={classNames({ [classes.todos]: true, [classes.items]: true })}
@@ -45,7 +45,7 @@ const Todos = ({ listId, todosItems, todosSort, todosDragSort }) => {
             {...provided.droppableProps}
           >
             {todosSort[listId].map((todoId, index) => (
-              <Draggable key={todoId} draggableId={`item-${todoId}`} index={index}>
+              <Draggable key={todoId} draggableId={`todo-${todoId}`} index={index}>
                 {(provided) => <Todo provided={provided} id={todoId} todo={todosItems[todoId]} />}
               </Draggable>
             ))}

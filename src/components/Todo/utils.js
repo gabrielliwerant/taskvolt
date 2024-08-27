@@ -16,7 +16,7 @@ import { TYPES } from '@src/constants';
  * @returns {integer}
  */
 const getTodoHeight = (index, listId) => {
-  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-items-${listId}"]`);
+  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-todos-${listId}"]`);
   const todoEl = todosEl.children[index];
 
   return todoEl.clientHeight - BORDER_OFFSET;
@@ -30,7 +30,7 @@ const getTodoHeight = (index, listId) => {
  */
 const getTodosHeight = listId => {
   let height = 0;
-  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-items-${listId}"]`);
+  const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-todos-${listId}"]`);
 
   if (!todosEl?.children) return 0;
 
