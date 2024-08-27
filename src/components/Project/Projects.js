@@ -1,25 +1,41 @@
 /**
  * src/components/Projects.js
  *
- * Renders the projects section.
+ * Renders the projects section tabs.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { Tabs } from '@components/lib/Tab';
 import { ProjectTab } from '@components/Project';
-import TrashTab from '@components/TrashTab';
-import AddProjectTab from '@components/AddProjectTab';
 
+import { flex } from '@jss/styles';
+
+import { TYPES } from '@src/constants';
 import { VIEWS } from '@main/constants';
 import { getAppActiveTab } from '@redux/selectors/app';
-import { getProjectsSort } from '@redux/selectors/projects';
+import { getProjectsSort, hasProjects } from '@redux/selectors/projects';
 import { appSlice } from '@redux/reducers/app';
 import { projectsSlice } from '@redux/reducers/projects';
 
-const Projects = ({ projectsSort, activeTab, setActive, setView, setActiveTab }) => {
+const useStyles = createUseStyles({
+  flex
+});
+
+const Projects = ({
+  projectsSort,
+  hasProjects,
+  activeTab,
+  setActive,
+  setView,
+  setActiveTab
+}) => {
+  const classes = useStyles();
+
   /**
    * Handles a click action on a given tab (project id) which both switches tabs, and sets the
    * active view to the selected project.
@@ -34,31 +50,39 @@ const Projects = ({ projectsSort, activeTab, setActive, setView, setActiveTab })
     setActive(id);
   };
 
-  /**
-   * Handles a click action for the trash tab by setting the active view.
-   *
-   * @param {integer} index Tab index
-   * @returns {void}
-   */
-  const onTrashTabClick = index => () => {
-    setView(VIEWS.TRASH);
-    setActiveTab(index);
-    setActive(''); // Disable active for all projects while in `trash` view mode
-  };
-
   return (
-    <Tabs value={activeTab}>
-      {projectsSort.map((id, index) =>
-        <ProjectTab key={id} id={id} onClick={onTabClick(id, index)} />
-      )}
-      <AddProjectTab />
-      <TrashTab onClick={onTrashTabClick(projectsSort.length + 1)} />
-    </Tabs>
+    <Fragment>
+      {hasProjects &&
+        <Droppable droppableId='droppable-projects' direction='horizontal' type={TYPES.PROJECTS}>
+          {(provided) => (
+            <Fragment>
+              <div className={classes.flex} ref={provided.innerRef} {...provided.droppableProps}>
+                {projectsSort.map((id, index) =>
+                  <Draggable key={id} draggableId={`project-${id}`} index={index}>
+                    {provided => (
+                      <ProjectTab
+                        key={id}
+                        id={id}
+                        index={index}
+                        onClick={onTabClick(id, index)}
+                        provided={provided}
+                      />
+                    )}
+                  </Draggable>
+                )}
+              </div>
+              <div style={{ height: 0 }}>{provided.placeholder}</div>
+            </Fragment>
+          )}
+        </Droppable>
+      }
+    </Fragment>
   );
 };
 
 Projects.propTypes = {
   projectsSort: PropTypes.arrayOf(PropTypes.string).isRequired,
+  hasProjects: PropTypes.bool.isRequired,
   activeTab: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
   setActive: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
@@ -67,6 +91,7 @@ Projects.propTypes = {
 
 const mapStateToProps = () => ({
   projectsSort: getProjectsSort(),
+  hasProjects: hasProjects(),
   activeTab: getAppActiveTab()
 });
 

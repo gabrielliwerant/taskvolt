@@ -28,11 +28,11 @@ when available.
 - [x] ~~Handle truncation/overflow in todo names~~
 - [x] ~~Allow color pickers for todos~~
 - [x] ~~Add branding~~
+- [x] ~~Allow reordering of project tabs~~
 - Handle truncation/overflow in list names
 - Auto delete/prune old trashed items based on timestamp
 - Add fancy animations/transitions
 - Completing todo should cancel reminders
-- Allow reordering of project tabs
 - Add basic user/login functionality
 - Add server for DB, users, and email handling
 - Add database integration for persistence across devices
@@ -44,9 +44,7 @@ when available.
 - Add color pickers for lists
 - Add date/time to lists
 - Allow toggling visibility of completed todos
-- Add note type feature
 - Add comments on todos feature
-- Allow marking as important
 - Allow collapsing lists
 - Break up words that are too many characters to fit on a single line
 - Allow special behavior when adding links

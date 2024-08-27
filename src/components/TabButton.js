@@ -5,7 +5,7 @@
  * functionality to that tab, as well as some visual consistency.
  */
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
@@ -22,11 +22,21 @@ const useStyles = createUseStyles({
   }
 });
 
-const TabButton = ({ onClick, children }) => {
+const TabButton = forwardRef(({ onClick, children, ...otherProps }, ref) => {
   const classes = useStyles();
 
-  return <div role="button" onClick={onClick} className={classes.tabBtn}>{children}</div>;
-};
+  return (
+    <div
+      role="button"
+      onClick={onClick}
+      className={classes.tabBtn}
+      ref={ref}
+      {...otherProps}
+    >
+      {children}
+    </div>
+  );
+});
 
 TabButton.propTypes = {
   onClick: PropTypes.func.isRequired,

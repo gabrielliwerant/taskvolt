@@ -141,7 +141,7 @@ ListTrash.propTypes = {
   item: PropTypes.object,
   isRemoved: PropTypes.bool.isRequired,
   hasList: PropTypes.bool.isRequired,
-  activeTab: PropTypes.number.isRequired,
+  activeTab: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
   expunge: PropTypes.func.isRequired,
   restoreProject: PropTypes.func.isRequired,
   restoreList: PropTypes.func.isRequired,

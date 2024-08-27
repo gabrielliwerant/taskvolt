@@ -18,16 +18,21 @@ import { IconButton } from '@components/lib/IconButton';
 import { Tab } from '@components/lib/Tab';
 import { Project } from '@components/Project';
 import TabButton from '@components/TabButton';
+import TabIndicator from '@components/TabIndicator';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
 import { makeId } from '@src/utils';
+import { getAppActiveTab } from '@redux/selectors/app';
 import { getProjectIsEditActive, getProjectActive } from '@redux/selectors/projects';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
 
 const ProjectTab = ({
+  provided,
   id,
+  index,
+  activeTab,
   onClick,
   isEditActive,
   activeId,
@@ -76,9 +81,20 @@ const ProjectTab = ({
   };
 
   return (
-    <TabButton onClick={onClick}>
+    <TabButton
+      onClick={onClick}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
       <Tab
-        label={<Project key={id} id={id} activeId={activeId} />}
+        selected={true}
+        label={
+          <Fragment>
+            <Project key={id} id={id} activeId={activeId} />
+            <TabIndicator isActive={activeTab === index} />
+          </Fragment>
+        }
         icon={
           !isEditActive && activeId === id
             ?
@@ -103,9 +119,12 @@ const ProjectTab = ({
 };
 
 ProjectTab.propTypes = {
+  provided: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   activeId: PropTypes.string.isRequired,
+  activeTab: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]).isRequired,
   addTodoSortSection: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
   setRemoving: PropTypes.func.isRequired
@@ -113,7 +132,8 @@ ProjectTab.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   isEditActive: getProjectIsEditActive(ownProps.id),
-  activeId: getProjectActive()
+  activeId: getProjectActive(),
+  activeTab: getAppActiveTab()
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -46,6 +46,12 @@ const projectsSlice = createSlice({
       const { id, draft } = action.payload;
       state.items[id].text.draft = draft;
     },
+    reorder: (state, action) => {
+      const { id, oldIndex, newIndex } = action.payload;
+
+      state.sort.splice(oldIndex, 1);
+      state.sort.splice(newIndex, 0, id);
+    },
     setActive: (state, action) => { state.active = action.payload; }
   }
 });

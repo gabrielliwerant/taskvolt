@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { AppBar } from '@components/lib/AppBar';
-import { Projects } from '@components/Project';
+import ProjectsContainer from '@components/ProjectsContainer';
 import ListsContainer from '@components/ListsContainer';
 import Start from '@components/Start';
 import Trash from '@components/Trash';
@@ -24,7 +24,7 @@ const Main = ({ view, isLoggedIn }) => {
       {view !== VIEWS.START &&
         <div>
           <Header />
-          <AppBar component='div' color='default'><Projects /></AppBar>
+          <AppBar component='div' color='default'><ProjectsContainer /></AppBar>
           {view === VIEWS.PROJECTS && <ListsContainer />}
           {view === VIEWS.TRASH && <Trash />}
         </div>
