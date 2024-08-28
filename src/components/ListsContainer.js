@@ -17,8 +17,8 @@ import { TYPES } from '@src/constants';
 import { listsSlice } from '@redux/reducers/lists';
 import { todosSlice } from '@redux/reducers/todos';
 import { getProjectActive } from '@redux/selectors/projects';
-import { hasListItemById, getListDragSortIndexById } from '@redux/selectors/lists';
 import { getTodoDragSortIndexById } from '@redux/selectors/todos';
+import { getListDragSortIndexById } from '@redux/selectors/lists';
 
 const useStyles = createUseStyles({
   container: {
@@ -49,7 +49,7 @@ const ListsContainer = ({
         const destinationId = getDragDropId(result.destination.droppableId);
         const sourceId = getDragDropId(result.source.droppableId);
 
-        if (hasListItemById(destinationId)) {
+        if (destinationId !== sourceId) {
           reorderTodoToList(sourceId, destinationId, result.source.index, result.destination.index);
           return;
         }
@@ -88,11 +88,13 @@ const ListsContainer = ({
         if (!update.destination) return;
 
         const selectedId = getDragDropId(update.draggableId);
-        const listId = getDragDropId(update.destination.droppableId);
+        const destinationId = getDragDropId(update.destination.droppableId);
+        const sourceId = getDragDropId(update.source.droppableId);
 
+        if (destinationId !== sourceId) return;
         reorderDragTodo(
-          listId,
-          getTodoDragSortIndexById(selectedId, listId),
+          destinationId,
+          getTodoDragSortIndexById(selectedId, destinationId),
           update.destination.index
         );
         break;

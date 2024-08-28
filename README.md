@@ -48,6 +48,7 @@ when available.
 - Allow collapsing lists
 - Break up words that are too many characters to fit on a single line
 - Allow special behavior when adding links
+- Add warning dialog for data import
 
 ## Known Bugs
 

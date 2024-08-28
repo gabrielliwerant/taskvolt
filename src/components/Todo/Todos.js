@@ -33,7 +33,7 @@ const Todos = ({ listId, todosItems, todosSort, todosDragSort }) => {
 
   useEffect(() => {
     setPlaceholdersHeight(getTodosHeight(listId));
-  }, [todosItems]);
+  }, [todosItems, todosDragSort]);
 
   return (
     <Fragment>

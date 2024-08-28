@@ -87,18 +87,19 @@ const todosSlice = createSlice({
     reorder: (state, action) => {
       const { listId, oldIndex, newIndex } = action.payload;
 
-      const sort = state.sort[listId];
-      const todoId = sort[oldIndex];
-      sort.splice(oldIndex, 1);
-      sort.splice(newIndex, 0, todoId);
+      const todoId = state.sort[listId][oldIndex];
+      state.sort[listId].splice(oldIndex, 1);
+      state.sort[listId].splice(newIndex, 0, todoId);
+
+      // Update drag sort to the new positions to stay in sync
+      state.dragSort[listId] = state.sort[listId];
     },
     reorderDrag: (state, action) => {
       const { listId, oldIndex, newIndex } = action.payload;
 
-      const sort = state.dragSort[listId];
-      const todoId = sort[oldIndex];
-      sort.splice(oldIndex, 1);
-      sort.splice(newIndex, 0, todoId);
+      const todoId = state.dragSort[listId][oldIndex];
+      state.dragSort[listId].splice(oldIndex, 1);
+      state.dragSort[listId].splice(newIndex, 0, todoId);
     },
     reorderToList: (state, action) => {
       const { oldListId, newListId, oldIndex, newIndex } = action.payload;
@@ -111,6 +112,10 @@ const todosSlice = createSlice({
 
       // Add todo to next position in new sort array
       state.sort[newListId].splice(newIndex, 0, todoId);
+
+      // Update drag sort to the new positions to stay in sync
+      state.dragSort[oldListId] = state.sort[oldListId];
+      state.dragSort[newListId] = state.sort[newListId];
 
       // Update todo list id owner
       state.items[todoId].listId = newListId;
