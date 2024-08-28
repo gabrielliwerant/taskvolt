@@ -9,8 +9,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
+import AlarmIcon from '@mui/icons-material/AlarmRounded';
+
 import { Checkbox } from '@components/lib/Checkbox';
 import { Typography } from '@components/lib/Typography';
+import { Tooltip } from '@components/lib/Tooltip';
 import { NameContainer } from '@components/Name';
 import { TodoActions } from '@components/Todo';
 import DateCalendarModal from '@components/DateCalendarModal';
@@ -161,6 +164,19 @@ const Todo = ({
     setIsClockOpen(false);
   };
 
+  /**
+   * Set the tooltip and aria title/label for our date/time reminder.
+   *
+   * @returns {string}
+   */
+  const getReminderTitle = () => {
+    const dateReminder = hasDateReminder ? 'Date' : '';
+    const timeReminder = hasTimeReminder ? 'Time' : '';
+    const conjunction = hasDateReminder && hasTimeReminder ? ' and ' : '';
+
+    return `${dateReminder}${conjunction}${timeReminder} reminder set`;
+  };
+
   return (
     <li
       className={classes.item}
@@ -188,6 +204,11 @@ const Todo = ({
               [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
             })}
           >
+            {(hasDateReminder || hasTimeReminder) &&
+              <Tooltip title={getReminderTitle()}>
+                <span><AlarmIcon fontSize='small' /></span>
+              </Tooltip>
+            }
             {getDateTimeDisplayText(dateTimestamp, timeTimestamp)}
           </Typography>
         }
@@ -201,13 +222,7 @@ const Todo = ({
             onClickSave={save(id, textDraft)}
             onClickCancel={cancel(id)}
             inactiveIconSection={
-              <TodoActions
-                id={id}
-                onCalendarClick={onCalendarClick}
-                onClockClick={onClockClick}
-                hasDateReminder={hasDateReminder}
-                hasTimeReminder={hasTimeReminder}
-              />
+              <TodoActions id={id} onCalendarClick={onCalendarClick} onClockClick={onClockClick} />
             }
             dateTimestamp={dateTimestamp}
             timeTimestamp={timeTimestamp}

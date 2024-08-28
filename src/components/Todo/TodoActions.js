@@ -15,7 +15,6 @@ import DeleteIcon from '@mui/icons-material/DeleteRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
 import EventIcon from '@mui/icons-material/EventRounded';
 import AccessTimeIcon from '@mui/icons-material/AccessTimeRounded';
-import AlarmIcon from '@mui/icons-material/AlarmRounded';
 import PaletteIcon from '@mui/icons-material/PaletteRounded';
 
 import { MenuList, MenuItem } from '@components/lib/Menu';
@@ -34,30 +33,8 @@ const useStyles = createUseStyles({
   flexCenterY
 });
 
-const TodoActions = ({
-  id,
-  color,
-  remove,
-  onCalendarClick,
-  onClockClick,
-  hasDateReminder,
-  hasTimeReminder,
-  setColor
-}) => {
+const TodoActions = ({ id, color, remove, onCalendarClick, onClockClick, setColor }) => {
   const classes = useStyles();
-
-  /**
-   * Set the tooltip and aria title/label for our date/time reminder.
-   *
-   * @returns {string}
-   */
-  const getReminderTitle = () => {
-    const dateReminder = hasDateReminder ? 'Date' : '';
-    const timeReminder = hasTimeReminder ? 'Time' : '';
-    const conjunction = hasDateReminder && hasTimeReminder ? ' and ' : '';
-
-    return `${dateReminder}${conjunction}${timeReminder} reminder set`;
-  };
 
   /**
    * Handle color change action for color toggle menu item.
@@ -72,15 +49,6 @@ const TodoActions = ({
 
   return (
     <div className={classes.flexCenterY}>
-      {(hasDateReminder || hasTimeReminder) &&
-        <Tooltip title={getReminderTitle()}>
-          <span>
-            <IconButton disabled ariaLabel={getReminderTitle()}>
-              <AlarmIcon fontSize='small' />
-            </IconButton>
-          </span>
-        </Tooltip>
-      }
       <Tooltip title='Delete todo'>
         <IconButton onClick={remove} ariaLabel='Delete todo item'>
           <DeleteIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
@@ -141,8 +109,6 @@ TodoActions.propTypes = {
   remove: PropTypes.func.isRequired,
   onCalendarClick: PropTypes.func.isRequired,
   onClockClick: PropTypes.func.isRequired,
-  hasDateReminder: PropTypes.bool.isRequired,
-  hasTimeReminder: PropTypes.bool.isRequired,
   setColor: PropTypes.func.isRequired
 };
 
