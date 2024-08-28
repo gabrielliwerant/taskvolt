@@ -75,7 +75,7 @@ const defaultBackdrop = (color = COLOR_OPTIONS.PRIMARY) => ({
 
 const dateTime = {
   paddingLeft: '38px',
-  marginBottom: '-10px'
+  marginBottom: '-10px !important' // KLUDGE: Help make timestamp height consistent
 };
 
 const dateTimeText = {
