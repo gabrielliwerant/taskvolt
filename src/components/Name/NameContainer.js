@@ -138,12 +138,12 @@ const NameContainer = ({
           <div className={classes.flex}>
             <Tooltip title='Save changes'>
               <IconButton onClick={onClickSave} ariaLabel='Save changes'>
-                <CheckIcon fontSize='medium' color={shouldContrast(color) ? 'white' : 'inherit'} />
+                <CheckIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
               </IconButton>
             </Tooltip>
             <Tooltip title='Discard changes'>
               <IconButton onClick={onClickCancel} ariaLabel='Discard changes'>
-                <CloseIcon fontSize='medium' color={shouldContrast(color) ? 'white' : 'inherit'} />
+                <CloseIcon fontSize='small' color={shouldContrast(color) ? 'white' : 'inherit'} />
               </IconButton>
             </Tooltip>
           </div>

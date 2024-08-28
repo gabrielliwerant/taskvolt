@@ -13,7 +13,7 @@ const TYPES = {
 };
 
 const TYPE_TO_TYPOGRAPHY_VARIANT = {
-  [TYPES.TODO]: 'body1',
+  [TYPES.TODO]: 'body2',
   [TYPES.LIST]: 'body1',
   [TYPES.PROJECT]: 'h6'
 };

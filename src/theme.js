@@ -59,6 +59,9 @@ const theme = createTheme({
     fontDisplay: 'optional',
     'body1': {
       lineHeight: '1.25'
+    },
+    'body2': {
+      lineHeight: '1.25'
     }
   }
 });

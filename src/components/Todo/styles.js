@@ -25,10 +25,10 @@ const complete = {
 };
 
 const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
-  padding: '8px 4px',
+  padding: '4px',
   border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER}`,
   borderRadius: '4px',
-  width: '300px',
+  width: `${WIDTHS[TYPES.TODO].CONTAINER}px`,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'baseline'
