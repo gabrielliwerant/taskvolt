@@ -97,7 +97,7 @@ const Header = ({ isLoggedIn, login, logout, setStartView }) => {
   };
 
   return (
-    <AppBar myClassName={classes.headerContainer}>
+    <AppBar myClassNameToolbar={classes.headerContainer} position='fixed'>
       <Fragment>
         <img
           src={logo}

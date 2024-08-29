@@ -10,13 +10,19 @@ import { COLOR_OPTIONS } from '@src/theme';
 
 const TOP_OFFSET = 30;
 const BORDER_OFFSET = 2;
-const LIST_WIDTH_POSITION = 372;
 const LIST_PADDING = 15;
 
 const MARGINS = {
+  LARGE_MESSAGE: 160,
   [TYPES.TODO]: {
     MAIN: 4,
     PLACEHOLDER: 73
+  },
+  [TYPES.LIST]: {
+    MAIN: 138
+  },
+  [TYPES.PROJECT]: {
+    MAIN: 64
   }
 };
 
@@ -56,13 +62,4 @@ const Z_INDEX = {
   NAV_BAR: 10
 };
 
-export {
-  TOP_OFFSET,
-  BORDER_OFFSET,
-  LIST_WIDTH_POSITION,
-  LIST_PADDING,
-  MARGINS,
-  HEIGHTS,
-  WIDTHS,
-  Z_INDEX
-};
+export { TOP_OFFSET, BORDER_OFFSET, LIST_PADDING, MARGINS, HEIGHTS, WIDTHS, Z_INDEX };

@@ -12,6 +12,8 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { Lists } from '@components/List';
 
+import { MARGINS } from '@jss/constants';
+
 import { getDragDropId } from '@src/utils';
 import { TYPES } from '@src/constants';
 import { listsSlice } from '@redux/reducers/lists';
@@ -22,7 +24,8 @@ import { getListDragSortIndexById } from '@redux/selectors/lists';
 
 const useStyles = createUseStyles({
   container: {
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: `${MARGINS[TYPES.LIST].MAIN}px`
   }
 });
 
