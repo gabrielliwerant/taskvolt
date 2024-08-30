@@ -70,7 +70,10 @@ const ProjectsContainer = ({
       </DragDropContext>
       <Tabs value={view === VIEWS.TRASH ? 1 : false}>
         <AddProjectTab />
-        <TrashTab onClick={onTrashTabClick(projectsSort.length + 1)} />
+        <TrashTab
+          isActive={view === VIEWS.TRASH}
+          onClick={onTrashTabClick(projectsSort.length + 1)}
+        />
       </Tabs>
     </Fragment>
   );

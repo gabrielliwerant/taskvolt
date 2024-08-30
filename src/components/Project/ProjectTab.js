@@ -9,6 +9,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
 import AddIcon from '@mui/icons-material/AddRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
@@ -21,12 +22,20 @@ import TabButton from '@components/TabButton';
 import TabIndicator from '@components/TabIndicator';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
+import { activeTab } from '@components/lib/Tab/styles';
+
 import { makeId } from '@src/utils';
 import { getAppActiveTab } from '@redux/selectors/app';
 import { getProjectIsEditActive, getProjectActive } from '@redux/selectors/projects';
 import { todosSlice } from '@redux/reducers/todos';
 import { listsSlice } from '@redux/reducers/lists';
 import { projectsSlice } from '@redux/reducers/projects';
+
+const classNames = require('classnames');
+
+const useStyles = createUseStyles({
+  activeTab
+});
 
 const ProjectTab = ({
   provided,
@@ -40,6 +49,7 @@ const ProjectTab = ({
   addList,
   setRemoving
 }) => {
+  const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   /**
@@ -89,6 +99,7 @@ const ProjectTab = ({
     >
       <Tab
         selected={true}
+        myClassName={classNames({ [classes.activeTab]: activeTab === index })}
         label={
           <Fragment>
             <Project key={id} id={id} activeId={activeId} />
