@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { Tabs } from '@components/lib/Tab';
 import { ProjectTab } from '@components/Project';
 
 import { flex } from '@jss/styles';

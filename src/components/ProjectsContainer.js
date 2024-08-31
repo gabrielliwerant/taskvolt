@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import { Tabs } from '@components/lib/Tab';
 import { Projects } from '@components/Project';
 import TrashTab from '@components/TrashTab';
 import AddProjectTab from '@components/AddProjectTab';
@@ -68,13 +67,11 @@ const ProjectsContainer = ({
       <DragDropContext onDragEnd={onDragEnd}>
         <Projects />
       </DragDropContext>
-      <Tabs value={view === VIEWS.TRASH ? 1 : false}>
-        <AddProjectTab />
-        <TrashTab
-          isActive={view === VIEWS.TRASH}
-          onClick={onTrashTabClick(projectsSort.length + 1)}
-        />
-      </Tabs>
+      <AddProjectTab />
+      <TrashTab
+        isActive={view === VIEWS.TRASH}
+        onClick={onTrashTabClick(projectsSort.length + 1)}
+      />
     </Fragment>
   );
 };

@@ -2,6 +2,8 @@
  * src/components/lib/Tabs.js
  *
  * Wraps the mui `Tabs` for customization purposes.
+ *
+ * DEPRECATED: Using `TabButton` and `TabIndicator` to recreate functionality for customizability.
  */
 
 import React from 'react';

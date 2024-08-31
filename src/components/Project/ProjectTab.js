@@ -22,7 +22,7 @@ import TabButton from '@components/TabButton';
 import TabIndicator from '@components/TabIndicator';
 import RemoveProjectDialog from '@components/RemoveProjectDialog';
 
-import { activeTab } from '@components/lib/Tab/styles';
+import { activeTab, inactiveTab, inactiveTabIndicator } from '@components/lib/Tab/styles';
 
 import { makeId } from '@src/utils';
 import { getAppActiveTab } from '@redux/selectors/app';
@@ -34,7 +34,9 @@ import { projectsSlice } from '@redux/reducers/projects';
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
-  activeTab
+  activeTab,
+  inactiveTab,
+  inactiveTabIndicator
 });
 
 const ProjectTab = ({
@@ -98,8 +100,11 @@ const ProjectTab = ({
       {...provided.dragHandleProps}
     >
       <Tab
-        selected={true}
-        myClassName={classNames({ [classes.activeTab]: activeTab === index })}
+        myClassName={classNames({
+          [classes.activeTab]: activeTab === index,
+          [classes.inactiveTab]: activeTab !== index,
+          [classes.inactiveTabIndicator]: activeTab !== index
+        })}
         label={
           <Fragment>
             <Project key={id} id={id} activeId={activeId} />
