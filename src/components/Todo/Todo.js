@@ -4,7 +4,7 @@
  * Renders a todo item with associated functionality.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -19,8 +19,8 @@ import { TodoActions } from '@components/Todo';
 import DateCalendarModal from '@components/DateCalendarModal';
 import TimeClockModal from '@components/TimeClockModal';
 
+import { complete } from '@components/styles';
 import {
-  complete,
   todoContainer,
   item,
   completeBackdrop,
@@ -30,6 +30,7 @@ import {
   dateTimePrimaryText
 } from '@components/Todo/styles';
 import { tilt, flexCenterY } from '@jss/styles';
+import { ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 
 import { getDateTimeDisplayText } from '@components/Name/utils';
@@ -51,6 +52,10 @@ import { getTodoSelected } from '@redux/selectors/todos';
 const classNames = require('classnames');
 
 const useStyles = createUseStyles({
+  completing: {
+    animation: 'jello',
+    animationDuration: `${ANIMATION_TIMES.LONG}ms`
+  },
   complete,
   completeBackdrop: props => completeBackdrop(props.color),
   defaultBackdrop: props => defaultBackdrop(props.color),
@@ -98,8 +103,23 @@ const Todo = ({
   const classes = useStyles({ color });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isClockOpen, setIsClockOpen] = useState(false);
+  const [isCompleting, setIsCompleting] = useState(false);
 
-  const onComplete = e => complete(id, e.target.checked);
+  useEffect(() => {
+    if (!isComplete) setIsCompleting(false);
+  }, [isComplete])
+
+  /**
+   * Handle completed checkbox toggle.
+   *
+   * @param {object} e Event object
+   * @returns {void}
+   */
+  const onComplete = e => {
+    if (!isComplete) setIsCompleting(true);
+
+    complete(id, e.target.checked);
+  };
 
   /**
    * Handles the input field change for text name updates.
@@ -179,7 +199,7 @@ const Todo = ({
 
   return (
     <li
-      className={classes.item}
+      className={classNames({ [classes.item]: true, [classes.completing]: isCompleting })}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}

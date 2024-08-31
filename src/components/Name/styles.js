@@ -18,12 +18,6 @@ const inactive = {
   display: 'none'
 };
 
-const complete = {
-  textDecoration: 'line-through',
-  opacity: '0.5',
-  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`
-};
-
 const incomplete = {
   textDecoration: 'none',
   transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
@@ -46,4 +40,4 @@ const text = {
   }
 };
 
-export { active, inactive, complete, incomplete, item, text };
+export { active, inactive, incomplete, item, text };

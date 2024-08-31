@@ -27,12 +27,6 @@ const items = {
   marginTop: `${LIST_PADDING}px`
 };
 
-const complete = {
-  textDecoration: 'line-through',
-  opacity: '0.5',
-  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`
-};
-
 const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
   padding: '6px 4px',
   border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER}`,
@@ -112,7 +106,6 @@ const dateTimePrimaryText = {
 export {
   todos,
   items,
-  complete,
   todoContainer,
   item,
   completeBackdrop,

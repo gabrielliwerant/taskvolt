@@ -19,8 +19,8 @@ import { Typography } from '@components/lib/Typography';
 import { NameContainer } from '@components/Name';
 
 import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
+import { complete } from '@components/styles';
 import {
-  complete,
   todoContainer,
   item,
   completeBackdrop,

@@ -12,7 +12,8 @@ import { isEmpty } from 'lodash';
 import { TextField } from '@components/lib/TextField';
 import { Typography } from '@components/lib/Typography';
 
-import { active, inactive, complete, incomplete, item, text } from '@components/Name/styles';
+import { complete } from '@components/styles';
+import { active, inactive, incomplete, item, text } from '@components/Name/styles';
 
 import { TYPES } from '@src/constants';
 

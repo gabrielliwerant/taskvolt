@@ -13,7 +13,8 @@ import { Typography } from '@components/lib/Typography';
 
 import { TYPES, TYPE_TO_TYPOGRAPHY_VARIANT } from '@src/constants';
 
-import { active, inactive, complete, incomplete, item, text } from './styles';
+import { complete } from '@components/styles';
+import { active, inactive, incomplete, item, text } from '@components/Name/styles';
 
 const classNames = require('classnames');
 

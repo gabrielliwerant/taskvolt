@@ -56,7 +56,8 @@ const WIDTHS = {
 
 const ANIMATION_TIMES = {
   SHORT: 125,
-  MEDIUM: 250
+  MEDIUM: 250,
+  LONG: 750
 };
 
 const Z_INDEX = {

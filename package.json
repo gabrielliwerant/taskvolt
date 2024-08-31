@@ -39,6 +39,7 @@
     "@fontsource/roboto": "^5.0.14",
     "@mui/x-date-pickers": "^7.12.1",
     "@reduxjs/toolkit": "^1.6.0",
+    "animate.css": "^4.1.1",
     "dayjs": "^1.11.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

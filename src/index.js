@@ -6,6 +6,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import 'animate.css';
+
 import { IS_DEBUG_MODE_ON } from '@debugging/constants';
 import { logStorage } from '@debugging/logging';
 
