@@ -47,11 +47,7 @@ const Name = ({ id, isActive, isComplete, onClick, value, type, color, myClassNa
         [classes.item]: true
       })}
     >
-      <Typography
-        id={id}
-        variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]}
-        color={color}
-      >
+      <Typography id={id} variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>
         {value}
       </Typography>
     </div>

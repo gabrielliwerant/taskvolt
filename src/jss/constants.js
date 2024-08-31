@@ -15,7 +15,7 @@ const LIST_PADDING = 15;
 const MARGINS = {
   LARGE_MESSAGE: 160,
   [TYPES.TODO]: {
-    MAIN: 4,
+    MAIN: 6,
     PLACEHOLDER: 73
   },
   [TYPES.LIST]: {
@@ -54,6 +54,11 @@ const WIDTHS = {
   }
 };
 
+const ANIMATION_TIMES = {
+  SHORT: 125,
+  MEDIUM: 250
+};
+
 const Z_INDEX = {
   TODO_PLACEHOLDER: 2,
   LIST_PLACEHOLDER: 0,
@@ -62,4 +67,13 @@ const Z_INDEX = {
   NAV_BAR: 10
 };
 
-export { TOP_OFFSET, BORDER_OFFSET, LIST_PADDING, MARGINS, HEIGHTS, WIDTHS, Z_INDEX };
+export {
+  TOP_OFFSET,
+  BORDER_OFFSET,
+  LIST_PADDING,
+  MARGINS,
+  HEIGHTS,
+  WIDTHS,
+  ANIMATION_TIMES,
+  Z_INDEX
+};

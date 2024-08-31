@@ -18,7 +18,7 @@ import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';
 import { flex, flexCenterX, flexCenterY, fullWidth } from '@jss/styles';
-import { WIDTHS } from '@jss/constants';
+import { WIDTHS, ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 
 import { TYPES } from '@src/constants';
@@ -31,7 +31,8 @@ const useStyles = createUseStyles({
   inactive,
   itemContainer: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
   },
   todoName: {
     width: `${WIDTHS[TYPES.TODO].NAME}px`

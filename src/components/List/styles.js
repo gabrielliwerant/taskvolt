@@ -12,7 +12,8 @@ import {
   LIST_PADDING,
   TOP_OFFSET,
   MARGINS,
-  WIDTHS
+  WIDTHS,
+  ANIMATION_TIMES
 } from '@jss/constants';
 
 const lists = {
@@ -33,9 +34,11 @@ const listContainer = {
   background: ITEM_COLORS[TYPES.LIST].BACKGROUND,
   border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER}`,
   borderRadius: '4px',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`,
 
   '&:hover': {
-    background: ITEM_COLORS[TYPES.LIST].BACKGROUND_HOVER
+    background: ITEM_COLORS[TYPES.LIST].BACKGROUND_HOVER,
+    transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
   }
 };
 

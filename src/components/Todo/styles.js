@@ -7,11 +7,19 @@
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
 
-import { BORDER_OFFSET, LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
+import {
+  BORDER_OFFSET,
+  LIST_PADDING,
+  MARGINS,
+  WIDTHS,
+  ANIMATION_TIMES,
+  Z_INDEX
+} from '@jss/constants';
+import { getBackground } from '@components/Todo/utils';
 
 const todos = {
   '& > li': {
-    marginBottom: '4px'
+    marginBottom: `${MARGINS[TYPES.TODO].MAIN}px`
   }
 };
 
@@ -21,11 +29,12 @@ const items = {
 
 const complete = {
   textDecoration: 'line-through',
-  opacity: '0.5'
+  opacity: '0.5',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`
 };
 
 const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
-  padding: '4px',
+  padding: '6px 4px',
   border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER}`,
   borderRadius: '4px',
   width: `${WIDTHS[TYPES.TODO].CONTAINER}px`,
@@ -46,30 +55,38 @@ const item = {
 };
 
 const completeBackdrop = (color = COLOR_OPTIONS.PRIMARY) => ({
-  background: `linear-gradient(0.5turn,
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE.START},
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE.STOP},
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE.START})`,
+  background: getBackground(
+    ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE.START,
+    ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE.STOP
+  ),
+  boxShadow: '0 1px 1px #DDD',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`,
 
   '&:hover': {
-    background: `linear-gradient(0.5turn,
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE_HOVER.START},
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE_HOVER.STOP},
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE_HOVER.START})`
+    background: getBackground(
+      ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE_HOVER.START,
+      ITEM_COLORS[TYPES.TODO][color].BACKGROUND_COMPLETE_HOVER.STOP
+    ),
+    boxShadow: '0 1px 1px #CCC',
+    transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
   }
 });
 
 const defaultBackdrop = (color = COLOR_OPTIONS.PRIMARY) => ({
-  background: `linear-gradient(0.5turn,
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT.START},
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT.STOP},
-    ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT.START})`,
+  background: getBackground(
+    ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT.START,
+    ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT.STOP
+  ),
+  boxShadow: '0 1px 1px #DDD',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`,
 
   '&:hover': {
-    background: `linear-gradient(0.5turn,
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT_HOVER.START},
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT_HOVER.STOP},
-      ${ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT_HOVER.START})`
+    background: getBackground(
+      ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT_HOVER.START,
+      ITEM_COLORS[TYPES.TODO][color].BACKGROUND_DEFAULT_HOVER.STOP
+    ),
+    boxShadow: '0 1px 1px #CCC',
+    transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
   }
 });
 

@@ -9,6 +9,29 @@ import { MARGINS, BORDER_OFFSET } from '@jss/constants';
 import { TYPES } from '@src/constants';
 
 /**
+ * Determine if a set of color start and stop indicate a gradient.
+ *
+ * It cannot be a gradient if the colors are the same.
+ *
+ * @param {string} start Color value
+ * @param {string} stop Color value
+ * @returns {boolean}
+ */
+const _hasGradient = (start, stop) => start !== stop;
+
+/**
+ * Retrieve the appropriate background color based on given colors and whether or not they
+ * represent a gradient.
+ *
+ * @param {string} color0 Color value
+ * @param {string} color1 Color value
+ * @returns {boolean}
+ */
+const getBackground = (color0, color1) => _hasGradient(color0, color1)
+  ? `linear-gradient(0.5turn, ${color0}, ${color1}, ${color0})`
+  : color0;
+
+/**
  * Calculate the total height for a list of todos.
  *
  * @param {integer} index
@@ -45,4 +68,4 @@ const getTodosHeight = listId => {
   return height;
 };
 
-export { getTodoHeight, getTodosHeight };
+export { getBackground, getTodoHeight, getTodosHeight };

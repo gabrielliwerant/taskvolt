@@ -105,21 +105,21 @@ const ITEM_COLORS = {
       BACKGROUND_COMPLETE: { START: red[200], STOP: red[200] },
       BACKGROUND_COMPLETE_HOVER: { START: red[300], STOP: red[300] },
       BACKGROUND_DEFAULT: { START: red[400], STOP: red[400] },
-      BACKGROUND_DEFAULT_HOVER: { START: red[500], STOP: red[500] },
+      BACKGROUND_DEFAULT_HOVER: { START: red[600], STOP: red[600] },
       PLACEHOLDER: {
         BORDER: red[900],
-        BACKGROUND: red[700]
+        BACKGROUND: red[800]
       }
     },
     [COLOR_OPTIONS.WARNING]: {
       BORDER: yellow[600],
-      BACKGROUND_COMPLETE: { START: yellow[200], STOP: yellow[200] },
-      BACKGROUND_COMPLETE_HOVER: { START: yellow[300], STOP: yellow[300] },
-      BACKGROUND_DEFAULT: { START: yellow[400], STOP: yellow[400] },
+      BACKGROUND_COMPLETE: { START: yellow[100], STOP: yellow[100] },
+      BACKGROUND_COMPLETE_HOVER: { START: yellow[200], STOP: yellow[200] },
+      BACKGROUND_DEFAULT: { START: yellow[300], STOP: yellow[300] },
       BACKGROUND_DEFAULT_HOVER: { START: yellow[500], STOP: yellow[500] },
       PLACEHOLDER: {
-        BORDER: yellow[700],
-        BACKGROUND: yellow[500]
+        BORDER: yellow[800],
+        BACKGROUND: yellow[600]
       }
     },
     [COLOR_OPTIONS.SUCCESS]: {
@@ -127,10 +127,10 @@ const ITEM_COLORS = {
       BACKGROUND_COMPLETE: { START: green[400], STOP: green[400]},
       BACKGROUND_COMPLETE_HOVER: { START: green[500], STOP: green[500]},
       BACKGROUND_DEFAULT: { START: green[600], STOP: green[600] },
-      BACKGROUND_DEFAULT_HOVER: { START: green[700], STOP: green[700] },
+      BACKGROUND_DEFAULT_HOVER: { START: green[800], STOP: green[800] },
       PLACEHOLDER: {
         BORDER: green[900],
-        BACKGROUND: green[700]
+        BACKGROUND: green[800]
       }
     },
     [COLOR_OPTIONS.INFO]: {
@@ -138,7 +138,7 @@ const ITEM_COLORS = {
       BACKGROUND_COMPLETE: { START: blue[200], STOP: blue[200] },
       BACKGROUND_COMPLETE_HOVER: { START: blue[300], STOP: blue[300] },
       BACKGROUND_DEFAULT: { START: blue[400], STOP: blue[400] },
-      BACKGROUND_DEFAULT_HOVER: { START: blue[500], STOP: blue[500] },
+      BACKGROUND_DEFAULT_HOVER: { START: blue[600], STOP: blue[600] },
       PLACEHOLDER: {
         BORDER: blue[900],
         BACKGROUND: blue[700]

@@ -4,7 +4,7 @@
  * Reusable styles for `Name` components.
  */
 
-import { WIDTHS, HEIGHTS } from '@jss/constants';
+import { WIDTHS, HEIGHTS, ANIMATION_TIMES } from '@jss/constants';
 
 const active = {
   display: 'inline-flex',
@@ -20,11 +20,13 @@ const inactive = {
 
 const complete = {
   textDecoration: 'line-through',
-  opacity: '0.5'
+  opacity: '0.5',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`
 };
 
 const incomplete = {
-  textDecoration: 'none'
+  textDecoration: 'none',
+  transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
 };
 
 const item = {
