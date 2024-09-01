@@ -17,6 +17,22 @@ import Checkbox from '@mui/material/Checkbox';
 import { theme, COLOR_OPTIONS } from '@src/theme';
 
 const MyCheckbox = ({ onChange, isChecked, disabled, color, fillColor, ariaLabel }) => {
+  /**
+   * Determine which stroke color should be used for the checkbox based on which combination of
+   * fill and regular color is used.
+   *
+   * @returns {string}
+   */
+  const getStrokeColor = () => {
+    // When fill is white, use black border when primary, dark when different color
+    if (fillColor === COLOR_OPTIONS.WHITE && color === COLOR_OPTIONS.PRIMARY)
+      return 'rgba(0, 0, 0, 0.75)';
+    if (fillColor === COLOR_OPTIONS.WHITE && color !== COLOR_OPTIONS.PRIMARY)
+      return theme.palette[color].dark;
+
+    // Use same fill for solid color look when fill color is non-white color
+    if (fillColor !== COLOR_OPTIONS.WHITE) return theme.palette[fillColor].main;
+  };
 
   return (
     <Checkbox
@@ -34,7 +50,7 @@ const MyCheckbox = ({ onChange, isChecked, disabled, color, fillColor, ariaLabel
         '&:not(.Mui-checked)': {
           '& .MuiSvgIcon-root path': {
             fill: theme.palette[fillColor].main,
-            stroke: fillColor === COLOR_OPTIONS.WHITE ? 'rgba(0, 0, 0, 0.75)' : '',
+            stroke: getStrokeColor(),
             strokeWidth: '2px'
           },
           '&.Mui-disabled .MuiSvgIcon-root path': {
@@ -68,6 +84,7 @@ MyCheckbox.defaultProps = {
   onChange: () => {},
   isChecked: false,
   disabled: false,
+  color: 'primary',
   fillColor: COLOR_OPTIONS.WHITE,
   ariaLabel: ''
 };
