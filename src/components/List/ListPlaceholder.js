@@ -11,12 +11,12 @@ import { connect } from 'react-redux';
 
 import { getTodosHeight } from '@components/Todo/utils';
 import { listItemContainer } from '@components/List/styles';
-import { LIST_PADDING, MARGINS, WIDTHS, Z_INDEX } from '@jss/constants';
+import { LIST_PADDING, MARGINS, WIDTHS, HEIGHTS, Z_INDEX } from '@jss/constants';
 
 import { ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
 import { getTodoItemsByListId } from '@redux/selectors/todos';
-import { getListSelected } from '@redux/selectors/lists';
+import { getListSelected, isListEditActive } from '@redux/selectors/lists';
 
 const classNames = require('classnames');
 
@@ -41,20 +41,36 @@ const LIST_TITLE_HEIGHT = 41;
 const LIST_PLACEHOLDER_HEIGHT_OFFSET = 13;
 
 /**
- * Retrieve the list height from a given todo height by adding list height-altering constants.
+ * Retrieve the height of the list name container.
  *
- * @param {integer} height Todos height
+ * @param {string} id List id
  * @returns {integer}
  */
-const getListHeight = height =>
-  height + LIST_TITLE_HEIGHT + (LIST_PADDING * 3) - MARGINS[TYPES.TODO].MAIN;
+const getListNameHeight = id => {
+  const listEl = document.querySelector(`[data-rbd-draggable-id="list-${id}"]`);
+  const textEl = listEl.querySelector(`[id="text-${id}"]`);
 
-const ListPlaceholder = ({ id, projectId, index, selectedId, todoItems }) => {
+  return textEl.parentNode.clientHeight;
+};
+
+/**
+ * Retrieve the list height from a given todo height by adding list height-altering constants.
+ *
+ * @param {integer} todosHeight
+ * @param {integer} listNameHeight
+ * @returns {integer}
+ */
+const getListHeight = (todosHeight, listNameHeight) =>
+  todosHeight + listNameHeight + (LIST_PADDING * 3) - MARGINS[TYPES.TODO].MAIN;
+
+const ListPlaceholder = ({ id, projectId, index, selectedId, todoItems, isEditActive }) => {
   const classes = useStyles();
   const [placeholderHeight, setPlaceholderHeight] = useState(getListHeight(getTodosHeight(id)));
 
   useEffect(() => {
-    setPlaceholderHeight(getListHeight(getTodosHeight(id)));
+    const listNameHeight = isEditActive ? HEIGHTS[TYPES.LIST].INPUT : getListNameHeight(id);
+
+    setPlaceholderHeight(getListHeight(getTodosHeight(id), listNameHeight));
   }, [todoItems]);
 
   return (
@@ -72,7 +88,8 @@ ListPlaceholder.propTypes = {
   projectId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   selectedId: PropTypes.string.isRequired,
-  todoItems: PropTypes.arrayOf(PropTypes.object).isRequired
+  todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isEditActive: PropTypes.bool.isRequired
 };
 
 ListPlaceholder.defaultProps = {
@@ -81,7 +98,8 @@ ListPlaceholder.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
   todoItems: getTodoItemsByListId(ownProps.id),
-  selectedId: getListSelected()
+  selectedId: getListSelected(),
+  isEditActive: isListEditActive(ownProps.id)
 });
 
 export default connect(mapStateToProps, null)(ListPlaceholder);

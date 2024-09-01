@@ -86,6 +86,7 @@ const List = ({
       >
         <div className={classNames({ [classes.flexCenterX]: true, [classes.flexCenterY]: true })}>
           <NameContainer
+            id={id}
             onClickEdit={edit}
             onChangeEdit={onChange}
             onClickSave={save(getListDraftTextFromList(item))}

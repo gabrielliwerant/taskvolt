@@ -22,6 +22,7 @@ const getListDragSortIndexById = (id, projectId) =>
   _getListsDragByProjectId(projectId).findIndex(i => i === id);
 const getListRemoving = () => _getLists().removing;
 const getListSelected = () => _getLists().selected;
+const isListEditActive = id => getListItemById(id).isEditActive;
 
 const getListTextFinalFromList = list => list.text.final;
 const getListDraftTextFromList = list => list.text.draft;
@@ -39,6 +40,7 @@ export {
   getListDragSortIndexById,
   getListRemoving,
   getListSelected,
+  isListEditActive,
 
   getListTextFinalFromList,
   getListDraftTextFromList,
