@@ -20,8 +20,8 @@ const TYPE_TO_TYPOGRAPHY_VARIANT = {
 
 // Maximum number of characters to allow editing/saving item names
 const MAX_LENGTH_INPUT = {
-  [TYPES.TODO]: 111,
-  [TYPES.LIST]: 45,
+  [TYPES.TODO]: 128,
+  [TYPES.LIST]: 64,
   [TYPES.PROJECT]: 21
 };
 

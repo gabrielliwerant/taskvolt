@@ -34,15 +34,12 @@ const Project = ({ projectsItems, id, activeId, edit, save, cancel, change }) =>
   const classes = useStyles();
 
   /**
-   * Handles change action for input edit.
+   * Handles the input field change for text name updates.
    *
-   * @param {string} id Project id
-   * @returns {function[
-   *  @param {object} e Event
-   *  @returns {void}
-   * ]}
+   * @param {object} e Event
+   * @returns {void}
    */
-  const onChange = id => e => {
+  const onChange = e => {
     // Prevent entering characters past our limit
     if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.PROJECT]) return;
 
@@ -53,7 +50,7 @@ const Project = ({ projectsItems, id, activeId, edit, save, cancel, change }) =>
     <div key={id} className={classes.project}>
       <NameContainer
         onClickEdit={id === activeId ? edit(id) : () => {}}
-        onChangeEdit={onChange(id)}
+        onChangeEdit={onChange}
         onClickSave={save(id, getProjectDraftTextFromProject(projectsItems[id]))}
         onClickCancel={cancel(id)}
         textFinal={getProjectTextFinalFromProject(projectsItems[id])}

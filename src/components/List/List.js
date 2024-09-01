@@ -20,7 +20,7 @@ import { NameContainer } from '@components/Name';
 import { listContainer, listItemContainer, text } from '@components/List/styles';
 import { tilt, flex, flexCenterX, flexCenterY } from '@jss/styles';
 
-import { TYPES } from '@src/constants';
+import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import {
   getListItemById,
   getListSelected,
@@ -57,8 +57,20 @@ const List = ({
   cancel,
   remove
 }) => {
-  const onChange = e => change(e.target.value);
   const classes = useStyles();
+
+  /**
+   * Handles the input field change for text name updates.
+   *
+   * @param {object} e Event
+   * @returns {void}
+   */
+  const onChange = e => {
+    // Prevent entering characters past our limit
+    if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.LIST]) return;
+
+    change(e.target.value);
+  };
 
   return (
     <li
