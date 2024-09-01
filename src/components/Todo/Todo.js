@@ -106,8 +106,8 @@ const Todo = ({
   const [isCompleting, setIsCompleting] = useState(false);
 
   useEffect(() => {
-    if (!isComplete) setIsCompleting(false);
-  }, [isComplete])
+    if (!isComplete || dragId) setIsCompleting(false);
+  }, [isComplete, dragId])
 
   /**
    * Handle completed checkbox toggle.
