@@ -80,6 +80,7 @@ const ITEM_COLORS = {
   [TYPES.TODO]: {
     [COLOR_OPTIONS.PRIMARY]: {
       BORDER: grey[500],
+      BORDER_HOVER: grey[600],
       BACKGROUND_COMPLETE: { START: grey[100], STOP: grey[100] },
       BACKGROUND_COMPLETE_HOVER: { START: grey[200], STOP: grey[200] },
       BACKGROUND_DEFAULT: { START: grey[300], STOP: grey[300] },
@@ -91,6 +92,7 @@ const ITEM_COLORS = {
     },
     [COLOR_OPTIONS.SECONDARY]: {
       BORDER: grey[900],
+      BORDER_HOVER: grey[900],
       BACKGROUND_COMPLETE: { START: grey[500], STOP: grey[500] },
       BACKGROUND_COMPLETE_HOVER: { START: grey[600], STOP: grey[600] },
       BACKGROUND_DEFAULT: { START: grey[700], STOP: grey[700] },
@@ -102,6 +104,7 @@ const ITEM_COLORS = {
     },
     [COLOR_OPTIONS.ERROR]: {
       BORDER: red[800],
+      BORDER_HOVER: red[900],
       BACKGROUND_COMPLETE: { START: red[200], STOP: red[200] },
       BACKGROUND_COMPLETE_HOVER: { START: red[300], STOP: red[300] },
       BACKGROUND_DEFAULT: { START: red[400], STOP: red[400] },
@@ -113,6 +116,7 @@ const ITEM_COLORS = {
     },
     [COLOR_OPTIONS.WARNING]: {
       BORDER: yellow[600],
+      BORDER_HOVER: yellow[700],
       BACKGROUND_COMPLETE: { START: yellow[100], STOP: yellow[100] },
       BACKGROUND_COMPLETE_HOVER: { START: yellow[200], STOP: yellow[200] },
       BACKGROUND_DEFAULT: { START: yellow[300], STOP: yellow[300] },
@@ -124,6 +128,7 @@ const ITEM_COLORS = {
     },
     [COLOR_OPTIONS.SUCCESS]: {
       BORDER: green[800],
+      BORDER_HOVER: green[900],
       BACKGROUND_COMPLETE: { START: green[400], STOP: green[400]},
       BACKGROUND_COMPLETE_HOVER: { START: green[500], STOP: green[500]},
       BACKGROUND_DEFAULT: { START: green[600], STOP: green[600] },
@@ -135,6 +140,7 @@ const ITEM_COLORS = {
     },
     [COLOR_OPTIONS.INFO]: {
       BORDER: blue[700],
+      BORDER_HOVER: blue[800],
       BACKGROUND_COMPLETE: { START: blue[200], STOP: blue[200] },
       BACKGROUND_COMPLETE_HOVER: { START: blue[300], STOP: blue[300] },
       BACKGROUND_DEFAULT: { START: blue[400], STOP: blue[400] },
@@ -149,6 +155,7 @@ const ITEM_COLORS = {
     BACKGROUND: grey[100],
     BACKGROUND_HOVER: grey[200],
     BORDER: grey[400],
+    BORDER_HOVER: grey[500],
     PLACEHOLDER: {
       BORDER: grey[600],
       BACKGROUND: grey[400]

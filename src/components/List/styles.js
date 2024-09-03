@@ -31,13 +31,14 @@ const listItemContainer = {
 const listContainer = {
   width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
   padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
-  background: ITEM_COLORS[TYPES.LIST].BACKGROUND,
-  border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER}`,
   borderRadius: '4px',
   transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`,
+  background: ITEM_COLORS[TYPES.LIST].BACKGROUND,
+  border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER}`,
 
   '&:hover': {
     background: ITEM_COLORS[TYPES.LIST].BACKGROUND_HOVER,
+    border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER_HOVER}`,
     transition: `all ${ANIMATION_TIMES.SHORT}ms ease-in`
   }
 };
