@@ -23,7 +23,7 @@ import {
   getTodoItemColor,
   hasTodoItemDateTimestamp,
   hasTodoItemTimeTimestamp,
-  getTodoCompleting
+  isTodoCompleting
 } from '@redux/selectors/todos';
 
 const classNames = require('classnames');
@@ -52,7 +52,7 @@ const useStyles = createUseStyles({
 const TodoPlaceholder = ({
   id,
   listId,
-  completing = '',
+  isCompleting,
   textFinal,
   index,
   isEditActive,
@@ -74,8 +74,8 @@ const TodoPlaceholder = ({
         [classes.item]: true,
         [classes.hidden]: !placeholderHeight,
         [classes.visible]: placeholderHeight,
-        [classes.visuallyHidden]: !!completing,
-        [classes.visuallyVisible]: !completing
+        [classes.visuallyHidden]: isCompleting,
+        [classes.visuallyVisible]: !isCompleting
       })}
       style={{ height: `${placeholderHeight}px` }}
     >
@@ -87,7 +87,7 @@ const TodoPlaceholder = ({
 TodoPlaceholder.propTypes = {
   id: PropTypes.string.isRequired,
   listId: PropTypes.string.isRequired,
-  completing: PropTypes.string,
+  isCompleting: PropTypes.bool.isRequired,
   textFinal: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   isComplete: PropTypes.bool.isRequired,
@@ -105,7 +105,7 @@ TodoPlaceholder.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  completing : getTodoCompleting(),
+  isCompleting : isTodoCompleting(),
   textFinal: getTodoFinalTextById(ownProps.id),
   isEditActive: isTodoEditActiveById(ownProps.id),
   isComplete : isTodoCompleteById(ownProps.id),

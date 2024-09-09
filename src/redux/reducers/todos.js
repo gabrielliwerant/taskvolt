@@ -120,7 +120,7 @@ const todosSlice = createSlice({
       // Update todo list id owner
       state.items[todoId].listId = newListId;
     },
-    setCompleting: (state, action) => { state.completing = action.payload; },
+    setIsCompleting: (state, action) => { state.isCompleting = action.payload; },
     select: (state, action) => { state.selected = action.payload; }
   }
 });

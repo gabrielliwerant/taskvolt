@@ -44,8 +44,7 @@ import {
   getTodoItemTimeTimestampById,
   hasTodoDateReminder,
   hasTodoTimeReminder,
-  getTodoItemColor,
-  getTodoCompleting
+  getTodoItemColor
 } from '@redux/selectors/todos';
 import { todosSlice } from '@redux/reducers/todos';
 import { getTodoSelected } from '@redux/selectors/todos';
@@ -81,7 +80,6 @@ const Todo = ({
   id,
   provided,
   todo,
-  completing = '',
   dragId,
   dateTimestamp = null,
   timeTimestamp = null,
@@ -92,7 +90,7 @@ const Todo = ({
   hasDateReminder,
   hasTimeReminder,
   color,
-  setCompleting,
+  setIsCompleting,
   edit,
   save,
   cancel,
@@ -106,9 +104,13 @@ const Todo = ({
   const classes = useStyles({ color });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isClockOpen, setIsClockOpen] = useState(false);
+  const [isMyTodoCompleting, setIsMyTodoCompleting] = useState(false);
 
   useEffect(() => {
-    if (!isComplete || dragId) setCompleting('');
+    if (isComplete && !dragId) return;
+
+    setIsCompleting(false);
+    setIsMyTodoCompleting(false);
   }, [isComplete, dragId])
 
   /**
@@ -118,9 +120,12 @@ const Todo = ({
    * @returns {void}
    */
   const onComplete = e => {
-    if (!isComplete) setCompleting(id);
-
     complete(id, e.target.checked);
+
+    if (isComplete) return;
+
+    setIsCompleting(true);
+    setIsMyTodoCompleting(true);
   };
 
   /**
@@ -201,7 +206,7 @@ const Todo = ({
 
   return (
     <li
-      className={classNames({ [classes.item]: true, [classes.completing]: completing === id })}
+      className={classNames({ [classes.item]: true, [classes.completing]: isMyTodoCompleting })}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
@@ -282,7 +287,6 @@ Todo.propTypes = {
   id: PropTypes.string.isRequired,
   provided: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
-  completing: PropTypes.string,
   dragId: PropTypes.string.isRequired,
   dateTimestamp: PropTypes.number,
   timeTimestamp: PropTypes.number,
@@ -300,7 +304,7 @@ Todo.propTypes = {
     COLOR_OPTIONS.PRIMARY,
     COLOR_OPTIONS.SECONDARY
   ]).isRequired,
-  setCompleting: PropTypes.func.isRequired,
+  setIsCompleting: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -313,7 +317,6 @@ Todo.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  completing : getTodoCompleting(),
   dragId: getTodoSelected(),
   dateTimestamp: getTodoItemDateTimestampById(ownProps.id),
   timeTimestamp: getTodoItemTimeTimestampById(ownProps.id),
@@ -327,7 +330,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCompleting: id => dispatch(todosSlice.actions.setCompleting(id)),
+  setIsCompleting: isCompleting => dispatch(todosSlice.actions.setIsCompleting(isCompleting)),
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),
