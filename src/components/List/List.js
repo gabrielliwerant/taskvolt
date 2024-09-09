@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
+import { motion } from 'framer-motion';
 
 import AddIcon from '@mui/icons-material/AddRounded';
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
@@ -80,9 +81,9 @@ const List = ({
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <div
+      <motion.div
         className={classes.listContainer}
-        style={{ transform: dragId === id ? tilt : '' }}
+        animate={{ transform: dragId === id ? tilt : '' }}
       >
         <div className={classNames({ [classes.flexCenterX]: true, [classes.flexCenterY]: true })}>
           <NameContainer
@@ -114,7 +115,7 @@ const List = ({
           }
         </div>
         <Todos listId={id} />
-      </div>
+      </motion.div>
     </li>
   );
 };

@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
+import { motion, AnimatePresence  } from 'framer-motion';
 
 import AlarmIcon from '@mui/icons-material/AlarmRounded';
 
@@ -211,14 +212,15 @@ const Todo = ({
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <div
+      <motion.div
         className={classNames({
           [classes.todoContainer]: true,
           [classes.flexCenterY]: true,
           [classes.defaultBackdrop]: !isComplete,
-          [classes.completeBackdrop]: isComplete
+          [classes.completeBackdrop]: isComplete,
+          [classes.unTilt]: dragId !== id
         })}
-        style={{ transform: dragId === id ? tilt : '' }}
+        animate={{ transform: dragId === id ? tilt : '' }}
       >
         {(!!dateTimestamp || !!timeTimestamp) && !isEditActive &&
           <Typography
@@ -262,7 +264,7 @@ const Todo = ({
             <Typography>{textFinal}</Typography>
           </NameContainer>
         </div>
-      </div>
+      </motion.div>
       <DateCalendarModal
         isOpen={isCalendarOpen}
         onConfirm={onCalendarConfirm}
