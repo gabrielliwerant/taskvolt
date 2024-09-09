@@ -18,8 +18,10 @@ const getInitialState = () => {
   const local = window.localStorage.getItem(LOCAL_STORAGE_KEY);
   const initial = {
     app: {
-      view: VIEWS.START,
-      activeTab: false,
+      ui: {
+        view: VIEWS.START,
+        activeTab: false
+      },
       user: {
         id: '1',
         email: '',
