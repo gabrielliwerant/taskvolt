@@ -28,4 +28,12 @@ const hidden = {
   display: 'none'
 };
 
-export { tilt, flex, flexCenterY, flexCenterX, fullWidth, hidden };
+const visuallyHidden = {
+  visibility: 'hidden'
+};
+
+const visuallyVisible = {
+  visibility: 'visible'
+};
+
+export { tilt, flex, flexCenterY, flexCenterX, fullWidth, hidden, visuallyHidden, visuallyVisible };

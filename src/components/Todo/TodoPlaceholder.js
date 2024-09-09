@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
-import { hidden } from '@jss/styles';
+import { hidden, visuallyHidden, visuallyVisible } from '@jss/styles';
 import { getClassNames } from '@jss/utils';
 import { BORDER_OFFSET, WIDTHS, Z_INDEX } from '@jss/constants';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
@@ -22,7 +22,8 @@ import {
   isTodoCompleteById,
   getTodoItemColor,
   hasTodoItemDateTimestamp,
-  hasTodoItemTimeTimestamp
+  hasTodoItemTimeTimestamp,
+  getTodoCompleting
 } from '@redux/selectors/todos';
 
 const classNames = require('classnames');
@@ -43,19 +44,22 @@ const useStyles = createUseStyles({
   visible: {
     display: 'list-item'
   },
-  hidden
+  hidden,
+  visuallyHidden,
+  visuallyVisible
 });
 
 const TodoPlaceholder = ({
   id,
   listId,
+  completing = '',
   textFinal,
   index,
   isEditActive,
   isComplete,
   color,
-  hasDateTimestamp,
-  hasTimeTimestamp
+  hasDateTimestamp = null,
+  hasTimeTimestamp = null
 }) => {
   const classes = useStyles({ color });
   const [placeholderHeight, setPlaceholderHeight] = useState(0);
@@ -69,7 +73,9 @@ const TodoPlaceholder = ({
       className={classNames({
         [classes.item]: true,
         [classes.hidden]: !placeholderHeight,
-        [classes.visible]: placeholderHeight
+        [classes.visible]: placeholderHeight,
+        [classes.visuallyHidden]: !!completing,
+        [classes.visuallyVisible]: !completing
       })}
       style={{ height: `${placeholderHeight}px` }}
     >
@@ -81,6 +87,7 @@ const TodoPlaceholder = ({
 TodoPlaceholder.propTypes = {
   id: PropTypes.string.isRequired,
   listId: PropTypes.string.isRequired,
+  completing: PropTypes.string,
   textFinal: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   isComplete: PropTypes.bool.isRequired,
@@ -97,12 +104,8 @@ TodoPlaceholder.propTypes = {
   hasTimeTimestamp: PropTypes.bool
 };
 
-TodoPlaceholder.defaultProps = {
-  hasDateTimestamp: null,
-  hasTimeTimestamp: null
-};
-
 const mapStateToProps = (state, ownProps) => ({
+  completing : getTodoCompleting(),
   textFinal: getTodoFinalTextById(ownProps.id),
   isEditActive: isTodoEditActiveById(ownProps.id),
   isComplete : isTodoCompleteById(ownProps.id),
