@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 
 const MyIconButton = forwardRef(({
-  color,
-  disabled,
-  onClick,
+  color = 'default',
+  disabled = false,
+  onClick = () => {},
   children,
-  ariaLabel,
+  ariaLabel = '',
   ...otherProps
 }, ref) => {
   return (
@@ -38,13 +38,6 @@ MyIconButton.propTypes = {
   onClick: PropTypes.func,
   children:  PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   ariaLabel: PropTypes.string
-};
-
-MyIconButton.defaultProps = {
-  color: 'default',
-  disabled: false,
-  onClick: () => {},
-  ariaLabel: ''
 };
 
 export { MyIconButton as IconButton };

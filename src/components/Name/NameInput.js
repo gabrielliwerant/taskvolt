@@ -29,15 +29,15 @@ const useStyles = createUseStyles({
 });
 
 const NameInput = ({
-  color,
-  isActive,
-  isComplete,
-  onChange,
-  onKeyDown,
-  value,
-  label,
-  type,
-  myClassNames
+  color = 'primary',
+  isActive = false,
+  isComplete = false,
+  onChange = () => {},
+  onKeyDown = () => {},
+  value = '',
+  label = '',
+  type = TYPES.TODO,
+  myClassNames = {}
 }) => {
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
@@ -73,18 +73,6 @@ NameInput.propTypes = {
   label: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
-};
-
-NameInput.defaultProps = {
-  color: 'primary',
-  isActive: false,
-  isComplete: false,
-  onChange: () => {},
-  onKeyDown: () => {},
-  value: '',
-  label: '',
-  type: TYPES.TODO,
-  myClassNames: {}
 };
 
 export default NameInput;

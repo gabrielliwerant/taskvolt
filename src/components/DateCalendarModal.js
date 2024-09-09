@@ -34,7 +34,7 @@ const DateCalendarModal = ({
   onConfirm,
   onClose,
   isOpen,
-  value,
+  value = null,
   hasReminder,
   onReminderChange
 }) => {
@@ -141,10 +141,6 @@ DateCalendarModal.propTypes = {
   hasReminder: PropTypes.bool.isRequired,
   onReminderChange: PropTypes.func.isRequired,
   value: PropTypes.number
-};
-
-DateCalendarModal.defaultProps = {
-  value: null
 };
 
 export default DateCalendarModal;

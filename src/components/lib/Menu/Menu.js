@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 import Menu from '@mui/material/Menu';
 
-const MyMenu = ({ open, onClose, anchorEl, children }) => {
+const MyMenu = ({ open, onClose, anchorEl = null, children }) => {
   return (
     <Menu open={open} onClose={onClose} anchorEl={anchorEl}>
       {children}
@@ -22,10 +22,6 @@ MyMenu.propTypes = {
   onClose: PropTypes.func.isRequired,
   anchorEl: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
-};
-
-MyMenu.defaultProps = {
-  anchorEl: null
 };
 
 export { MyMenu as Menu };

@@ -40,7 +40,7 @@ const RemoveProjectDialog = ({
   onClose,
   id,
   activeTab,
-  projectsSort,
+  projectsSort = [],
   removeList,
   removeTodo,
   removeProject,
@@ -153,10 +153,6 @@ RemoveProjectDialog.propTypes = {
   removeTodo: PropTypes.func.isRequired,
   setActive: PropTypes.func.isRequired,
   setActiveTab: PropTypes.func.isRequired
-};
-
-RemoveProjectDialog.defaultProps = {
-  projectsSort: []
 };
 
 const mapStateToProps = () => ({

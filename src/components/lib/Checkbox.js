@@ -16,7 +16,14 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { theme, COLOR_OPTIONS } from '@src/theme';
 
-const MyCheckbox = ({ onChange, isChecked, disabled, color, fillColor, ariaLabel }) => {
+const MyCheckbox = ({
+  onChange = () => {},
+  isChecked = false,
+  disabled = false,
+  color = 'primary',
+  fillColor = COLOR_OPTIONS.WHITE,
+  ariaLabel = ''
+}) => {
   /**
    * Determine which stroke color should be used for the checkbox based on which combination of
    * fill and regular color is used.
@@ -78,15 +85,6 @@ MyCheckbox.propTypes = {
     COLOR_OPTIONS.WHITE
   ]),
   ariaLabel: PropTypes.string
-};
-
-MyCheckbox.defaultProps = {
-  onChange: () => {},
-  isChecked: false,
-  disabled: false,
-  color: 'primary',
-  fillColor: COLOR_OPTIONS.WHITE,
-  ariaLabel: ''
 };
 
 export { MyCheckbox as Checkbox };

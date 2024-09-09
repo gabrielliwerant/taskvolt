@@ -112,17 +112,17 @@ const TYPE_TO_STYLES = {
 };
 
 const MyTextField = ({
-  id,
-  onChange,
-  onKeyDown,
-  value,
-  label,
-  color,
-  type,
-  itemType,
-  ariaLabel,
-  isHidden,
-  myClassName
+  id = '',
+  onChange = () => {},
+  onKeyDown = () => {},
+  value = '',
+  label = '',
+  color = 'primary',
+  type = 'text',
+  itemType = TYPES.LIST,
+  ariaLabel = '',
+  isHidden = false,
+  myClassName = ''
 }) => {
   const classes = useStyles();
 
@@ -169,20 +169,6 @@ MyTextField.propTypes = {
   ariaLabel: PropTypes.string,
   isHidden: PropTypes.bool,
   myClassName: PropTypes.string
-};
-
-MyTextField.defaultProps = {
-  id: '',
-  onChange: () => {},
-  onKeyDown: () => {},
-  value: '',
-  label: '',
-  color: 'primary',
-  type: 'text',
-  itemType: TYPES.LIST,
-  ariaLabel: '',
-  isHidden: false,
-  myClassName: ''
 };
 
 export { MyTextField as TextField };

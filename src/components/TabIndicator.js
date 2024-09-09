@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const TabIndicator = ({ isActive }) => {
+const TabIndicator = ({ isActive = false }) => {
   const classes = useStyles();
 
   return (
@@ -48,10 +48,6 @@ const TabIndicator = ({ isActive }) => {
 
 TabIndicator.propTypes = {
   isActive: PropTypes.bool
-};
-
-TabIndicator.defaultProps = {
-  isActive: false
 };
 
 export default TabIndicator;

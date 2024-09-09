@@ -10,7 +10,13 @@ import PropTypes from 'prop-types';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ToolBar from '@mui/material/ToolBar';
 
-const MyButtonGroup = ({ orientation, variant, size, color, children }) => {
+const MyButtonGroup = ({
+  orientation = 'horizontal',
+  variant = 'container',
+  size = 'medium',
+  color = 'primary',
+  children
+}) => {
   return (
     <ButtonGroup
       disableElevation
@@ -30,13 +36,6 @@ MyButtonGroup.propTypes = {
   size: PropTypes.string,
   color: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
-};
-
-MyButtonGroup.defaultProps = {
-  orientation: 'horizontal',
-  variant: 'contained',
-  size: 'medium',
-  color: 'primary'
 };
 
 export { MyButtonGroup as ButtonGroup };

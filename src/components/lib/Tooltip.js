@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 const classNames = require('classnames');
 
-const MyTooltip = ({ title, open, arrow, children, myClassName }) => {
+const MyTooltip = ({ title, open = undefined, arrow = false, children, myClassName = '' }) => {
   return (
     <Fragment>
       {open === undefined &&
@@ -34,12 +34,6 @@ MyTooltip.propTypes = {
   arrow: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   myClassName: PropTypes.string
-};
-
-MyTooltip.defaultProps = {
-  open: undefined,
-  arrow: false,
-  myClassName: ''
 };
 
 export { MyTooltip as Tooltip };

@@ -12,13 +12,13 @@ import Typography from '@mui/material/Typography';
 import { theme, shouldContrast, COLOR_OPTIONS } from '@src/theme';
 
 const MyTypography = ({
-  id,
-  align,
-  variant,
-  gutterBottom,
-  component,
-  color,
-  className,
+  id = '',
+  align = 'inherit',
+  variant = 'body1',
+  gutterBottom = false,
+  component = '',
+  color = 'primary',
+  className = '',
   children
 }) => {
   return (
@@ -47,16 +47,6 @@ MyTypography.propTypes = {
   color: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
-};
-
-MyTypography.defaultProps = {
-  id: '',
-  component: '',
-  className: '',
-  align: 'inherit',
-  variant: 'body1',
-  color: 'primary',
-  gutterBottom: false
 };
 
 export { MyTypography as Typography };

@@ -11,7 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { Checkbox } from '@components/lib/Checkbox';
 
-const MyFormControlLabel = ({ label, onChange, isChecked, isDisabled }) => {
+const MyFormControlLabel = ({ label, onChange, isChecked = false, isDisabled = false }) => {
   return (
     <FormControlLabel
       label={label}
@@ -26,11 +26,6 @@ MyFormControlLabel.propTypes = {
   onChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool,
   isChecked: PropTypes.bool
-};
-
-MyFormControlLabel.defaultProps = {
-  isDisabled: false,
-  isChecked: false
 };
 
 export { MyFormControlLabel as FormControlLabel };

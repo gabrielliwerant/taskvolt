@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@components/lib/IconButton';
 import { Menu } from '@components/lib/Menu';
 
-const MenuSection = ({ icon, ariaLabel, children }) => {
+const MenuSection = ({ icon, ariaLabel = '', children }) => {
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const isMenuOpen = !!menuAnchorEl;
 
@@ -43,10 +43,6 @@ MenuSection.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   ariaLabel: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
-};
-
-MenuSection.defaultProps = {
-  ariaLabel: ''
 };
 
 export default MenuSection;

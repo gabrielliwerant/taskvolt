@@ -31,7 +31,16 @@ const useStyles = createUseStyles({
   text
 });
 
-const Name = ({ id, isActive, isComplete, onClick, value, type, color, myClassNames }) => {
+const Name = ({
+  id = '',
+  isActive = false,
+  isComplete = false,
+  onClick = () => {},
+  value = '',
+  type = TYPES.TODO,
+  color = 'primary',
+  myClassNames = {}
+}) => {
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
@@ -64,17 +73,6 @@ Name.propTypes = {
   color: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
-};
-
-Name.defaultProps = {
-  id: '',
-  isActive: false,
-  isComplete: false,
-  onClick: () => {},
-  value: '',
-  color: 'primary',
-  type: TYPES.TODO,
-  myClassNames: {}
 };
 
 export default Name;

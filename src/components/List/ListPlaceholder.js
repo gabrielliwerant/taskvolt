@@ -92,10 +92,6 @@ ListPlaceholder.propTypes = {
   isEditActive: PropTypes.bool.isRequired
 };
 
-ListPlaceholder.defaultProps = {
-  droppingIndex: null
-};
-
 const mapStateToProps = (state, ownProps) => ({
   todoItems: getTodoItemsByListId(ownProps.id),
   selectedId: getListSelected(),

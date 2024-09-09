@@ -11,7 +11,7 @@ import Tab from '@mui/material/Tab';
 
 const classNames = require('classnames');
 
-const MyTab = ({ label, iconPosition, icon, myClassName }) => {
+const MyTab = ({ label = '', iconPosition = 'end', icon = '', myClassName = '' }) => {
   return (
     <Tab
       disableRipple
@@ -30,13 +30,6 @@ MyTab.propTypes = {
   iconPosition: PropTypes.string,
   icon: PropTypes.node,
   myClassName: PropTypes.string
-};
-
-MyTab.defaultProps = {
-  label: '',
-  iconPosition: 'end',
-  icon: '',
-  myClassName: ''
 };
 
 export { MyTab as Tab };

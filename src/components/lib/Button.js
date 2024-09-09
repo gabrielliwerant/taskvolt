@@ -11,14 +11,14 @@ import Button from '@mui/material/Button';
 
 const MyButton = forwardRef(({
   onClick,
-  variant,
-  size,
-  disabled,
-  fullWidth,
-  color,
-  startIcon,
+  variant = 'contained',
+  size = 'medium',
+  disabled = false,
+  fullWidth = false,
+  color = 'primary',
+  startIcon = '',
   children,
-  myClassName,
+  myClassName = '',
   ...otherProps
 }, ref) => {
   return (
@@ -49,16 +49,6 @@ MyButton.propTypes = {
   startIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   myClassName: PropTypes.string
-};
-
-MyButton.defaultProps = {
-  color: 'primary',
-  variant: 'contained',
-  size: 'medium',
-  disabled: false,
-  fullWidth: false,
-  startIcon: '',
-  myClassName: ''
 };
 
 export { MyButton as Button };

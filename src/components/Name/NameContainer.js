@@ -51,21 +51,21 @@ const useStyles = createUseStyles({
 });
 
 const NameContainer = ({
-  id,
-  color,
-  onClickEdit,
-  onChangeEdit,
-  onClickSave,
-  onClickCancel,
-  inactiveIconSection,
-  dateTimestamp,
-  timeTimestamp,
+  id = '',
+  color = 'primary',
+  onClickEdit = () => {},
+  onChangeEdit = () => {},
+  onClickSave = () => {},
+  onClickCancel = () => {},
+  inactiveIconSection = '',
+  dateTimestamp = null,
+  timeTimestamp = null,
   textFinal,
-  textDraft,
-  isEditActive,
-  isComplete,
-  type,
-  myClassNames
+  textDraft = '',
+  isEditActive = false,
+  isComplete = false,
+  type = TYPES.TODO,
+  myClassNames = {}
 }) => {
   const classes = useStyles();
 
@@ -170,24 +170,6 @@ NameContainer.propTypes = {
   isComplete: PropTypes.bool,
   type: PropTypes.oneOf([TYPES.TODO, TYPES.LIST, TYPES.PROJECT]),
   myClassNames: PropTypes.object
-};
-
-NameContainer.defaultProps = {
-  id: '',
-  color: 'primary',
-  onClickEdit: () => {},
-  onChangeEdit: () => {},
-  onClickSave: () => {},
-  onClickCancel: () => {},
-  inactiveIconSection: '',
-  dateTimestamp: null,
-  timeTimestamp: null,
-  textDraft: '',
-  hasRemove: false,
-  isEditActive: false,
-  isComplete: false,
-  type: TYPES.TODO,
-  myClassNames: {}
 };
 
 export default NameContainer;

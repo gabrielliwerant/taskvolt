@@ -9,7 +9,14 @@ import PropTypes from 'prop-types';
 
 import Fab from '@mui/material/Fab';
 
-const MyFab = forwardRef(({ size, color, onClick, children, myClassName, ...otherProps }, ref) => {
+const MyFab = forwardRef(({
+  size = 'small',
+  color = 'primary',
+  onClick,
+  children,
+  myClassName = '',
+  ...otherProps
+}, ref) => {
   return (
     <Fab
       ref={ref}
@@ -30,12 +37,6 @@ MyFab.propTypes = {
   onClick: PropTypes.func.isRequired,
   myClassName: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
-};
-
-MyFab.defaultProps = {
-  size: 'small',
-  color: 'primary',
-  myClassName: ''
 };
 
 export { MyFab as Fab };

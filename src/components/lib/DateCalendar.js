@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
-const MyDateCalendar = ({ value, onChange }) => {
+const MyDateCalendar = ({ value = {}, onChange }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar value={value} disablePast onChange={onChange} />
@@ -22,10 +22,6 @@ const MyDateCalendar = ({ value, onChange }) => {
 MyDateCalendar.propTypes = {
   value: PropTypes.object,
   onChange: PropTypes.func.isRequired
-};
-
-MyDateCalendar.defaultProps = {
-  value: {}
 };
 
 export { MyDateCalendar as DateCalendar };

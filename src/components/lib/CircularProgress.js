@@ -11,18 +11,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const classNames = require('classnames');
 
-const MyCircularProgress = ({ size, myClassName }) => {
+const MyCircularProgress = ({ size = 16, myClassName = '' }) => {
   return <CircularProgress size={size} className={classNames({ [myClassName]: !!myClassName })} />;
 };
 
 MyCircularProgress.propTypes = {
   size: PropTypes.number.isRequired,
   myClassName: PropTypes.string
-};
-
-MyCircularProgress.defaultProps = {
-  size: 16,
-  myClassName: ''
 };
 
 export { MyCircularProgress as CircularProgress };

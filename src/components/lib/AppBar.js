@@ -11,13 +11,13 @@ import AppBar from '@mui/material/AppBar';
 import ToolBar from '@mui/material/ToolBar';
 
 const MyAppBar = ({
-  color,
-  position,
-  component,
-  isTop,
+  color = 'primary',
+  position = 'relative',
+  component = 'header',
+  isTop = true,
   children,
-  myClassNameAppBar,
-  myClassNameToolbar
+  myClassNameAppBar = '',
+  myClassNameToolbar = ''
 }) => {
   return (
     <AppBar
@@ -40,15 +40,6 @@ MyAppBar.propTypes = {
   children: PropTypes.element.isRequired,
   myClassNameAppBar: PropTypes.string,
   myClassNameToolbar: PropTypes.string
-};
-
-MyAppBar.defaultProps = {
-  color: 'primary',
-  component: 'header',
-  position: 'relative',
-  isTop: true,
-  myClassNameAppBar: '',
-  myClassNameToolbar: ''
 };
 
 export { MyAppBar as AppBar };

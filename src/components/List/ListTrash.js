@@ -61,7 +61,7 @@ const useStyles = createUseStyles({
 
 const ListTrash = ({
   id,
-  item,
+  item = {},
   isRemoved,
   hasList,
   activeTab,
@@ -147,10 +147,6 @@ ListTrash.propTypes = {
   restoreList: PropTypes.func.isRequired,
   restoreTodo: PropTypes.func.isRequired,
   setActiveTab: PropTypes.func.isRequired
-};
-
-ListTrash.defaultProps = {
-  item: {}
 };
 
 const mapStateToProps = (state, ownProps) => ({
