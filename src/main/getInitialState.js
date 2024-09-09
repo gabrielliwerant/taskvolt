@@ -44,7 +44,6 @@ const getInitialState = () => {
     todos: {
       items: {},
       selected: '',
-      isCompleting: false,
       dragSort: {},
       sort: {}
     }

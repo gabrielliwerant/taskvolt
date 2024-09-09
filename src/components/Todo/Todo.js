@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import { motion, AnimatePresence  } from 'framer-motion';
+import { motion  } from 'framer-motion';
 
 import AlarmIcon from '@mui/icons-material/AlarmRounded';
 
@@ -91,7 +91,6 @@ const Todo = ({
   hasDateReminder,
   hasTimeReminder,
   color,
-  setIsCompleting,
   edit,
   save,
   cancel,
@@ -105,13 +104,12 @@ const Todo = ({
   const classes = useStyles({ color });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isClockOpen, setIsClockOpen] = useState(false);
-  const [isMyTodoCompleting, setIsMyTodoCompleting] = useState(false);
+  const [isCompleting, setIsCompleting] = useState(false);
 
   useEffect(() => {
     if (isComplete && !dragId) return;
 
     setIsCompleting(false);
-    setIsMyTodoCompleting(false);
   }, [isComplete, dragId])
 
   /**
@@ -126,7 +124,6 @@ const Todo = ({
     if (isComplete) return;
 
     setIsCompleting(true);
-    setIsMyTodoCompleting(true);
   };
 
   /**
@@ -207,7 +204,7 @@ const Todo = ({
 
   return (
     <li
-      className={classNames({ [classes.item]: true, [classes.completing]: isMyTodoCompleting })}
+      className={classNames({ [classes.item]: true, [classes.completing]: isCompleting })}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
@@ -217,8 +214,7 @@ const Todo = ({
           [classes.todoContainer]: true,
           [classes.flexCenterY]: true,
           [classes.defaultBackdrop]: !isComplete,
-          [classes.completeBackdrop]: isComplete,
-          [classes.unTilt]: dragId !== id
+          [classes.completeBackdrop]: isComplete
         })}
         animate={{ transform: dragId === id ? tilt : '' }}
       >
@@ -306,7 +302,6 @@ Todo.propTypes = {
     COLOR_OPTIONS.PRIMARY,
     COLOR_OPTIONS.SECONDARY
   ]).isRequired,
-  setIsCompleting: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -332,7 +327,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setIsCompleting: isCompleting => dispatch(todosSlice.actions.setIsCompleting(isCompleting)),
   edit: id => () => dispatch(todosSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),

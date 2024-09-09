@@ -18,7 +18,6 @@ const _getTodoDragSortByListId = id => getTodosDragSort()[id];
 const getTodoDragSortIndexById = (id, listId) =>
   _getTodoDragSortByListId(listId).findIndex(i => i === id);
 const getTodoSelected = () => _getTodos().selected;
-const isTodoCompleting = () => _getTodos().isCompleting;
 const _getTodoItemById = id => getTodosItems()[id];
 const isTodoCompleteById = id => _getTodoItemById(id).isComplete;
 const getTodoDraftTextById = id => _getTodoItemById(id).text.draft;
@@ -88,7 +87,6 @@ export {
   getTodosDragSort,
   getTodoDragSortIndexById,
   getTodoSelected,
-  isTodoCompleting,
   isTodoCompleteById,
   getTodoDraftTextById,
   getTodoFinalTextById,
