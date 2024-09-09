@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { connect } from 'react-redux';
 
+import { hidden } from '@jss/styles';
 import { getClassNames } from '@jss/utils';
 import { BORDER_OFFSET, WIDTHS, Z_INDEX } from '@jss/constants';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
@@ -24,6 +25,8 @@ import {
   hasTodoItemTimeTimestamp
 } from '@redux/selectors/todos';
 
+const classNames = require('classnames');
+
 const useStyles = createUseStyles({
   placeholder: {
     position: 'relative',
@@ -36,7 +39,11 @@ const useStyles = createUseStyles({
     border: `1px dashed ${ITEM_COLORS[TYPES.TODO][props.color].PLACEHOLDER.BORDER}`,
     borderRadius: '4px',
     background: ITEM_COLORS[TYPES.TODO][props.color].PLACEHOLDER.BACKGROUND
-  })
+  }),
+  visible: {
+    display: 'list-item'
+  },
+  hidden
 });
 
 const TodoPlaceholder = ({
@@ -58,7 +65,14 @@ const TodoPlaceholder = ({
   }, [textFinal, isEditActive, isComplete, hasDateTimestamp, hasTimeTimestamp, color]);
 
   return (
-    <li className={classes.item} style={{ height: `${placeholderHeight}px` }}>
+    <li
+      className={classNames({
+        [classes.item]: true,
+        [classes.hidden]: !placeholderHeight,
+        [classes.visible]: placeholderHeight
+      })}
+      style={{ height: `${placeholderHeight}px` }}
+    >
       <div className={classes.placeholder} />
     </li>
   );
