@@ -32,6 +32,8 @@ const listContainer = {
   width: `${WIDTHS.TODO.MAIN + BORDER_OFFSET}px`,
   padding: `${LIST_PADDING}px ${LIST_PADDING}px ${LIST_PADDING - MARGINS[TYPES.TODO].MAIN}px ${LIST_PADDING}px`,
   borderRadius: '4px',
+  animation: 'zoomIn',
+  animationDuration: `${ANIMATION_TIMES.SHORT}ms`,
   transition: `all ${ANIMATION_TIMES.SHORT}ms ease-out`,
   background: ITEM_COLORS[TYPES.LIST].BACKGROUND,
   border: `1px solid ${ITEM_COLORS[TYPES.LIST].BORDER}`,

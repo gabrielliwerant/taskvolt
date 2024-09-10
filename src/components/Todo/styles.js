@@ -35,6 +35,8 @@ const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
   flexDirection: 'column',
   alignItems: 'baseline',
   border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER}`,
+  animation: 'zoomIn',
+  animationDuration: `${ANIMATION_TIMES.SHORT}ms`,
 
   '&:hover': {
     border: `1px solid ${ITEM_COLORS[TYPES.TODO][color].BORDER_HOVER}`,
