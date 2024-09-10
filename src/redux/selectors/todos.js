@@ -66,7 +66,10 @@ const getRemovedTodoIdsByListId = id =>
  * @returns {array[string]}
  */
 const getUniqueListIdsFromRemovedTodoItems = () => _uniq(
-  Object.values(getTodosItems()).filter(item => item.trash.isTrashed).map(item => item.listId)
+  Object.values(getTodosItems())
+    .filter(item => item.trash.isTrashed)
+    .map(item => item.listId)
+    .sort()
 );
 
 /**
