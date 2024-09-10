@@ -75,7 +75,6 @@ const List = ({
 
   return (
     <li
-      key={id}
       className={classes.listItemContainer}
       ref={provided.innerRef}
       {...provided.draggableProps}

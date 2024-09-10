@@ -30,7 +30,7 @@ import {
   dateTimeText,
   dateTimePrimaryText
 } from '@components/Todo/styles';
-import { tilt, flexCenterY } from '@jss/styles';
+import { tilt, straighten, flexCenterY } from '@jss/styles';
 import { ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 
@@ -216,7 +216,7 @@ const Todo = ({
           [classes.defaultBackdrop]: !isComplete,
           [classes.completeBackdrop]: isComplete
         })}
-        animate={{ transform: dragId === id ? tilt : '' }}
+        animate={{ transform: dragId === id ? tilt : straighten }}
       >
         {(!!dateTimestamp || !!timeTimestamp) && !isEditActive &&
           <Typography

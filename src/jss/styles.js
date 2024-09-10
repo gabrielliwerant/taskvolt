@@ -5,6 +5,7 @@
  */
 
 const tilt = 'rotate(2deg)';
+const straighten = 'rotate(0deg)';
 
 const flex = {
   display: 'flex'
@@ -36,4 +37,14 @@ const visuallyVisible = {
   visibility: 'visible'
 };
 
-export { tilt, flex, flexCenterY, flexCenterX, fullWidth, hidden, visuallyHidden, visuallyVisible };
+export {
+  tilt,
+  straighten,
+  flex,
+  flexCenterY,
+  flexCenterX,
+  fullWidth,
+  hidden,
+  visuallyHidden,
+  visuallyVisible
+};

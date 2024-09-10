@@ -6,6 +6,7 @@
 
 import { MARGINS, BORDER_OFFSET } from '@jss/constants';
 
+import { getDragDropId } from '@src/utils';
 import { TYPES } from '@src/constants';
 
 /**
@@ -49,9 +50,10 @@ const getTodoHeight = (index, listId) => {
  * Calculate the total height for a list of todos.
  *
  * @param {string} listId
+ * @param {array[string]} todosSort
  * @returns {integer}
  */
-const getTodosHeight = listId => {
+const getTodosHeight = (listId, todosSort = []) => {
   let height = 0;
   const todosEl = document.querySelector(`[data-rbd-droppable-id="droppable-todos-${listId}"]`);
 
@@ -61,6 +63,11 @@ const getTodosHeight = listId => {
   const len = todosEl.children.length - 1;
 
   for (let i = 0; i < len; i += 1) {
+    const id = getDragDropId(todosEl.children[i].getAttribute('data-rbd-draggable-id'));
+
+    // Skip calculations for any todos that are missing from the sort list
+    if (todosSort.length && !todosSort.includes(id)) continue;
+
     height += todosEl.children[i].clientHeight;
     height += MARGINS[TYPES.TODO].MAIN;
   }

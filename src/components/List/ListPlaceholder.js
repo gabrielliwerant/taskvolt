@@ -11,11 +11,12 @@ import { connect } from 'react-redux';
 
 import { getTodosHeight } from '@components/Todo/utils';
 import { listItemContainer } from '@components/List/styles';
+import { visuallyHidden, visuallyVisible } from '@jss/styles';
 import { LIST_PADDING, MARGINS, WIDTHS, HEIGHTS, Z_INDEX } from '@jss/constants';
 
 import { ITEM_COLORS } from '@src/theme';
 import { TYPES } from '@src/constants';
-import { getTodoItemsByListId } from '@redux/selectors/todos';
+import { getTodoItemsByListId, getTodoSortByListId } from '@redux/selectors/todos';
 import { getListSelected, isListEditActive } from '@redux/selectors/lists';
 
 const classNames = require('classnames');
@@ -33,7 +34,9 @@ const useStyles = createUseStyles({
     borderRadius: '4px',
     background: ITEM_COLORS[TYPES.LIST].PLACEHOLDER.BACKGROUND
   },
-  listItemContainer
+  listItemContainer,
+  visuallyHidden,
+  visuallyVisible
 });
 
 // KLUDGE: Hardcoded sizes for list height
@@ -63,19 +66,33 @@ const getListNameHeight = id => {
 const getListHeight = (todosHeight, listNameHeight) =>
   todosHeight + listNameHeight + (LIST_PADDING * 3) - MARGINS[TYPES.TODO].MAIN;
 
-const ListPlaceholder = ({ id, projectId, index, selectedId, todoItems, isEditActive }) => {
+const ListPlaceholder = ({
+  id,
+  projectId,
+  index,
+  selected = '',
+  todoItems,
+  todosSort,
+  isEditActive
+}) => {
   const classes = useStyles();
-  const [placeholderHeight, setPlaceholderHeight] = useState(getListHeight(getTodosHeight(id)));
+  const [placeholderHeight, setPlaceholderHeight] =
+    useState(getListHeight(getTodosHeight(id, todosSort)));
 
   useEffect(() => {
     const listNameHeight = isEditActive ? HEIGHTS[TYPES.LIST].INPUT : getListNameHeight(id);
 
-    setPlaceholderHeight(getListHeight(getTodosHeight(id), listNameHeight));
-  }, [todoItems]);
+    setPlaceholderHeight(getListHeight(getTodosHeight(id, todosSort), listNameHeight));
+  }, [todoItems, todosSort]);
 
   return (
     <li
-      className={classNames({ [classes.item]: true, [classes.listItemContainer]: true })}
+      className={classNames({
+        [classes.item]: true,
+        [classes.listItemContainer]: true,
+        [classes.visuallyHidden]: !selected,
+        [classes.visuallyVisible]: !!selected
+      })}
       style={{ height: `${placeholderHeight}px` }}
     >
       <div className={classes.placeholder} />
@@ -87,14 +104,16 @@ ListPlaceholder.propTypes = {
   id: PropTypes.string.isRequired,
   projectId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  selectedId: PropTypes.string.isRequired,
+  selected: PropTypes.string,
   todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  todosSort: PropTypes.arrayOf(PropTypes.string).isRequired,
   isEditActive: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
   todoItems: getTodoItemsByListId(ownProps.id),
-  selectedId: getListSelected(),
+  todosSort: getTodoSortByListId(ownProps.id),
+  selected: getListSelected(),
   isEditActive: isListEditActive(ownProps.id)
 });
 

@@ -32,8 +32,8 @@ const Todos = ({ listId, todosItems, todosSort, todosDragSort }) => {
   const [placeholdersHeight, setPlaceholdersHeight] = useState(0);
 
   useEffect(() => {
-    setPlaceholdersHeight(getTodosHeight(listId));
-  }, [todosItems, todosDragSort]);
+    setPlaceholdersHeight(getTodosHeight(listId, todosSort[listId]));
+  }, [todosItems, todosSort, todosDragSort]);
 
   return (
     <Fragment>

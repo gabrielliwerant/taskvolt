@@ -13,7 +13,7 @@ const _getTodos = () => getState('todos');
 const getTodosItems = () => _getTodos().items;
 const getTodosSort = () => _getTodos().sort;
 const getTodosDragSort = () => _getTodos().dragSort;
-const _getTodoSortByListId = id => getTodosSort()[id];
+const getTodoSortByListId = id => getTodosSort()[id];
 const _getTodoDragSortByListId = id => getTodosDragSort()[id];
 const getTodoDragSortIndexById = (id, listId) =>
   _getTodoDragSortByListId(listId).findIndex(i => i === id);
@@ -85,6 +85,7 @@ export {
   getTodosItems,
   getTodosSort,
   getTodosDragSort,
+  getTodoSortByListId,
   getTodoDragSortIndexById,
   getTodoSelected,
   isTodoCompleteById,
