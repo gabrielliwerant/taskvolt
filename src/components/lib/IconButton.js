@@ -36,7 +36,7 @@ MyIconButton.propTypes = {
   color: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  children:  PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   ariaLabel: PropTypes.string
 };
 

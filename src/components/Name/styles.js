@@ -31,7 +31,7 @@ const item = {
 const text = {
   wordBreak: 'break-word',
 
-  '& p': {
+  '& > p': {
     padding: '9px 0' // KLUDGE: Makes height of text consistent regardless of # of lines of text
   },
 

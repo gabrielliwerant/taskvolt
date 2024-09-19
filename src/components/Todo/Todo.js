@@ -140,6 +140,23 @@ const Todo = ({
   };
 
   /**
+   * Handles the click to edit behavior for the todo item.
+   *
+   * @param {object} e Event
+   * @returns {void}
+   */
+  const onClickEdit = e => {
+    // Always allow edit if not clicking an anchor tag
+    if (e.target.parentElement.tagName !== 'A') return edit(id);
+    // If we are clicking an anchor and the item is not complete, allow link
+    if (!isComplete) return;
+
+    // Prevent link behavior and allow click to edit when item is marked as complete
+    e.preventDefault();
+    edit(id)
+  };
+
+  /**
    * Handle date calendar click action from menu.
    *
    * @returns {void}
@@ -242,7 +259,7 @@ const Todo = ({
           <NameContainer
             id={id}
             color={color}
-            onClickEdit={edit(id)}
+            onClickEdit={onClickEdit}
             onChangeEdit={onChange}
             onClickSave={save(id, textDraft)}
             onClickCancel={cancel(id)}
@@ -327,7 +344,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  edit: id => () => dispatch(todosSlice.actions.edit(id)),
+  edit: id => dispatch(todosSlice.actions.edit(id)),
   save: (id, draft) => () => dispatch(todosSlice.actions.save({ id, draft })),
   cancel: id => () => dispatch(todosSlice.actions.cancel(id)),
   setDate: (id, timestamp) => dispatch(todosSlice.actions.setDateTimestamp({ id, timestamp })),

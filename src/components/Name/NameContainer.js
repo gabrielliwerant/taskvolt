@@ -13,7 +13,6 @@ import CloseIcon from '@mui/icons-material/CloseRounded';
 
 import { Tooltip } from '@components/lib/Tooltip';
 import { IconButton } from '@components/lib/IconButton';
-import { Typography } from '@components/lib/Typography';
 import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';

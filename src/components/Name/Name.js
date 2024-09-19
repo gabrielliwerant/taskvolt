@@ -10,7 +10,10 @@ import { createUseStyles } from 'react-jss';
 import { isEmpty } from 'lodash';
 
 import { Typography } from '@components/lib/Typography';
+import { Link } from '@components/lib/Link';
 
+import { isUrl, splitByUrl } from '@components/Name/utils';
+import { COLOR_OPTIONS } from '@src/theme';
 import { TYPES, TYPE_TO_TYPOGRAPHY_VARIANT } from '@src/constants';
 
 import { complete } from '@components/styles';
@@ -38,7 +41,7 @@ const Name = ({
   onClick = () => {},
   value = '',
   type = TYPES.TODO,
-  color = 'primary',
+  color = COLOR_OPTIONS.PRIMARY,
   myClassNames = {}
 }) => {
   const classes = useStyles({ type });
@@ -57,8 +60,20 @@ const Name = ({
         [classes.item]: true
       })}
     >
-      <Typography id={id} variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>
-        {value}
+      <Typography id={`text-${id}`} variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>
+        {splitByUrl(value).map((part, index) => {
+          return !isUrl(part)
+            ? part
+            : <Link
+                key={`link-${id}`}
+                variant='caption'
+                href={part}
+                color={color}
+                isComplete={isComplete}
+              >
+                {part}
+              </Link>
+        })}
       </Typography>
     </div>
   );
@@ -70,7 +85,16 @@ Name.propTypes = {
   isComplete: PropTypes.bool,
   onClick: PropTypes.func,
   value: PropTypes.string,
-  color: PropTypes.string,
+  color: PropTypes.oneOf([
+    COLOR_OPTIONS.PRIMARY,
+    COLOR_OPTIONS.SECONDARY,
+    COLOR_OPTIONS.ERROR,
+    COLOR_OPTIONS.WARNING,
+    COLOR_OPTIONS.SUCCESS,
+    COLOR_OPTIONS.INFO,
+    COLOR_OPTIONS.WHITE,
+    COLOR_OPTIONS.BLACK
+  ]),
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
 };

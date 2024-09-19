@@ -23,7 +23,7 @@ const MyTypography = ({
 }) => {
   return (
     <Typography
-      id={`text-${id}`}
+      id={id}
       variant={variant}
       gutterBottom={gutterBottom}
       className={className}
