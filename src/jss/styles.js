@@ -22,7 +22,7 @@ const flexCenterX = {
 };
 
 const fullWidth = {
-  width: '100%'
+  width: 'max-content'
 };
 
 const hidden = {

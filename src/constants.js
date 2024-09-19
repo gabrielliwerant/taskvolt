@@ -22,7 +22,7 @@ const TYPE_TO_TYPOGRAPHY_VARIANT = {
 const MAX_LENGTH_INPUT = {
   [TYPES.TODO]: 128,
   [TYPES.LIST]: 64,
-  [TYPES.PROJECT]: 21
+  [TYPES.PROJECT]: 32
 };
 
 // Reusable date format for display purposes
