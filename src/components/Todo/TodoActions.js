@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
-import ListItem from '@mui/material/ListItem';
-
 import DeleteIcon from '@mui/icons-material/DeleteRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVertRounded';
 import EventIcon from '@mui/icons-material/EventRounded';
@@ -61,7 +59,11 @@ const TodoActions = ({ id, color, remove, onCalendarClick, onClockClick, setColo
         <MenuList>
           <MenuItem onClick={onCalendarClick} icon={<EventIcon />}>Add Date</MenuItem>
           <MenuItem onClick={onClockClick} icon={<AccessTimeIcon />}>Add Time</MenuItem>
-          <MenuItem icon={<Tooltip title='Change color'><PaletteIcon /></Tooltip>} disableRipple>
+          <MenuItem
+            icon={<Tooltip title='Change color'><PaletteIcon /></Tooltip>}
+            disableRipple
+            disablePointer
+          >
             <Fragment>
               <Checkbox
                 onChange={onColorChange(COLOR_OPTIONS.ERROR)}
