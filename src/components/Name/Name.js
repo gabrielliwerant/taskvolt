@@ -73,7 +73,9 @@ const Name = ({
             ? splitByBackticks(segment).map(subSegment =>
                 !hasBacktickSurround(subSegment)
                   ? subSegment
-                  : <Code color={color}>{removeLeadingAndTrailing(subSegment)}</Code>
+                  : <Code key={`code-${id}`} color={color}>
+                      {removeLeadingAndTrailing(subSegment)}
+                    </Code>
               )
             : <Link
                 key={`link-${id}`}
