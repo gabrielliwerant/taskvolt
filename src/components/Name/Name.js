@@ -11,8 +11,15 @@ import { isEmpty } from 'lodash';
 
 import { Typography } from '@components/lib/Typography';
 import { Link } from '@components/lib/Link';
+import Code from '@components/Code';
 
-import { isUrl, splitByUrl } from '@components/Name/utils';
+import {
+  isUrl,
+  splitByUrl,
+  hasBacktickSurround,
+  splitByBackticks,
+  removeLeadingAndTrailing
+} from '@components/Name/utils';
 import { COLOR_OPTIONS } from '@src/theme';
 import { TYPES, TYPE_TO_TYPOGRAPHY_VARIANT } from '@src/constants';
 
@@ -61,19 +68,23 @@ const Name = ({
       })}
     >
       <Typography id={`text-${id}`} variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>
-        {splitByUrl(value).map((part, index) => {
-          return !isUrl(part)
-            ? part
+        {splitByUrl(value).map(segment =>
+          !isUrl(segment)
+            ? splitByBackticks(segment).map(subSegment =>
+                !hasBacktickSurround(subSegment)
+                  ? subSegment
+                  : <Code color={color}>{removeLeadingAndTrailing(subSegment)}</Code>
+              )
             : <Link
                 key={`link-${id}`}
                 variant='caption'
-                href={part}
+                href={segment}
                 color={color}
                 isComplete={isComplete}
               >
-                {part}
+                {segment}
               </Link>
-        })}
+        )}
       </Typography>
     </div>
   );
