@@ -116,6 +116,7 @@ const MyTextField = ({
   onFocus = () => {},
   onChange = () => {},
   onKeyDown = () => {},
+  multiline = false,
   value = '',
   label = '',
   color = 'primary',
@@ -132,6 +133,7 @@ const MyTextField = ({
       size='small'
       autoFocus
       fullWidth
+      multiline={multiline}
       id={id}
       onFocus={onFocus}
       onChange={onChange}
@@ -164,6 +166,7 @@ MyTextField.propTypes = {
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
+  multiline: PropTypes.bool,
   value: PropTypes.string,
   label: PropTypes.string,
   color: PropTypes.string,

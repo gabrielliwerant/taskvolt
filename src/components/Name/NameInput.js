@@ -14,10 +14,13 @@ import { TextField } from '@components/lib/TextField';
 import { complete } from '@components/styles';
 import { active, inactive, incomplete, item, text } from '@components/Name/styles';
 
-import { TYPES } from '@src/constants';
+import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import { INITIAL_NAME_TEXT } from '@main/constants';
 
 const classNames = require('classnames');
+
+// Determines the length where the item is edited in large text field or typical input
+const MULTILINE_LENGTH = MAX_LENGTH_INPUT[TYPES.TODO] / 4;
 
 const useStyles = createUseStyles({
   active,
@@ -68,6 +71,7 @@ const NameInput = ({
       onKeyDown={onKeyDown}
       onFocus={onFocus}
       itemType={type}
+      multiline={value.length >= MULTILINE_LENGTH}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.text]: !myClassNames?.text,
