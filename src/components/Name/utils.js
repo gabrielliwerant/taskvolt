@@ -8,11 +8,12 @@ import { getFormattedDateFromUnixTimestamp } from '@src/utils';
 import { DATE_FORMAT, TIME_FORMAT_WITH_AM_PM } from '@src/constants';
 
 // Regular expression to match URLs
-const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+const URLS_REGEX = /(https?:\/\/[^\s]+)/g;
+const URL_REGEX = /(https?:\/\/[^\s]+)/;
 
 // Regular expressions for backticks
 const BACKTICKS_REGEX = /`([^`]+)`|([^`]+)/g;
-const BACKTICKS_SURROUND_REGEX = /`([^`]+)`/g
+const BACKTICKS_SURROUND_REGEX = /`([^`]+)`/
 
 /**
  * Build the display text for date/time based on whether we have one or both timestamps.
@@ -54,7 +55,7 @@ const hasBacktickSurround = text => BACKTICKS_SURROUND_REGEX.test(text);
  * @param {string} text
  * @returns {array[string]}
  */
-const splitByUrl = text => text.split(URL_REGEX).filter(part => !!part.trim());
+const splitByUrl = text => text.split(URLS_REGEX).filter(part => !!part.trim());
 
 /**
  * Split a given text string based on whether it is surrounded by backticks.
