@@ -26,6 +26,10 @@ const maxContentWidth = {
   maxWidth: 'max-content !important'
 };
 
+const fullWidth = {
+  width: '100%'
+};
+
 const hidden = {
   display: 'none'
 };
@@ -45,6 +49,7 @@ export {
   flexCenterY,
   flexCenterX,
   maxContentWidth,
+  fullWidth,
   hidden,
   visuallyHidden,
   visuallyVisible

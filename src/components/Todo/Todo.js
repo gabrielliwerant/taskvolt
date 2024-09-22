@@ -30,7 +30,7 @@ import {
   dateTimeText,
   dateTimePrimaryText
 } from '@components/Todo/styles';
-import { tilt, straighten, flexCenterY } from '@jss/styles';
+import { tilt, straighten, flexCenterY, fullWidth } from '@jss/styles';
 import { ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, ITEM_COLORS } from '@src/theme';
 
@@ -74,7 +74,8 @@ const useStyles = createUseStyles({
   dateTimeText,
   dateTimePrimaryText,
   item,
-  flexCenterY
+  flexCenterY,
+  fullWidth
 });
 
 const Todo = ({
@@ -254,7 +255,7 @@ const Todo = ({
             {getDateTimeDisplayText(dateTimestamp, timeTimestamp)}
           </Typography>
         }
-        <div className={classes.flexCenterY}>
+        <div className={classNames({ [classes.fullWidth]: true, [classes.flexCenterY]: true })}>
           <Checkbox onChange={onComplete} isChecked={isComplete} color={color} />
           <NameContainer
             id={id}
