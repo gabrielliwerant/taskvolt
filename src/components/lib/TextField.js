@@ -113,6 +113,7 @@ const TYPE_TO_STYLES = {
 
 const MyTextField = ({
   id = '',
+  onFocus = () => {},
   onChange = () => {},
   onKeyDown = () => {},
   value = '',
@@ -132,6 +133,7 @@ const MyTextField = ({
       autoFocus
       fullWidth
       id={id}
+      onFocus={onFocus}
       onChange={onChange}
       onKeyDown={onKeyDown}
       value={value}
@@ -159,6 +161,7 @@ const MyTextField = ({
 
 MyTextField.propTypes = {
   id: PropTypes.string,
+  onFocus: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   value: PropTypes.string,

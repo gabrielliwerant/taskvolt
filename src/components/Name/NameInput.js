@@ -15,6 +15,7 @@ import { complete } from '@components/styles';
 import { active, inactive, incomplete, item, text } from '@components/Name/styles';
 
 import { TYPES } from '@src/constants';
+import { INITIAL_NAME_TEXT } from '@main/constants';
 
 const classNames = require('classnames');
 
@@ -41,6 +42,23 @@ const NameInput = ({
   const classes = useStyles({ type });
   const myClasses = Object.values(myClassNames).join(' ');
 
+  /**
+   * Handles focus behavior, specifically to select text under the right conditions.
+   *
+   * @param {object} e Event
+   * @returns {void}
+   */
+  const onFocus = e => {
+    // Skip if we do not have a value that matches initial text
+    if (
+      value !== INITIAL_NAME_TEXT[TYPES.TODO]
+      && value !== INITIAL_NAME_TEXT[TYPES.LIST]
+      && value !== INITIAL_NAME_TEXT[TYPES.PROJECT]
+    ) return;
+
+    e.target.select();
+  };
+
   return (
     <TextField
       color={color}
@@ -48,6 +66,7 @@ const NameInput = ({
       label={label}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      onFocus={onFocus}
       itemType={type}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
