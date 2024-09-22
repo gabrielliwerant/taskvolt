@@ -20,8 +20,8 @@ const todosSlice = createSlice({
       const id = makeId();
 
       state.items[id] = makeNewTodo(id, action.payload, INITIAL_NAME_TEXT[TYPES.TODO]);
-      state.sort[action.payload].push(id);
-      state.dragSort[action.payload].push(id);
+      state.sort[action.payload].unshift(id);
+      state.dragSort[action.payload].unshift(id);
     },
     addSort: (state, action) => {
       state.sort[action.payload] = [];
@@ -73,8 +73,8 @@ const todosSlice = createSlice({
     restore: (state, action) => {
       const listId = state.items[action.payload].listId;
 
-      state.sort[listId].push(action.payload);
-      state.dragSort[listId].push(action.payload);
+      state.sort[listId].unshift(action.payload);
+      state.dragSort[listId].unshift(action.payload);
       state.items[action.payload].trash.timestamp = null;
       state.items[action.payload].trash.isTrashed = false;
     },

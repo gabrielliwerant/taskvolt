@@ -20,8 +20,8 @@ const listsSlice = createSlice({
       const { listId, projectId } = action.payload;
 
       state.items[listId] = makeNewList(listId, projectId, INITIAL_NAME_TEXT[TYPES.LIST]);
-      state.sort[projectId].push(listId);
-      state.dragSort[projectId].push(listId);
+      state.sort[projectId].unshift(listId);
+      state.dragSort[projectId].unshift(listId);
     },
     addSort: (state, action) => {
       state.sort[action.payload] = [];
@@ -55,8 +55,8 @@ const listsSlice = createSlice({
     restore: (state, action) => {
       const projectId = state.items[action.payload].projectId;
 
-      state.sort[projectId].push(action.payload);
-      state.dragSort[projectId].push(action.payload);
+      state.sort[projectId].unshift(action.payload);
+      state.dragSort[projectId].unshift(action.payload);
       state.items[action.payload].trash.timestamp = null;
       state.items[action.payload].trash.isTrashed = false;
     },
