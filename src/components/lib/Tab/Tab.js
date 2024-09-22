@@ -6,12 +6,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createUseStyles } from 'react-jss';
 
 import Tab from '@mui/material/Tab';
 
+import { maxContentWidth } from '@jss/styles';
+
 const classNames = require('classnames');
 
+const useStyles = createUseStyles({
+  maxContentWidth
+});
+
 const MyTab = ({ label = '', iconPosition = 'end', icon = '', myClassName = '' }) => {
+  const classes = useStyles();
+  
   return (
     <Tab
       disableRipple
@@ -19,7 +28,7 @@ const MyTab = ({ label = '', iconPosition = 'end', icon = '', myClassName = '' }
       label={label}
       iconPosition={iconPosition}
       icon={icon}
-      className={classNames({ [myClassName]: !!myClassName })}
+      className={classNames({ [classes.maxContentWidth]: true, [myClassName]: !!myClassName })}
       component='div'
     />
   );

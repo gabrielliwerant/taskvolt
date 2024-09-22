@@ -16,7 +16,7 @@ import { IconButton } from '@components/lib/IconButton';
 import { Name, NameInput } from '@components/Name';
 
 import { active, inactive } from '@components/Name/styles';
-import { flex, flexCenterX, flexCenterY, fullWidth } from '@jss/styles';
+import { flex, flexCenterX, flexCenterY, maxContentWidth } from '@jss/styles';
 import { WIDTHS, ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 
@@ -46,7 +46,7 @@ const useStyles = createUseStyles({
   flex,
   flexCenterY,
   flexCenterX,
-  fullWidth
+  maxContentWidth
 });
 
 const NameContainer = ({
@@ -88,7 +88,7 @@ const NameContainer = ({
   return (
     <div
       className={classNames({
-        [classes.fullWidth]: true,
+        [classes.maxContentWidth]: true,
         [classes.itemContainer]: true,
         [myClassNames.container]: !!myClassNames?.container
       })}

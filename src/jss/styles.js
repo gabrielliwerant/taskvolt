@@ -21,8 +21,9 @@ const flexCenterX = {
   justifyContent: 'space-between'
 };
 
-const fullWidth = {
-  width: 'max-content'
+const maxContentWidth = {
+  width: 'max-content',
+  maxWidth: 'max-content !important'
 };
 
 const hidden = {
@@ -43,7 +44,7 @@ export {
   flex,
   flexCenterY,
   flexCenterX,
-  fullWidth,
+  maxContentWidth,
   hidden,
   visuallyHidden,
   visuallyVisible
