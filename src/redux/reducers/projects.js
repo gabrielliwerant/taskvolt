@@ -7,15 +7,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getUnixTimestampFromDate } from '@src/utils';
+import { TYPES } from '@src/constants';
 import { getInitialState } from '@main/getInitialState';
 import { makeNewProject } from '@main/projects';
+import { INITIAL_NAME_TEXT } from '@main/constants';
 
 const projectsSlice = createSlice({
   name: 'projects',
   initialState: getInitialState().projects,
   reducers: {
     add: (state, action) => {
-      state.items[action.payload] = makeNewProject(action.payload, 'New Project');
+      state.items[action.payload] = makeNewProject(action.payload, INITIAL_NAME_TEXT[TYPES.PROJECT]);
       state.sort.push(action.payload);
     },
     edit: (state, action) => {

@@ -7,8 +7,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getUnixTimestampFromDate } from '@src/utils';
+import { TYPES } from '@src/constants';
 import { getInitialState } from '@main/getInitialState';
 import { makeNewList } from '@main/lists';
+import { INITIAL_NAME_TEXT } from '@main/constants';
 
 const listsSlice = createSlice({
   name: 'lists',
@@ -17,7 +19,7 @@ const listsSlice = createSlice({
     add: (state, action) => {
       const { listId, projectId } = action.payload;
 
-      state.items[listId] = makeNewList(listId, projectId, 'Todo List');
+      state.items[listId] = makeNewList(listId, projectId, INITIAL_NAME_TEXT[TYPES.LIST]);
       state.sort[projectId].push(listId);
       state.dragSort[projectId].push(listId);
     },

@@ -7,8 +7,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { makeId, getUnixTimestampFromDate } from '@src/utils';
+import { TYPES } from '@src/constants';
 import { getInitialState } from '@main/getInitialState';
 import { makeNewTodo } from '@main/todos';
+import { INITIAL_NAME_TEXT } from '@main/constants';
 
 const todosSlice = createSlice({
   name: 'todos',
@@ -17,7 +19,7 @@ const todosSlice = createSlice({
     add: (state, action) => {
       const id = makeId();
 
-      state.items[id] = makeNewTodo(id, action.payload, 'New todo');
+      state.items[id] = makeNewTodo(id, action.payload, INITIAL_NAME_TEXT[TYPES.TODO]);
       state.sort[action.payload].push(id);
       state.dragSort[action.payload].push(id);
     },
