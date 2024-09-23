@@ -95,14 +95,14 @@ const NameContainer = ({
         [classes.itemContainer]: true,
         [myClassNames.container]: !!myClassNames?.container
       })}
-      onDoubleClick={!isEditActive ? onClickEdit : () => {}}
+      onDoubleClick={!isEditActive && !isComplete ? onClickEdit : () => {}}
     >
       {!isEditActive &&
         <Fragment>
           <div className={classes.flexCenterX}>
             <div
               role="button"
-              onClick={!isEditActive ? onClickEdit : () => {}}
+              onClick={!isEditActive && !isComplete ? onClickEdit : () => {}}
               className={classNames({
                 [classes.nameBarButton]: true,
                 [classes.todoName]: type === TYPES.TODO
