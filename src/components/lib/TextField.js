@@ -16,6 +16,13 @@ import { TYPES } from '@src/constants';
 
 const classNames = require('classnames');
 
+// Map type to font size
+const TYPES_TO_FONT_SIZE = {
+  [TYPES.TODO]: theme.typography.body2.fontSize,
+  [TYPES.LIST]: theme.typography.body1.fontSize,
+  [TYPES.PROJECT]: theme.typography.body1.fontSize
+};
+
 const useStyles = createUseStyles({
   hidden: {
     visibility: 'hidden',
@@ -121,7 +128,7 @@ const MyTextField = ({
   label = '',
   color = 'primary',
   type = 'text',
-  itemType = TYPES.LIST,
+  itemType = TYPES.TODO,
   ariaLabel = '',
   isHidden = false,
   myClassName = ''
@@ -152,7 +159,13 @@ const MyTextField = ({
         '& .MuiInputLabel-root': {
           ...getLabelStyles(color)
         },
+        textarea: {
+          fontSize: TYPES_TO_FONT_SIZE[itemType],
+          ...getInputStyles(color),
+          ...getItemStyles(itemType)
+        },
         input: {
+          fontSize: TYPES_TO_FONT_SIZE[itemType],
           ...getInputStyles(color),
           ...getItemStyles(itemType)
         }
