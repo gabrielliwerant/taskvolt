@@ -122,8 +122,8 @@ const Header = ({ isLoggedIn, isUploading, login, logout, setStartView, toggleIs
           </MenuSection>
         </div>
         <TextField id='file_input' type='file' isHidden />
+        <ImportDataDialog open={isDialogOpen} onClose={onDialogClose} />
       </Fragment>
-      <ImportDataDialog open={isDialogOpen} onClose={onDialogClose} />
     </AppBar>
   );
 };

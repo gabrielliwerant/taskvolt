@@ -20,7 +20,7 @@ import { Button } from '@components/lib/Button';
 import { appSlice } from '@redux/reducers/app';
 import { importLocalJsonData } from '@main/import';
 
-const ImportDataDialog = ({ open, onClose, id, toggleIsUploadOn }) => {
+const ImportDataDialog = ({ open, onClose, toggleIsUploadOn }) => {
   /**
    * Handle upload.
    *
@@ -59,7 +59,9 @@ const ImportDataDialog = ({ open, onClose, id, toggleIsUploadOn }) => {
           <DialogContentText id="import-data-dialog-description">
             This action will <strong>replace</strong> all current data. It is strongly recommended
             that you export and backup your data first.
-            <p>Are you sure you would like to proceed?</p>
+          </DialogContentText>
+          <DialogContentText id="import-data-dialog-interogation">
+            <br />Are you sure you would like to proceed?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -76,7 +78,6 @@ const ImportDataDialog = ({ open, onClose, id, toggleIsUploadOn }) => {
 ImportDataDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
   toggleIsUploadOn: PropTypes.func.isRequired
 };
 
