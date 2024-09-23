@@ -85,6 +85,15 @@ const getLabelStyles = myColor => {
 };
 
 /**
+ * Retrieve the appropriate color value for input/textarea.
+ *
+ * @param {string} myColor
+ * @returns {string} Color value
+ */
+const getColor = myColor =>
+  shouldContrast(myColor) ? theme.palette.contrastText : theme.palette.black.main;
+
+/**
  * Retrieve the appropriate input override styles based on the color.
  *
  * @param {string} myColor
@@ -93,10 +102,16 @@ const getLabelStyles = myColor => {
 const getInputStyles = myColor => {
   if (myColor === COLOR_OPTIONS.PRIMARY) return;
 
-  const color = shouldContrast(myColor) ? theme.palette.contrastText : theme.palette.black.main;
-
-  return { color };
+  return { color: getColor(myColor) };
 };
+
+/**
+ * Retrieve the appropriate input error text override styles based on the color.
+ *
+ * @param {string} myColor
+ * @returns {object|void} Style object
+ */
+const getErrorStyles = myColor => ({ color: `${getColor(myColor)} !important` });
 
 /**
  * Retrieve the appropriate item-specific input override styles based on the item type.
@@ -108,7 +123,7 @@ const getItemStyles = type => {
   if (type !== TYPES.TODO) return;
 
   return {
-    padding: '5px 12px 6px'
+    padding: '8px 12px 7px'
   };
 };
 
@@ -124,6 +139,8 @@ const MyTextField = ({
   onChange = () => {},
   onKeyDown = () => {},
   multiline = false,
+  error = false,
+  helperText = '',
   value = '',
   label = '',
   color = 'primary',
@@ -140,6 +157,8 @@ const MyTextField = ({
       size='small'
       autoFocus
       fullWidth
+      helperText={helperText}
+      error={error}
       multiline={multiline}
       id={id}
       onFocus={onFocus}
@@ -159,10 +178,15 @@ const MyTextField = ({
         '& .MuiInputLabel-root': {
           ...getLabelStyles(color)
         },
+        '& .Mui-error': {
+          ...getErrorStyles(color)
+        },
+        '& .MuiFormHelperText-root': {
+          marginLeft: '0'
+        },
         textarea: {
           fontSize: TYPES_TO_FONT_SIZE[itemType],
-          ...getInputStyles(color),
-          ...getItemStyles(itemType)
+          ...getInputStyles(color)
         },
         input: {
           fontSize: TYPES_TO_FONT_SIZE[itemType],
@@ -179,6 +203,8 @@ MyTextField.propTypes = {
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
+  helperText: PropTypes.string,
+  error: PropTypes.bool,
   multiline: PropTypes.bool,
   value: PropTypes.string,
   label: PropTypes.string,

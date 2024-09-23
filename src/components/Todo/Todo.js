@@ -96,6 +96,8 @@ const Todo = ({
   setTimeReminder
 }) => {
   const classes = useStyles({ color });
+  const [helperText, setHelperText] = useState('');
+  const [hasError, setHasError] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isClockOpen, setIsClockOpen] = useState(false);
   const [isCompleting, setIsCompleting] = useState(false);
@@ -128,8 +130,14 @@ const Todo = ({
    */
   const onChange = e => {
     // Prevent entering characters past our limit
-    if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.TODO]) return;
+    if (e.target.value.length > MAX_LENGTH_INPUT[TYPES.TODO]) {
+      setHelperText('Character limit reached');
+      setHasError(true);
+      return;
+    }
 
+    setHelperText('');
+    setHasError(false);
     change(id, e.target.value);
   };
 
@@ -254,6 +262,8 @@ const Todo = ({
           <NameContainer
             id={id}
             color={color}
+            helperText={helperText}
+            error={hasError}
             onClickEdit={onClickEdit}
             onChangeEdit={onChange}
             onClickSave={save(id, textDraft)}

@@ -52,6 +52,8 @@ const useStyles = createUseStyles({
 const NameContainer = ({
   id = '',
   color = 'primary',
+  error = false,
+  helperText = '',
   onClickEdit = () => {},
   onChangeEdit = () => {},
   onClickSave = () => {},
@@ -124,6 +126,8 @@ const NameContainer = ({
         <div className={classNames({ [classes.flexCenterY]: true, [classes.flexCenterX]: true })}>
           <NameInput
             color={color}
+            helperText={helperText}
+            error={error}
             type={type}
             value={textDraft}
             onChange={onChangeEdit}
@@ -152,6 +156,8 @@ const NameContainer = ({
 NameContainer.propTypes = {
   id: PropTypes.string,
   color: PropTypes.string,
+  helperText: PropTypes.string,
+  error: PropTypes.bool,
   onClickEdit: PropTypes.func,
   onChangeEdit: PropTypes.func,
   onClickSave: PropTypes.func,
