@@ -25,6 +25,7 @@ import {
   item,
   completeBackdrop,
   defaultBackdrop,
+  dateTimeEditInactive,
   dateTime,
   dateTimeText,
   dateTimePrimaryText
@@ -70,6 +71,7 @@ const useStyles = createUseStyles({
   name: {
     cursor: 'default'
   },
+  dateTimeEditInactive,
   dateTime,
   dateTimeText,
   dateTimePrimaryText,
@@ -127,6 +129,7 @@ const TodoTrash = ({
             component='div'
             className={classNames({
               [classes.dateTime]: true,
+              [classes.dateTimeEditInactive]: !isEditActive,
               [classes.dateTimeText]: color !== COLOR_OPTIONS.PRIMARY,
               [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
             })}

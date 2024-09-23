@@ -28,7 +28,7 @@ const items = {
 };
 
 const todoContainer = (color = COLOR_OPTIONS.PRIMARY) => ({
-  padding: '6px 4px',
+  padding: '8px 4px',
   borderRadius: '4px',
   width: `${WIDTHS[TYPES.TODO].CONTAINER}px`,
   display: 'flex',
@@ -90,9 +90,12 @@ const defaultBackdrop = (color = COLOR_OPTIONS.PRIMARY) => ({
   }
 });
 
+const dateTimeEditInactive = {
+  marginBottom: '-10px !important', // KLUDGE: Help make timestamp height consistent
+};
+
 const dateTime = {
   paddingLeft: '38px',
-  marginBottom: '-10px !important', // KLUDGE: Help make timestamp height consistent
 
   '& svg': {
     fontSize: 'small',
@@ -116,6 +119,7 @@ export {
   item,
   completeBackdrop,
   defaultBackdrop,
+  dateTimeEditInactive,
   dateTime,
   dateTimeText,
   dateTimePrimaryText

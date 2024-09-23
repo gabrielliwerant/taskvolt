@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash';
 import { TextField } from '@components/lib/TextField';
 
 import { complete } from '@components/styles';
-import { active, inactive, incomplete, item, text } from '@components/Name/styles';
+import { active, inactive, incomplete, item } from '@components/Name/styles';
 
 import { TYPES, MAX_LENGTH_INPUT } from '@src/constants';
 import { INITIAL_NAME_TEXT } from '@main/constants';
@@ -27,8 +27,7 @@ const useStyles = createUseStyles({
   inactive,
   complete,
   incomplete,
-  item,
-  text
+  item
 });
 
 const NameInput = ({
@@ -74,7 +73,6 @@ const NameInput = ({
       multiline={value.length >= MULTILINE_LENGTH}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
-        [classes.text]: !myClassNames?.text,
         [classes.active]: isActive,
         [classes.inactive]: !isActive,
         [classes.complete]: isComplete,

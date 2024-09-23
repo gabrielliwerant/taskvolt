@@ -26,6 +26,7 @@ import {
   item,
   completeBackdrop,
   defaultBackdrop,
+  dateTimeEditInactive,
   dateTime,
   dateTimeText,
   dateTimePrimaryText
@@ -60,16 +61,8 @@ const useStyles = createUseStyles({
   complete,
   completeBackdrop: props => completeBackdrop(props.color),
   defaultBackdrop: props => defaultBackdrop(props.color),
-  todoContainer: props => ({
-    ...todoContainer(props.color),
-
-    '& label': {
-      marginLeft: '-2px'
-    },
-    '&:hover label': {
-      marginLeft: '-2px'
-    }
-  }),
+  todoContainer: props => todoContainer(props.color),
+  dateTimeEditInactive,
   dateTime,
   dateTimeText,
   dateTimePrimaryText,
@@ -236,13 +229,14 @@ const Todo = ({
         })}
         animate={{ transform: dragId === id ? tilt : straighten }}
       >
-        {(!!dateTimestamp || !!timeTimestamp) && !isEditActive &&
+        {(!!dateTimestamp || !!timeTimestamp) &&
           <Typography
             variant='caption'
             color={color}
             component='div'
             className={classNames({
               [classes.dateTime]: true,
+              [classes.dateTimeEditInactive]: !isEditActive,
               [classes.dateTimeText]: color !== COLOR_OPTIONS.PRIMARY,
               [classes.dateTimePrimaryText]: color === COLOR_OPTIONS.PRIMARY
             })}

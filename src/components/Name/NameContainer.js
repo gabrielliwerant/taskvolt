@@ -21,7 +21,6 @@ import { WIDTHS, ANIMATION_TIMES } from '@jss/constants';
 import { COLOR_OPTIONS, shouldContrast } from '@src/theme';
 
 import { TYPES } from '@src/constants';
-import { getDateTimeDisplayText } from '@components/Name/utils';
 
 const classNames = require('classnames');
 
@@ -127,11 +126,6 @@ const NameContainer = ({
             color={color}
             type={type}
             value={textDraft}
-            label={
-              (!!dateTimestamp || !!timeTimestamp)
-                ? getDateTimeDisplayText(dateTimestamp, timeTimestamp)
-                : ''
-            }
             onChange={onChangeEdit}
             isActive={isEditActive}
             myClassNames={myClassNames}
