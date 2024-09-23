@@ -61,7 +61,7 @@ const theme = createTheme({
       lineHeight: '1.25'
     },
     'body2': {
-      lineHeight: '1.25'
+      lineHeight: '1.4'
     }
   }
 });
