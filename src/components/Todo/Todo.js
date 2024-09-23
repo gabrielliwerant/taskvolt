@@ -258,7 +258,12 @@ const Todo = ({
           </Typography>
         }
         <div className={classNames({ [classes.fullWidth]: true, [classes.flexCenterY]: true })}>
-          <Checkbox onChange={onComplete} isChecked={isComplete} color={color} />
+          <Checkbox
+            onChange={onComplete}
+            isChecked={isComplete}
+            color={color}
+            disabled={isEditActive}
+          />
           <NameContainer
             id={id}
             color={color}
