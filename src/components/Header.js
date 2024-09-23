@@ -20,15 +20,15 @@ import { CircularProgress } from '@components/lib/CircularProgress';
 import { TextField } from '@components/lib/TextField';
 import { AppBar } from '@components/lib/AppBar';
 import { Button } from '@components/lib/Button';
+import ImportDataDialog from '@components/ImportDataDialog';
 import MenuSection from '@components/MenuSection';
 
 import { flex } from '@jss/styles';
 
 import { VIEWS } from '@main/constants';
 import { exportLocalJsonData } from '@main/export';
-import { importLocalJsonData } from '@main/import';
 import { appSlice } from '@redux/reducers/app';
-import { isAppLoggedIn } from '@redux/selectors/app';
+import { isAppLoggedIn, isAppUploading } from '@redux/selectors/app';
 
 const classNames = require('classnames');
 
@@ -52,39 +52,27 @@ const useStyles = createUseStyles({
   flex
 });
 
-const Header = ({ isLoggedIn, login, logout, setStartView }) => {
+const Header = ({ isLoggedIn, isUploading, login, logout, setStartView, toggleIsUploadOff }) => {
   const classes = useStyles();
-  const [isUploading, setIsUploading] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 
   /**
-   * Handle upload click.
-   *
-   * We find out hidden input file type and triggering click to begin upload selection, followed by
-   * listening for upload change and then importing data if successful.
+   * Handle close action for import data dialog.
    *
    * @returns {void}
    */
-  const onUploadClick = () => {
-    const fileInputEl = document.getElementById('file_input');
-
-    if (!fileInputEl) return console.log('File input field not found.');
-
-    /**
-     * Handle the file input change event, looking for uploaded file data and setting loading state.
-     *
-     * @param {element} el HTML element
-     * @returns {function[
-     *  @returns {void}
-     * ]}
-     */
-    const onChangeHandler = el => () => {
-      importLocalJsonData(el);
-      setIsUploading(true); // Change state last since the component will re-render
-    };
-
-    fileInputEl.addEventListener('change', onChangeHandler(fileInputEl));
-    fileInputEl.click();
+  const onDialogClose = () => {
+    setIsDialogOpen(false);
+    toggleIsUploadOff();
   };
+
+  /**
+   * Handle upload attempt click action, initiating dialog.
+   *
+   * @returns {void}
+   */
+  const onUploadClick = () => setIsDialogOpen(true);
 
   /**
    * Handle logout click button action.
@@ -112,7 +100,7 @@ const Header = ({ isLoggedIn, login, logout, setStartView }) => {
             }
             {!isLoggedIn && <Button variant='text' color='inherit' onClick={login}>Login</Button>}
           </div>
-          <MenuSection icon={<MenuIcon />} ariaLabel='Main menu'>
+          <MenuSection icon={<MenuIcon />} ariaLabel='Main menu' onClick={toggleIsUploadOff}>
             <MenuList>
               <MenuItem
                 onClick={exportLocalJsonData}
@@ -135,25 +123,30 @@ const Header = ({ isLoggedIn, login, logout, setStartView }) => {
         </div>
         <TextField id='file_input' type='file' isHidden />
       </Fragment>
+      <ImportDataDialog open={isDialogOpen} onClose={onDialogClose} />
     </AppBar>
   );
 };
 
 Header.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  isUploading: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  setStartView: PropTypes.func.isRequired
+  setStartView: PropTypes.func.isRequired,
+  toggleIsUploadOff: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
-  isLoggedIn: isAppLoggedIn()
+  isLoggedIn: isAppLoggedIn(),
+  isUploading: isAppUploading()
 });
 
 const mapDispatchToProps = dispatch => ({
   login: () => dispatch(appSlice.actions.login()),
   logout: () => dispatch(appSlice.actions.logout()),
-  setStartView: () => dispatch(appSlice.actions.setView(VIEWS.START))
+  setStartView: () => dispatch(appSlice.actions.setView(VIEWS.START)),
+  toggleIsUploadOff: () => dispatch(appSlice.actions.toggleIsUploadOff())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

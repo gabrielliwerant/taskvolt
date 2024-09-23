@@ -10,6 +10,7 @@ const _getApp = () => getState('app');
 
 const getAppView = () => _getApp().ui.view;
 const getAppActiveTab = () => _getApp().ui.activeTab;
+const isAppUploading = () => _getApp().ui.isUploading;
 const isAppLoggedIn = () => _getApp().user.isLoggedIn;
 
-export { getAppView, getAppActiveTab, isAppLoggedIn };
+export { getAppView, getAppActiveTab, isAppUploading, isAppLoggedIn };

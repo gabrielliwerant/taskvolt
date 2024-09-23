@@ -20,7 +20,8 @@ const getInitialState = () => {
     app: {
       ui: {
         view: VIEWS.START,
-        activeTab: false
+        activeTab: false,
+        isUploading: false
       },
       user: {
         id: '1',

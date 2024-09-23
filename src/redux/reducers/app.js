@@ -14,6 +14,8 @@ const appSlice = createSlice({
   reducers: {
     setView: (state, action) => { state.ui.view = action.payload; },
     setActiveTab: (state, action) => { state.ui.activeTab = action.payload; },
+    toggleIsUploadOff: (state, action) => { state.ui.isUploading = false; },
+    toggleIsUploadOn: (state, action) => { state.ui.isUploading = true; },
     login: (state, action) => { state.user.isLoggedIn = true; },
     logout: (state, action) => { state.user.isLoggedIn = false; }
   }

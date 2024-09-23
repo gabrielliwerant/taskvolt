@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@components/lib/IconButton';
 import { Menu } from '@components/lib/Menu';
 
-const MenuSection = ({ icon, ariaLabel = '', children }) => {
+const MenuSection = ({ icon, ariaLabel = '', onClick = () => {}, children }) => {
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const isMenuOpen = !!menuAnchorEl;
 
@@ -20,7 +20,10 @@ const MenuSection = ({ icon, ariaLabel = '', children }) => {
    *
    * @returns {void}
    */
-  const onMenuClick = e => setMenuAnchorEl(e.currentTarget);
+  const onMenuClick = e => {
+    setMenuAnchorEl(e.currentTarget);
+    onClick();
+  };
 
   /**
    * Handle menu close by resetting the anchor element.
@@ -42,6 +45,7 @@ const MenuSection = ({ icon, ariaLabel = '', children }) => {
 MenuSection.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
   ariaLabel: PropTypes.string,
+  onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired
 };
 
