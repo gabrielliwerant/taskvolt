@@ -20,8 +20,8 @@ import { CircularProgress } from '@components/lib/CircularProgress';
 import { TextField } from '@components/lib/TextField';
 import { AppBar } from '@components/lib/AppBar';
 import { Button } from '@components/lib/Button';
-import ImportDataDialog from '@components/ImportDataDialog';
 import MenuSection from '@components/MenuSection';
+import ImportDataDialog from '@components/dialogs/ImportDataDialog';
 
 import { flex } from '@jss/styles';
 

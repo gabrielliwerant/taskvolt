@@ -11,7 +11,7 @@ import { createUseStyles } from 'react-jss';
 
 import { ListTrash } from '@components/List';
 import MessageLarge from '@components/MessageLarge';
-import DeleteListDialog from '@components/DeleteListDialog';
+import DeleteListDialog from '@components/dialogs/DeleteListDialog';
 
 import { lists } from '@components/List/styles';
 import { flexCenterX } from '@jss/styles';

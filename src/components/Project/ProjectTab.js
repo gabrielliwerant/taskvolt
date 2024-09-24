@@ -20,7 +20,7 @@ import { Tab } from '@components/lib/Tab';
 import { Project } from '@components/Project';
 import TabButton from '@components/TabButton';
 import TabIndicator from '@components/TabIndicator';
-import RemoveProjectDialog from '@components/RemoveProjectDialog';
+import RemoveProjectDialog from '@components/dialogs/RemoveProjectDialog';
 
 import { activeTab, inactiveTab, inactiveTabIndicator } from '@components/lib/Tab/styles';
 

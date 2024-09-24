@@ -13,8 +13,8 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { List, ListPlaceholder } from '@components/List';
-import RemoveListDialog from '@components/RemoveListDialog';
 import MessageLarge from '@components/MessageLarge';
+import RemoveListDialog from '@components/dialogs/RemoveListDialog';
 
 import { lists } from '@components/List/styles';
 import { flexCenterX } from '@jss/styles';
