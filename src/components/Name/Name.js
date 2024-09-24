@@ -68,17 +68,17 @@ const Name = ({
       })}
     >
       <Typography id={`text-${id}`} variant={TYPE_TO_TYPOGRAPHY_VARIANT[type]} color={color}>
-        {splitByUrl(value).map((segment, index) =>
+        {splitByUrl(value).map((segment, i) =>
           !isUrl(segment)
-            ? splitByBackticks(segment).map(subSegment =>
+            ? splitByBackticks(segment).map((subSegment, j) =>
                 !hasBacktickSurround(subSegment)
                   ? subSegment
-                  : <Code key={`code-${id}`} color={color}>
+                  : <Code key={`code-${id}-${j}`} color={color}>
                       {removeLeadingAndTrailing(subSegment)}
                     </Code>
               )
             : <Link
-                key={`link-${id}-${index}`}
+                key={`link-${id}-${i}`}
                 variant='caption'
                 href={segment}
                 color={color}
