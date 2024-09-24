@@ -109,7 +109,7 @@ const ITEM_COLORS = {
       BACKGROUND_COMPLETE: { START: grey[500], STOP: grey[500] },
       BACKGROUND_COMPLETE_HOVER: { START: grey[600], STOP: grey[600] },
       BACKGROUND_DEFAULT: { START: grey[700], STOP: grey[700] },
-      BACKGROUND_DEFAULT_HOVER: { START: grey[800], STOP: grey[800] },
+      BACKGROUND_DEFAULT_HOVER: { START: '#535353', STOP: '#535353' },
       PLACEHOLDER: {
         BORDER: grey[900],
         BACKGROUND: grey[800]
