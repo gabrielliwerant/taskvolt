@@ -9,6 +9,19 @@ import { red, yellow, grey, green, blue } from '@mui/material/colors';
 
 import { TYPES } from '@src/constants';
 
+const primary = {
+  900: '#005799',
+  800: '#0077bb',
+  700: '#0088cf',
+  600: '#009be3',
+  500: '#01a9f2',
+  400: '#29b6f4',
+  300: '#4fc3f5',
+  200: '#81d4f9',
+  100: '#b3e5fb',
+  50: '#e1f5fe'
+};
+
 // Possible color types
 const COLOR_OPTIONS = {
   PRIMARY: 'primary',
@@ -22,7 +35,7 @@ const COLOR_OPTIONS = {
 };
 
 const COLORS_MAIN = {
-  [COLOR_OPTIONS.PRIMARY]: '#009be3',
+  [COLOR_OPTIONS.PRIMARY]: primary[600],
   [COLOR_OPTIONS.WHITE]: '#ffffff',
   [COLOR_OPTIONS.BLACK]: '#000000'
 };
@@ -45,7 +58,7 @@ const theme = createTheme({
       main: green[600]
     },
     [COLOR_OPTIONS.INFO]: {
-      main: blue[400]
+      main: primary[600]
     },
     [COLOR_OPTIONS.WHITE]: {
       main: COLORS_MAIN[COLOR_OPTIONS.WHITE]
@@ -139,15 +152,15 @@ const ITEM_COLORS = {
       }
     },
     [COLOR_OPTIONS.INFO]: {
-      BORDER: blue[700],
-      BORDER_HOVER: blue[800],
-      BACKGROUND_COMPLETE: { START: blue[200], STOP: blue[200] },
-      BACKGROUND_COMPLETE_HOVER: { START: blue[300], STOP: blue[300] },
-      BACKGROUND_DEFAULT: { START: blue[400], STOP: blue[400] },
-      BACKGROUND_DEFAULT_HOVER: { START: blue[600], STOP: blue[600] },
+      BORDER: primary[700],
+      BORDER_HOVER: primary[800],
+      BACKGROUND_COMPLETE: { START: primary[400], STOP: primary[400] },
+      BACKGROUND_COMPLETE_HOVER: { START: primary[500], STOP: primary[500] },
+      BACKGROUND_DEFAULT: { START: primary[600], STOP: primary[600] },
+      BACKGROUND_DEFAULT_HOVER: { START: primary[700], STOP: primary[700] },
       PLACEHOLDER: {
-        BORDER: blue[900],
-        BACKGROUND: blue[700]
+        BORDER: primary[900],
+        BACKGROUND: primary[700]
       }
     }
   },
