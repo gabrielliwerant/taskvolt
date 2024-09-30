@@ -129,6 +129,7 @@ const NameContainer = ({
             helperText={helperText}
             error={error}
             type={type}
+            textFinal={textFinal}
             value={textDraft}
             onChange={onChangeEdit}
             isActive={isEditActive}

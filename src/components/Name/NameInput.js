@@ -39,6 +39,7 @@ const NameInput = ({
   onChange = () => {},
   onKeyDown = () => {},
   value = '',
+  textFinal,
   label = '',
   type = TYPES.TODO,
   myClassNames = {}
@@ -74,7 +75,7 @@ const NameInput = ({
       onKeyDown={onKeyDown}
       onFocus={onFocus}
       itemType={type}
-      multiline={value.length >= MULTILINE_LENGTH}
+      multiline={textFinal.length >= MULTILINE_LENGTH}
       myClassName={classNames({
         [myClasses]: !isEmpty(myClassNames),
         [classes.active]: isActive,
@@ -96,6 +97,7 @@ NameInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   value: PropTypes.string,
+  textFinal: PropTypes.string.isRequired,
   label: PropTypes.string,
   type: PropTypes.oneOf([ TYPES.TODO, TYPES.LIST, TYPES.PROJECT ]),
   myClassNames: PropTypes.object
