@@ -36,7 +36,7 @@ const store = configureStore({
     projects: projectsSlice.reducer,
     app: appSlice.reducer
   }),
-  middleware: [storeLocal]
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat([storeLocal])
 });
 
 const getState = name => store.getState()[name];

@@ -10,6 +10,7 @@ when available.
 ## Running Locally
 
 1. `git clone https://github.com/gabrielliwerant/taskvolt.git`
+1. Install node `v23.1.0`
 1. `npm install`
 1. `npm start`
 1. Navigate to `http://localhost:8080`
